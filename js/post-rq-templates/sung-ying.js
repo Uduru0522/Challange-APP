@@ -3,6 +3,7 @@ $.post(
     "./mission/popular" || "./mission/maylike" || "./mission/done" || "./mission/doing",
     (data) => {
         /* Return data structire here */
+        data[0].name, data[0].category,... // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
     }
 )
 
@@ -34,6 +35,7 @@ $.post(
     },
     (data) => {
         /* Let me know if it succeed */
+        data == "Success" // 代表成功，基本上我也只會回傳成功
     }
 )
 
