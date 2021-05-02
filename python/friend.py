@@ -42,21 +42,26 @@ def delfriend(name1,name2):#name1,name2互刪好友
         json.dump(output, f, ensure_ascii=False) 
 
 def findfriend(name):#輸入name,找到name這個人的所有好友
+    data={}
     with open("friend.json", 'r') as obj:
         output = json.load(obj)
     for i in range(len(output)):
         if output[i][0]==name:
             del output[i][0]
-            return output[i]
+            data={"friend":output[i]}
+            data=json.dumps(data)
+            print(data) 
+
+
 
 
 """
 
-str1=sys.argv[0].split(',')
-if str1[0]=="addfriend":
-    addfriend(str1[1],str1[2])
-if str1[0]=="delfriend"
-    delfriend(str1[1],str1[2])
-if str1[0]=="findfriend"
-    findfriend(str1[1])
+
+if argv[1]=="addfriend":
+    addfriend(argv[2],argv[3])
+if argv[1]=="delfriend"
+    delfriend(argv[2],argv[3])
+if argv[1]=="findfriend"
+    findfriend(argv[2])
 """
