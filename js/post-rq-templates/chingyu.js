@@ -74,13 +74,12 @@ function appendfriends(){
 }
 function newgroup(){
     $.post('./newgroup', {//****************************************************************
-        personal_ID,
         output_mission,//選擇的任務
         output_friend//選擇的好友
     } ,
     function(data){
         
-        //just return data==true,and create a new group
+        data == "Success" //just return data==true,and create a new group
     });
 }
 function findfriend(){
@@ -108,40 +107,46 @@ function findmission(){
         }
     }
 }
-function sendmessage(){
-     $.post('./sendmessage', {//****************************************************************
-        personal_ID,
+function sendmessage_friend(){
+     $.post('./sendmessage_friend', {//****************************************************************
+        friend_ID, // 要傳跟誰說話
         your_message
     } ,
     function(data){
-        //return data==true(succeed) and i can push the message into chatroom
+        data[1].name // 1可以換成2,3,4....
+        data[1].msg
+        data[1].time
+        data[1].image
     });
+}
+function sendmessage_mission(){
+    $.post('./sendmessage_mission', {//****************************************************************
+        chatroom_name, // 要傳聊天室的名字
+        your_message
+   } ,
+   function(data){
+        data[1].name // 1可以換成2,3,4....
+        data[1].msg
+        data[1].time
+        data[1].image
+   });
 }
 //getmessage(){}    use this or websocket
 
-function chatwithfriend(){
-    $.post('./chatwithfriend', {//****************************************************************
-        personal_ID,
-        friend_ID
-    } ,
-    function(ID){
-        chatroom_ID=ID;//獲得聊天室ID名稱
-    });
-}
+
 //chat page
 
 //get rooms
 $("#chat-record").ready(function(){//get all chatroom record
     
-     $.post('./chatrecord', {//****************************************************************
-        personal_ID
-    } ,
+     $.post('./chatrecord', 
     function(chatrooms){
          room_magnitude=chatrooms.length;
          for(var i=0;i<chatrooms.length;i++){
-            //rooms_data[i].header_pic=?大頭照  
-            //rooms_data[i].group_name=?群組名稱
-            //rooms_data[i].first_line=?顯示的第一句話
+            rooms_data[i].header_pic=chatrooms[i].image
+            rooms_data[i].group_name=chatrooms[i].name
+            rooms_data[i].first_line=chatrooms[i].msg
+            rooms_data[i].time=chatrooms[i].time
          }
 
     });
@@ -154,24 +159,20 @@ $("#chat-record").ready(function(){//get all chatroom record
 
 });
 $("#chat-choose-missions").ready(function(){
-    $.post('./chatchoosemissions', {//****************************************************************
-        personal_ID
-    } ,
-    function(missions){
-        
-        //mission_list[i]=missions[i]  某人擁有的所有任務的ID與name
+    $.post('./mission/done', 
+    function(data){
+        data[0].name, data[0].category,... // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
     });
     appendmissions();
 });
 $("#chat-choose-friends").ready(function(){
-    $.post('./chatchoosefriends', {//****************************************************************
-        personal_ID
-    } ,
+    $.post('./friendrecord', 
     function(friends){
         //friend_list[i]=friends[i];某人擁有的所有朋友的data
         //header_pic=?
         //friend_name=?
         //friend_ID=?
+        friends.friend[0] // 0可以換成其他數字，目前只會回傳id
     });
     appendfriends();
 });
@@ -186,9 +187,7 @@ function appendfriendsformenu(){
 }
 //friend page
 $("#friend-record").ready(function(){
-     $.post('./friendrecord', {//****************************************************************
-        personal_ID
-    } ,
+     $.post('./friendrecord', 
     function(friends){
         //friend_list[i]=friends[i];
         //similar to chatchoosefriends, but in different place
@@ -196,6 +195,7 @@ $("#friend-record").ready(function(){
         //friend_name=?
         //friend_nickname?
         //friend_ID?
+        friends.friend[0] // 0可以換成其他數字，目前只會回傳id
     });
     console.log("friend");
     appendfriendsformenu();
@@ -207,50 +207,43 @@ function findperson(){//find a unknown person with ID
         person_ID
     } ,
     function(data){
-        //data.person_header=?
-        //data.person_name=?
+        ddata.name, data.title, personal_ID=data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self
     });
 }
 function addfriend(){//add friend
     $.post('./addfriend', {//****************************************************************
         person_ID,//他人ID
-        personal_ID//本人ID
     } ,
     function(data){
-        //return data==true
+        data == "Success" //return data==true
         //refresh friend-record
     });
 }
 
 function deletefriend(){//delete friend
     $.post('./deletefriend', {//****************************************************************
-        person_ID
+        person_ID,//他人ID
     } ,
     function(data){
-        //return data==true
+        data == "Success" //return data==true
         //refresh friend-record
     });
 }
+
 //mypage page
 $("#mypage-record").ready(function(){
-     $.post('./mypage-record', {//****************************************************************
-        personal_ID
-    } ,
-    function(/*multiple data*/){
+     $.post('./mypage-record',
+    function(data){
         //many different data,whatever the data structure
+        data.name, data.title, personal_ID=data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self
     });
    
 
 });
 
+
 //functions which is click
 $(document).ready(function(){
-    $.post('./getpersonID', {//****************************************************************
-        } ,
-        function(ID){
-            personal_ID=ID;
-        });
-    
     $("#create-chat-button").click(function (){
         console.log("create chat");
         $("#chat-choose-missions").removeClass("hidden").addClass("show");
@@ -258,13 +251,27 @@ $(document).ready(function(){
     });
     $(".chat-room").click(function (){//go into a chatroom by chatroom record
         document.getElementById("chat-room-name").innerHTML = "阿元";
-        $.post('./chatroom', {//****************************************************************
-            personal_ID,
-            chatroom_ID
+        $.post('./chatroom_friend', {//****************************************************************
+            friend_ID
         } ,
-        function(message){
+        function(data){
             //from recent to past
             //need who send the message(message.ID.name.header)
+            data[1].name // 1可以換成2,3,4....
+            data[1].msg
+            data[1].time
+            data[1].image
+        });
+        $.post('./chatroom_mission', {//****************************************************************
+            chatroom_name
+        } ,
+        function(data){
+            //from recent to past
+            //need who send the message(message.ID.name.header)
+            data[1].name // 1可以換成2,3,4....
+            data[1].msg
+            data[1].time
+            data[1].image
         });
         console.log("create room");
         $("#chat-main").removeClass("show").addClass("hidden");
@@ -292,20 +299,23 @@ $(document).ready(function(){
     //friend page
     $(".single-friend").click(function (){//go into chatroom by friend page
        $.post('./singlefriend', {//****************************************************************
-            personal_ID,
             friend_ID
         } ,
-        function(ID){//get the chatroom_ID of you and the friend
+        function(data){//get the chatroom_ID of you and the friend
             //chatroom_ID=ID
+            data == "Success"
         });
         document.getElementById("chat-room-name").innerHTML = "";//??
-        $.post('./chatroom', {//as same as the above one//****************************************************************
-            personal_ID,
-            chatroom_ID
+        $.post('./chatroom_friend', {//as same as the above one//****************************************************************
+            friend_ID
         } ,
-        function(message){
+        function(data){
             //from recent to past
             //need who send the message(ID,name,header)
+            data[1].name // 1可以換成2,3,4....
+            data[1].msg
+            data[1].time
+            data[1].image
         });
     });
 });
