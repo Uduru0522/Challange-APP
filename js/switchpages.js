@@ -1,5 +1,5 @@
 // All page, expect loading cover
-let pages_selector = [
+const pages_selector = [
     "#mainpage",
     "#quest-main",
     "#chat-main",
@@ -12,7 +12,7 @@ let pages_selector = [
     "#chat-create-room"
 ];
 
-let nav_icons = [
+const nav_icons = [
     "#nav-mainpage",
     "#nav-quest",
     "#nav-chat",
@@ -31,4 +31,8 @@ $(document).ready(() => {
             $(pages_selector[i]).removeClass("hidden").addClass("show");
         });
     }
+
+    // Jumping to quest details
+
+
 });
