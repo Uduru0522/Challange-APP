@@ -1,66 +1,62 @@
-// Temp function for testing
-// function fetch_quest_brief_info(str = "option", id) {
-//     let jsonobj = {
-//         "quest": [{
-//                 "type": "種類一",
-//                 "title": "內容內容好多內容",
-//                 "id": 0
-//             },
-//             {
-//                 "type": "種類二",
-//                 "title": "內容內容好多內容",
-//                 "id": 1
-//             },
-//             {
-//                 "type": "種類三",
-//                 "title": "內容內容好多內容",
-//                 "id": 2
-//             },
-//             {
-//                 "type": "種類4",
-//                 "title": "內容內容好多內容",
-//                 "id": 3
-//             },
-//             {
-//                 "type": "種類5",
-//                 "title": "內容內容好多內容",
-//                 "id": 4
-//             }
-//         ]
-//     }
-
-//     return jsonobj;
-// }
-
-function fetch_quest_brief_info(option = "option") {
-    let jsonstr, url = "./mission";
-    if (option == "el") {
-        url += "popular"
-    } else if (option == "yml") {
-        url += "maylike"
-    } else if (option == "af") {
-        url += "done"
-    } else {
-        console.log("Error in fetch_quest_brief_info(): invalid option");
+// Local temp fetch
+function fetch_quest_brief_info(str = "option", id) {
+    let jsonobj = {
+        "quest": [{
+                "type": "種一",
+                "title": "內容內容好多內容",
+                "id": 0
+            },
+            {
+                "type": "種二",
+                "title": "內容內容好多內容",
+                "id": 1
+            },
+            {
+                "type": "種三",
+                "title": "內容內容好多內容",
+                "id": 2
+            },
+            {
+                "type": "種四五",
+                "title": "內容內容好多內容",
+                "id": 3
+            },
+            {
+                "type": "種五",
+                "title": "內容內容好多內容",
+                "id": 4
+            }
+        ]
     }
 
-    /************************************************** */
-    /***POST Request here****************************** */
-    $.post(
-        url,
-        (data) => {
-            jsonstr = data;
-        }
-    ).done(() => {
-        console.log("option: ${option} data fetch successfully")
-    }).fail(() => {
-        console.log("option: ${option} data fetch failed")
-    });
-    /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^* */
-    /************************************************** */
-    return JSON.parse(jsonstr);
+    return jsonobj;
 }
 
+// Fetch with server comms
+// function fetch_quest_brief_info(option = "option") {
+//     let jsonstr, url = "./mission";
+//     if (option == "el") {
+//         url += "popular"
+//     } else if (option == "yml") {
+//         url += "maylike"
+//     } else if (option == "af") {
+//         url += "done"
+//     } else {
+//         console.log("Error in fetch_quest_brief_info(): invalid option");
+//     }
+
+//     $.post(
+//         url,
+//         (data) => {
+//             jsonstr = data;
+//         }
+//     ).done(() => {
+//         console.log("option: ${option} data fetch successfully")
+//     }).fail(() => {
+//         console.log("option: ${option} data fetch failed")
+//     });
+//     return JSON.parse(jsonstr);
+// }
 
 function fetch_quest_main_page(id) {
     let parents = [
@@ -109,5 +105,4 @@ function fetch_quest_main_page(id) {
 
         parents[i].appendChild(container);
     }
-
 }

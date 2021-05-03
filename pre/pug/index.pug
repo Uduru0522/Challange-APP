@@ -10,8 +10,15 @@ html(lang='zh-cn')
         link(rel="stylesheet", href="../css/friend.css")
         link(rel="stylesheet", href="../css/chatroom.css")
         link(rel="stylesheet", href="../css/mypage.css")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js") 
     body
         // Assume using iPhoneX sizing (1125x2436)
+        // Loading page, show this until all others are loaded.
+        .container#loading-cover
+        
+        // Script for fetching necessary datas
+        script(src="../js/fetch.js") 
+
         // Navigation bar at the bottom
         .navbar
             img#nav-chat(src="../resources/nav/chat.png")
@@ -22,9 +29,6 @@ html(lang='zh-cn')
 
         // Container class for each function page
         // Except login page, uses a new html page.
-        
-        // Loading page, show this until all others are loaded.
-        .container#loading-cover
 
         // Mainpage, should land here after login 
         // Or after clicking the mainpage icon of nav-bar
@@ -32,6 +36,26 @@ html(lang='zh-cn')
 
         // Land here after clicking quest icon of nav-bar
         .container#quest-main
+            #quest-main-header
+                span 任務
+            #filter-button
+                img(src="../resources/quest/filter.png" object-fit="contain")
+                span 篩選
+            .quest-peek#everyone-like
+                .peek-title 
+                    span 大家都想挑戰⋯
+                    span 查看全部
+            .quest-peek#you-might-like
+                .peek-title 
+                    span 你可能會喜歡⋯
+                    span 查看全部
+            .quest-peek#already-finished
+                .peek-title 
+                    span 再挑戰一次⋯
+                    span 查看全部
+            .dummy
+        script fetch_quest_main_page(0); 
+        
 
         // After filtered, or clicked "show-all" button
         // Lists individual quests.
@@ -59,5 +83,4 @@ html(lang='zh-cn')
         // Land here after clicked the friend icon
         .container#friend-main
 
-        script(src="https://code.jquery.com/jquery-3.6.0.min.js") 
         script(src="../js/switchpages.js") 
