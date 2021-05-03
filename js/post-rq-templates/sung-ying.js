@@ -37,7 +37,7 @@ $.post(
     }
 )
 
-// 根據任務 ID 取得詳細資料
+// 根據任務 ID 取得詳細資料, 包含已完成的進度的照片
 $.post(
     "./mission/detail", {
         qid: id
@@ -74,6 +74,30 @@ $.post(
 $.post(
     "./mission/send_friend_request", {
         identity: identity
+    },
+    (data) => {
+        /* Let me know if it succeed */
+    }
+)
+
+// 回報任務 （包含上傳），非連續任務
+$.post(
+    "./mission/report_single", {
+        qid: number,
+        imagedata: imagedata
+    },
+    (data) => {
+        /* Let me know if it succeed */
+    }
+)
+
+
+//回報任務 （包含上傳），連續任務 
+$.post(
+    "./mission/report_continous", {
+        qid: number,
+        imagedata: imagedata,
+        step: number
     },
     (data) => {
         /* Let me know if it succeed */
