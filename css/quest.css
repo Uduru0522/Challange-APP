@@ -1,4 +1,4 @@
-.quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
+#quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,4 +143,113 @@
   letter-spacing: 3vh;
   margin-right: -3vh;
   margin-top: 1vh;
+}
+
+#quest-detail {
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#quest-detail * {
+  border: red 1px solid;
+}
+#quest-detail #quest-detail-header {
+  width: 100vw;
+  height: calc(1300vh / 60);
+  position: relative;
+}
+#quest-detail #quest-detail-header img {
+  margin: auto 0;
+  display: block;
+  height: 3vh;
+  width: 3vh;
+  position: absolute;
+  right: 1.5vh;
+  top: 1.5vh;
+}
+#quest-detail #quest-detail-header #quest-title-block {
+  border-top: black solid 3px;
+  border-bottom: black solid 3px;
+  background-color: #F2F2F2;
+  width: 100vw;
+  height: calc(940vh / 60);
+  position: absolute;
+  bottom: 0;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#quest-detail #quest-detail-header #quest-title-block .wrapper #quest-tag {
+  height: 5vh;
+  line-height: 5vh;
+  display: inline-block;
+  background-color: #BFBFBF;
+  border-radius: 8px;
+  font-size: 2.7vh;
+  margin-right: calc(100vw / 26);
+}
+#quest-detail #quest-detail-header #quest-title-block .wrapper #quest-points {
+  height: calc(500vh / 120);
+  line-height: calc(500vh / 120);
+  text-align: center;
+  width: calc(500vh / 120);
+  border-radius: calc(calc(500vh / 120) / 2);
+  display: inline-block;
+  background-color: #A6A6A6;
+}
+#quest-detail #quest-detail-header #quest-title-block #quest-title-text {
+  display: block;
+  font-size: 3vh;
+  position: relative;
+  bottom: 0.5vh;
+}
+#quest-detail .qd-title {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20vh;
+  height: 5vh;
+  border-radius: 8px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.75), -3px -3px 6px rgba(0, 0, 0, 0.75);
+  background-color: #F2F2F2;
+}
+#quest-detail #quest-intro {
+  position: static;
+  width: 100vw;
+  margin-top: 3vh;
+  padding: 0 5vw;
+}
+#quest-detail #quest-intro #quest-intro-title {
+  margin-top: 2vh;
+}
+#quest-detail #quest-intro #quest-intro-title span {
+  font-size: 2.7vh;
+}
+#quest-detail #quest-intro #quest-intro-body {
+  display: block;
+  margin-top: 2vh;
+  width: 90vw;
+  font-size: 2.7vh;
+}
+#quest-detail #quest-require {
+  position: satatic;
+  width: 100vw;
+  margin-top: 3vh;
+  padding: 0 5vw;
+}
+#quest-detail #quest-require #quest-require-title {
+  margin-top: 2vh;
+}
+#quest-detail #quest-require #quest-require-title span {
+  font-size: 2.7vh;
+}
+#quest-detail #quest-require #quest-require-body {
+  display: block;
+  margin-top: 2vh;
+  width: 90vw;
+  font-size: 2.7vh;
+}
+#quest-detail .dummy {
+  width: 100vw;
+  height: 20vh;
 }

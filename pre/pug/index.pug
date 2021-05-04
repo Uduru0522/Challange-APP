@@ -1,4 +1,4 @@
-doctype html 
+doctype html
 html(lang='zh-cn')
     head
         meta(charset="utf-8")
@@ -67,6 +67,22 @@ html(lang='zh-cn')
         // Details for quests. 
         // Show after clicked "Details" on entries within each quest pages
         .container#quest-detail
+            #quest-detail-header
+                img.return-arrow(src="../resources/quest/return-next-arrow.png")
+                #quest-title-block 
+                    .wrapper
+                        span#quest-tag &emsp;屬&emsp;性&emsp;
+                        span#quest-points 10 
+                    span#quest-title-text 如何分辨出廢話自然是一個問題
+            #quest-intro
+                .qd-title#quest-intro-title 
+                    span 任務介紹
+                span#quest-intro-body
+            #quest-require 
+                .qd-title#quest-require-title 
+                    span 完成條件
+                span#quest-require-body
+            .dummy
 
         // List user already accepted the quest (who's in)
         .container#quest-whosin(class="transparent-background")

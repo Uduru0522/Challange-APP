@@ -82,6 +82,7 @@ function fetch_quest_main_page(id) {
             title.classList.add("title");
             let button = document.createElement("div");
             button.classList.add("accept-button");
+            button.classList.add("goto-quest-detail");
 
             // Emit text
             let type_span = document.createElement("span");
@@ -91,7 +92,7 @@ function fetch_quest_main_page(id) {
             type_span.textContent = qinfo.type;
             title_span.textContent = qinfo.title;
             button_span.textContent = "挑戰";
-            button_span.setAttribute("id", "quest-${qinfo.id}");
+            button_span.setAttribute("id", "quest-" + qinfo.id);
 
             // Append nodes
             type.appendChild(type_span)
