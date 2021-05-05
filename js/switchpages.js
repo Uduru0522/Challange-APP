@@ -5,6 +5,7 @@ const pages_selector = [
     "#chat-main",
     "#friend-main",
     "#mypage-main",
+    "#filter",
     "#quest-filtered",
     "#quest-book",
     "#quest-detail",
@@ -36,6 +37,23 @@ function hide_all_page() {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
         }
+    });
+    return;
+}
+
+function hide_all_but_current_page(id) {
+    console.log(id);
+
+    if (id == "ID unset") {
+        console.log("Error in hide_all_but_current_page: id unset")
+        return
+    }
+
+    pages_selector.forEach(pages => {
+        if ($(pages).attr("id") == id) {
+            return;
+        }
+        $(pages).removeClass("show").addClass("hidden");
     });
     return;
 }
@@ -87,5 +105,11 @@ $(document).ready(() => {
         // Jump back to stored page
         $("#quest-detail").removeClass("show").addClass("hidden");
         $(origin_page).removeClass("hidden").addClass("show");
+    });
+
+    $(document).on("click", ".filter-button", function(e) {
+        hide_all_but_current_page($(this).closest(".container").attr("id"));
+        // reset_filter_options();
+        $("#filter").removeClass("hidden").addClass("show");
     });
 });

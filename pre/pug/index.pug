@@ -38,7 +38,7 @@ html(lang='zh-cn')
         .container#quest-main
             #quest-main-header
                 span 任務
-            #filter-button
+            .filter-button
                 img(src="../resources/quest/filter.png" object-fit="contain")
                 span 篩選
             .quest-peek#everyone-like
@@ -56,6 +56,50 @@ html(lang='zh-cn')
             .dummy
         script fetch_quest_main_page(0); 
         
+        // Filter Options
+        .container#filter(class="transparent-background")
+            #quest-main-header-filtering
+                span 任務
+            #filter-block
+                #filter-header 
+                    span 篩選器
+                .filter-div#filter-type
+                    .filter-title 
+                        span 領域
+                    .flex-wrapper#flex-type-options
+                        .filter-type#filter-option-01
+                            span 學業
+                        .filter-type#filter-option-02
+                            span 美食
+                        .filter-type#filter-option-03
+                            span 旅遊
+                        .filter-type#filter-option-04
+                            span 某些
+                        .filter-type#filter-option-05
+                            span 分門
+                        .filter-type#filter-option-06
+                            span 別類
+                .filter-div#filter-pcount
+                    .filter-title 
+                        span 人數限制
+                    .flex-wrapper#flex-people-options
+                        .filter-type#filter-option-single 
+                            span 單人
+                        .filter-type#filter-option-single 
+                            span 多人
+                        .filter-type#filter-option-single(class="invis")
+                .filter-div#filter-ptrange
+                    .filter-title 
+                        span 任務積分
+                    .flex-wrapper#filter-point-range
+                        input#points-from(type="number")
+                        span
+                        input#points-to(type="number")
+                #filter-footer
+                    .filter-footer-button#filter-confirm
+                        span 確定
+                    .filter-footer-button#filter-reset
+                        span 重設
 
         // After filtered, or clicked "show-all" button
         // Lists individual quests.

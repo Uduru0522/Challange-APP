@@ -1,4 +1,4 @@
-#quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
+#filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,20 +35,20 @@
   width: 100vw;
 }
 
-#filter-button {
+.filter-button {
   margin: 5px 0 5px 10px;
   display: inline-block;
   height: calc(100vh / 12);
   width: fit-content;
   line-height: calc(100vh / 12);
 }
-#filter-button * {
+.filter-button * {
   vertical-align: middle;
 }
-#filter-button img {
+.filter-button img {
   height: 50%;
 }
-#filter-button span {
+.filter-button span {
   margin-left: 10px;
   font-size: 1.3em;
   height: 1.3em;
@@ -252,4 +252,117 @@
 #quest-detail .dummy {
   width: 100vw;
   height: 20vh;
+}
+
+#filter #quest-main-header-filtering {
+  margin-top: calc(100vh / 15);
+  width: 100vw;
+  height: 10vh;
+  background-color: #FFFFFF;
+  border-top: black solid 3px;
+  border-bottom: black solid 3px;
+}
+#filter #quest-main-header-filtering span {
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 10vw;
+  margin-right: -10vw;
+}
+#filter #filter-block {
+  width: 90vw;
+  height: calc(100vh - calc(calc(100vh / 15) + 10vh));
+  background-color: #FFFFFF;
+  border-right: black solid 3px;
+}
+#filter #filter-block #filter-header {
+  width: 100%;
+  height: 9.5vh;
+  background-color: #F2F2F2;
+  display: flex;
+  align-items: center;
+  border-bottom: black solid 3px;
+}
+#filter #filter-block #filter-header span {
+  font-size: 4vh;
+  letter-spacing: 2.5vw;
+  margin-left: 6vw;
+}
+#filter #filter-block .filter-div {
+  width: 100%;
+}
+#filter #filter-block .filter-div .filter-title {
+  width: 100%;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5vh;
+}
+#filter #filter-block .filter-div .filter-title span {
+  font-size: 3.5vh;
+  letter-spacing: 1.5vw;
+  margin-left: 6vw;
+  vertical-align: middle;
+}
+#filter #filter-block .filter-div .flex-wrapper {
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 6vw;
+  padding-right: 6vw;
+}
+#filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input {
+  height: 37.5%;
+  width: calc(435vw / 18);
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75), -1px -1px 4px rgba(0, 0, 0, 0.75);
+  margin-top: 1vh;
+  margin-bottom: 0.5vh;
+}
+#filter #filter-block .filter-div .flex-wrapper .filter-type span {
+  font-size: 3vh;
+  letter-spacing: 2.5vw;
+  margin-right: -2.5vw;
+}
+#filter #filter-block .filter-div #filter-point-range {
+  background-color: #E7E6E6;
+}
+#filter #filter-block .filter-div #filter-point-range * {
+  font-size: 3vh;
+  display: inline-block;
+}
+#filter #filter-block .filter-div #filter-point-range span {
+  height: 2px;
+  width: calc(435vw / 36);
+  background-color: black;
+  border: black solid 1px;
+}
+#filter #filter-block #filter-footer {
+  position: absolute;
+  bottom: 22vw;
+  left: 0;
+  height: 8vh;
+  width: 90vw;
+  border-top: black solid 3px;
+  display: inline-block;
+}
+#filter #filter-block #filter-footer .filter-footer-button {
+  height: 62.5%;
+  width: calc(435vw / 18);
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75), -1px -1px 4px rgba(0, 0, 0, 0.75);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 2vh;
+  float: right;
+}
+#filter #filter-block #filter-footer .filter-footer-button span {
+  font-size: 3vh;
+  letter-spacing: 2.5vw;
+  margin-right: -2.5vw;
+}
+#filter #filter-block #filter-footer #filter-confirm {
+  background-color: #D0CECE;
 }
