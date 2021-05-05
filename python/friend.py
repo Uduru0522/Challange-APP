@@ -1,6 +1,7 @@
 import json
 import os
 import sys 
+
 def addfriend(name1,name2):#name1跟name2互加為好友
     namelist1=[name1,name2]
     namelist2=[name2,name1]
@@ -49,14 +50,19 @@ def findfriend(name):#輸入name,找到name這個人的所有好友
         if output[i][0]==name:
             del output[i][0]
             data={"friend":output[i]}
+<<<<<<< HEAD
             data=json.dumps(data)
             print(data) 
+=======
+            data = json.dumps(data)
+            return data
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 
 
 
 
-"""
 
+<<<<<<< HEAD
 
 if argv[1]=="addfriend":
     addfriend(argv[2],argv[3])
@@ -65,3 +71,11 @@ if argv[1]=="delfriend"
 if argv[1]=="findfriend"
     findfriend(argv[2])
 """
+=======
+if(argv[1]=="addfriend"):
+    addfriend(argv[2],argv[3])
+elif(argv[1]=="delfriend"):
+    pdelfriend(argv[2],argv[3])
+elif(argv[1]=="findfriend"):
+    print(findfriend(argv[2]))
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
