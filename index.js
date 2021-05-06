@@ -5,15 +5,15 @@ const sqlite3 = require('sqlite3').verbose()
 const SQLiteStore = require('connect-sqlite3')(session);
 const crypto = require('crypto');
 const person = require('./js/person.js')
-let {PythonShell} = require('python-shell')
+let { PythonShell } = require('python-shell')
 
 const app = express()
 const port = 4114
-var fs = require('fs'); 
+var fs = require('fs');
 var db = new sqlite3.Database("./database/users.db");
 
-app.use(bodyParser.json({limit: "1mb", extended: true}));
-app.use(bodyParser.urlencoded({limit: "1mb", extended: true}));
+app.use(bodyParser.json({ limit: "1mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(session({
     secret: 'secret',
     resave: true,
@@ -23,7 +23,7 @@ app.use(session({
         db: './database/users.db',
     }),
     cookie: {
-        maxAge : 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24,
     },
 }));
 

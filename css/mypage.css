@@ -1,3 +1,100 @@
 #mypage-main {
-  background-color: #FF4400;
+  background-color: ##FFFFFF;
+  overflow:hidden;
+}
+.mypage-title{
+  background:white;
+  width:100vw;
+  height:10vh;
+  margin:0;
+  padding:0;
+  position:fixed;
+  top:0;
+  border-top:solid;
+  border-bottom:solid;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1;
+}
+#mypage-record{
+  background:white;
+  width:100vw;
+  position:fixed;
+  top:10vh;
+  display:flex;
+  justify-content:flex-start;
+}
+#data-pic{
+  max-width:25vw;
+  margin:5vw;
+}
+#data-name{
+  font-size:6vw;
+  padding:5vw 0 1vw 0;
+}
+#data-nickname{
+  font-size:5vw;
+  padding:1vw;
+}
+#data-ID{
+  font-size:5vw;
+  padding:1vw;
+}
+#data-selfintro-title{
+  height:8vw;
+  width:30vw;
+  position:fixed;
+  top:25vh;
+  margin:5vw;
+  border-style:solid;
+  border-radius:4pt;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+#data-selfintro-text{
+  position:fixed;
+  top:32vh;
+  margin:0 8vw 0 8vw;
+  padding:3vw;
+  font-size:5vw;
+  height:18vh;
+  overflow:scroll;
+}
+#data-characteristics{
+  width:95vw;
+  height:37vh;
+  position:fixed;
+  top:51vh;
+  left:2vw;
+  border-style:solid;
+  border-radius:20pt;
+  border-width:thin;
+  background-color:white;
+}
+
+.characteristics-left{
+  height:100%;
+  width:30%;
+
+}
+#value-social{
+  font-size:5vw;
+  padding:10vw 0 2vw 8vw;
+  
+}
+#value-travel, #value-food, #value-activity, #value-sport, #value-self{
+  font-size:5vw;
+  padding:2vw 0 2vw 8vw;
+}
+.characteristics-right{
+
+  position:absolute;
+  top:15%;
+  right:3%;
+}
+
+#myChart{
+  max-width:50vw
 }

@@ -12,7 +12,8 @@ const pages_selector = [
     "#quest-whosin",
     "#quest-info",
     "#quest-submit",
-    "#chat-create-room"
+    "#chat-create-room",
+    "#room-main"
 ];
 
 const nav_icons = [

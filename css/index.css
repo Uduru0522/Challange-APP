@@ -16,21 +16,23 @@ body {
 }
 
 .navbar {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-around;
   width: 100vw;
-  height: 22vw;
+  height: 10vh;
   border-top: black solid 3px;
+  border-top-width:thin;
   background-color: white;
   /* Max z-index */
   z-index: 100;
+  overflow:none;
 }
 .navbar img {
   margin: auto 0;
   display: block;
-  height: 10vw;
+  height: 4.5vh;
   width: 10vw;
 }
 
@@ -44,6 +46,7 @@ body {
   background-color: white;
   /* Temp */
   z-index: 0;
+  overflow:none;
 }
 
 .transparent-background {
@@ -55,11 +58,11 @@ body {
 }
 
 .hidden {
-  visibility: hidden;
+  visibility:hidden;
 }
 
 .show {
-  visibility: visible;
+  visibility:visible;
 }
 
 .return-arrow {
