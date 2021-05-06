@@ -225,7 +225,7 @@ function sendmessage_friend(your_message){
 	$('#chat-content').append(mymessage);
 }
 function getmessage_friend(your_message){
-     $.post('./getmessage_friend', {//****************************************************************
+     $.post('./chatroom_friend', {//****************************************************************
         friend_ID:roomID // 要傳跟誰說話
     } ,
     function(data){
@@ -260,7 +260,7 @@ function sendmessage_mission(your_message){
 	$('#chat-content').append("hahaha");
 }
 function getmessage_mission(your_message){
-     $.post('./getmessage_mission', {//****************************************************************
+     $.post('./chatroom_mission', {//****************************************************************
         chatroom_name:roomID // 要傳跟誰說話
     } ,
     function(data){
