@@ -33,41 +33,41 @@ app.listen(port, () => {
 
 app.use(express.static(`${__dirname}`));
 
-// app.get('/', (req, res) => {
-//     db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
-//         if(row == undefined){
-//             res.redirect('login.html');
-//         }
-//         else{
-//             // console.log(JSON.parse(row.sess).account);
-//             res.redirect('logout.html');
-//         }
-//     })
-// });
+app.get('/', (req, res) => {
+    db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
+        if(row == undefined){
+            res.redirect('./html/login.html');
+        }
+        else{
+            res.redirect('./html/index.html');
+        }
+    })
+});
 
-// app.post('/login', (req, res) => {
-//     if (req.body.account != "" && req.body.password != ""){
-//         db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
-//             if(row == undefined){
-//                 res.send("Account hasn't existed!");
-//             }
-//             else if(row.password == req.body.password){
-//                 db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
-//                     req.session.uid = row.id;
-//                     res.send("jump");
-//                 })
-//             }
-//             else{
-//                 res.send("Incorrect password!");
-//             }
-//         })
-//     }
-//     else{
-//         res.send("Account or Password cannot be empty!");
-//     }
-// });
+app.post('/html/login', (req, res) => {
+    console.log(req.body.account)
+    if (req.body.account != "" && req.body.password != ""){
+        db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
+            if(row == undefined){
+                res.send("帳號不存在！");
+            }
+            else if(row.password == req.body.password){
+                db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
+                    req.session.uid = row.id;
+                    res.send("jump");
+                })
+            }
+            else{
+                res.send("密碼錯誤！");
+            }
+        })
+    }
+    else{
+        res.send("帳號或密碼不能空白！");
+    }
+});
 
-// app.post('/register', (req, res) => {
+// app.post('/html/register', (req, res) => {
 //     if (req.body.account != "" && req.body.password != ""){
 //         db.get("SELECT account FROM users WHERE account = ?", [req.body.account], function(err, row) {
 //             if(row == undefined){
@@ -98,7 +98,7 @@ app.use(express.static(`${__dirname}`));
 //     }
 // });
 
-app.post('/mission/all_mission', (req, res) => {
+app.post('/html/mission/all_mission', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -114,7 +114,7 @@ app.post('/mission/all_mission', (req, res) => {
     });
 });
 
-app.post('/mission/maylike', (req, res) => {
+app.post('/html/mission/maylike', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -131,7 +131,7 @@ app.post('/mission/maylike', (req, res) => {
     });
 });
 
-app.post('/mission/popular', (req, res) => {
+app.post('/html/mission/popular', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -144,10 +144,11 @@ app.post('/mission/popular', (req, res) => {
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
         res.send(data);
+        
     });
 });
 
-app.post('/mission/doing', (req, res) => {
+app.post('/html/mission/doing', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -164,7 +165,7 @@ app.post('/mission/doing', (req, res) => {
     });
 });
 
-app.post('/mission/done', (req, res) => {
+app.post('/html/mission/done', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -181,7 +182,7 @@ app.post('/mission/done', (req, res) => {
     });
 });
 
-app.post('/mission/accept', (req, res) => {
+app.post('/html/mission/accept', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -189,7 +190,7 @@ app.post('/mission/accept', (req, res) => {
         args: [
             5,
             req.session.uid,
-            req.body.missionId
+            req.body.qid
         ],
     };
 
@@ -198,7 +199,7 @@ app.post('/mission/accept', (req, res) => {
     });
 });
 
-app.post('/mission/giveup', (req, res) => {
+app.post('/html/mission/giveup', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -206,7 +207,7 @@ app.post('/mission/giveup', (req, res) => {
         args: [
             6,
             req.session.uid,
-            req.body.missionId
+            req.body.qid
         ],
     };
 
@@ -215,7 +216,7 @@ app.post('/mission/giveup', (req, res) => {
     });
 });
 
-app.post('/mission/submit', (req, res) => {
+app.post('/html/mission/report_single', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -223,8 +224,8 @@ app.post('/mission/submit', (req, res) => {
         args: [
             7,
             req.session.uid,
-            req.body.missionId,
-            req.body.image
+            req.body.qid,
+            req.body.imagedata
         ],
     };
 
@@ -233,7 +234,41 @@ app.post('/mission/submit', (req, res) => {
     });
 });
 
-app.post('/newgroup', (req, res) => {
+app.post('/html/mission/detail', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            8,
+            req.body.qid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/mission/samequest', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            9,
+            req.body.qid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/newgroup', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -251,7 +286,7 @@ app.post('/newgroup', (req, res) => {
     });
 });
 
-app.post('/sendmessage_friend', (req, res) => {
+app.post('/html/sendmessage_friend', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -270,7 +305,7 @@ app.post('/sendmessage_friend', (req, res) => {
     });
 });
 
-app.post('/sendmessage_mission', (req, res) => {
+app.post('/html/sendmessage_mission', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -289,7 +324,7 @@ app.post('/sendmessage_mission', (req, res) => {
     });
 });
 
-app.post('/chatrecord', (req, res) => {
+app.post('/html/chatrecord', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -306,7 +341,7 @@ app.post('/chatrecord', (req, res) => {
     });
 });
 
-app.post('/friendrecord', (req, res) => {
+app.post('/html/friendrecord', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -323,7 +358,7 @@ app.post('/friendrecord', (req, res) => {
     });
 });
 
-app.post('/addfriend', (req, res) => {
+app.post('/html/addfriend', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -340,7 +375,7 @@ app.post('/addfriend', (req, res) => {
     });
 });
 
-app.post('/deletefriend', (req, res) => {
+app.post('/html/deletefriend', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -357,7 +392,7 @@ app.post('/deletefriend', (req, res) => {
     });
 });
 
-app.post('/chatroom_friend', (req, res) => {
+app.post('/html/chatroom_friend', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -375,7 +410,7 @@ app.post('/chatroom_friend', (req, res) => {
     });
 });
 
-app.post('/chatroom_mission', (req, res) => {
+app.post('/html/chatroom_mission', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -393,7 +428,7 @@ app.post('/chatroom_mission', (req, res) => {
     });
 });
 
-app.post('/singlefriend', (req, res) => {
+app.post('/html/singlefriend', (req, res) => {
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -410,19 +445,19 @@ app.post('/singlefriend', (req, res) => {
     });
 });
 
-app.post('/findperson', (req, res) => {
+app.post('/html/findperson', (req, res) => {
     person.getInfo(req.body.person_ID, db).then(data => {
         res.send(data);
     })
 });
 
-app.post('/mypage-record', (req, res) => {
+app.post('/html/mypage-record', (req, res) => {
     person.getInfo(req.session.uid, db).then(data => {
         res.send(data);
     })
 });
 
-// app.post('/edit', (req, res) => {
+// app.post('/html/edit', (req, res) => {
 //     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
 //         res.send(data);
 //     })

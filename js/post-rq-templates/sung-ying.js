@@ -14,6 +14,7 @@ $.post(
     },
     (data) => {
         /* Return data structire here */
+        data.name, data.category,... // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
     }
 )
 
@@ -39,27 +40,26 @@ $.post(
     }
 )
 
-// 根據任務 ID 取得詳細資料, 包含已完成的進度的照片
-$.post(
-    "./mission/detail", {
-        qid: id
-    },
-    (data) => {
-        /* Return data structure here */
-    }
-)
-
 // 取得有接任務編號 qid 的 K 個他人的頭像/暱稱
 $.post(
     "./mission/samequest", {
         qid: id,
-        ppl_count: K
+        ppl_count: K // 看起來他會把全部有接任務編號qid的人都傳給你，你就挑你需要用到的個數就好，這個參數不用傳
     },
     (data) => {
         /* Return data structure here */
-        identity = /*任何辨別用的資料（ID, hash, 編號, 帳號等等）*/
+        identity = data.member[0] // 0可以改成其他數字，不過只會回傳使用者的id，需要其他資訊可以call下面那個findperson的function
     }
 )
+
+// function findperson(){//find a unknown person with ID
+//     $.post('./findperson', {//****************************************************************
+//         person_ID
+//     } ,
+//     function(data){
+//         ddata.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self
+//     });
+// }
 
 // 跟上一個 function 配合，用於拿非用戶本人的資料
 // 透過上一個 function 回傳的任何辨別用的資料（ID, hash, 編號, 帳號等等）取得他的個人詳細資料
@@ -90,6 +90,7 @@ $.post(
     },
     (data) => {
         /* Let me know if it succeed */
+        data == "Success" // 代表成功，基本上我也只會回傳成功
     }
 )
 

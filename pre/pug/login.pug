@@ -5,10 +5,11 @@ html(lang='en')
         meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no")
         link(rel="stylesheet", href="../css/login.css")
         title Login
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js") 
     body
         // Link to index.html after successfully logging in
         .container
-            form#login
+            form#login(action="./login" method="post")
                 #title 
                     #title-text 登入
                 fieldset#username
@@ -18,6 +19,7 @@ html(lang='en')
                     label(for="pwd") 密碼
                     input(type="password", name="pwd")  
                 a(href="https://google.com.tw") 忘記密碼
+                div#ajax-output
 
                 button#sign-up 
                     div 註 冊
