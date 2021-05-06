@@ -52,7 +52,7 @@ def talk(name1,name2,talk):#好友聊天,name1對name2說talk,然後會回傳聊
     with open(name,"w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
     output=json.dumps(output)
-    return output
+    print(output) 
 
 
 def setupassi(assi,name):#建立任務聊天室,assi:任務,name:誰建立
@@ -129,7 +129,11 @@ def assignmenttalk(assi,name,talk):#任務聊天,在assi這個任務聊天室,na
         json.dump(output, f, ensure_ascii=False) 
     output=json.dumps(output)
     
+<<<<<<< HEAD
+    print(output) #########################
+=======
     return output #########################
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 
 
 def findfriendtalk(name):#輸入name,找到這個人有跟哪些人聊天,回傳那些人的list
@@ -138,8 +142,12 @@ def findfriendtalk(name):#輸入name,找到這個人有跟哪些人聊天,回傳
     for i in range(len(output)):
         if output[i][0]==name:
             del output[i][0]
+<<<<<<< HEAD
+            return(output[i]) 
+=======
             return output[i]
 
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 def findassignment(name):#輸入name,找到這個人有哪些任務聊天室,回傳聊天室list
     assignmentlist=[]
     with open("assignmentname.json", 'r') as obj:
@@ -155,7 +163,26 @@ def findassignment(name):#輸入name,找到這個人有哪些任務聊天室,回
             if str1[j]==name:
                 assignmentlist.append(output[i][0]['assignment'])
                 break
-    return assignmentlist
+<<<<<<< HEAD
+    return(assignmentlist) 
+
+def findassifile(name,assi):
+    
+    with open("assignmentname.json", 'r') as obj:
+        output = json.load(obj)
+    str1=output[1]['group'].split(',')#找到assignment
+    for i in range(len(str1)):
+        if str1[i]==name and assi==output[0]['assignment']:
+            assignmentfile=output[2]['searchname']
+            break
+    for i in range(3,len(output)):
+        str1=output[i][1]['group'].split(',')
+        for j in range(len(str1)):
+            if str1[j]==name and output[i][0]['assignment']==assi:
+                assignmentfile=output[i][2]['searchname']
+                break
+    return(assignmentfile) 
+    
 
 def findassifile(name,assi):
     
@@ -175,41 +202,34 @@ def findassifile(name,assi):
     return assignmentfile
     
 def chatroomlist(name):
-    list1=findfriendtalk(name)
-    sortlist={}
-    for i in range(len(list1)):
-        namecor=name+","+list1[i]+".json"#選出正確的json檔
-        if not os.path.isfile(namecor):
-            namecor=list1[i]+","+name+".json"
+    listfinal=[]    
+    if os.path.isfile("friendtalk.json"):
+        list1=findfriendtalk(name)
+        for i in range(len(list1)):
+            namecor=name+","+list1[i]+".json"#選出正確的json檔
+            if not os.path.isfile(namecor):
+                namecor=list1[i]+","+name+".json"
+            with open(namecor, 'r') as obj:
+                output = json.load(obj)
+            a={"name":list1[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"]}
+            listfinal.append(a)
 
-        with open(namecor, 'r') as obj:
-            output = json.load(obj)
-        
-        a={list1[i]:output[len(output)-1]["time_num"]}
-        sortlist.update(a)
-        
-    list2=findassignment(name)
-    
-    for i in range(len(list2)):
-        filename=findassifile(name,list2[i])
-        with open(filename, 'r') as obj:
-            output = json.load(obj)
-        b={list2[i]:output[len(output)-1]["time_num"]}
-        sortlist.update(b)
-        
-    sortlist=sorted(sortlist.items(), key=lambda x:x[1], reverse=True)
-    listsave=[]
-    listfinal=[]
-    for i in range(len(sortlist)):
-        listsave.append(time.ctime(sortlist[i][1]))
-    
-    for i in range(len(sortlist)):
-        li={sortlist[i][0]:listsave[i]}
-        listfinal.append(li)
+    if os.path.isfile("assignmentname.json"):
+        list2=findassignment(name)
+        for i in range(len(list2)):
+            filename=findassifile(name,list2[i])
+            with open(filename, 'r') as obj:
+                output = json.load(obj)
+            b={"name":list2[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"]}
+            listfinal.append(b)
+            
+    listfinal.sort(key = lambda s: s["time_num"],reverse=True)
     listfinal=json.dumps(listfinal)
+	print(listfinal)
     return listfinal
 
     
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 def talkfile(name1,name2):#好友聊天室剛點進去的內容
     name=name1+","+name2+".json"#選出正確的json檔
     if not os.path.isfile(name):
@@ -217,19 +237,47 @@ def talkfile(name1,name2):#好友聊天室剛點進去的內容
     with open(name, 'r') as obj:
         output = json.load(obj)
     output=json.dumps(output)
+<<<<<<< HEAD
+    print(output)
+=======
     return output
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 
 def assignmentfile(assi,name):#任務聊天室剛點進去的內容
     filename=findassifile(name,assi)
     with open(filename, 'r') as obj:
         output = json.load(obj)
     output=json.dumps(output)
+<<<<<<< HEAD
+    print(output)
+=======
     return output
 
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
 
 
 
 
+<<<<<<< HEAD
+"""
+
+
+if argv[1]=="setuptalk":
+    setuptalk(argv[2],argv[3])
+if argv[1]=="talk"
+    talk(argv[2],argv[3],argv[4])
+if argv[1]=="setupassi"
+    setupassi(argv[2],argv[3])
+if argv[1]=="assignmentadd"
+    assignmentadd(argv[2],argv[3],argv[4])
+if argv[1]=="assignmenttalk"
+    assignmenttalk(argv[2],argv[3],argv[4])
+if argv[1]=="talkfile":
+    talkfile(argv[2],argv[3])
+if argv[1]=="assignmentfile":
+    assignmentfile(argv[2],argv[3])
+"""
+=======
 if(argv[1]=="setuptalk"):
     setuptalk(argv[2],argv[3])
 elif(argv[1]=="talk"):
@@ -246,3 +294,4 @@ elif(argv[1]=="talkfile"):
     print(talkfile(argv[2],argv[3]))
 elif(argv[1]=="assignmentfile"):
     print(assignmentfile(argv[2],argv[3]))
+>>>>>>> 50060df18800210d7242a0600ebf33a89d50c671
