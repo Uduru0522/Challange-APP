@@ -1,1 +1,209 @@
-<!DOCTYPE html ><html lang="zh-cn"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/><title>Title</title><link rel="stylesheet" href="../css/index.css"/><link rel="stylesheet" href="../css/main.css"/><link rel="stylesheet" href="../css/quest.css"/><link rel="stylesheet" href="../css/friend.css"/><link rel="stylesheet" href="../css/chatroom.css"/><link rel="stylesheet" href="../css/mypage.css"/></head><body><!-- Assume using iPhoneX sizing (1125x2436)--><!-- Navigation bar at the bottom--><div class="navbar"><img id="nav-chat" src="../src/nav/chat.png"/><img id="nav-friend" src="../src/nav/friend.png"/><img id="nav-mainpage" src="../src/nav/mainpage.png"/><img id="nav-mypage" src="../src/nav/mypage.png"/><img id="nav-quest" src="../src/nav/quest.png"/></div><!-- Container class for each function page--><!-- Except login page, uses a new html page.--><!-- Loading page, show this until all others are loaded.--><div class="container" id="loading-cover"></div><!-- Mainpage, should land here after login --><!-- Or after clicking the mainpage icon of nav-bar--><div class="container" id="mainpage"> </div><!-- Land here after clicking quest icon of nav-bar--><div class="container" id="quest-main"></div><!-- After filtered, or clicked "show-all" button--><!-- Lists individual quests.--><div class="container" id="quest-filtered"></div><!-- Show after quest-book icon is clicked.--><div class="container transparent-background" id="quest-book"></div><!-- Details for quests. --><!-- Show after clicked "Details" on entries within each quest pages--><div class="container" id="quest-detail"></div><!-- List user already accepted the quest (who's in)--><div class="container transparent-background" id="quest-whosin"></div><!-- Land here after clicking the chat room icon--><div class="container" id="chat-main"> </div><!-- Show after clicked "Create Group"--><div class="container transparent-background" id="chat-create-room"></div><!-- Land here after clicked my-page icon--><div class="container" id="mypage-main"> </div><!-- Land here after clicked the friend icon--><div class="container" id="friend-main"></div><script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script><script src="../js/switchpages.js"> </script></body></html>
+<!DOCTYPE html >
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../css/quest.css"/>
+    <link rel="stylesheet" href="../css/friend.css"/>
+    <link rel="stylesheet" href="../css/chatroom.css"/>
+    <link rel="stylesheet" href="../css/mypage.css"/>
+    <link rel="stylesheet" href="../css/room.css"/>
+  </head>
+  <body>
+    <!-- Assume using iPhoneX sizing (1125x2436)-->
+    <!-- Navigation bar at the bottom-->
+    <div class="navbar">
+      <img id="nav-chat" src="../resources/nav/chat.png"/>
+      <img id="nav-friend" src="../resources/nav/friend.png"/>
+      <img id="nav-mainpage" src="../resources/nav/mainpage.png"/>
+      <img id="nav-mypage" src="../resources/nav/mypage.png"/>
+      <img id="nav-quest" src="../resources/nav/quest.png"/>
+    </div>
+    <!-- Container class for each function page-->
+    <!-- Except login page, uses a new html page.-->
+    <!-- Loading page, show this until all others are loaded.-->
+    <div class="container" id="loading-cover"></div>
+    <!-- Mainpage, should land here after login -->
+    <!-- Or after clicking the mainpage icon of nav-bar-->
+    <div class="container" id="mainpage"> 
+
+                  </div>
+    <!-- Land here after clicking quest icon of nav-bar-->
+    <div class="container" id="quest-main"></div>
+    <!-- After filtered, or clicked "show-all" button--><!-- Lists individual quests.-->
+    <div class="container" id="quest-filtered"></div>
+    <!-- Show after quest-book icon is clicked.-->
+    <div class="container transparent-background" id="quest-book"></div>
+    <!-- Details for quests. --><!-- Show after clicked "Details" on entries within each quest pages-->
+    <div class="container" id="quest-detail"></div>
+    <!-- List user already accepted the quest (who's in)-->
+    <div class="container transparent-background" id="quest-whosin"></div>
+    <!-- Land here after clicking the chat room icon-->
+    <div class="container" id="chat-main"> 
+      <div class="chat-title">
+        <h2>聊天室</h2>
+      </div>
+      <div id="create-chat-button">
+        <img src="../resources/nav/create_chat.png">
+        <h3>建立群組</h3>
+      </div>
+      <div id="chat-choose-missions" class="create-chat-menu hidden">
+        <h2>選擇任務</h2>
+        <form name="group-choose-mission" id="group-choose-mission">
+          <input type="text"name="missiontosearch"id="missiontosearch">
+          <button type="submit"class="search-mission">
+            <img src="../resources/nav/search.png"/>
+          </button>
+        </form>
+      </div> 
+      
+      
+      
+      <input type='radio' name='choose_mission' id='C_M'>
+      <label for='C_M'> 
+        <div class="button-sure hidden"onclick="choose_mission()">
+          <h3>確定</h3>
+        </div>
+      </label>
+      
+      <div id="chat-choose-friends" class="create-chat-menu hidden">
+        <h2>選擇好友</h2>
+        <form name="group-choose-friend" id="group-choose-friend">
+          <input type="text" name="friendtosearch"id="friendtosearch">
+          <button type="submit"class="search-friend">
+            <img src="../resources/nav/search.png"/>
+          </button>
+        </form>
+      </div>
+      
+
+      
+      <input type='checkbox' name='choose_friend' id='C_F'>
+      <label for='C_F'> 
+      <div class="button-creategroup hidden"onclick="choose_friend()">
+        <h3>建立群組</h3>
+      </div>
+      </label>
+ 
+      <div id="chat-choose-cover" class="chat-cover hidden"></div>
+        
+      
+      <div id="chat-record">
+        <!--<div class="chat-room">
+          <img id="chat-header"src="../resources/nav/create_chat.png"/>
+          <div class="chat-room-text">
+            <h4 id="chat-group-name">鄭青宇</h4>
+            <h5 id="chat-firstline">哈哈哈哈哈哈哈哈</h5>
+          </div>
+        </div>-->
+        
+      </div>
+    </div>
+    
+    <div class="container hidden" id="room-main">
+      <div class="room-title">
+        <h2 id="chat-room-name"></h2>
+      </div>
+      <div id="chat-content">
+        <!--<div class="your-message">
+          <div class="message-pic">
+          <img class="your-header"src="../resources/nav/create_chat.png">
+          <div class="your-name"></div>
+          </div>
+          <div class="what-you-say"></div>
+          <div class="message-time"></div>
+        </div>        
+        <div class="my-message">
+          <div class="message-time"></div>
+          <div class="what-i-say"></div>
+          
+        </div>
+
+        -->
+      </div>
+      <div id="chat-input-img">
+        <img src="../resources/nav/camera.png"/>
+        <img src="../resources/nav/picture.png"/> 
+        </div>
+      <div id="chat-input-area">
+        
+        <form name="input-message" id="input-message">
+          <input type="text" name="messagetosend"id="messagetosend"onsubmit="return false">
+        </form>
+      </div>
+        
+     
+    </div>
+    <!-- Land here after clicked my-page icon-->
+    <div class="container" id="mypage-main"> 
+      <div class="mypage-title">
+        <h2>我的資訊</h2>
+      </div>
+      <div id="mypage-record">
+        <img id="data-pic"src=""/>
+        <div class="data-text">
+          <div id="data-name">鄭青宇</div>
+          <div id="data-nickname">#小丑</div>
+          <div id="data-ID">ID: E24076344</div>
+        </div>
+      </div>
+        <div id="data-selfintro-title">自我介紹</div>
+        <div id="data-selfintro-text"></div>
+        <div id="data-characteristics">
+          <div class="characteristics-left">
+            <div id="value-social"></div>
+            <div id="value-travel"></div>
+            <div id="value-food"></div>
+            <div id="value-activity"></div>
+            <div id="value-sport"></div>
+            <div id="value-self"></div>
+          </div>
+          <div class="characteristics-right">
+            <div id="rador">
+
+                    <canvas id="myChart"></canvas>
+
+            </div>
+          </div>
+        </div>
+      
+    </div>
+      
+      
+    <!-- Land here after clicked the friend icon-->
+    <div class="container" id="friend-main">
+      <div class="friend-title">
+        <h2>我的好友</h2>
+      </div>
+    
+      <div id="search-ID">
+        <form name="ID-choose-friend" id="ID-choose-friend">
+          <input type="text"placeholder="輸入 ID"id="persontosearch">
+          <button type="submit" class="output-search-ID" onclick="cleanstring()">
+            <img src="../resources/nav/search.png"/>
+          </button>
+        </form>
+      </div>
+       
+     
+      <div id="friend-record">
+        <div class="single-friend"></div>
+      </div>  
+      <div class="emergency">
+      <div class="friend-cover hidden"></div>
+      <div id="addfriend" class="addfriend hidden">
+        <img id="addfriend_pic" src=""/>
+        <div id="addfriend_name"></div>
+        <button id="button_add">加入</button>
+      </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>                                                         
+    <script src="../js/switchpages.js"> </script>
+    <script src="../js/chingyu.js"> </script>
+  </body>
+</html>
