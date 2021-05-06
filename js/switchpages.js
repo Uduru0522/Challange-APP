@@ -9,7 +9,7 @@ let pages_selector = [
     "#quest-book",
     "#quest-detail",
     "#quest-whosin",
-    "#chat-create-room"
+    "#room-main"
 ];
 
 let nav_icons = [
