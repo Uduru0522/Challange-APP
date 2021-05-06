@@ -225,7 +225,7 @@ function sendmessage_friend(your_message){
 	$('#chat-content').append(mymessage);
 }
 function getmessage_friend(your_message){
-     $.post('./sendmessage_friend', {//****************************************************************
+     $.post('./getmessage_friend', {//****************************************************************
         friend_ID:roomID // 要傳跟誰說話
     } ,
     function(data){
@@ -247,7 +247,7 @@ function getmessage_friend(your_message){
 function sendmessage_mission(your_message){
     $.post('./sendmessage_mission', {//****************************************************************
         chatroom_name:roomID, // 要傳聊天室的名字
-        message:your_message
+        your_message:your_message
    } ,
    function(data){
         //data[1].name // 1可以換成2,3,4....
@@ -260,7 +260,7 @@ function sendmessage_mission(your_message){
 	$('#chat-content').append("hahaha");
 }
 function getmessage_mission(your_message){
-     $.post('./sendmessage_friend', {//****************************************************************
+     $.post('./getmessage_mission', {//****************************************************************
         chatroom_name:roomID // 要傳跟誰說話
     } ,
     function(data){
