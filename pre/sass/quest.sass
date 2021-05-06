@@ -158,9 +158,6 @@
     -ms-overflow-style: none
     scrollbar-width: none
 
-    *
-        border: red 1px solid
-
     #quest-detail-header
         width: 100vw
         height: calc(1300vh / 60)
@@ -254,12 +251,43 @@
             width: 90vw
             font-size: 2.7vh
 
+    #quest-detail-button
+        position: relative
+        width: calc(80vw / 3)
+        height: 5vh
+        border-radius: 8px
+        margin-left: calc(200vw / 3)
+        margin-top: 20px
+
+    #quest-submit-img
+        height: 40px
+        width: 100%
+
+    #quest-submit-text
+        height: 40px
+        width: 100%
+        bordere: black solid 1px
+
+
+    #quest-submit-button
+        width: 100%
+        height: 40px
+        background-color: #C0C0C0
+
     .dummy
         width: 100vw
         height: 20vh
 
 // Filter
 #filter
+    #filter-return-area
+        position: absolute
+        top: calc(50vh / 3)
+        right: 0
+        left: 90vw
+        bottom: 22vw
+        opacity: 0
+
     #quest-main-header-filtering
         @extend %flex-centeralize
         margin-top: calc(100vh / 15)
@@ -335,6 +363,9 @@
                     letter-spacing: 2.5vw
                     margin-right: -2.5vw
 
+                .selected
+                    background-color: #D0CECE
+
             #filter-point-range 
                 background-color: #E7E6E6
                 *
@@ -374,3 +405,102 @@
 
             #filter-confirm
                 background-color: #D0CECE
+
+// Quest List
+#quest-filtered
+    #quest-list-header
+        @extend %flex-centeralize
+        margin-top: calc(100vh / 15)
+        width: 100vw
+        height: 10vh
+        background-color: #FFFFFF
+        border-top: black solid 3px
+        border-bottom: black solid 3px
+
+        span
+            text-align: center
+            font-size: 2em
+            letter-spacing: 10vw
+            margin-right: -10vw
+
+    #quest-list
+        position: absolute
+        top: calc(50vh / 3)
+        bottom: 22vw
+        left: 0
+        right: 0
+        overflow-y: scroll
+
+
+        .qblock
+            position: static
+            width: 98%
+            border: black 3px solid
+            border-radius: 8px
+            display: flex
+            justify-content: space-between
+            margin-top: 10px
+            
+            // temp
+            height: 15vh
+            *
+                border: red solid 1px
+
+            .qblock-type
+                @extend %flex-centeralize
+                position: relative
+                border-right: black solid 3px
+                height: 100%
+                width: 10%
+                background-color: #D0CECE
+                
+                span
+                    white-space: normal
+                    font-size: 3.5vh
+                    line-height: 5.5vh
+
+            .qblock-wrapper
+                position: relative
+                height: 100%
+                width: 90%
+
+                .qblock-title
+                    position: absolute
+                    top: 5px
+                    left: 5px
+                    span
+                        font-size: 3vh
+
+                .qblock-more
+                    position: absolute
+                    bottom: 5px
+                    left: 5px
+                    span
+                        font-size: 2.6vh
+
+
+                .qblock-points
+                    @extend %flex-centeralize
+                    position: absolute
+                    right: 10px
+                    top: 10px
+                    height: 50px
+                    width: 50px
+                    border-radius: 25px
+                    background-color: #9C9C9C
+
+                    span
+                        font-size: 25px
+
+                .qblock-state
+                    @extend %flex-centeralize
+                    position: absolute
+                    bottom: 5px
+                    right: 5px
+                    width: 40%
+                    height: 5vh
+                    border-radius: 8px
+                    border: black solid 3px
+
+                    span
+                        font-size: 3vh

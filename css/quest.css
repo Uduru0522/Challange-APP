@@ -1,4 +1,4 @@
-#filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,9 +151,6 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-#quest-detail * {
-  border: red 1px solid;
-}
 #quest-detail #quest-detail-header {
   width: 100vw;
   height: calc(1300vh / 60);
@@ -249,11 +246,41 @@
   width: 90vw;
   font-size: 2.7vh;
 }
+#quest-detail #quest-detail-button {
+  position: relative;
+  width: calc(80vw / 3);
+  height: 5vh;
+  border-radius: 8px;
+  margin-left: calc(200vw / 3);
+  margin-top: 20px;
+}
+#quest-detail #quest-submit-img {
+  height: 40px;
+  width: 100%;
+}
+#quest-detail #quest-submit-text {
+  height: 40px;
+  width: 100%;
+  bordere: black solid 1px;
+}
+#quest-detail #quest-submit-button {
+  width: 100%;
+  height: 40px;
+  background-color: #C0C0C0;
+}
 #quest-detail .dummy {
   width: 100vw;
   height: 20vh;
 }
 
+#filter #filter-return-area {
+  position: absolute;
+  top: calc(50vh / 3);
+  right: 0;
+  left: 90vw;
+  bottom: 22vw;
+  opacity: 0;
+}
 #filter #quest-main-header-filtering {
   margin-top: calc(100vh / 15);
   width: 100vw;
@@ -325,6 +352,9 @@
   letter-spacing: 2.5vw;
   margin-right: -2.5vw;
 }
+#filter #filter-block .filter-div .flex-wrapper .selected {
+  background-color: #D0CECE;
+}
 #filter #filter-block .filter-div #filter-point-range {
   background-color: #E7E6E6;
 }
@@ -365,4 +395,97 @@
 }
 #filter #filter-block #filter-footer #filter-confirm {
   background-color: #D0CECE;
+}
+
+#quest-filtered #quest-list-header {
+  margin-top: calc(100vh / 15);
+  width: 100vw;
+  height: 10vh;
+  background-color: #FFFFFF;
+  border-top: black solid 3px;
+  border-bottom: black solid 3px;
+}
+#quest-filtered #quest-list-header span {
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 10vw;
+  margin-right: -10vw;
+}
+#quest-filtered #quest-list {
+  position: absolute;
+  top: calc(50vh / 3);
+  bottom: 22vw;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+#quest-filtered #quest-list .qblock {
+  position: static;
+  width: 98%;
+  border: black 3px solid;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  height: 15vh;
+}
+#quest-filtered #quest-list .qblock * {
+  border: red solid 1px;
+}
+#quest-filtered #quest-list .qblock .qblock-type {
+  position: relative;
+  border-right: black solid 3px;
+  height: 100%;
+  width: 10%;
+  background-color: #D0CECE;
+}
+#quest-filtered #quest-list .qblock .qblock-type span {
+  white-space: normal;
+  font-size: 3.5vh;
+  line-height: 5.5vh;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper {
+  position: relative;
+  height: 100%;
+  width: 90%;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-title {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-title span {
+  font-size: 3vh;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-more {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-more span {
+  font-size: 2.6vh;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  background-color: #9C9C9C;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points span {
+  font-size: 25px;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 40%;
+  height: 5vh;
+  border-radius: 8px;
+  border: black solid 3px;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state span {
+  font-size: 3vh;
 }

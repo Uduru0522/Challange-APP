@@ -10,6 +10,8 @@ const pages_selector = [
     "#quest-book",
     "#quest-detail",
     "#quest-whosin",
+    "#quest-info",
+    "#quest-submit",
     "#chat-create-room"
 ];
 
@@ -20,17 +22,6 @@ const nav_icons = [
     "#nav-friend",
     "#nav-mypage"
 ];
-
-// Murmur: can I use bit manipulations please?
-const quest_filter_options = {
-    FOPT_ALL: 0, // All (no filter, should not be chose with others)
-    FOPT_SINGLE: 1, // Single Person
-    FOPT_MULTI: 2, // Multi Person
-    FOPT_FOOD: 3, // Food
-    FOPT_TRAVEL: 4, // Travel
-    FOPT_ACAD: 5, // Academic
-    FOPT_IR: 6, // Interpersonal Relations
-};
 
 function hide_all_page() {
     pages_selector.forEach(element => {
@@ -58,24 +49,12 @@ function hide_all_but_current_page(id) {
     return;
 }
 
-function fetch_quest_info(id_str) {
-    console.log(`Quest if string = \"${id_str}\"`)
-    let qid = parseInt(id_str.match(/\d/g));
-    console.log("Fetching quest info of qid=" + qid);
-
-    // Insert POST request here
-    let qinfo_text = "這象徵著生命是一條康莊大道，它是老天爺設計好的直線，即便中間可能遇到不少阻礙，但，生命始終為你敞開，不只是生活的過程，而是通往夢想的道路！同時，在你經過康莊大道的路途上，你也許會看到它逐漸彎曲，但，它始終會再拐回正道！";
-    let qinfo_req = "這廢話充斥的年代(？)，總是要上網發發廢文，上台講講廢話，這個世界才會更美好(？？)。一本通通都是廢話並搭配精美圖片的書籍非常具有療癒能力，像是：「路，就是一條直直的，但也可以是彎彎的。";
-    /* *********************** */
-
-    return {
-        text: qinfo_text,
-        req: qinfo_req
-    };
-}
-
 // Event Listener
 $(document).ready(() => {
+    // Show Quest Page as Default
+    hide_all_page();
+    $("#quest-main").addClass("show").removeClass("hidden");
+
     // Navbar icon actions
     for (let i = 0; i < 5; ++i) {
         $(nav_icons[i]).on("click", () => {
@@ -88,7 +67,7 @@ $(document).ready(() => {
     // Jumping to/Return from quest details
     let origin_page = "#mainpage" // Back to mainpage if unset
     $(document).on("click", ".goto-quest-detail", function(e) {
-        // POST REQUEST: Fetch quest information
+        // Fetch quest information
         let qinfo = fetch_quest_info($(this).children(":first").attr("id"));
         $("#quest-intro-body").html(qinfo.text);
         $("#quest-require-body").html(qinfo.req);
@@ -98,6 +77,7 @@ $(document).ready(() => {
         hide_all_page();
         origin_page = "#" + $(this).closest(".container").attr("id");
         console.log("Jumping from: " + origin_page);
+        $("#quest-info").addClass("show").removeClass("hidden");
         $("#quest-detail").removeClass("hidden").addClass("show");
     });
 
@@ -107,9 +87,91 @@ $(document).ready(() => {
         $(origin_page).removeClass("hidden").addClass("show");
     });
 
+    // Show Filter
     $(document).on("click", ".filter-button", function(e) {
         hide_all_but_current_page($(this).closest(".container").attr("id"));
         // reset_filter_options();
         $("#filter").removeClass("hidden").addClass("show");
     });
+
+    // Hide filter
+    $(document).on("click", "#filter-return-area", function(e) {
+        // Reset filter option?
+        $("#filter").removeClass("show").addClass("hidden");
+    });
+
+    // Apply filter
+    const quest_filter_options = [
+        "", "學業", "美食", "旅遊", "某些", "分門", "別類", "單人", "多人"
+    ];
+    let filter_selected = [0];
+    $(document).on("click", "#filter-confirm", function(e) {
+        // Fetch all quest
+        let q_list = fetch_quest_brief_info("all");
+        let selected = new Set();
+        let filtered_list = [];
+
+        if (filter_selected.length > 1) {
+            for (let i = 0; i < q_list.quest.length; ++i) {
+                for (let opt = 1; opt < quest_filter_options.length; opt++) {
+                    if (filter_selected.indexOf(opt) != -1) {
+                        console.log(q_list.quest[i].type + " | " + quest_filter_options[opt]);
+                        if (q_list.quest[i].type == quest_filter_options[opt] ||
+                            q_list.quest[i].pcount == quest_filter_options[opt]) {
+                            selected.add(i);
+                        }
+                    }
+                }
+            }
+        }
+
+        console.log(selected);
+        for (const index of selected) {
+            filtered_list.push(q_list.quest[index]);
+        }
+        console.log(filtered_list);
+        fetch_quest_list_page(filtered_list);
+
+        hide_all_page();
+        $("#quest-filtered").removeClass("hidden").addClass("show");
+    });
+
+    $(document).on("click", ".filter-type", function(e) {
+        $(this).toggleClass("selected");
+        let num = parseInt($(this).attr("id").match(/\d/g)[0]);
+        console.log(num);
+        if (num > 8 || num < 1) {
+            console.log("option fetching failed");
+            return;
+        }
+
+        if ($(this).hasClass("selected")) {
+            filter_selected.push(num);
+            console.log(filter_selected);
+            return;
+        }
+
+        let index = filter_selected.indexOf(num);
+        if (index == -1) {
+            console.log("Error: no such element to remove");
+            return;
+        }
+        filter_selected.splice(index, 1);
+        console.log(filter_selected);
+        return;
+    });
+
+    // Quest submit
+    $(document).on("click", "#quest-detail-button", function() {
+        $("#quest-info").toggleClass("show").toggleClass("hidden");
+        $("#quest-submit").toggleClass("show").toggleClass("hidden");
+    });
+
+    // Show more 
+    $(document).on("click", ".showmore", function() {
+        fetch_quest_list_page(fetch_quest_brief_info($(this).attr("id"), 0).quest);
+        hide_all_page();
+        $("#quest-filtered").removeClass("hidden").addClass("show");
+    })
+
 });

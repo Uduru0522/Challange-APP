@@ -61,3 +61,17 @@ body {
 .show {
   visibility: visible;
 }
+
+.return-arrow {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.invis {
+  opacity: 0;
+}
+
+.dummy {
+  width: 100vw;
+  height: 22vh;
+}

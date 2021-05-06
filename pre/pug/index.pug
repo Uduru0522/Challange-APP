@@ -44,15 +44,15 @@ html(lang='zh-cn')
             .quest-peek#everyone-like
                 .peek-title 
                     span 大家都想挑戰⋯
-                    span 查看全部
+                    span.showmore#el 查看全部
             .quest-peek#you-might-like
                 .peek-title 
                     span 你可能會喜歡⋯
-                    span 查看全部
+                    span.showmore#yml 查看全部
             .quest-peek#already-finished
                 .peek-title 
                     span 再挑戰一次⋯
-                    span 查看全部
+                    span.showmore#af 查看全部
             .dummy
         script fetch_quest_main_page(0); 
         
@@ -67,25 +67,25 @@ html(lang='zh-cn')
                     .filter-title 
                         span 領域
                     .flex-wrapper#flex-type-options
-                        .filter-type#filter-option-01
+                        .filter-type#filter-option-1
                             span 學業
-                        .filter-type#filter-option-02
+                        .filter-type#filter-option-2
                             span 美食
-                        .filter-type#filter-option-03
+                        .filter-type#filter-option-3
                             span 旅遊
-                        .filter-type#filter-option-04
+                        .filter-type#filter-option-4
                             span 某些
-                        .filter-type#filter-option-05
+                        .filter-type#filter-option-5
                             span 分門
-                        .filter-type#filter-option-06
+                        .filter-type#filter-option-6
                             span 別類
                 .filter-div#filter-pcount
                     .filter-title 
                         span 人數限制
                     .flex-wrapper#flex-people-options
-                        .filter-type#filter-option-single 
+                        .filter-type#filter-option-7
                             span 單人
-                        .filter-type#filter-option-single 
+                        .filter-type#filter-option-8
                             span 多人
                         .filter-type#filter-option-single(class="invis")
                 .filter-div#filter-ptrange
@@ -100,10 +100,14 @@ html(lang='zh-cn')
                         span 確定
                     .filter-footer-button#filter-reset
                         span 重設
-
+            #filter-return-area
         // After filtered, or clicked "show-all" button
         // Lists individual quests.
         .container#quest-filtered
+            #quest-list-header
+                span 任務
+            #quest-list
+            .dummy
 
         // Show after quest-book icon is clicked.
         .container#quest-book(class="transparent-background")
@@ -126,6 +130,14 @@ html(lang='zh-cn')
                 .qd-title#quest-require-title 
                     span 完成條件
                 span#quest-require-body
+            
+            #quest-detail-button
+                span
+
+            // Temp Upload form, will change later
+            input#quest-submit-img(type="file", name="image/*")
+            input#quest-submit-text(type="text")
+            div#quest-submit-button
             .dummy
 
         // List user already accepted the quest (who's in)
@@ -144,3 +156,4 @@ html(lang='zh-cn')
         .container#friend-main
 
         script(src="../js/switchpages.js") 
+        script(src="../js/quest.js") 
