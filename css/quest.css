@@ -255,13 +255,19 @@
   margin-top: 20px;
 }
 #quest-detail #quest-submit-img {
+  position: relative;
   height: 40px;
   width: 100%;
 }
 #quest-detail #quest-submit-text {
+  position: relative;
   height: 40px;
   width: 100%;
-  bordere: black solid 1px;
+  border: black solid 1px;
+}
+#quest-detail #preview {
+  position: relative;
+  border: black solid 3px;
 }
 #quest-detail #quest-submit-button {
   width: 100%;

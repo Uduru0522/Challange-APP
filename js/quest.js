@@ -23,23 +23,19 @@ $(document).ready(() => {
     // Submit quests
     $(document).on("click", "#quest-submit-button", function() {
         // Send post request to submit quest
-        const form = new FormData();
-        // TODO: Process image here to upload
-        // Image Field: <input id="#quest-submit-text" type="file" name="image/*"><input>
         var img64 = compress(document.getElementById('preview'), 500, 500, 0.9);
-
-        form.append("img", img64);
-        form.append("text", $("#quest-submit-text").val());
         $.post(
-            "./mission/report-single",
-            form,
+            "./mission/report-single", {
+                img: img64,
+                text: $("#quest-submit-text").val()
+            },
             function(data) {
                 console.log("Update success");
             }
         );
     });
 
-    const myFile = document.querySelector('#quest-submit-text')
+    const myFile = document.querySelector('#quest-submit-img')
 
     myFile.addEventListener('change', function(e) {
         const file = e.target.files[0]
@@ -48,16 +44,17 @@ $(document).ready(() => {
         reader.readAsDataURL(file)
         reader.onload = function() {
             img.src = reader.result
-            $("#preview").css({"width":"30vw","height":"30vw","background-size":"cover"}) // 預覽圖片的css屬性
+            $("#preview").css({ "width": "30vw", "height": "30vw", "background-size": "cover" }) // 預覽圖片的css屬性
+            console.log("loaded preview.");
         }
     })
 
-    function compress(img, width, height, ratio) {        
+    function compress(img, width, height, ratio) {
         var canvas, ctx, img64;
-        canvas = document.createElement('canvas');        
+        canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
-        ctx = canvas.getContext("2d");        
+        ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
         img64 = canvas.toDataURL("image/jpeg", ratio);
         return img64;
