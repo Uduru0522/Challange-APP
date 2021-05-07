@@ -35,7 +35,7 @@ var roomstyle,roomID;
       {name:"莊小萱",msg:"weffffffffffffffffffffffffefw",time:"07:48",image:"../resources/nav/create_chat.png"},
     ];*/
 
-var value;//={name:"鄭青宇",id:"E24076344",intro:"自介",social:50,travel:45,food:23,activity:20,sport:15,self:10};
+var value={name:"鄭青宇",nickname:"?????",id:"E24076344",intro:"自介",social:50,travel:45,food:23,activity:20,sport:15,self:10};
 
 /*var radardata = {
   labels: [
