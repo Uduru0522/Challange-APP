@@ -37,7 +37,7 @@ var roomstyle,roomID;
 
 var value;//={name:"鄭青宇",id:"E24076344",intro:"自介",social:50,travel:45,food:23,activity:20,sport:15,self:10};
 
-var radardata = {
+/*var radardata = {
   labels: [
     '人際',
     '旅遊',
@@ -95,7 +95,7 @@ var chartRadar = new Chart(chartRadarDOM, {
 		type: 'radar',
 		data: radardata,
 		options: radaroptions
-	});
+	});*/
 //some text need to be modified by variabl
 
 
@@ -646,7 +646,65 @@ for(let i=0;i<friend_magnitude;i++){
 		event.preventDefault();
 	});
 });
+var radardata = {
+  labels: [
+    '人際',
+    '旅遊',
+    '食物',
+    '活動',
+    '運動',
+    '自我',
+  ],
+  datasets: [{
+    label: '你的任務',
+    data: [value.social,value.travel,value.food,value.activity,value.sport,value.self],
+    fill: true,
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    borderColor: 'rgb(255, 99, 132)',
+    pointBackgroundColor: 'rgb(255, 99, 132)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(255, 99, 132)'
+  }]
+};
 
+var radaroptions = 
+	{
+	scale: 
+		{
+			ticks: 
+			{
+				fontSize: 100,
+				beginAtZero: true,
+				maxTicksLimit: 7,
+				min:0,
+				max:100
+			},
+			pointLabels: 
+			{
+                            font: {
+                                   size: 36,            //大小
+                                   weight: 700       //粗細
+                            },
+			},
+			gridLines: 
+			{
+				color: '#009FCC'
+			}
+		},
+	plugins:{
+		legend:{
+			display:false
+		}
+	}
+		
+	};
+var chartRadarDOM = document.getElementById("myChart");
+var chartRadar = new Chart(chartRadarDOM, {
+		type: 'radar',
+		data: radardata,
+		options: radaroptions
+	});
 
 
 
