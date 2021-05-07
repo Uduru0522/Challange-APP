@@ -37,6 +37,7 @@ var roomstyle,roomID;
 
 var value={name:"鄭青宇",nickname:"?????",id:"E24076344",intro:"自介",social:50,travel:45,food:23,activity:20,sport:15,self:10};
 
+
 /*var radardata = {
   labels: [
     '人際',
