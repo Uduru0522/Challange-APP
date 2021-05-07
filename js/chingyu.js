@@ -425,6 +425,7 @@ $("#mypage-record").ready(function(){
     });	
 	document.getElementById("data-pic").src=value.image;
 	document.getElementById("data-name").innerHTML=value.name;
+	document.getElementById("data-nickname").innerHTML=value.nickname;
 	document.getElementById("data-ID").innerHTML=value.id;
 	document.getElementById("data-selfintro-text").innerHTML=value.intro;
 
