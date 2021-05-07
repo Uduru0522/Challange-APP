@@ -146,9 +146,9 @@ elif(sys.argv[1] == '6'):#放棄任務
 elif(sys.argv[1] == '7'):#提交任務
     submit(con, sys.argv[2], sys.argv[3], sys.argv[4])
 elif(sys.argv[1] == '8'):#給任務詳細資料
-    print(getdetail(con, sys.argv[2])
+    print(getdetail(con, sys.argv[2]))
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
-    print(player(con, sys.argv[2])
+    print(player(con, sys.argv[2]))
 
 
 # accept(con, "Jeremy", "202")
