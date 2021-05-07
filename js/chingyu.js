@@ -248,7 +248,7 @@ $("#nav-chat").click(function(){//get all chatroom record
     
 
 });
-$("#chat-choose-missions").ready(function(){
+$("#create-chat-button").click(function(){
     $.post('./mission/done', 
     function(data){
         //data[0].name, data[0].category //0可以換成其他數字,有哪些屬性可以去看mission.db的column name
@@ -257,7 +257,7 @@ $("#chat-choose-missions").ready(function(){
     });
     appendmissions();
 });
-$("#chat-choose-friends").ready(function(){
+$(".button-sure").click(function(){
     $.post('./friendrecord', 
     function(friends){
         //friend_list[i]=friends[i];某人擁有的所有朋友的data
