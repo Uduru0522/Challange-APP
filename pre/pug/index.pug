@@ -1,4 +1,4 @@
-doctype html 
+doctype html
 html(lang='zh-cn')
     head
         meta(charset="utf-8")
@@ -10,21 +10,25 @@ html(lang='zh-cn')
         link(rel="stylesheet", href="../css/friend.css")
         link(rel="stylesheet", href="../css/chatroom.css")
         link(rel="stylesheet", href="../css/mypage.css")
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js") 
     body
         // Assume using iPhoneX sizing (1125x2436)
+        // Loading page, show this until all others are loaded.
+        .container#loading-cover
+        
+        // Script for fetching necessary datas
+        script(src="../js/fetch.js") 
+
         // Navigation bar at the bottom
         .navbar
-            img#nav-chat(src="../src/nav/chat.png")
-            img#nav-friend(src="../src/nav/friend.png")
-            img#nav-mainpage(src="../src/nav/mainpage.png")
-            img#nav-mypage(src="../src/nav/mypage.png")
-            img#nav-quest(src="../src/nav/quest.png")
+            img#nav-chat(src="../resources/nav/chat.png")
+            img#nav-friend(src="../resources/nav/friend.png")
+            img#nav-mainpage(src="../resources/nav/mainpage.png")
+            img#nav-mypage(src="../resources/nav/mypage.png")
+            img#nav-quest(src="../resources/nav/quest.png")
 
         // Container class for each function page
         // Except login page, uses a new html page.
-        
-        // Loading page, show this until all others are loaded.
-        .container#loading-cover
 
         // Mainpage, should land here after login 
         // Or after clicking the mainpage icon of nav-bar
@@ -32,10 +36,78 @@ html(lang='zh-cn')
 
         // Land here after clicking quest icon of nav-bar
         .container#quest-main
-
+            #quest-main-header
+                span 任務
+            .filter-button
+                img(src="../resources/quest/filter.png" object-fit="contain")
+                span 篩選
+            .quest-peek#everyone-like
+                .peek-title 
+                    span 大家都想挑戰⋯
+                    span.showmore#el 查看全部
+            .quest-peek#you-might-like
+                .peek-title 
+                    span 你可能會喜歡⋯
+                    span.showmore#yml 查看全部
+            .quest-peek#already-finished
+                .peek-title 
+                    span 再挑戰一次⋯
+                    span.showmore#af 查看全部
+            .dummy
+        script fetch_quest_main_page(0); 
+        
+        // Filter Options
+        .container#filter(class="transparent-background")
+            #quest-main-header-filtering
+                span 任務
+            #filter-block
+                #filter-header 
+                    span 篩選器
+                .filter-div#filter-type
+                    .filter-title 
+                        span 領域
+                    .flex-wrapper#flex-type-options
+                        .filter-type#filter-option-1
+                            span 學業
+                        .filter-type#filter-option-2
+                            span 美食
+                        .filter-type#filter-option-3
+                            span 旅遊
+                        .filter-type#filter-option-4
+                            span 某些
+                        .filter-type#filter-option-5
+                            span 分門
+                        .filter-type#filter-option-6
+                            span 別類
+                .filter-div#filter-pcount
+                    .filter-title 
+                        span 人數限制
+                    .flex-wrapper#flex-people-options
+                        .filter-type#filter-option-7
+                            span 單人
+                        .filter-type#filter-option-8
+                            span 多人
+                        .filter-type#filter-option-single(class="invis")
+                .filter-div#filter-ptrange
+                    .filter-title 
+                        span 任務積分
+                    .flex-wrapper#filter-point-range
+                        input#points-from(type="number")
+                        span
+                        input#points-to(type="number")
+                #filter-footer
+                    .filter-footer-button#filter-confirm
+                        span 確定
+                    .filter-footer-button#filter-reset
+                        span 重設
+            #filter-return-area
         // After filtered, or clicked "show-all" button
         // Lists individual quests.
         .container#quest-filtered
+            #quest-list-header
+                span 任務
+            #quest-list
+            .dummy
 
         // Show after quest-book icon is clicked.
         .container#quest-book(class="transparent-background")
@@ -43,6 +115,32 @@ html(lang='zh-cn')
         // Details for quests. 
         // Show after clicked "Details" on entries within each quest pages
         .container#quest-detail
+            #quest-detail-header
+                img.return-arrow(src="../resources/quest/return-next-arrow.png")
+                #quest-title-block 
+                    .wrapper
+                        span#quest-tag &emsp;屬&emsp;性&emsp;
+                        span#quest-points 10 
+                    span#quest-title-text 如何分辨出廢話自然是一個問題
+            #quest-intro
+                .qd-title#quest-intro-title 
+                    span 任務介紹
+                span#quest-intro-body
+            #quest-require 
+                .qd-title#quest-require-title 
+                    span 完成條件
+                span#quest-require-body
+            
+            #quest-detail-button
+                span
+
+            // Temp Upload form, will change later
+            input#quest-submit-img(type="file", name="image/*")
+            input#quest-submit-text(type="text")
+            div#quest-submit-button
+            // To show preview image
+            img#preview 
+            .dummy
 
         // List user already accepted the quest (who's in)
         .container#quest-whosin(class="transparent-background")
@@ -59,5 +157,5 @@ html(lang='zh-cn')
         // Land here after clicked the friend icon
         .container#friend-main
 
-        script(src="https://code.jquery.com/jquery-3.6.0.min.js") 
         script(src="../js/switchpages.js") 
+        script(src="../js/quest.js") 
