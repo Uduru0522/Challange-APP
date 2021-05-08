@@ -72,21 +72,21 @@ function choose_friend() { //handle radio
 
 function appendrooms() { //show rooms in chatroom page
     document.getElementById("chat-record").innerHTML = "";
-    let chatroom
+
     for (let i = 0; i < room_magnitude; i++) {
         //let chatroom="<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+header_pic+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+group_name+"</h3><h4 id='chat-firstline>"+first_line+"</h4></div></div>";
-        chatroom = "<div id='chat-room-num" + i + "'class='chat-room'><img id='chat-header'src='" + room_data[i].header_pic + "'/><div class='chat-room-text'><h3 id='chat-group-name'>" + room_data[i].group_name + "</h3><h4 id='chat-firstline>" + room_data[i].first_line + "</h4></div></div>";
+        let chatroom = "<div id='chat-room-num" + i + "'class='chat-room'><img id='chat-header'src='" + room_data[i].header_pic + "'/><div class='chat-room-text'><h3 id='chat-group-name'>" + room_data[i].group_name + "</h3><h4 id='chat-firstline>" + room_data[i].first_line + "</h4></div></div>";
 
         $("#chat-record").append(chatroom)
     }
 }
 
 function appendmissions() { //show missions in group create
-    let missions;
-    document.getElementById("chat-choose-missions").innerHTML = "";
+
+    document.getElementById("chat-choose-missions").innerHTML = "<h2>選擇任務</h2><form name='group-choose-mission' id='group-choose-mission'><input type='text' name='missiontosearch' id='missiontosearch'><button type='submit' class='search-mission'><img src='../resources/nav/search.png'/></button></form>";
     for (let i = 0; i < mission_magnitude; i++) {
         //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
-        missions = "<input type='radio' name='choose_mission' id='C_M" + i + "'><label for='C_M" + i + "'><div id='choosed-mission" + i + "'class='choosed-mission unchosen'><h3>mission_list[i].name</h3></div></label>";
+        let missions = "<input type='radio' name='choose_mission' id='C_M" + i + "'><label for='C_M" + i + "'><div id='choosed-mission" + i + "'class='choosed-mission unchosen'><h3>mission_list[i].name</h3></div></label>";
 
         $("#chat-choose-missions").append(missions)
     }
@@ -145,6 +145,8 @@ function findfriend(name) { //search friend in create group
 }
 
 function sendmessage_friend(your_message) {
+    console.log(your_message + "12345");
+    console.log(roomID + "jo6su6");
     $.post('./sendmessage_friend', {
             friend_ID: roomID, // 要傳跟誰說話
             your_message: your_message
@@ -154,8 +156,9 @@ function sendmessage_friend(your_message) {
             //data[1].msg
             //data[1].time
             //data[1].image
+            console.log(data.length);
             message = data;
-            let mymessage = "<div class='my-message'><div class='message-time'>" + message[i].time + "</div><div class='what-i-say'>" + message[i].msg + "</div></div>";
+            let mymessage = "<div class='my-message'><div class='message-time'>" + message[0].time + "</div><div class='what-i-say'>" + message[0].msg + "</div></div>";
             $('#chat-content').append(mymessage);
         });
 
@@ -181,6 +184,7 @@ function getmessage_friend(your_message) {
 }
 
 function sendmessage_mission(your_message) {
+
     $.post('./sendmessage_mission', {
             chatroom_name: roomID, // 要傳聊天室的名字
             your_message: your_message
@@ -296,12 +300,12 @@ $(".button-sure").click(function() {
 //friend page
 function appendfriendsformenu() {
     document.getElementById("friend-record").innerHTML = "";
-    let friend;
+
     console.log(friend_magnitude)
     for (let j = 0; j < friend_magnitude; j++) {
 
         // let friend="<div class='slideleft'><button class='deletebutton'>删除</button><div id='friend-num"+i+"'class='friend'><img id='friend-header'src='../resources/nav/create_chat.png'/><div class='friend-text'><h3 id='friend-name'>鄭青宇</h3></div></div><s class='space'></s></div>";
-        friend = "<div class='slideleft'><button class='deletebutton'id='delete-num" + j + "'>删除</button><div id='friend-num" + j + "'class='friend'><img id='friend-header'src='" + friend_list[j].name + "'/><div class='friend-text'><h3 id='friend-name'>" + friend_list[j].name + "</h3></div></div><s class='space'></s></div>";
+        let friend = "<div class='slideleft'><button class='deletebutton'id='delete-num" + j + "'>删除</button><div id='friend-num" + j + "'class='friend'><img id='friend-header'src='" + friend_list[j].name + "'/><div class='friend-text'><h3 id='friend-name'>" + friend_list[j].name + "</h3></div></div><s class='space'></s></div>";
 
         $("#friend-record").append(friend)
     }
@@ -335,10 +339,6 @@ $("#nav-friend").click(function() {
 
             }
         });
-});
-$(".friend").on('swiperight', function(event) {
-    event.preventDefault();
-    $(".deletebutton").removeClass("gone");
 });
 
 function findperson() { //find a unknown person with ID
@@ -476,7 +476,6 @@ function handle_message() {
     $('#chat-content').scrollTop(9999999)
 }
 
-
 //functions which is click
 $(document).ready(function() {
 
@@ -532,31 +531,33 @@ $(document).ready(function() {
             check_friend[i] = 0;
         }
     });
-    for (let i = 0; i < friend_magnitude; i++) { //to be green
-        $("#choosed-friend" + i).click(function() {
-            if (check_friend[i] == 1) {
-                $("#choosed-friend" + i).removeClass("chosen").addClass("unchosen");
-                check_friend[i] = 0;
-            } else {
-                $("#choosed-friend" + i).removeClass("unchosen").addClass("chosen");
-                check_friend[i] = 1;
+    console.log("nani");
+    //for(let i=0;i<friend_magnitude;i++){//to be green
+    $('.friend').click(function() {
+        console.log("what");
+        if (check_friend[i] == 1) {
+            $("#choosed-friend" + i).removeClass("chosen").addClass("unchosen");
+            check_friend[i] = 0;
+        } else {
+            $("#choosed-friend" + i).removeClass("unchosen").addClass("chosen");
+            check_friend[i] = 1;
+        }
+        console.log("friend" + i);
+        let c = 0;
+        for (let j = 0; j < friend_magnitude; j++) {
+            if (check_friend[j] == 1) {
+                c = 1;
+                break;
             }
-            console.log("friend" + i);
-            let c = 0;
-            for (let j = 0; j < friend_magnitude; j++) {
-                if (check_friend[j] == 1) {
-                    c = 1;
-                    break;
-                }
-            }
-            if (c == 1) {
-                $(".button-creategroup").removeClass("hidden").addClass("show");
-            } else {
-                $(".button-creategroup").removeClass("show").addClass("hidden");
-            }
-            choose_friend();
-        });
-    }
+        }
+        if (c == 1) {
+            $(".button-creategroup").removeClass("hidden").addClass("show");
+        } else {
+            $(".button-creategroup").removeClass("show").addClass("hidden");
+        }
+        choose_friend();
+    });
+    // }
 
     $(".button-creategroup").click(function() {
         $("#chat-choose-friends").removeClass("show").addClass("hidden");
@@ -564,12 +565,12 @@ $(document).ready(function() {
         $(".chat-cover").removeClass("show").addClass("hidden");
         newgroup();
     });
-    $('#group-choose-mission button[type="submit"]').click((event) => {
+    $(document).on("click", "#group-choose-mission button[type='submit']", function(event) {
         event.preventDefault();
         let name = $('#group-choose-mission input[id=missiontosearch]').val();
         findmission(name);
     });
-    $('#group-choose-friend button[type="submit"]').click((event) => {
+    $(document).on("click", "#group-choose-friend button[type='submit']", function(event) {
         event.preventDefault();
         let name = $('#group-choose-friend input[id=friendtosearch]').val();
         findfriend(name);
@@ -577,36 +578,39 @@ $(document).ready(function() {
 
 
     //friend page
-    for (let i = 0; i < friend_magnitude; i++) {
-        $("#friend-num" + i).click(function() { //go into chatroom by friend page
-            console.log("friendroom");
-            $("#room-main").removeClass("hidden").addClass("show");
-            /*$.post('./singlefriend', {//****************************************************************
-                 friend_list_ID[i];
-             } ,
-             function(data){//get the chatroom_ID of you and the friend
-                 //chatroom_ID=ID
-                 data == "Success"
-             });*/
-            document.getElementById("chat-room-name").innerHTML = friend_list[i].name; //??
-            roomstyle = "friend";
-            roomID = friend_list[i].friend_ID;
-            $.post('./chatroom_friend', { //as same as the above one//****************************************************************
-                    friend_ID: friend_list[i].friend_ID
-                },
-                function(data) {
-                    //from recent to past
-                    //need who send the message(ID,name,header)
-                    //data[1].name // 1可以換成2,3,4....
-                    //data[1].msg
-                    //data[1].time
-                    //data[1].image
-                    message = data;
-                    handlemessage();
-                });
+    //for(let i=0;i<friend_magnitude;i++){
+    $(document).on("click", '.friend', function() {
 
-        });
-    }
+        let i = $(".friend").index(this);
+        console.log("friendroom" + i);
+        $("#room-main").removeClass("hidden").addClass("show");
+        /*$.post('./singlefriend', {//****************************************************************
+             friend_list_ID[i];
+         } ,
+         function(data){//get the chatroom_ID of you and the friend
+             //chatroom_ID=ID
+             data == "Success"
+         });*/
+        document.getElementById("chat-room-name").innerHTML = friend_list[i].name; //??
+        roomstyle = "friend";
+        roomID = friend_list[i].name;
+        $.post('./chatroom_friend', { //as same as the above one//****************************************************************
+                friend_ID: friend_list[i].friend_ID
+            },
+            function(data) {
+                //from recent to past
+                //need who send the message(ID,name,header)
+                //data[1].name // 1可以換成2,3,4....
+                //data[1].msg
+                //data[1].time
+                //data[1].image
+                message = data;
+                handle_message();
+            });
+
+    });
+
+    //}
     $('#ID-choose-friend button[type="submit"]').click((event) => {
 
         event.preventDefault();
