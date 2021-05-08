@@ -3,6 +3,8 @@ import os
 import sys 
 
 def addfriend(name1,name2):#name1跟name2互加為好友
+ 
+
     namelist1=[name1,name2]
     namelist2=[name2,name1]
     namelist=[namelist1,namelist2]
@@ -52,7 +54,6 @@ def findfriend(name):#輸入name,找到name這個人的所有好友
             data={"friend":output[i]}
             data = json.dumps(data)
             return data
-
 
 
 sys.stdout.reconfigure(encoding='utf-8')

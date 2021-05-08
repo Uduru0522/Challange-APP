@@ -1,7 +1,6 @@
 import sqlite3
 import sys
 import json
-import yaml
 
 def allmission(conn, User):
     rows = conn.execute("select * from mission;")
@@ -93,8 +92,6 @@ def getJSON1(rows):#轉成json，簡略版
         _json.append(_row_json)
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
-    output = str(output)
-    # output = output[2:(len(output)-1)]
     return output
 
 def getJSON2(rows):#轉成json，詳細的
@@ -216,7 +213,6 @@ def popular(conn, User):#很多人在做的任務
 
 
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片
-sys.stdout.reconfigure(encoding='utf-8')
 con = sqlite3.connect('./database/mission.db')
 if(sys.argv[1] == '0'):#全部任務
     print(allmission(con, sys.argv[2]))
@@ -229,9 +225,9 @@ elif(sys.argv[1] == '3'):#進行中任務
 elif(sys.argv[1] == '4'):#做過的任務
     print(done(con, sys.argv[2]))
 elif(sys.argv[1] == '5'):#接取任務
-    accept(con, sys.argv[2], sys.argv[3])
+    print(accept(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '6'):#放棄任務
-    giveup(con, sys.argv[2], sys.argv[3])
+    print(giveup(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '7'):#提交任務
     submit(con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 elif(sys.argv[1] == '8'):#給任務詳細資料
@@ -246,9 +242,11 @@ elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
 # done(con, "Jeremy")
 # maylike(con, "Jeremy")
 # allmission(con)
-# print(popular(con))
+# popular(con)
 
-# row=con.execute("SELECT * FROM mission")
-# field_name = [des[0] for des in row.description]
-# for row in field_name:
-#     print(row)
+"""
+row=con.execute("SELECT * FROM mission")
+field_name = [des[0] for des in row.description]
+for row in field_name:
+    print(row)
+"""
