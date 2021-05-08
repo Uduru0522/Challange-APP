@@ -72,6 +72,9 @@ $(document).ready(() => {
             console.log(qinfo);
             $("#quest-intro-body").html(qinfo[0].description);
             $("#quest-require-body").html(qinfo[0].req);
+            $("#quest-tag").html(qinfo[0].category);
+            $("#quest-title-text").html(qinfo[0].name);
+            $("#quest-points").html(qinfo[0].points);
         });
 
         // Build page
@@ -104,7 +107,7 @@ $(document).ready(() => {
 
     // Apply filter
     const quest_filter_options = [
-        "", "社交", "食物", "運動", "某些", "分門", "別類", "單人", "多人"
+        "", "社交", "美食", "運動", "旅行", "冒險", "課業", "單人", "多人"
     ];
     let filter_selected = [0];
     $(document).on("click", "#filter-confirm", function(e) {

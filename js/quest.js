@@ -25,7 +25,7 @@ $(document).ready(() => {
         // Send post request to submit quest
         var img64 = compress(document.getElementById('preview'), 500, 500, 0.9);
         $.post(
-            "./mission/report-single", {
+            "./mission/report_single", {
                 img: img64,
                 text: $("#quest-submit-text").val()
             },

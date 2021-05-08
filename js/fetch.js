@@ -34,11 +34,6 @@ function fetch_quest_info(id_str, callback) {
         },
         callback
     );
-
-    return {
-        text: qinfo_text,
-        req: qinfo_req
-    };
 }
 
 function fetch_quest_main_page(id) {
@@ -58,39 +53,40 @@ function fetch_quest_main_page(id) {
             container.classList.add("horizontal-scroll-container");
 
             // Deal with each quest's info
-            jsonobj.forEach(qinfo => {
-                console.log(qinfo);
+            if (jsonobj) {
+                jsonobj.forEach(qinfo => {
 
-                // Create nodes
-                let qblock = document.createElement("div");
-                qblock.classList.add("quest-block");
-                let type = document.createElement("div");
-                type.classList.add("type");
-                let title = document.createElement("div");
-                title.classList.add("title");
-                let button = document.createElement("div");
-                button.classList.add("accept-button");
-                button.classList.add("goto-quest-detail");
+                    // Create nodes
+                    let qblock = document.createElement("div");
+                    qblock.classList.add("quest-block");
+                    let type = document.createElement("div");
+                    type.classList.add("type");
+                    let title = document.createElement("div");
+                    title.classList.add("title");
+                    let button = document.createElement("div");
+                    button.classList.add("accept-button");
+                    button.classList.add("goto-quest-detail");
 
-                // Emit text
-                let type_span = document.createElement("span");
-                let title_span = document.createElement("span");
-                let button_span = document.createElement("span");
+                    // Emit text
+                    let type_span = document.createElement("span");
+                    let title_span = document.createElement("span");
+                    let button_span = document.createElement("span");
 
-                type_span.textContent = qinfo.category;
-                title_span.textContent = qinfo.name;
-                button_span.textContent = "挑戰";
-                button_span.setAttribute("id", "quest-" + qinfo.ID);
+                    type_span.textContent = qinfo.category;
+                    title_span.textContent = qinfo.name;
+                    button_span.textContent = "挑戰";
+                    button_span.setAttribute("id", "quest-" + qinfo.ID);
 
-                // Append nodes
-                type.appendChild(type_span)
-                qblock.appendChild(type);
-                title.appendChild(title_span);
-                qblock.appendChild(title);
-                button.appendChild(button_span);
-                qblock.appendChild(button);
-                container.appendChild(qblock);
-            });
+                    // Append nodes
+                    type.appendChild(type_span)
+                    qblock.appendChild(type);
+                    title.appendChild(title_span);
+                    qblock.appendChild(title);
+                    button.appendChild(button_span);
+                    qblock.appendChild(button);
+                    container.appendChild(qblock);
+                });
+            }
 
             parents[i].appendChild(container);
         });

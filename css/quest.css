@@ -229,7 +229,7 @@
   font-size: 2.7vh;
 }
 #quest-detail #quest-require {
-  position: satatic;
+  position: static;
   width: 100vw;
   margin-top: 3vh;
   padding: 0 5vw;
@@ -260,16 +260,17 @@
   width: 100%;
 }
 #quest-detail #quest-submit-text {
-  position: relative;
+  position: static;
   height: 40px;
   width: 100%;
   border: black solid 1px;
 }
 #quest-detail #preview {
-  position: relative;
+  position: static;
   border: black solid 3px;
 }
 #quest-detail #quest-submit-button {
+  position: static;
   width: 100%;
   height: 40px;
   background-color: #C0C0C0;
