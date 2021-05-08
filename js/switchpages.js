@@ -5,6 +5,7 @@ const pages_selector = [
     "#chat-main",
     "#friend-main",
     "#mypage-main",
+    "#room-main",
     "#filter",
     "#quest-filtered",
     "#quest-book",
@@ -56,7 +57,7 @@ $(document).ready(() => {
     $("#quest-main").addClass("show").removeClass("hidden");
 
     // Navbar icon actions
-    for (let i = 0; i < 5; ++i) {
+    for (let i = 0; i < 6; ++i) {
         $(nav_icons[i]).on("click", () => {
             console.log("Clicked icon: " + nav_icons[i]);
             hide_all_page();
