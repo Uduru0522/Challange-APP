@@ -132,6 +132,11 @@ float:left;
   height:12vw;
   background-color:green;
 }
+#button_cantfind{
+  width:30vw;
+  height:12vw;
+  background-color:green;
+}
 .friend-cover{
   background-color:#FFF4C1;
   position:fixed;
