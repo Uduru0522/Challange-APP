@@ -1,0 +1,101 @@
+.container form button, .container form #title, .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html, body {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+.container form {
+  position: relative;
+  display: block;
+  width: 90vw;
+  height: 57.5vh;
+  border: black solid 4px;
+  border-radius: 60px;
+  box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.75);
+}
+.container form #title {
+  height: 21.7%;
+  width: 100%;
+  line-height: 100%;
+  border-bottom: black solid 4px;
+}
+.container form #title #title-text {
+  font-size: 2.3em;
+  letter-spacing: 9vw;
+  margin-right: -9vw;
+}
+.container form fieldset {
+  all: initial;
+  display: flex;
+  justify-content: space-around;
+  height: 2.5em;
+}
+.container form fieldset label {
+  margin: auto -10% auto 0;
+  display: inline-block;
+  font-size: 2em;
+}
+.container form fieldset input {
+  display: inline-block;
+  border-radius: 12px;
+  border: solid black 2px;
+  height: 100%;
+  width: 57%;
+  font-size: 1.7em;
+}
+.container form fieldset#username {
+  margin-top: 8vh;
+}
+.container form fieldset#pwd {
+  margin-top: 3vh;
+  margin-bottom: 1vh;
+}
+.container form a {
+  margin-left: 35%;
+  margin-bottom: 10%;
+  color: #C0C0C0;
+}
+.container form button {
+  position: absolute;
+  width: 30.4%;
+  height: 11.6%;
+  border-radius: 12px;
+  box-shadow: 1.5px 1.5px 6px rgba(0, 0, 0, 0.75);
+  padding: 0;
+}
+.container form button div {
+  width: 100%;
+  font-size: 2em;
+}
+.container form button#submit {
+  background-color: #A6A6A6;
+  color: white;
+  right: 3.7%;
+  bottom: 7.4%;
+}
+.container form button#sign-up {
+  background-color: #D9D9D9;
+  right: 35.9%;
+  bottom: 7.4%;
+}
