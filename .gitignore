@@ -1,4 +1,6 @@
 # Ignore VS Code settings
 .vscode/
 node_modules/
-database/
+database/mission.db
+database/users.db
+
