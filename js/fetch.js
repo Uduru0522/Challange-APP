@@ -1,95 +1,21 @@
 // Local temp fetch
-function fetch_quest_brief_info(str = "option", id) {
-    let jsonobj = {
-        "quest": [{
-                "type": "美食",
-                "pcount": "多人",
-                "title": "內容內容好多內容",
-                "id": 0,
-                "pt": 10,
-                "state": "done"
-            },
-            {
-                "type": "旅遊",
-                "pcount": "多人",
-                "title": "內容內容好多內容",
-                "id": 1,
-                "pt": 10,
-                "state": "none"
-            },
-            {
-                "type": "某些",
-                "pcount": "單人",
-                "title": "內容內容好多內容",
-                "id": 2,
-                "pt": 5,
-                "state": "none"
-            },
-            {
-                "type": "別類",
-                "pcount": "單人",
-                "title": "內容內容好多內容",
-                "id": 3,
-                "pt": 10,
-                "state": "accept"
-            },
-            {
-                "type": "分門",
-                "pcount": "多人",
-                "title": "內容內容好多內容",
-                "id": 4,
-                "pt": 15,
-                "state": "accept"
-            }
-        ]
-    }
-
+function fetch_quest_brief_info(option, callback) {
     // POST request: get pre-filtered quest brief
-    // let jsonstr, url = "./mission";
-    // if (option == "el") {
-    //     url += "popular"
-    // } else if (option == "yml") {
-    //     url += "maylike"
-    // } else if (option == "af") {
-    //     url += "done"
-    // } else {
-    //     console.log("Error in fetch_quest_brief_info(): invalid option");
-    // }
-    // $.post(
-    //     url,
-    //     (data) => {
-    //         jsonstr = data;
-    //     }
-    // )
-
-    return jsonobj;
+    let url = "./mission/";
+    if (option == "el") {
+        url += "popular"
+    } else if (option == "yml") {
+        url += "maylike"
+    } else if (option == "af") {
+        url += "done"
+    } else {
+        console.log("Error in fetch_quest_brief_info(): invalid option");
+    }
+    $.post(
+        url,
+        callback
+    )
 }
-
-// Fetch with server comms
-// function fetch_quest_brief_info(option = "option") {
-//     let jsonstr, url = "./mission";
-//     if (option == "el") {
-//         url += "popular"
-//     } else if (option == "yml") {
-//         url += "maylike"
-//     } else if (option == "af") {
-//         url += "done"
-//     } else {
-//         console.log("Error in fetch_quest_brief_info(): invalid option");
-//     }
-
-//     $.post(
-//         url,
-//         (data) => {
-//             jsonstr = data;
-//         }
-//     ).done(() => {
-//         console.log("option: ${option} data fetch successfully")
-//     }).fail(() => {
-//         console.log("option: ${option} data fetch failed")
-//     });
-//     return JSON.parse(jsonstr);
-// }
 
 function fetch_quest_info(id_str) {
     console.log(`Quest if string = \"${id_str}\"`)
@@ -123,45 +49,51 @@ function fetch_quest_main_page(id) {
     ];
     let option = ["el", "yml", "af"];
     for (let i = 0; i < 3; ++i) {
-        // Create flex container
-        let container = document.createElement("div")
-        container.classList.add("horizontal-scroll-container");
-
         // Fetch adn build list
-        let jsonobj = fetch_quest_brief_info(option[i], id);
-        jsonobj.quest.forEach(qinfo => {
-            // Create nodes
-            let qblock = document.createElement("div");
-            qblock.classList.add("quest-block");
-            let type = document.createElement("div");
-            type.classList.add("type");
-            let title = document.createElement("div");
-            title.classList.add("title");
-            let button = document.createElement("div");
-            button.classList.add("accept-button");
-            button.classList.add("goto-quest-detail");
+        fetch_quest_brief_info(option[i], function(jsonobj) {
+            console.log(jsonobj);
 
-            // Emit text
-            let type_span = document.createElement("span");
-            let title_span = document.createElement("span");
-            let button_span = document.createElement("span");
+            // Create flex container
+            let container = document.createElement("div")
+            container.classList.add("horizontal-scroll-container");
 
-            type_span.textContent = qinfo.type;
-            title_span.textContent = qinfo.title;
-            button_span.textContent = "挑戰";
-            button_span.setAttribute("id", "quest-" + qinfo.id);
+            // Deal with each quest's info
+            jsonobj.forEach(qinfo => {
+                console.log(qinfo);
 
-            // Append nodes
-            type.appendChild(type_span)
-            qblock.appendChild(type);
-            title.appendChild(title_span);
-            qblock.appendChild(title);
-            button.appendChild(button_span);
-            qblock.appendChild(button);
-            container.appendChild(qblock);
+                // Create nodes
+                let qblock = document.createElement("div");
+                qblock.classList.add("quest-block");
+                let type = document.createElement("div");
+                type.classList.add("type");
+                let title = document.createElement("div");
+                title.classList.add("title");
+                let button = document.createElement("div");
+                button.classList.add("accept-button");
+                button.classList.add("goto-quest-detail");
+
+                // Emit text
+                let type_span = document.createElement("span");
+                let title_span = document.createElement("span");
+                let button_span = document.createElement("span");
+
+                type_span.textContent = qinfo.category;
+                title_span.textContent = qinfo.name;
+                button_span.textContent = "挑戰";
+                button_span.setAttribute("id", "quest-" + qinfo.id);
+
+                // Append nodes
+                type.appendChild(type_span)
+                qblock.appendChild(type);
+                title.appendChild(title_span);
+                qblock.appendChild(title);
+                button.appendChild(button_span);
+                qblock.appendChild(button);
+                container.appendChild(qblock);
+            });
+
+            parents[i].appendChild(container);
         });
-
-        parents[i].appendChild(container);
     }
 }
 
