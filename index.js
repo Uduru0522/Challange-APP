@@ -45,7 +45,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/html/login', (req, res) => {
-    console.log(req.body.account)
     if (req.body.account != "" && req.body.password != ""){
         db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
             if(row == undefined){
