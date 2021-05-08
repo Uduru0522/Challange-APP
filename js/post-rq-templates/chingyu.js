@@ -566,19 +566,19 @@ $(document).ready(function() {
     });
     $('#group-choose-mission button[type="submit"]').click((event) => {
         event.preventDefault();
-        let name = $('#group-choose-mission input[name=missiontosearch]').val();
+        let name = $('#group-choose-mission input[id=missiontosearch]').val();
         findmission(name);
     });
     $('#group-choose-friend button[type="submit"]').click((event) => {
         event.preventDefault();
-        let name = $('#group-choose-friend input[name=friendtosearch]').val();
+        let name = $('#group-choose-friend input[id=friendtosearch]').val();
         findfriend(name);
     });
 
 
     //friend page
     for (let i = 0; i < friend_magnitude; i++) {
-        $('#friend-num' + i).click(function() { //go into chatroom by friend page
+        $("#friend-num" + i).click(function() { //go into chatroom by friend page
             console.log("friendroom");
             $("#room-main").removeClass("hidden").addClass("show");
             /*$.post('./singlefriend', {//****************************************************************
@@ -606,7 +606,6 @@ $(document).ready(function() {
                 });
 
         });
-
     }
     $('#ID-choose-friend button[type="submit"]').click((event) => {
 
