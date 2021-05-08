@@ -33,6 +33,43 @@ app.listen(port, () => {
 
 app.use(express.static(`${__dirname}`));
 
+<<<<<<< HEAD
+app.get('/', (req, res) => {
+    db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
+        if(row == undefined){
+            res.redirect('./html/login.html');
+        }
+        else{
+            res.redirect('./html/index.html');
+        }
+    })
+});
+
+app.post('/html/login', (req, res) => {
+    console.log(req.body.account)
+    if (req.body.account != "" && req.body.password != ""){
+        db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
+            if(row == undefined){
+                res.send("帳號不存在！");
+            }
+            else if(row.password == req.body.password){
+                db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
+                    req.session.uid = row.id;
+                    res.send("jump");
+                })
+            }
+            else{
+                res.send("密碼錯誤！");
+            }
+        })
+    }
+    else{
+        res.send("帳號或密碼不能空白！");
+    }
+});
+
+// app.post('/html/register', (req, res) => {
+=======
 // app.get('/', (req, res) => {
 //     db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
 //         if(row == undefined){
@@ -68,6 +105,7 @@ app.use(express.static(`${__dirname}`));
 // });
 
 // app.post('/register', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
 //     if (req.body.account != "" && req.body.password != ""){
 //         db.get("SELECT account FROM users WHERE account = ?", [req.body.account], function(err, row) {
 //             if(row == undefined){
@@ -98,7 +136,11 @@ app.use(express.static(`${__dirname}`));
 //     }
 // });
 
+<<<<<<< HEAD
+app.post('/html/mission/all_mission', (req, res) => {
+=======
 app.post('/mission/all_mission', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -114,7 +156,11 @@ app.post('/mission/all_mission', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/maylike', (req, res) => {
+=======
 app.post('/mission/maylike', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -131,7 +177,11 @@ app.post('/mission/maylike', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/popular', (req, res) => {
+=======
 app.post('/mission/popular', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -144,10 +194,18 @@ app.post('/mission/popular', (req, res) => {
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
         res.send(data);
+<<<<<<< HEAD
+        
+    });
+});
+
+app.post('/html/mission/doing', (req, res) => {
+=======
     });
 });
 
 app.post('/mission/doing', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -164,7 +222,11 @@ app.post('/mission/doing', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/done', (req, res) => {
+=======
 app.post('/mission/done', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -177,11 +239,19 @@ app.post('/mission/done', (req, res) => {
 
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
         res.send(data);
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/accept', (req, res) => {
+=======
 app.post('/mission/accept', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -189,7 +259,11 @@ app.post('/mission/accept', (req, res) => {
         args: [
             5,
             req.session.uid,
+<<<<<<< HEAD
+            req.body.qid
+=======
             req.body.missionId
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
         ],
     };
 
@@ -198,7 +272,11 @@ app.post('/mission/accept', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/giveup', (req, res) => {
+=======
 app.post('/mission/giveup', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -206,7 +284,11 @@ app.post('/mission/giveup', (req, res) => {
         args: [
             6,
             req.session.uid,
+<<<<<<< HEAD
+            req.body.qid
+=======
             req.body.missionId
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
         ],
     };
 
@@ -215,7 +297,11 @@ app.post('/mission/giveup', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/report_single', (req, res) => {
+=======
 app.post('/mission/submit', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -223,8 +309,13 @@ app.post('/mission/submit', (req, res) => {
         args: [
             7,
             req.session.uid,
+<<<<<<< HEAD
+            req.body.qid,
+            req.body.imagedata
+=======
             req.body.missionId,
             req.body.image
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
         ],
     };
 
@@ -233,7 +324,45 @@ app.post('/mission/submit', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/mission/detail', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            8,
+            req.body.qid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/mission/samequest', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            9,
+            req.body.qid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/newgroup', (req, res) => {
+=======
 app.post('/newgroup', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -251,7 +380,11 @@ app.post('/newgroup', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/sendmessage_friend', (req, res) => {
+=======
 app.post('/sendmessage_friend', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -270,7 +403,11 @@ app.post('/sendmessage_friend', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/sendmessage_mission', (req, res) => {
+=======
 app.post('/sendmessage_mission', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -289,7 +426,11 @@ app.post('/sendmessage_mission', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/chatrecord', (req, res) => {
+=======
 app.post('/chatrecord', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -306,7 +447,11 @@ app.post('/chatrecord', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/friendrecord', (req, res) => {
+=======
 app.post('/friendrecord', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -323,7 +468,11 @@ app.post('/friendrecord', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/addfriend', (req, res) => {
+=======
 app.post('/addfriend', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -340,7 +489,11 @@ app.post('/addfriend', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/deletefriend', (req, res) => {
+=======
 app.post('/deletefriend', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -357,7 +510,11 @@ app.post('/deletefriend', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/chatroom_friend', (req, res) => {
+=======
 app.post('/chatroom_friend', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -375,7 +532,11 @@ app.post('/chatroom_friend', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/chatroom_mission', (req, res) => {
+=======
 app.post('/chatroom_mission', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -393,7 +554,11 @@ app.post('/chatroom_mission', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/singlefriend', (req, res) => {
+=======
 app.post('/singlefriend', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -410,19 +575,31 @@ app.post('/singlefriend', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+app.post('/html/findperson', (req, res) => {
+=======
 app.post('/findperson', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     person.getInfo(req.body.person_ID, db).then(data => {
         res.send(data);
     })
 });
 
+<<<<<<< HEAD
+app.post('/html/mypage-record', (req, res) => {
+=======
 app.post('/mypage-record', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
     person.getInfo(req.session.uid, db).then(data => {
         res.send(data);
     })
 });
 
+<<<<<<< HEAD
+// app.post('/html/edit', (req, res) => {
+=======
 // app.post('/edit', (req, res) => {
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
 //     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
 //         res.send(data);
 //     })
@@ -431,4 +608,8 @@ app.post('/mypage-record', (req, res) => {
 // app.post('/logout', (req, res) => {
 //     req.session.destroy();
 //     res.redirect('login.html');
+<<<<<<< HEAD
 // });
+=======
+// });
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
