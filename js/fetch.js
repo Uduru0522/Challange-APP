@@ -3,11 +3,13 @@ function fetch_quest_brief_info(option, callback) {
     // POST request: get pre-filtered quest brief
     let url = "./mission/";
     if (option == "el") {
-        url += "popular"
+        url += "popular";
     } else if (option == "yml") {
-        url += "maylike"
+        url += "maylike";
     } else if (option == "af") {
-        url += "done"
+        url += "done";
+    } else if (option == "all") {
+        url += "all_mission";
     } else {
         console.log("Error in fetch_quest_brief_info(): invalid option");
     }
@@ -17,23 +19,21 @@ function fetch_quest_brief_info(option, callback) {
     )
 }
 
-function fetch_quest_info(id_str) {
+function fetch_quest_info(id_str, callback) {
     console.log(`Quest if string = \"${id_str}\"`)
-    let qid = parseInt(id_str.match(/\d/g));
+    let qid = parseInt(id_str.replace(/quest-/, ""));
+    console.log(qid);
     console.log("Fetching quest info of qid=" + qid);
 
     // POST request: Get quest full info
     let qinfo_text = "這象徵著生命是一條康莊大道，它是老天爺設計好的直線，即便中間可能遇到不少阻礙，但，生命始終為你敞開，不只是生活的過程，而是通往夢想的道路！同時，在你經過康莊大道的路途上，你也許會看到它逐漸彎曲，但，它始終會再拐回正道！";
     let qinfo_req = "這廢話充斥的年代(？)，總是要上網發發廢文，上台講講廢話，這個世界才會更美好(？？)。一本通通都是廢話並搭配精美圖片的書籍非常具有療癒能力，像是：「路，就是一條直直的，但也可以是彎彎的。";
-    /*
-        $.post("mission/detail",
-        {
+
+    $.post("mission/detail", {
             qid: qid
         },
-        function(data){
-            console.log("Successful");
-        });
-    */
+        callback
+    );
 
     return {
         text: qinfo_text,
@@ -80,7 +80,7 @@ function fetch_quest_main_page(id) {
                 type_span.textContent = qinfo.category;
                 title_span.textContent = qinfo.name;
                 button_span.textContent = "挑戰";
-                button_span.setAttribute("id", "quest-" + qinfo.id);
+                button_span.setAttribute("id", "quest-" + qinfo.ID);
 
                 // Append nodes
                 type.appendChild(type_span)
@@ -104,6 +104,7 @@ function fetch_quest_list_page(q_list) {
     }
 
     q_list.forEach(qinfo => {
+        console.log(qinfo);
         let qblock = document.createElement("div");
         qblock.classList.add("qblock");
 
@@ -128,20 +129,20 @@ function fetch_quest_list_page(q_list) {
 
         // Text spans
         let type_span = document.createElement("span");
-        type_span.textContent = qinfo.type;
+        type_span.textContent = qinfo.category;
         type.appendChild(type_span);
 
         let title_span = document.createElement("span");
-        title_span.textContent = qinfo.title;
+        title_span.textContent = qinfo.name;
         title.appendChild(title_span);
 
         let more_span = document.createElement("span");
-        more_span.setAttribute("id", "quest-" + qinfo.id);
+        more_span.setAttribute("id", "quest-" + qinfo.ID);
         more_span.textContent = "更多內容"
         more.appendChild(more_span);
 
         let points_span = document.createElement("span");
-        points_span.textContent = qinfo.pt
+        points_span.textContent = qinfo.points
         points.appendChild(points_span);
 
         let state_span = document.createElement("span");

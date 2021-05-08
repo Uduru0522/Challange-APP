@@ -68,9 +68,11 @@ $(document).ready(() => {
     let origin_page = "#mainpage" // Back to mainpage if unset
     $(document).on("click", ".goto-quest-detail", function(e) {
         // Fetch quest information
-        let qinfo = fetch_quest_info($(this).children(":first").attr("id"));
-        $("#quest-intro-body").html(qinfo.text);
-        $("#quest-require-body").html(qinfo.req);
+        fetch_quest_info($(this).children(":first").attr("id"), function(qinfo) {
+            console.log(qinfo);
+            $("#quest-intro-body").html(qinfo[0].description);
+            $("#quest-require-body").html(qinfo[0].req);
+        });
 
         // Build page
         console.log("Clicked quest detail");
@@ -102,35 +104,38 @@ $(document).ready(() => {
 
     // Apply filter
     const quest_filter_options = [
-        "", "學業", "美食", "旅遊", "某些", "分門", "別類", "單人", "多人"
+        "", "社交", "食物", "運動", "某些", "分門", "別類", "單人", "多人"
     ];
     let filter_selected = [0];
     $(document).on("click", "#filter-confirm", function(e) {
-        // Fetch all quest
-        let q_list = fetch_quest_brief_info("all");
         let selected = new Set();
         let filtered_list = [];
 
-        if (filter_selected.length > 1) {
-            for (let i = 0; i < q_list.quest.length; ++i) {
-                for (let opt = 1; opt < quest_filter_options.length; opt++) {
-                    if (filter_selected.indexOf(opt) != -1) {
-                        console.log(q_list.quest[i].type + " | " + quest_filter_options[opt]);
-                        if (q_list.quest[i].type == quest_filter_options[opt] ||
-                            q_list.quest[i].pcount == quest_filter_options[opt]) {
-                            selected.add(i);
+        // Fetch all quest
+        fetch_quest_brief_info("all", function(data) {
+            console.log(data);
+
+            if (filter_selected.length > 1) {
+                for (let i = 0; i < data.length; ++i) {
+                    for (let opt = 1; opt < quest_filter_options.length; opt++) {
+                        if (filter_selected.indexOf(opt) != -1) {
+                            console.log(data[i].category + " | " + quest_filter_options[opt]);
+                            if (data[i].category == quest_filter_options[opt] ||
+                                data[i].pcount == quest_filter_options[opt]) {
+                                selected.add(i);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        console.log(selected);
-        for (const index of selected) {
-            filtered_list.push(q_list.quest[index]);
-        }
-        console.log(filtered_list);
-        fetch_quest_list_page(filtered_list);
+            console.log(selected);
+            for (const index of selected) {
+                filtered_list.push(data[index]);
+            }
+            console.log(filtered_list);
+            fetch_quest_list_page(filtered_list);
+        });
 
         hide_all_page();
         $("#quest-filtered").removeClass("hidden").addClass("show");
@@ -169,7 +174,10 @@ $(document).ready(() => {
 
     // Show more 
     $(document).on("click", ".showmore", function() {
-        fetch_quest_list_page(fetch_quest_brief_info($(this).attr("id"), 0).quest);
+        fetch_quest_brief_info($(this).attr("id"), function(response) {
+            fetch_quest_list_page(response);
+        });
+        // fetch_quest_list_page(fetch_quest_brief_info($(this).attr("id"), 0).quest);
         hide_all_page();
         $("#quest-filtered").removeClass("hidden").addClass("show");
     })
