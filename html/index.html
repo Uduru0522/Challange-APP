@@ -129,7 +129,7 @@
         </div>
         <div id="chat-choose-missions" class="create-chat-menu hidden">
             <h2>選擇任務</h2>
-            <form name="group-choose-mission" id="group-choose-mission">
+            <form name="group-choose-mission" id="group-choose-mission" onsubmit="return false">
                 <input type="text" name="missiontosearch" id="missiontosearch">
                 <button type="submit" class="search-mission">
             <img src="../resources/nav/search.png"/>
@@ -141,7 +141,7 @@
 
         <input type='radio' name='choose_mission' id='C_M'>
         <label for='C_M'> 
-        <div class="button-sure hidden"onclick="choose_mission()">
+        <div class="button-sure hidden">
           <h3>確定</h3>
         </div>
       </label>
@@ -160,7 +160,7 @@
 
         <input type='checkbox' name='choose_friend' id='C_F'>
         <label for='C_F'> 
-      <div class="button-creategroup hidden"onclick="choose_friend()">
+      <div class="button-creategroup hidden">
         <h3>建立群組</h3>
       </div>
       </label>
@@ -207,7 +207,7 @@
         <div id="chat-input-area">
 
             <form name="input-message" id="input-message">
-                <input type="text" name="messagetosend" id="messagetosend" >
+                <input type="text" name="messagetosend" id="messagetosend" onsubmit="return false">
             </form>
         </div>
 

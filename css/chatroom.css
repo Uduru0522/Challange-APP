@@ -1,6 +1,225 @@
 #chat-main {
+<<<<<<< HEAD
   background-color: #FFFFFF;
   overflow:hidden;
+=======
+  background-color: ##FFFFFF;
+  overflow:hidden;
+}
+.chat-title{
+  background:white;
+  width:100vw;
+  height:10vh;
+  margin:0;
+  padding:0;
+  position:fixed;
+  top:0;
+  border-top:solid;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1;
+}
+
+#create-chat-button{
+  background:none;
+  width:100vw;
+  height:5vh;
+  position:fixed;
+  top:10vh;
+  border-top:solid;
+  border-bottom:solid;
+  border-top-width:medium;
+  border-bottom-width:thin;
+  margin:0;
+  padding:0;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  z-index:1;
+}
+#create-chat-button h3{
+  margin:0 3%;
+}
+#create-chat-button img{
+  max-height:60%;
+  margin:0 4%;
+}
+#chat-record{
+  position:fixed;
+  top:15vh;
+  width:100vw;
+  height:75vh;
+  overflow:scroll;
+  z-index:1;
+}
+.chat-room{
+  width:100vw;
+  height:15vh;
+  border-bottom:solid;
+  border-bottom-width:thin;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  float:left;
+  
+}
+#chat-header{
+margin:0 3vw 0 3vw;
+height:60%;
+float:left;
+}
+.chat-cover{
+  background-color:gray;
+  position:fixed;
+  top:0;
+  width:100vw;
+  height:90vh;
+  margin:0;
+  padding:0;
+  opacity:0.5;
+  z-index:2;
+  overflow:none;
+}
+hidden{
+  display:none;
+}
+show{
+  display:none;
+}
+.create-chat-menu{
+  background:white;
+  border-radius:20px;
+  position:fixed;
+  top:20vh;
+  left:10vw;
+  width:80vw;
+  height:55vh;
+  border-style:solid;
+  text-align:center;
+  overflow:scroll;
+  z-index:3;
+  padding:0;
+}
+
+#chat-choose-friend{
+  
+}
+.choosed-friend{
+  width:34vw;
+  height:40vw;
+  border-style:solid;
+  border-radius:10px;
+  margin:2vw 1vw 2vw 3vw;
+  text-align:center;
+  float:left;
+}
+.choosed-friend img{
+  max-height:50%;
+  margin:10%;
+}
+.choosed-friend:focus{
+  border-color:green;
+}
+#chat-choose-friends h3{
+  margin:0%
+}
+
+#chat-choose-missions{
+  text-align:center;
+}
+.search-friend{
+  background-color:transparent;
+  border-width:0px;
+	outline:none;
+}
+.search-mission{
+  background-color:transparent;
+  border-width:0px;
+	outline:none;
+}
+.search-friend img{
+  max-height:2vh;
+  margin:0vw;
+}
+.search-mission img{
+  max-height:2vh;
+  margin:0vw;
+}
+
+.choosed-mission{
+  width:72vw;
+  height:17vw;
+  border-style:solid;
+  border-radius:8px;
+  margin:4vw;
+}
+[type="radio"]{
+  display:none;
+} 
+.chosen{
+  border-color:green;
+}
+.unchosen{
+  border-color:black;
+}  
+[type="checkbox"]{
+  display:none;
+} 
+
+
+
+.button-sure{
+  position:absolute;
+  top:80vh;
+  left:29vw;
+  background:green;
+  color:white;
+  width:42vw;
+  height:10vw;
+  text-align:center;
+  margin:0;
+  border-style:none;
+  border-radius:4px;
+  z-index:3;
+  overflow:hidden;
+}
+.button-sure h3{
+  margin:0%;
+  line-height:10vw;
+}
+.button-creategroup{
+  position:absolute;
+  top:80vh;
+  left:29vw;
+  background:green;
+  color:white;
+  width:42vw;
+  height:10vw;
+  text-align:center;
+  margin:0;
+  border-style:none;
+  border-radius:4px;
+  z-index:3;
+  overflow:hidden;
+}
+.button-creategroup h3{
+  margin:0%;
+  line-height:10vw;
+}
+.choosed-friend-header{
+}
+
+[type="text"]{
+  margin:0 0 0 5vw;
+  float:left;
+}
+#chat-create-room{
+  
+}
+.gone{
+   display:none;	
+>>>>>>> 68ecd5ba83b0fb480778d576458846777172396c
 }
 .chat-title{
   background:white;

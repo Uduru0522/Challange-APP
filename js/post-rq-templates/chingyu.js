@@ -84,7 +84,7 @@ function appendrooms(){//show rooms in chatroom page
 }
 function appendmissions(){//show missions in group create
     let missions;
-    document.getElementById("chat-choose-missions").innerHTML="";
+    document.getElementById("chat-choose-missions").innerHTML="<h2>選擇任務</h2><form name='group-choose-mission' id='group-choose-mission'><input type='text' name='missiontosearch' id='missiontosearch'><button type='submit' class='search-mission'><img src='../resources/nav/search.png'/></button></form>";
     for(let i=0;i<mission_magnitude;i++){
         //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
         missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>mission_list[i].name</h3></div></label>";
@@ -262,10 +262,11 @@ $("#create-chat-button").click(function(){
         mission_magnitude=data.length;
         mission_list=data;
         appendmissions();
+        $("#chat-choose-missions").removeClass("hidden").addClass("show");
+    $(".chat-cover").removeClass("hidden").addClass("show");
+    
     });
     console.log("create chat");
-    $("#chat-choose-missions").removeClass("hidden").addClass("show");
-    $(".chat-cover").removeClass("hidden").addClass("show");
     
 });
 $(".button-sure").click(function(){
@@ -564,7 +565,7 @@ $("#chat-room-num"+i).click(function (){//go into a chatroom by chatroom record
        $(".chat-cover").removeClass("show").addClass("hidden");
 	newgroup();
     });
-    $('#group-choose-mission button[type="submit"]').click((event) => {
+    $('#group-choose-mission button[name="search-mission"]').click((event) => {
         event.preventDefault();
         let name=$('#group-choose-mission input[name=missiontosearch]').val();
         findmission(name);
