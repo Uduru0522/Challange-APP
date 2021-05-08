@@ -270,10 +270,11 @@ $("#create-chat-button").click(function() {
             mission_magnitude = data.length;
             mission_list = data;
             appendmissions();
+            $("#chat-choose-missions").removeClass("hidden").addClass("show");
+            $(".chat-cover").removeClass("hidden").addClass("show");
+
         });
     console.log("create chat");
-    $("#chat-choose-missions").removeClass("hidden").addClass("show");
-    $(".chat-cover").removeClass("hidden").addClass("show");
 
 });
 $(".button-sure").click(function() {
@@ -310,8 +311,9 @@ function appendfriendsformenu() {
         $("#friend-record").append(friend)
     }
 }
-//friend page
-$("#nav-friend").click(function() {
+
+function refreshfriend() {
+    console.log("haha");
     $.post('./friendrecord',
         function(friends) {
             //friends.friend[0] // 0可以換成其他數字，目前只會回傳id
@@ -329,7 +331,7 @@ $("#nav-friend").click(function() {
                             //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
 
                             friend_list.push(data);
-                            console.log(friend_list[i].name);
+                            console.log(friend_list[i - 1].name);
                             if (i == friend_list_ID.length - 1) {
                                 appendfriendsformenu();
                             }
@@ -339,8 +341,15 @@ $("#nav-friend").click(function() {
 
             }
         });
+}
+//friend page
+$("#nav-friend").click(function() {
+    refreshfriend();
 });
-
+/*$(".friend").on('swiperight', function(event) {
+     event.preventDefault();
+     $(".deletebutton").removeClass("gone");
+});*/
 function findperson() { //find a unknown person with ID
     console.log(ID);
     document.getElementById("addfriend_pic").src = "";
@@ -354,8 +363,11 @@ function findperson() { //find a unknown person with ID
             if (data) {
                 document.getElementById("addfriend_pic").src = data.image;
                 document.getElementById("addfriend_name").innerHTML = data.name;
+                $("#button_cantfind").removeClass("show").addClass("hidden");
+                $("#button_add").removeClass("hidden").addClass("show");
             } else {
-                document.getElementById("button_add").innerHTML = "找不到";
+                $("#button_add").removeClass("show").addClass("hidden");
+                $("#button_cantfind").removeClass("hidden").addClass("show");
             }
         });
     $("#addfriend").removeClass("hidden").addClass("show");
@@ -370,9 +382,11 @@ function addfriend() { //add friend
         },
         function(data) {
             console.log(data);
-            data == "Success" //return data==true
-                //refresh friend-record
+            //data == "Success" //return data==true
+            //refresh friend-record
+            refreshfriend();
         });
+
 }
 
 function deletefriend() { //delete friend
@@ -380,8 +394,10 @@ function deletefriend() { //delete friend
             person_ID: ID //他人ID
         },
         function(data) {
-            data == "Success" //return data==true
-                //refresh friend-record
+            console.log(ID);
+            //data == "Success" //return data==true
+            //refresh friend-record
+            refreshfriend();
         });
 }
 
@@ -476,6 +492,9 @@ function handle_message() {
     $('#chat-content').scrollTop(9999999)
 }
 
+$('.friend').click(function() {
+    console.log("what");
+});
 //functions which is click
 $(document).ready(function() {
 
@@ -483,46 +502,51 @@ $(document).ready(function() {
         $("#chat-choose-missions").removeClass("show").addClass("hidden");
         $(".chat-cover").removeClass("show").addClass("hidden");
     });
-    for (let i = 0; i < room_magnitude; i++) {
-        $("#chat-room-num" + i).click(function() { //go into a chatroom by chatroom record
-            $("#room-main").removeClass("hidden").addClass("show");
-            document.getElementById("chat-room-name").innerHTML = rooms_data[i].group_name;
-            roomstyle = "group";
-            roomID = rooms_data[i].name;
-            if (rooms_data[i])
-                $.post('./chatroom_mission', { //****************************************************************
-                        chatroom_name: rooms_data[i].group_name
-                    },
-                    function(data) {
-                        //from recent to past
-                        //need who send the message(message.ID.name.header)
-                        //data[1].name // 1可以換成2,3,4....
-                        //data[1].msg
-                        //data[1].time
-                        //data[1].image
-                        message = data;
-                        handle_message();
-                    });
-            console.log("create room");
-            $("#chat-main").removeClass("show").addClass("hidden");
-            $("#room-main").removeClass("hidden").addClass("show");
+
+    $(document).on("click", '.chat-room', function() {
+
+        let i = $(".chat-room").index(this);
+        $("#room-main").removeClass("hidden").addClass("show");
+        document.getElementById("chat-room-name").innerHTML = rooms_data[i].group_name;
+        roomstyle = "group";
+        roomID = rooms_data[i].name;
+        if (rooms_data[i])
+            $.post('./chatroom_mission', { //****************************************************************
+                    chatroom_name: rooms_data[i].group_name
+                },
+                function(data) {
+                    //from recent to past
+                    //need who send the message(message.ID.name.header)
+                    //data[1].name // 1可以換成2,3,4....
+                    //data[1].msg
+                    //data[1].time
+                    //data[1].image
+                    message = data;
+                    handle_message();
+                });
+        console.log("create room");
+        $("#chat-main").removeClass("show").addClass("hidden");
+        $("#room-main").removeClass("hidden").addClass("show");
 
 
-        });
-    }
+    });
 
-    for (let i = 0; i < mission_magnitude; i++) { //to be green
-        $("#choosed-mission" + i).click(function() {
-            $(".button-sure").removeClass("hidden").addClass("show");
-            console.log("mission" + i);
-            for (let j = 0; j < mission_magnitude; j++) {
-                $("#choosed-mission" + j).removeClass("chosen").addClass("unchosen");
 
-            }
-            $("#choosed-mission" + i).removeClass("unchosen").addClass("chosen");
-            choose_mission();
-        });
-    }
+
+    // for(let i=0;i<mission_magnitude;i++){//to be green
+    $(document).on("click", '.choosed-mission', function() {
+        let i = $(".choosed-mission").index(this);
+
+        $(".button-sure").removeClass("hidden").addClass("show");
+        console.log("mission" + i);
+        for (let j = 0; j < mission_magnitude; j++) {
+            $("#choosed-mission" + j).removeClass("chosen").addClass("unchosen");
+
+        }
+        $("#choosed-mission" + i).removeClass("unchosen").addClass("chosen");
+        choose_mission();
+    });
+    // }    
     $(".button-sure").click(function() {
         $("#chat-choose-missions").removeClass("show").addClass("hidden");
         $("#chat-choose-friends").removeClass("hidden").addClass("show");
@@ -584,13 +608,13 @@ $(document).ready(function() {
         let i = $(".friend").index(this);
         console.log("friendroom" + i);
         $("#room-main").removeClass("hidden").addClass("show");
-        /*$.post('./singlefriend', {//****************************************************************
-             friend_list_ID[i];
-         } ,
-         function(data){//get the chatroom_ID of you and the friend
-             //chatroom_ID=ID
-             data == "Success"
-         });*/
+        $.post('./singlefriend', { //****************************************************************
+                friend_ID: friend_list_ID[i]
+            },
+            function(data) { //get the chatroom_ID of you and the friend
+                //chatroom_ID=ID
+                data == "Success"
+            });
         document.getElementById("chat-room-name").innerHTML = friend_list[i].name; //??
         roomstyle = "friend";
         roomID = friend_list[i].name;
@@ -621,15 +645,24 @@ $(document).ready(function() {
     $('#button_add').click((event) => {
         $("#addfriend").removeClass("show").addClass("hidden");
         $(".friend-cover").removeClass("show").addClass("hidden");
+        $("#button_add").removeClass("show").addClass("hidden");
         addfriend();
     });
-    for (let i = 0; i < friend_magnitude; i++) {
-        $('#delete-num' + i).click((event) => {
-            console.log("delete");
-            ID = friend_list[i].friend_ID;
-            deletefriend();
-        });
-    }
+    $('#button_cantfind').click((event) => {
+        $("#addfriend").removeClass("show").addClass("hidden");
+        $(".friend-cover").removeClass("show").addClass("hidden");
+        $("#button_cantfind").removeClass("show").addClass("hidden");
+    });
+    //for(let i=0;i<friend_magnitude;i++){
+    $(document).on("click", '.deletebutton', function() {
+
+        let i = $(".deletebutton").index(this);
+        console.log("delete " + i);
+        ID = friend_list_ID[i];
+        deletefriend();
+    });
+
+    //}
     $('.friend-cover').click((event) => {
         $(".friend-cover").removeClass("show").addClass("hidden");
         $(".addfriend").removeClass("show").addClass("hidden");
@@ -642,10 +675,10 @@ $(document).ready(function() {
 
             let talk = $('#input-message input[name=messagetosend]').val();
             console.log(talk);
-            if (roomstyle = "friend") {
+            if (roomstyle == "friend") {
                 sendmessage_friend(talk);
             }
-            if (roomstyle = "chatroom") {
+            if (roomstyle == "chatroom") {
                 sendmessage_mission(talk);
             }
             return false;
