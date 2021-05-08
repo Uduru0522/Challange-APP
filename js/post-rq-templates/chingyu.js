@@ -246,19 +246,20 @@ $(".button-sure").click(function(){
     function(friends){
         //friends.friend[0]; // 0可以換成其他數字，目前只會回傳id
         friend_magnitde=friends.friend.length;
-        friend_list_ID=friends.friend;             
+        friend_list_ID=friends.friend;            
+        for(let i=0;i<friend_magnitde;i++){
+            $.post('./findperson', 
+                friends.friend[0]
+            ,
+            function(data){
+                //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
+            friend_list=[];	
+                    friend_list.push(data);
+            appendfriends();
+            });
+        } 
     });
-    for(let i=0;i<friend_list_ID;i++){
-        $.post('./findperson', {
-            person_ID
-        } ,
-        function(data){
-            //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
-		friend_list=[];	
-            	friend_list.push(data);
-		appendfriends();
-        });
-    }
+    
     
 });
 
@@ -275,23 +276,26 @@ $("#nav-friend").click(function(){
      $.post('./friendrecord', 
     function(friends){
         //friends.friend[0] // 0可以換成其他數字，目前只會回傳id
-	friend_magnitde=friends.friend.length;
+	friend_magnitUde=friends.friend.length;
 	friend_list_ID=friends.friend;	
-    });
-	if(friend_list_ID){
-for(let i=0;i<friend_list_ID.length;i++){
-        $.post('./findperson', {
-            person_ID
-        } ,
-        function(data){
-            //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
-		friend_list=[];
-            	friend_list.push(data);
-        });
+    if(friend_list_ID){
+        for(let i=0;i<friend_list_ID.length;i++){
+            $.post('./findperson', {
+                person_ID: friend_list_ID[i]
+            },
+            function(data){
+                //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
+            friend_list=[];
+                    friend_list.push(data);
+            });
+        }
+        appendfriendsformenu();
     }
-	}
+
+    });
+	
     console.log("friend");
-    appendfriendsformenu();
+   
 });    
 $(".friend").on('swiperight', function(event) {
      event.preventDefault();
