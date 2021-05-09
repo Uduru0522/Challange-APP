@@ -133,7 +133,8 @@ app.post('/html/mission/popular', (req, res) => {
         pythonOptions: ["-u"], // get print results in real-time
         scriptPath: "./python/",
         args: [
-            2
+            2,
+            req.session.uid
         ],
     };
 

@@ -437,9 +437,6 @@
   margin-top: 10px;
   height: 15vh;
 }
-#quest-filtered #quest-list .qblock * {
-  border: red solid 1px;
-}
 #quest-filtered #quest-list .qblock .qblock-type {
   position: relative;
   border-right: black solid 3px;
@@ -493,10 +490,12 @@
   height: 5vh;
   border-radius: 8px;
   border: black solid 3px;
-  background-color: palegreen;
 }
 #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state span {
   font-size: 3vh;
+}
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state.can-accept {
+  background-color: palegreen;
 }
 #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state.already-accept {
   background-color: slategrey;

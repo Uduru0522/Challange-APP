@@ -23,9 +23,10 @@ def allmission(conn, User):
         _json.append(_row_json)
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
-    return output
+    
     conn.commit()
     conn.close()
+    return output
 
 def accept(conn, User, M_ID):#傳入使用者名字和要接的任務
     conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text text)".format(user=User))#建立玩家任務清單
@@ -122,11 +123,29 @@ def player(conn, M_ID):
     return output
 
 def done(conn, User):#做過的任務
-    data = conn.execute("select * from {user} where completed=1;".format(user=User))
-    out = getJSON1(data)
+    rows = conn.execute("select * from {user} where completed=1;".format(user=User))
+    data = conn.execute("select * from {user};".format(user=User))
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Mem = Member.fetchone()[0]
+        _member=Mem.split(",")
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
     conn.commit()
     conn.close()
-    return out
+    return output
 
 def submit(conn, User, M_ID, Pic, Pic_text):#提交任務(已修改)
     conn.execute("UPDATE {user} SET picture='{pic}' where ID = {m_ID};".format(user=User,pic=Pic, m_ID=M_ID))#設為完成
@@ -145,18 +164,54 @@ def submit(conn, User, M_ID, Pic, Pic_text):#提交任務(已修改)
 def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
     recent = conn.execute("select category_no from {user} order by date DESC LIMIT 1;".format(user=User))#最近做過的任務的類別
     like=recent.fetchone()[0]
-    data = conn.execute("select * from mission where category_no = {recommend};".format(recommend=like))
-    out = getJSON1(data)
+    rows = conn.execute("select * from mission where category_no = {recommend};".format(recommend=like))
+    data = conn.execute("select * from {user};".format(user=User))
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Mem = Member.fetchone()[0]
+        _member=Mem.split(",")
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
     conn.commit()
     conn.close()
-    return out
+    return output
 
-def popular(conn):#很多人在做的任務
-    data = conn.execute("select * from mission order by progressing DESC;")#從多人進行中的任務排到少人
-    out = getJSON1(data)
+def popular(conn, User):#很多人在做的任務
+    rows = conn.execute("select * from mission order by progressing DESC;")#從多人進行中的任務排到少人
+    data = conn.execute("select * from {user};".format(user=User))
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Mem = Member.fetchone()[0]
+        _member=Mem.split(",")
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
     conn.commit()
     conn.close()
-    return out
+    return output
 
 
 
@@ -168,7 +223,7 @@ if(sys.argv[1] == '0'):#全部任務
 elif(sys.argv[1] == '1'):#你可能會喜歡的任務
     print(maylike(con, sys.argv[2]))
 elif(sys.argv[1] == '2'):#熱門任務
-    print(popular(con))
+    print(popular(con, sys.argv[2]))
 elif(sys.argv[1] == '3'):#進行中任務
     print(doing(con, sys.argv[2]))
 elif(sys.argv[1] == '4'):#做過的任務
