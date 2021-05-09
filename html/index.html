@@ -111,10 +111,13 @@
         </div>
         <div id="quest-detail-button"><span></span></div>
         <!-- Temp Upload form, will change later-->
-        <input id="quest-submit-img" type="file" name="image/*">
-        <input id="quest-submit-text" type="text">
-        <div id="quest-submit-button"></div>
-        <div class="dummy"></div>
+        <div id="quest-submit-field" class="hidden">
+            <input id="quest-submit-img" type="file" name="image/*">
+            <input id="quest-submit-text" type="text">
+            <div id="quest-submit-button"></div>
+            <img id="preview">
+            <div class="dummy"></div>
+        </div>
     </div>
     <!-- List user already accepted the quest (who's in)-->
     <div class="container transparent-background" id="quest-whosin"></div>

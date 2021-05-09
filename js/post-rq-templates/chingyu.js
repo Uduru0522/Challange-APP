@@ -86,7 +86,7 @@ function appendmissions() { //show missions in group create
     document.getElementById("chat-choose-missions").innerHTML = "";
     for (let i = 0; i < mission_magnitude; i++) {
         //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
-        missions = "<input type='radio' name='choose_mission' id='C_M" + i + "'><label for='C_M" + i + "'><div id='choosed-mission" + i + "'class='choosed-mission unchosen'><h3>mission_list[i].name</h3></div></label>";
+        missions = "<input type='radio' name='choose_mission' id='C_M" + i + "'><label for='C_M" + i + "'><div id='choosed-mission" + i + `'class='choosed-mission unchosen'><h3>${mission_list[i].name}</h3></div></label>`;
 
         $("#chat-choose-missions").append(missions)
     }

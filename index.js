@@ -5,15 +5,15 @@ const sqlite3 = require('sqlite3').verbose()
 const SQLiteStore = require('connect-sqlite3')(session);
 const crypto = require('crypto');
 const person = require('./js/person.js')
-let {PythonShell} = require('python-shell')
+let { PythonShell } = require('python-shell')
 
 const app = express()
 const port = 4114
-var fs = require('fs'); 
+var fs = require('fs');
 var db = new sqlite3.Database("./database/users.db");
 
-app.use(bodyParser.json({limit: "1mb", extended: true}));
-app.use(bodyParser.urlencoded({limit: "1mb", extended: true}));
+app.use(bodyParser.json({ limit: "1mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(session({
     secret: 'secret',
     resave: true,
@@ -23,7 +23,7 @@ app.use(session({
         db: './database/users.db',
     }),
     cookie: {
-        maxAge : 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24,
     },
 }));
 
@@ -35,33 +35,29 @@ app.use(express.static(`${__dirname}`));
 
 app.get('/', (req, res) => {
     db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
-        if(row == undefined){
+        if (row == undefined) {
             res.redirect('./html/login.html');
-        }
-        else{
+        } else {
             res.redirect('./html/index.html');
         }
     })
 });
 
 app.post('/html/login', (req, res) => {
-    if (req.body.account != "" && req.body.password != ""){
+    if (req.body.account != "" && req.body.password != "") {
         db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
-            if(row == undefined){
+            if (row == undefined) {
                 res.send("帳號不存在！");
-            }
-            else if(row.password == req.body.password){
+            } else if (row.password == req.body.password) {
                 db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
                     req.session.uid = row.id;
                     res.send("jump");
                 })
-            }
-            else{
+            } else {
                 res.send("密碼錯誤！");
             }
         })
-    }
-    else{
+    } else {
         res.send("帳號或密碼不能空白！");
     }
 });
@@ -103,7 +99,8 @@ app.post('/html/mission/all_mission', (req, res) => {
         pythonOptions: ["-u"], // get print results in real-time
         scriptPath: "./python/",
         args: [
-            0
+            0,
+            req.session.uid
         ],
     };
 
@@ -143,7 +140,7 @@ app.post('/html/mission/popular', (req, res) => {
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
         res.send(data);
-        
+
     });
 });
 
@@ -224,11 +221,13 @@ app.post('/html/mission/report_single', (req, res) => {
             7,
             req.session.uid,
             req.body.qid,
-            req.body.imagedata
+            req.body.img,
+            req.body.text
         ],
     };
 
     PythonShell.run("mission.py", options, function(err, data) {
+        console.log(data)
         res.send("Success");
     });
 });
@@ -240,6 +239,7 @@ app.post('/html/mission/detail', (req, res) => {
         scriptPath: "./python/",
         args: [
             8,
+            req.session.uid,
             req.body.qid,
         ],
     };

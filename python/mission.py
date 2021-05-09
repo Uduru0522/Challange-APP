@@ -3,15 +3,32 @@ import sys
 import json
 import yaml
 
-def allmission(conn):
-    data = conn.execute("select * from mission;")
-    out = getJSON1(data)
+def allmission(conn, User):
+    rows = conn.execute("select * from mission;")
+    data = conn.execute("select * from {user};".format(user=User))
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Mem = Member.fetchone()[0]
+        _member=Mem.split(",")
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    return output
     conn.commit()
     conn.close()
-    return out
 
 def accept(conn, User, M_ID):#傳入使用者名字和要接的任務
-    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text)".format(user=User))#建立玩家任務清單
+    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text text)".format(user=User))#建立玩家任務清單
     conn.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM mission WHERE ID= {m_ID};".format(user=User, m_ID=M_ID))
     conn.execute("UPDATE mission SET progressing=progressing+1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數加一
 
@@ -41,12 +58,28 @@ def doing(conn, User):#進行中任務
     conn.close()
     return out
 
-def getdetail(conn, M_ID):#給任務詳細資料
-    data = conn.execute("select * from mission WHERE ID = {m_ID};".format(m_ID=M_ID))
-    out = getJSON2(data)
+def getdetail(conn, User, M_ID):#給任務詳細資料
+    rows = conn.execute("select * from mission WHERE ID = {m_ID};".format(m_ID=M_ID))
+    Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
+    Mem = Member.fetchone()[0]
+    _member=Mem.split(",")
+    field_name = [des[0] for des in rows.description]#找到項目名
+    _json=[]
+    for row in rows:
+        _row_json = dict()
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    return output
     conn.commit()
     conn.close()
-    return out
 
 def getJSON1(rows):#轉成json，簡略版
     _json=[]
@@ -95,9 +128,10 @@ def done(conn, User):#做過的任務
     conn.close()
     return out
 
-def submit(conn, User, M_ID, Pic):#提交任務(已修改)
+def submit(conn, User, M_ID, Pic, Pic_text):#提交任務(已修改)
     conn.execute("UPDATE {user} SET picture='{pic}' where ID = {m_ID};".format(user=User,pic=Pic, m_ID=M_ID))#設為完成
     conn.execute("UPDATE {user} SET completed=1 where ID = {m_ID};".format(user=User, m_ID=M_ID))#設為完成
+    conn.execute("UPDATE {user} SET pic_text='{pic_Text}' where ID = {m_ID};".format(user=User, pic_Text=Pic_text, m_ID=M_ID))#設為完成
     conn.execute("UPDATE mission SET progressing=progressing-1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數減一
     Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
     Mem = Member.fetchone()[0]
@@ -130,7 +164,7 @@ def popular(conn):#很多人在做的任務
 sys.stdout.reconfigure(encoding='utf-8')
 con = sqlite3.connect('./database/mission.db')
 if(sys.argv[1] == '0'):#全部任務
-    print(allmission(con))
+    print(allmission(con, sys.argv[2]))
 elif(sys.argv[1] == '1'):#你可能會喜歡的任務
     print(maylike(con, sys.argv[2]))
 elif(sys.argv[1] == '2'):#熱門任務
@@ -144,9 +178,9 @@ elif(sys.argv[1] == '5'):#接取任務
 elif(sys.argv[1] == '6'):#放棄任務
     giveup(con, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '7'):#提交任務
-    submit(con, sys.argv[2], sys.argv[3], sys.argv[4])
+    submit(con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 elif(sys.argv[1] == '8'):#給任務詳細資料
-    print(getdetail(con, sys.argv[2]))
+    print(getdetail(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
     print(player(con, sys.argv[2]))
 

@@ -12,7 +12,8 @@ const pages_selector = [
     "#quest-whosin",
     "#quest-info",
     "#quest-submit",
-    "#chat-create-room"
+    "#chat-create-room",
+    "#quest-submit-field"
 ];
 
 const nav_icons = [
@@ -69,12 +70,23 @@ $(document).ready(() => {
     $(document).on("click", ".goto-quest-detail", function(e) {
         // Fetch quest information
         fetch_quest_info($(this).children(":first").attr("id"), function(qinfo) {
-            console.log(qinfo);
+            console.log(qinfo[0]);
             $("#quest-intro-body").html(qinfo[0].description);
             $("#quest-require-body").html(qinfo[0].req);
             $("#quest-tag").html(qinfo[0].category);
             $("#quest-title-text").html(qinfo[0].name);
             $("#quest-points").html(qinfo[0].points);
+            $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
+
+            if (qinfo[0].progress == 0) {
+                $("#quest-detail-button span").text("挑戰");
+                $("#quest-submit-field").addClass("hidden").removeClass("show");
+            } else if (qinfo[0].progress == 1) {
+                $("#quest-detail-button span").text("已接取");
+                $("#quest-submit-field").addClass("show").removeClass("hidden");
+            } else {
+                console.log("Error: Quest progress not 1 or 0");
+            }
         });
 
         // Build page
@@ -89,6 +101,7 @@ $(document).ready(() => {
     $(document).on("click", ".return-arrow", () => {
         // Jump back to stored page
         $("#quest-detail").removeClass("show").addClass("hidden");
+        $("#quest-submit-field").removeClass("show").addClass("hidden");
         $(origin_page).removeClass("hidden").addClass("show");
     });
 

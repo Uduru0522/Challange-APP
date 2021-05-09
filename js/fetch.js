@@ -26,9 +26,6 @@ function fetch_quest_info(id_str, callback) {
     console.log("Fetching quest info of qid=" + qid);
 
     // POST request: Get quest full info
-    let qinfo_text = "這象徵著生命是一條康莊大道，它是老天爺設計好的直線，即便中間可能遇到不少阻礙，但，生命始終為你敞開，不只是生活的過程，而是通往夢想的道路！同時，在你經過康莊大道的路途上，你也許會看到它逐漸彎曲，但，它始終會再拐回正道！";
-    let qinfo_req = "這廢話充斥的年代(？)，總是要上網發發廢文，上台講講廢話，這個世界才會更美好(？？)。一本通通都是廢話並搭配精美圖片的書籍非常具有療癒能力，像是：「路，就是一條直直的，但也可以是彎彎的。";
-
     $.post("mission/detail", {
             qid: qid
         },
@@ -142,12 +139,14 @@ function fetch_quest_list_page(q_list) {
         points.appendChild(points_span);
 
         let state_span = document.createElement("span");
-        if (qinfo.state == "done" || qinfo.state == "none") {
+        if (qinfo.progress == 0) {
+            state.classList.add("can-accept");
             state_span.textContent = "挑戰";
-        } else if (qinfo.state == "accept") {
+        } else if (qinfo.progress == 1) {
+            state.classList.add("already-accept");
             state_span.textContent = "已接取";
         } else {
-            state_span.textContent = qinfo.state;
+            console.log("Error: Quest progress not 1 or 0");
         }
         state.appendChild(state_span);
 
