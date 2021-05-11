@@ -301,6 +301,7 @@ app.post('/html/sendmessage_friend', (req, res) => {
 
     PythonShell.run("chat.py", options, function(err, data) {
         data = JSON.parse(data)
+        console.log(data);
         res.send(data);
     });
 });
@@ -320,6 +321,7 @@ app.post('/html/sendmessage_mission', (req, res) => {
 
     PythonShell.run("chat.py", options, function(err, data) {
         data = JSON.parse(data)
+        console.log(data);
         res.send(data);
     });
 });
