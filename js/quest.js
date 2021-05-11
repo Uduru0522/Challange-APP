@@ -25,7 +25,7 @@ $(document).ready(() => {
     // Accept quest in detail page
     $(document).on("click", "#quest-detail-button", function() {
         if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).attr("id").match(/\d+/g);
+            const qid = $(this).children(":first").attr("id").match(/\d+/g);
             $("#quest-submit-field").removeClass("hidden").addClass("show");
             console.log(qid);
 
