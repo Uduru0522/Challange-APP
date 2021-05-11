@@ -1,153 +1,177 @@
 #friend-main {
-  background-color: #FFFFFF;
-}
-.friend-title{
-  background:white;
-  width:100vw;
-  height:10vh;
-  margin:0;
-  padding:0;
-  position:fixed;
-  top:0;
-  border-top:solid;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-#search-ID{
-  background:none;
-  width:100vw;
-  height:5vh;
-  position:fixed;
-  top:10vh;
-  border-top:solid;
-  border-bottom:solid;
-  border-top-width:medium;
-  border-bottom-width:thin;
-
-  margin:0;
-  padding:0;
-  z-index:1;
-}
-#ID-choose-friend{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-}
-[type="text"]{
-  margin:0 4vw 0 4vw;
-  float:left;
-
-}
-#search-ID img{
-  max-height:2.5vh;
-  margin:0;
-}
-#friend-record{
-  position:fixed;
-  top:15vh;
-  width:100vw;
-  height:75vh;
-  overflow:scroll;
-  z-index:1;
+    background-color: #FFFFFF;
 }
 
-#friend-header{
-  margin:0 5vw 0 5vw;
-height:60%;
-float:left;
+.friend-title {
+    background: white;
+    width: 100vw;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    border-top: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hidden{
-  visibility:hidden;
-}
-.show{
-  visibility:show;
-}
-.output-search-ID{
-  background:transparent;
-  border-width:0px;
-  outline:none;
-}
-.slideleft{
-  display: flex; 
-  overflow-y: hidden;
-  height:12vh;
-  scroll-snap-type: x mandatory;
-}
-.friend{
-  height:12vh;
-  border-top-style:solid;
-  border-bottom-style:solid;
-  border-width:thin;
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  flex: 0 0 100vw; 
-  background-color: #fff; 
-  position: relative;
-  scroll-snap-align: start;
-}
-.space{
-  flex: 0 0 4rem;
-  scroll-snap-align: end;
-}
-.deletebutton { 
-  width: 4rem;
-  height:12vh;
-  position: absolute; 
-  right: 0; 
-  background-color:red;
-  border-color:red;
-}
-#addfriend{
-  background-color:white;
-  border-radius:20px;
-  position:absolute;
-  top:25vh;
-  left:20vw;
-  width:60vw;
-  height:35vh;
-  border-style:solid;
-  text-align:center;
-  padding:0;
-  z-index:3;
-  overflow:none;
-}
-#addfriend_pic{
-  max-width:30vw;
-  margin:10%;
-}
-#addfriend_name{
-  font-size:5vw;
-  padding:0;
+#search-ID {
+    background: none;
+    width: 100vw;
+    height: 5vh;
+    position: fixed;
+    top: 10vh;
+    border-top: solid;
+    border-bottom: solid;
+    border-top-width: medium;
+    border-bottom-width: thin;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
 }
 
-#button_add{
-  width:30vw;
-  height:12vw;
-  background-color:green;
+#ID-choose-friend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
-.friend-cover{
-  background-color:#FFF4C1;
-  position:fixed;
-  top:0;
-  width:100vw;
-  height:90vh;
-  margin:0;
-  padding:0;
-  opacity:0.5;
-  
-  overflow:none;
-  z-index:2;
+
+[type="text"] {
+    margin: 0 4vw 0 4vw;
+    float: left;
 }
+
+#search-ID img {
+    max-height: 2.5vh;
+    margin: 0;
+}
+
+#friend-record {
+    position: fixed;
+    top: 15vh;
+    width: 100vw;
+    height: 75vh;
+    overflow: scroll;
+    z-index: 1;
+}
+
+#friend-header {
+    margin: 0 5vw 0 5vw;
+    height: 60%;
+    float: left;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.show {
+    visibility: show;
+}
+
+.output-search-ID {
+    background: transparent;
+    border-width: 0px;
+    outline: none;
+}
+
+.slideleft {
+    display: flex;
+    overflow-y: hidden;
+    height: 12vh;
+    scroll-snap-type: x mandatory;
+}
+
+.friend {
+    height: 12vh;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: thin;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0 0 100vw;
+    background-color: #fff;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+.space {
+    flex: 0 0 4rem;
+    scroll-snap-align: end;
+}
+
+.deletebutton {
+    width: 4rem;
+    height: 12vh;
+    position: absolute;
+    right: 0;
+    background-color: red;
+    border-color: red;
+}
+
+.deletebutton:active {
+    background-color: green;
+}
+
+#addfriend {
+    background-color: white;
+    border-radius: 20px;
+    position: absolute;
+    top: 25vh;
+    left: 20vw;
+    width: 60vw;
+    height: 35vh;
+    border-style: solid;
+    text-align: center;
+    padding: 0;
+    z-index: 3;
+    overflow: none;
+}
+
+#addfriend_pic {
+    max-width: 30vw;
+    margin: 10%;
+}
+
+#addfriend_name {
+    font-size: 5vw;
+    padding: 0;
+}
+
+#button_add {
+    width: 30vw;
+    height: 12vw;
+    background-color: green;
+}
+
+#button_cantfind {
+    width: 30vw;
+    height: 12vw;
+    background-color: green;
+}
+
+.friend-cover {
+    background-color: #FFF4C1;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+    opacity: 0.5;
+    overflow: none;
+    z-index: 2;
+}
+
 #search-ID input[type="text"] {
-  border-radius:1.75vh;
-  height:3.3vh;
-  width:80%;
-  outline: none;
-  border-style:none;
-  background-color:#D0D0D0;
-  margin:0.7vh 0.5vh 0.5vh 2vh;
-  font-size:2.2vh;
+    border-radius: 1.75vh;
+    height: 3.3vh;
+    width: 80%;
+    outline: none;
+    border-style: none;
+    background-color: #D0D0D0;
+    margin: 0.7vh 0.5vh 0.5vh 2vh;
+    font-size: 2.2vh;
 }

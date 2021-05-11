@@ -29,7 +29,11 @@
     <!-- Except login page, uses a new html page.-->
     <!-- Mainpage, should land here after login -->
     <!-- Or after clicking the mainpage icon of nav-bar-->
-    <div class="container" id="mainpage"> </div>
+    <div class="container" id="mainpage">
+        <div id="city-container">
+
+        </div>
+    </div>
     <!-- Land here after clicking quest icon of nav-bar-->
     <div class="container" id="quest-main">
         <div id="quest-main-header"><span>任務</span></div>
@@ -277,7 +281,8 @@
             <div id="addfriend" class="addfriend hidden">
                 <img id="addfriend_pic" src="" />
                 <div id="addfriend_name"></div>
-                <button id="button_add">加入</button>
+                <button id="button_add" class="button_add hidden">加入</button>
+                <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
             </div>
         </div>
     </div>
@@ -288,6 +293,7 @@
     </script>
     <script src="../js/quest.js">
     </script>
+
 </body>
 
 </html>
