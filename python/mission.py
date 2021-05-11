@@ -213,6 +213,7 @@ def popular(conn, User):#很多人在做的任務
 
 
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片
+sys.stdout.reconfigure(encoding='utf-8')
 con = sqlite3.connect('./database/mission.db')
 if(sys.argv[1] == '0'):#全部任務
     print(allmission(con, sys.argv[2]))
