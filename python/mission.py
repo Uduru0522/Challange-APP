@@ -226,9 +226,9 @@ elif(sys.argv[1] == '3'):#進行中任務
 elif(sys.argv[1] == '4'):#做過的任務
     print(done(con, sys.argv[2]))
 elif(sys.argv[1] == '5'):#接取任務
-    print(accept(con, sys.argv[2], sys.argv[3]))
+    accept(con, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '6'):#放棄任務
-    print(giveup(con, sys.argv[2], sys.argv[3]))
+    giveup(con, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '7'):#提交任務
     submit(con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 elif(sys.argv[1] == '8'):#給任務詳細資料

@@ -226,9 +226,8 @@ app.post('/html/mission/report_single', (req, res) => {
             req.body.text
         ],
     };
-
+    
     PythonShell.run("mission.py", options, function(err, data) {
-        console.log(data)
         res.send("Success");
     });
 });
@@ -300,8 +299,7 @@ app.post('/html/sendmessage_friend', (req, res) => {
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
-        data = JSON.parse(data)
-        console.log(data);
+        data = JSON.parse(data);
         res.send(data);
     });
 });
@@ -320,8 +318,7 @@ app.post('/html/sendmessage_mission', (req, res) => {
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
-        data = JSON.parse(data)
-        console.log(data);
+        data = JSON.parse(data);
         res.send(data);
     });
 });
