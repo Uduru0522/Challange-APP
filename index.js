@@ -27,7 +27,7 @@ app.use(session({
     },
 }));
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`listening on port: ${port}`);
 });
 
@@ -226,7 +226,7 @@ app.post('/html/mission/report_single', (req, res) => {
             req.body.text
         ],
     };
-
+    
     PythonShell.run("mission.py", options, function(err, data) {
         res.send("Success");
     });
@@ -298,7 +298,11 @@ app.post('/html/sendmessage_friend', (req, res) => {
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
+<<<<<<< HEAD
         data = JSON.parse(data)
+=======
+        data = JSON.parse(data);
+>>>>>>> 6b742ec8135afca5353aa05987116c40b98c99d4
         res.send(data);
     });
 });
@@ -317,8 +321,12 @@ app.post('/html/sendmessage_mission', (req, res) => {
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
+<<<<<<< HEAD
         // data = JSON.parse(data)
         console.log(data)
+=======
+        data = JSON.parse(data);
+>>>>>>> 6b742ec8135afca5353aa05987116c40b98c99d4
         res.send(data);
     });
 });

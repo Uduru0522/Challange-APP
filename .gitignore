@@ -2,5 +2,7 @@
 .vscode/
 node_modules/
 database/mission.db
-database/users.db
-
+# database/users.db
+Procfile
+# requirement.txt
+# runtime.txt

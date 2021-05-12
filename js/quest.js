@@ -46,7 +46,7 @@ $(document).ready(() => {
     // Submit quests
     $(document).on("click", "#quest-submit-button", function() {
         // Send post request to submit quest
-        const img64 = compress(document.getElementById('preview'), 500, 500, 0.9);
+        const img64 = compress(document.getElementById('preview'), 500, 500, 0.85);
         console.log($("#quest-detail-button span").attr("id"));
         const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
         console.log(qid);
