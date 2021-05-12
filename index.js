@@ -291,7 +291,7 @@ app.post('/html/sendmessage_friend', (req, res) => {
         scriptPath: "./python/",
         args: [
             "talk",
-            "b5e4453e",
+            req.session.uid,
             req.body.friend_ID,
             req.body.your_message
         ],
