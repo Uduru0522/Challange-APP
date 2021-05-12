@@ -490,12 +490,12 @@ $("#nav-mypage").click(function(){
 	document.getElementById("data-nickname").innerHTML=value.title;
 	document.getElementById("data-ID").innerHTML=value.id;
 	document.getElementById("data-selfintro-text").innerHTML=value.intro;
-   	document.getElementById("value-social").innerHTML="人際: "+value.social;
-	document.getElementById("value-travel").innerHTML="旅遊: "+value.travel;
-	document.getElementById("value-food").innerHTML="食物: "+value.food;
-	document.getElementById("value-activity").innerHTML="活動: "+value.activity;
+   	document.getElementById("value-social").innerHTML="社交: "+value.social;
+	document.getElementById("value-travel").innerHTML="旅行: "+value.travel;
+	document.getElementById("value-food").innerHTML="美食: "+value.food;
+	document.getElementById("value-activity").innerHTML="冒險: "+value.activity;
 	document.getElementById("value-sport").innerHTML="運動: "+value.sport;
-	document.getElementById("value-self").innerHTML="自我: "+value.self;
+	document.getElementById("value-self").innerHTML="課業: "+value.self;
 var radardata = {
   labels: [
     '人際',
