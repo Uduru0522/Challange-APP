@@ -521,13 +521,14 @@ var radaroptions =
 	{
 	scale: 
 		{
-			ticks: 
+			
+			fontSize: 100,
+			beginAtZero: true,
+			maxTicksLimit: 7,
+			min:0,
+			max:100,
+            ticks: 
 			{
-				fontSize: 100,
-				beginAtZero: true,
-				maxTicksLimit: 7,
-				min:0,
-				max:100
 			},
 			pointLabels: 
 			{
