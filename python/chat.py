@@ -58,7 +58,6 @@ def talk(name1,name2,talk):#好友聊天,name1對name2說talk,然後會回傳聊
     output=json.dumps(output, ensure_ascii = False)
     return output
 
-
 def setupassi(assi,name):#建立任務聊天室,assi:任務,name:誰建立
     output=[]
     mes={"name":name,"talk":" enter the room"}

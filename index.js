@@ -291,18 +291,14 @@ app.post('/html/sendmessage_friend', (req, res) => {
         scriptPath: "./python/",
         args: [
             "talk",
-            "b5e4453e",
+            req.session.uid,
             req.body.friend_ID,
             req.body.your_message
         ],
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
-<<<<<<< HEAD
-        data = JSON.parse(data)
-=======
         data = JSON.parse(data);
->>>>>>> 6b742ec8135afca5353aa05987116c40b98c99d4
         res.send(data);
     });
 });
@@ -321,12 +317,7 @@ app.post('/html/sendmessage_mission', (req, res) => {
     };
 
     PythonShell.run("chat.py", options, function(err, data) {
-<<<<<<< HEAD
-        // data = JSON.parse(data)
-        console.log(data)
-=======
         data = JSON.parse(data);
->>>>>>> 6b742ec8135afca5353aa05987116c40b98c99d4
         res.send(data);
     });
 });
@@ -489,7 +480,7 @@ app.post('/html/mypage-record', (req, res) => {
 //     })
 // });
 
-// app.post('/logout', (req, res) => {
-//     req.session.destroy();
-//     res.redirect('login.html');
-// });
+app.post('/html/logout', (req, res) => {
+    req.session.destroy();
+    res.send('jump');
+});

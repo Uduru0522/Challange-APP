@@ -66,6 +66,7 @@
     margin: 0 5vw 0 5vw;
     height: 60%;
     float: left;
+    border-radius:50%;
 }
 
 .hidden {
@@ -94,11 +95,12 @@
     border-top-style: solid;
     border-bottom-style: solid;
     border-width: thin;
+    border-color: #E9B83E;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex: 0 0 100vw;
-    background-color: #fff;
+    background-color: white;
     position: relative;
     scroll-snap-align: start;
 }
@@ -147,15 +149,25 @@
 }
 
 #button_add {
-    width: 30vw;
-    height: 12vw;
-    background-color: green;
+    width: 33vw;
+    height: 13vw;
+    background-color: #EB931D;
+    border-radius:13px;
+    border-style:none;
+    font-size:5vw;
+    margin:5vw;
+    box-shadow: (3px,3px,5px,gray);
 }
 
 #button_cantfind {
-    width: 30vw;
-    height: 12vw;
-    background-color: green;
+    width: 33vw;
+    height: 13vw;
+    background-color: #EB931D;
+    border-radius:13px;
+    border-style:none;
+    font-size:5vw;
+    margin:5vw;
+    box-shadow: (3px,3px,5px,gray);
 }
 
 .friend-cover {
