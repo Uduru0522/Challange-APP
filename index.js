@@ -275,8 +275,7 @@ app.post('/html/newgroup', (req, res) => {
         args: [
             "setupassi",
             req.body.output_mission,
-            req.session.uid,
-            req.body.output_friend
+            req.session.uid
         ],
     };
 
@@ -292,7 +291,7 @@ app.post('/html/sendmessage_friend', (req, res) => {
         scriptPath: "./python/",
         args: [
             "talk",
-            req.session.uid,
+            "b5e4453e",
             req.body.friend_ID,
             req.body.your_message
         ],
@@ -324,6 +323,7 @@ app.post('/html/sendmessage_mission', (req, res) => {
 });
 
 app.post('/html/chatrecord', (req, res) => {
+
     let options = {
         mode: "text",
         pythonOptions: ["-u"], // get print results in real-time
@@ -353,6 +353,7 @@ app.post('/html/friendrecord', (req, res) => {
 
     PythonShell.run("friend.py", options, function(err, data) {
         data = JSON.parse(data)
+        
         res.send(data);
     });
 });
@@ -443,7 +444,23 @@ app.post('/html/singlefriend', (req, res) => {
         res.send("Success");
     });
 });
+app.post('/html/assignmentadd', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            "assignmentadd",
+            req.body.output_mission,
+            req.session.uid,
+            req.body.friend_ID
+        ],
+    };
 
+    PythonShell.run("chat.py", options, function(err, data) {
+        res.send("Success");
+    });
+});
 app.post('/html/findperson', (req, res) => {
     person.getInfo(req.body.person_ID, db).then(data => {
         res.send(data);
@@ -452,6 +469,7 @@ app.post('/html/findperson', (req, res) => {
 
 app.post('/html/mypage-record', (req, res) => {
     person.getInfo(req.session.uid, db).then(data => {
+ 
         res.send(data);
     })
 });

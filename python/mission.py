@@ -1,11 +1,12 @@
 import sqlite3
 import sys
 import json
-
+sys.stdout.reconfigure(encoding='utf-8')
 def allmission(conn, User):
     rows = conn.execute("select * from mission;")
     data = conn.execute("select * from {user};".format(user=User))
     _json = []
+    
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()

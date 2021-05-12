@@ -3,29 +3,35 @@
 }
 
 .friend-title {
-    background: white;
-    width: 100vw;
-    height: 10vh;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top: 0;
-    border-top: solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background:#7FC8BE;
+    width:100vw;
+    height:10vh;
+    margin:0;
+    padding:0;
+    position:fixed;
+    top:0;
+    border-style:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1;
 }
-
+#friend-title-text{
+    width:100%;
+  
+    font-size:3.8vh;
+    letter-spacing:2vh;
+    text-indent: 2vh;
+    text-align:center;
+    color:white;
+}
 #search-ID {
-    background: none;
+    background-color: #EAF6F7;
     width: 100vw;
     height: 5vh;
     position: fixed;
     top: 10vh;
-    border-top: solid;
-    border-bottom: solid;
-    border-top-width: medium;
-    border-bottom-width: thin;
+    border-style:none;
     margin: 0;
     padding: 0;
     z-index: 1;
@@ -153,16 +159,16 @@
 }
 
 .friend-cover {
-    background-color: #FFF4C1;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 90vh;
-    margin: 0;
-    padding: 0;
-    opacity: 0.5;
-    overflow: none;
-    z-index: 2;
+    background:linear-gradient(#7FC8BE,white);
+    position:fixed;
+    top:0;
+    width:100vw;
+    height:90vh;
+    margin:0;
+    padding:0;
+    opacity:0.9;
+    z-index:2;
+    overflow:none;
 }
 
 #search-ID input[type="text"] {
@@ -171,7 +177,7 @@
     width: 80%;
     outline: none;
     border-style: none;
-    background-color: #D0D0D0;
+    background-color:#FBE1B1;
     margin: 0.7vh 0.5vh 0.5vh 2vh;
     font-size: 2.2vh;
 }

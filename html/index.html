@@ -128,19 +128,19 @@
     <!-- Land here after clicking the chat room icon-->
     <div class="container" id="chat-main">
         <div class="chat-title">
-            <h2>聊天室</h2>
+            <div id="chatroom-title">聊天室</div>
         </div>
         <div id="create-chat-button">
             <img src="../resources/nav/create_chat.png">
-            <h3>建立群組</h3>
+            <div id="build-group">建立群組</div>
         </div>
         <div id="chat-choose-missions" class="create-chat-menu hidden">
-            <h2>選擇任務</h2>
+            <div id="choose-mission-text">選擇任務</div>
             <form name="group-choose-mission" id="group-choose-mission">
-                <input type="text" name="missiontosearch" id="missiontosearch">
+                <input type="text" placeholder="輸入任務名稱" name="missiontosearch" id="missiontosearch">
                 <button type="submit" class="search-mission">
-            <img src="../resources/nav/search.png"/>
-          </button>
+                    <img src="../resources/nav/search.png"/>
+                </button>
             </form>
         </div>
 
@@ -149,17 +149,17 @@
         <input type='radio' name='choose_mission' id='C_M'>
         <label for='C_M'> 
         <div class="button-sure hidden"onclick="choose_mission()">
-          <h3>確定</h3>
+          確定
         </div>
       </label>
 
         <div id="chat-choose-friends" class="create-chat-menu hidden">
-            <h2>選擇好友</h2>
+            <div id='choose-friend-text'>選擇好友</div>
             <form name="group-choose-friend" id="group-choose-friend">
-                <input type="text" name="friendtosearch" id="friendtosearch">
+                <input type="text" placeholder="輸入好友名稱" name="friendtosearch" id="friendtosearch">
                 <button type="submit" class="search-friend">
-            <img src="../resources/nav/search.png"/>
-          </button>
+                <img src="../resources/nav/search.png"/>
+                </button>
             </form>
         </div>
 
@@ -226,7 +226,7 @@
     <!-- Land here after clicked my-page icon-->
     <div class="container" id="mypage-main">
         <div class="mypage-title">
-            <h2>我的資訊</h2>
+            <div id="my-data">我的資訊</div>
         </div>
         <div id="mypage-record">
             <img id="data-pic" src="" />
@@ -260,7 +260,7 @@
     <!-- Land here after clicked the friend icon-->
     <div class="container" id="friend-main">
         <div class="friend-title">
-            <h2>我的好友</h2>
+            <div id="friend-title-text">好友</div>
         </div>
 
         <div id="search-ID">
