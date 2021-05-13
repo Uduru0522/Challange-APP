@@ -53,7 +53,7 @@ function hide_all_but_current_page(id) {
 
 // Event Listener
 $(document).ready(() => {
-    // Show Main Page as Default
+    // Show Quest Page as Default
     hide_all_page();
     $("#mainpage").addClass("show").removeClass("hidden");
 
