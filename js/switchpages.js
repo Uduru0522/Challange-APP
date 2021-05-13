@@ -79,6 +79,12 @@ $(document).ready(() => {
             $("#quest-points").html(qinfo[0].points);
             $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
 
+            // Reset submit form
+            $("#preview").attr("src", "../resources/click-to-upload.png");
+            $("#quest-submit-text").val("");
+
+
+            // Determine acceptation 
             if (qinfo[0].progress == 0) {
                 $("#quest-detail-button").addClass("can-accept").removeClass("already-accept");
                 $("#quest-detail-button span").text("挑戰");
