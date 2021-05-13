@@ -1,3 +1,14 @@
+function compress(img, width, height, ratio) {
+    var canvas, ctx, img64;
+    canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+    img64 = canvas.toDataURL("image/jpeg", ratio);
+    return img64;
+}
+
 $(document).ready(() => {
     // Accept in list
     $(document).on("click", ".qblock-state", function() {
@@ -65,7 +76,6 @@ $(document).ready(() => {
     });
 
     const myFile = document.querySelector('#quest-submit-img')
-
     myFile.addEventListener('change', function(e) {
         const file = e.target.files[0]
         const reader = new FileReader()
@@ -73,19 +83,13 @@ $(document).ready(() => {
         reader.readAsDataURL(file)
         reader.onload = function() {
             img.src = reader.result;
-            $("#preview").css({ "width": "30vw", "height": "30vw", "background-size": "cover" }) // 預覽圖片的css屬性
+            // $("#preview").css({ "width": "30vw", "height": "30vw", "background-size": "cover" }) // 預覽圖片的css屬性
             console.log("loaded preview.");
         }
     })
 
-    function compress(img, width, height, ratio) {
-        var canvas, ctx, img64;
-        canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        img64 = canvas.toDataURL("image/jpeg", ratio);
-        return img64;
-    }
+    // Redirect click event on uploading image
+    $(document).on("click", "#preview", function() {
+        $("#quest-submit-img").trigger("click");
+    });
 });

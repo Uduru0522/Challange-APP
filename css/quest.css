@@ -1,4 +1,4 @@
-#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail #quest-detail-button, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail #quest-submit-button, #quest-detail #preview, #quest-detail #quest-detail-button, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -178,6 +178,7 @@
   justify-content: space-around;
 }
 #quest-detail #quest-detail-header #quest-title-block .wrapper #quest-tag {
+  padding: 0px 20px;
   height: 5vh;
   line-height: 5vh;
   display: inline-block;
@@ -265,27 +266,34 @@
 #quest-detail #quest-detail-button.already-accept {
   background-color: slategrey;
 }
-#quest-detail #quest-submit-img {
-  position: relative;
-  height: 40px;
-  width: 100%;
-}
 #quest-detail #quest-submit-text {
+  margin: 10px 5vw;
+  width: 90vw;
   position: relative;
   height: 40px;
-  width: 100%;
   border: black solid 1px;
-  margin: 0;
+  border-radius: 10px;
   float: none;
 }
 #quest-detail #preview {
+  margin: 10px auto;
+  box-shading: 2px 2px 5px rgba(0, 0, 0, 0.75);
   position: relative;
+  width: 90vw;
+  height: calc(810vw / 16);
+  border-radius: 20px;
+  background-color: #C0C0C0;
 }
 #quest-detail #quest-submit-button {
+  margin: 10px auto;
   position: relative;
-  width: 100%;
+  width: 90vw;
   height: 40px;
   background-color: #C0C0C0;
+  border-radius: 10px;
+}
+#quest-detail #quest-submit-button span {
+  font-size: 3vh;
 }
 #quest-detail .dummy {
   width: 100vw;

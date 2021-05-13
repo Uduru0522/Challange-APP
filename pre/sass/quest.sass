@@ -191,6 +191,7 @@
             .wrapper
                 @extend %flex-centeralize
                 #quest-tag
+                    padding: 0px 20px
                     height: 5vh
                     line-height: 5vh
                     display: inline-block
@@ -274,27 +275,36 @@
         &.already-accept
                 background-color: slategrey
 
-    #quest-submit-img
-        position: relative
-        height: 40px
-        width: 100%
-
     #quest-submit-text
+        margin: 10px 5vw
+        width: 90vw
         position: relative
         height: 40px
-        width: 100%
         border: black solid 1px
-        margin: 0
+        border-radius: 10px
         float: none
 
     #preview
+        @extend %flex-centeralize
+        margin: 10px auto
+        box-shading: 2px 2px 5px rgba(0, 0, 0, 0.75)
         position: relative
+        width: 90vw
+        height: calc(810vw / 16)
+        border-radius: 20px
+        background-color: #C0C0C0
 
     #quest-submit-button
+        @extend %flex-centeralize
+        margin: 10px auto
         position: relative
-        width: 100%
+        width: 90vw
         height: 40px
         background-color: #C0C0C0
+        border-radius: 10px
+
+        span 
+            font-size: 3vh
 
     .dummy
         width: 100vw
