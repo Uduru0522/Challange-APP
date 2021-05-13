@@ -86,7 +86,7 @@ function appendrooms(){//show rooms in chatroom page
             function(data){
                 console.log(data)
                 //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
-                $("#chat-record").append("<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+data.image+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+data.name+"</h3><h4 id='chat-firstline'>"+rooms_data[i].talk+"</h4></div></div>")
+                $("#chat-record").append("<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+data.image+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+data.name+"</h3><div id='chat-firstline'>"+rooms_data[i].talk+"</div></div></div>")
 
             });
             //let chatroom="<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+friend_list[i].image+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+rooms_data[i].name+"</h3><h4 id='chat-firstline'>"+rooms_data[i].talk+"</h4></div></div>";
@@ -116,7 +116,7 @@ function appendmissions(){//show missions in group create
     }
 }
 function appendfriends(){//show friends in group create
-    document.getElementById("chat-choose-friends").innerHTML="<div id='choose-friend-text'>選擇好友</div><form name='group-choose-friend' id='group-choose-friend'><input type='text' name='friendtosearch' id='friendtosearch'><button type='submit' class='search-friend'><img src='../resources/nav/search.png'/></button></form>";
+    document.getElementById("chat-choose-friends").innerHTML="<div id='choose-friend-text'>選擇好友</div><form name='group-choose-friend' id='group-choose-friend'><input type='text' placeholder='輸入好友名稱'name='friendtosearch' id='friendtosearch'><button type='submit' class='search-friend'><img src='../resources/nav/search.png'/></button></form>";
     for(let i=0;i<friend_magnitude;i++){
         //let friends="<input type='checkbox' name='choose_friend' id='C_F"+i+"'><label for='C_F"+i+"'><div id='choosed-friend"+i+"'class='choosed-friend unchosen'><img src='../resources/nav/create_chat.png'/><h3>鄭青宇</h3></div>";
         let friends="<input type='checkbox' name='choose_friend' id='C_F"+i+"'><label for='C_F"+i+"'><div id='choosed-friend"+i+"'class='choosed-friend unchosen'><img src='"+friend_list[i].image+"'/><div id='friend-name-text'>"+friend_list[i].name+"</div></div>";        
@@ -218,17 +218,21 @@ function getmessage_friend(your_message){
         //data[1].msg
         //data[1].time
         //data[1].image
-        
+        let temp=data;
 	if(!message||data.length>message.length){
-		for(let i=data.length-message.length-1;i>0;i--){
+		for(let i=0;i=data.length-message.length-1;i++){
+            $.post('./findperson', {
+                person_ID:message[i].name
+            } ,
+            function(data){
             if(data[i].name==myname){
-                let mymessage="<div class='my-message'><div class='message-time'>"+data[i].time+"</div><div class='what-i-say'>"+data[i].talk+"</div></div>";
+                let mymessage="<div class='my-message'><div class='message-time'>"+temp[i].time+"</div><div class='what-i-say'>"+temp[i].talk+"</div></div>";
                 $('#chat-content').append(mymessage);
             }else{
-               let yourmessage= "<div class='your-message'><div class='message-pic'><img class='your-header'src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAH0AfQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k='><div class='your-name'>"+data[i].name+"</div></div><div class='what-you-say'>"+data[i].talk+"</div><div class='message-time'>"+data[i].time+"</div></div>";
+               let yourmessage= "<div class='your-message'><div class='message-pic'><img class='your-header'src='"+data[i].image+"'><div class='your-name'>"+data[i].name+"</div></div><div class='what-you-say'>"+temp[i].talk+"</div><div class='message-time'>"+data[i].time+"</div></div>";
                $('#chat-content').append(yourmessage);
             }   
-            
+        });
 		}
 	}message=data;
     });		
@@ -378,7 +382,8 @@ function appendfriendsformenu(){
         
        // let friend="<div class='slideleft'><button class='deletebutton'>删除</button><div id='friend-num"+i+"'class='friend'><img id='friend-header'src='../resources/nav/create_chat.png'/><div class='friend-text'><h3 id='friend-name'>鄭青宇</h3></div></div><s class='space'></s></div>";
         let friend="<div class='slideleft'><button class='deletebutton'id='delete-num"+j+"'>删除</button><div id='friend-num"+j+"'class='friend'><img id='friend-header'src='"+friend_list[j].image+"'/><div class='friend-text'><h3 id='friend-name'>"+friend_list[j].name+"</h3></div></div><s class='space'></s></div>";
-        
+        setTimeout(function() {
+        }, 100);
         $("#friend-record").append(friend)
     }
 }
@@ -485,12 +490,12 @@ $("#nav-mypage").click(function(){
 	document.getElementById("data-nickname").innerHTML=value.title;
 	document.getElementById("data-ID").innerHTML=value.id;
 	document.getElementById("data-selfintro-text").innerHTML=value.intro;
-   	document.getElementById("value-social").innerHTML="人際: "+value.social;
-	document.getElementById("value-travel").innerHTML="旅遊: "+value.travel;
-	document.getElementById("value-food").innerHTML="食物: "+value.food;
-	document.getElementById("value-activity").innerHTML="活動: "+value.activity;
+   	document.getElementById("value-social").innerHTML="社交: "+value.social;
+	document.getElementById("value-travel").innerHTML="旅行: "+value.travel;
+	document.getElementById("value-food").innerHTML="美食: "+value.food;
+	document.getElementById("value-activity").innerHTML="冒險: "+value.activity;
 	document.getElementById("value-sport").innerHTML="運動: "+value.sport;
-	document.getElementById("value-self").innerHTML="自我: "+value.self;
+	document.getElementById("value-self").innerHTML="課業: "+value.self;
 var radardata = {
   labels: [
     '人際',
@@ -516,13 +521,14 @@ var radaroptions =
 	{
 	scale: 
 		{
-			ticks: 
+			
+			fontSize: 100,
+			beginAtZero: true,
+			maxTicksLimit: 7,
+			min:0,
+			max:100,
+            ticks: 
 			{
-				fontSize: 100,
-				beginAtZero: true,
-				maxTicksLimit: 7,
-				min:0,
-				max:100
 			},
 			pointLabels: 
 			{
@@ -558,16 +564,23 @@ function handle_message(){
       console.log("print");
 	document.getElementById("chat-content").innerHTML="";
       for(let i=1;i<message.length;i++){
+        $.post('./findperson', {
+            person_ID:message[i].name
+        } ,
+        function(data){
       let mymessage="<div class='my-message'><div class='message-time'>"+message[i].time+"</div><div class='what-i-say'>"+message[i].talk+"</div></div>";
-      let yourmessage= "<div class='your-message'><div class='message-pic'><img class='your-header'src='"+message[i].image+"'><div class='your-name'>"+message[i].name+"</div></div><div class='what-you-say'>"+message[i].talk+"</div><div class='message-time'>"+message[i].time+"</div></div>";
+      let yourmessage= "<div class='your-message'><div class='message-pic'><img class='your-header'src='"+data.image+"'><div class='your-name'>"+data.name+"</div></div><div class='what-you-say'>"+message[i].talk+"</div><div class='message-time'>"+message[i].time+"</div></div>";
         console.log(myname+"dsa")
       if(message[i].name==myname){
           $('#chat-content').append(mymessage);
         }else{
           $('#chat-content').append(yourmessage);
         }
+        $('#chat-content').scrollTop(9999999)
+    });
       }
-      $('#chat-content').scrollTop(9999999)
+      
+    
 }
      
     $('.friend').click(function (){
@@ -583,6 +596,7 @@ $(document).ready(function(){
 		$("#chat-choose-missions").removeClass("show").addClass("hidden");
         $("#chat-choose-friends").removeClass("show").addClass("hidden");
         $(".button-sure").removeClass("show").addClass("hidden");
+        $(".button-creategroup").removeClass("show").addClass("hidden");
         $(".chat-cover").removeClass("show").addClass("hidden");
 	});
 
@@ -817,3 +831,11 @@ $(document).on("click",'.chat-room',function(){
 	});
 });
 
+$(document).on("click",'#logout',function(){
+    $.post('./logout', {
+        
+    } ,(data) => {
+        if(data == 'jump')
+            window.location.href = '../html/login.html';
+    });
+});

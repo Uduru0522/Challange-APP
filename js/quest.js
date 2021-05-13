@@ -61,6 +61,7 @@ $(document).ready(() => {
             }
         );
         $("#quest-submit-field").removeClass("show").addClass("hidden");
+        $(this).closest(".container").find(".return-arrow").trigger("click");
     });
 
     const myFile = document.querySelector('#quest-submit-img')

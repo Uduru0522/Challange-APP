@@ -53,9 +53,9 @@ function hide_all_but_current_page(id) {
 
 // Event Listener
 $(document).ready(() => {
-    // Show Quest Page as Default
+    // Show Main Page as Default
     hide_all_page();
-    $("#quest-main").addClass("show").removeClass("hidden");
+    $("#mainpage").addClass("show").removeClass("hidden");
 
     // Navbar icon actions
     for (let i = 0; i < 6; ++i) {
@@ -80,9 +80,11 @@ $(document).ready(() => {
             $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
 
             if (qinfo[0].progress == 0) {
+                $("#quest-detail-button").addClass("can-accept").removeClass("already-accept");
                 $("#quest-detail-button span").text("挑戰");
                 $("#quest-submit-field").addClass("hidden").removeClass("show");
             } else if (qinfo[0].progress == 1) {
+                $("#quest-detail-button").addClass("already-accept").removeClass("can-accept");
                 $("#quest-detail-button span").text("已接取");
                 $("#quest-submit-field").addClass("show").removeClass("hidden");
             } else {
@@ -184,7 +186,7 @@ $(document).ready(() => {
     });
 
     // Quest submit
-    $(document).on("click", "#quest-detail-button", function() {
+    $(document).on("click", ".can-accept#quest-detail-button", function() {
         $("#quest-info").toggleClass("show").toggleClass("hidden");
         $("#quest-submit").toggleClass("show").toggleClass("hidden");
     });

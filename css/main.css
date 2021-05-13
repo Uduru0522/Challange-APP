@@ -1,12 +1,49 @@
+#mainpage {
+  background-image: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
+  overflow: hidden;
+}
 #mainpage #city-container {
   background-image: url(../resources/city/city-bg.png);
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: 40%;
+  background-position: 40% 60%;
   position: absolute;
-  width: 100vw;
+  width: 123vw;
   height: 100vh;
+  margin-left: -9vw;
   top: 50%;
   transform: translateY(-50%);
-  border: 3px black solid;
+}
+#mainpage #city-container * {
+  position: absolute;
+}
+#mainpage #city-container #building-d24 {
+  top: 48.5vh;
+  left: 79.7vw;
+  height: 7.7vh;
+  width: 20.8vw;
+}
+#mainpage #city-container #building-dck {
+  top: 33.9vh;
+  left: 26.5vw;
+  height: 17.6vh;
+  width: 40.2vw;
+}
+#mainpage #city-container #building-dorm {
+  top: 26.3vh;
+  left: 67.2vw;
+  height: 18vh;
+  width: 24.3vw;
+}
+#mainpage #city-container #building-sculp {
+  top: 58vh;
+  left: 47.9vw;
+  height: 10.9vh;
+  width: 26.1vw;
+}
+#mainpage #city-container #backround-decoration {
+  top: 6vh;
+  left: 17vw;
+  height: 32vh;
+  width: 84vw;
 }

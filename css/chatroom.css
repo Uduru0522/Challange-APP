@@ -85,16 +85,20 @@
   height:15vh;
   border-bottom:solid;
   border-bottom-width:thin;
+  border-color:#E9B83E;
   display:flex;
   justify-content:flex-start;
   align-items:center;
   float:left;
+  
   
 }
 #chat-header{
 margin:0 3vw 0 3vw;
 height:60%;
 float:left;
+border-radius:50%;
+
 }
 .chat-cover{
   background:linear-gradient(#7FC8BE,white);
@@ -158,13 +162,16 @@ show{
   border-style:solid;
   border-width:thin;
   border-radius:10px;
+  border-color:#E9B83E;
   margin:2vw 1vw 2vw 3vw;
   text-align:center;
   float:left;
+  box-shadow: 3px 3px 5px gray;
 }
 .choosed-friend img{
   max-height:50%;
   margin:10%;
+  border-radius:50%;
 }
 .choosed-friend:focus{
   border-color:green;
@@ -257,16 +264,21 @@ show{
 }
 .button-creategroup{
   position:absolute;
-  top:80vh;
-  left:29vw;
-  background:green;
+  top:75vh;
+  left:20vw;
+  background:#EB931D;
   color:white;
-  width:42vw;
-  height:10vw;
-  text-align:center;
+  width:60vw;
+  height:13vw;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   margin:0;
   border-style:none;
-  border-radius:4px;
+  border-radius:7px;
+  font-size:2.7vh;
+  letter-spacing:2vh;
+  text-indent: 2vh;
   z-index:3;
   overflow:hidden;
 }
@@ -282,4 +294,9 @@ show{
 
 .gone{
    display:none;	
+}
+#chat-firstline{
+  color:gray;
+  font-size:2vw;
+
 }
