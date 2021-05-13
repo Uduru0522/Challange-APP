@@ -55,7 +55,7 @@ function hide_all_but_current_page(id) {
 $(document).ready(() => {
     // Show Quest Page as Default
     hide_all_page();
-    $("#quest-main").addClass("show").removeClass("hidden");
+    $("#mainpage").addClass("show").removeClass("hidden");
 
     // Navbar icon actions
     for (let i = 0; i < 6; ++i) {
