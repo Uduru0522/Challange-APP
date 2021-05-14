@@ -63,6 +63,7 @@ $(document).ready(() => {
             console.log("Clicked icon: " + nav_icons[i]);
             hide_all_page();
             $(pages_selector[i]).removeClass("hidden").addClass("show");
+            document.getElementById("chat-content").innerHTML="";
         });
     }
 

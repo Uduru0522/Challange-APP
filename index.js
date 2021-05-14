@@ -310,7 +310,7 @@ app.post('/html/sendmessage_mission', (req, res) => {
         scriptPath: "./python/",
         args: [
             "assignmenttalk",
-            req.body.mission_name,
+            req.body.chatroom_name,
             req.session.uid,
             req.body.your_message
         ],
