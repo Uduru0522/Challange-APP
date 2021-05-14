@@ -302,6 +302,16 @@ function checkifroom() {
 $(document).on("click", '#nav-chat', function () {
 
     appendrooms();
+    $.post('./chatrecord',
+    function (chatrooms) {
+        console.log(chatrooms);
+        room_magnitude = chatrooms.length;
+        rooms_data = chatrooms;
+
+    });
+    setTimeout(() => {
+        appendrooms();
+    }, 200);
 });
 $("#create-chat-button").click(function () {
     mission_list = [];
@@ -722,7 +732,7 @@ $(document).on("click", '.friend', function () {
                 function (data) {
 
                     message = data;
-                    handle_message();
+                    handle_message("friend",friend_list_ID[i]);
                 });
         });
 
