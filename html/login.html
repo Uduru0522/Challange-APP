@@ -1,1 +1,48 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><link rel="stylesheet" href="../css/login.css"><title>Login</title><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script></head><body><!-- Link to index.html after successfully logging in--><div class="container"><form id="login" action="./login" method="post"><div id="title"> <div id="title-text">登入</div></div><fieldset id="username"><label for="username">帳號 </label><input type="text" name="username"></fieldset><fieldset id="pwd"><label for="pwd">密碼</label><input type="password" name="pwd"></fieldset><a href="https://google.com.tw">忘記密碼</a><div id="ajax_output"></div><button id="sign-up"> <div>註 冊</div></button><button id="submit" type="submit"> <div>登 入</div></button></form></div><script src="../js/login.js"> </script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- Link to index.html after successfully logging in-->
+    <div class="container">
+        <form id="login" action="./login" method="post">
+            <div id="title">
+                <span>登入</span>
+            </div>
+            <div class="input-container">
+                <fieldset id="username"><label for="username">帳號 </label><input type="text" name="username"></fieldset>
+                <fieldset id="pwd"><label for="pwd">密碼</label><input type="password" name="pwd"></fieldset>
+            </div>
+            <a href="https://google.com.tw">忘記密碼</a>
+            <div id="signin-output"><span></span></div>
+            <button id="sign-up"> <span>註冊</span></button>
+            <button id="submit" type="submit"><span>登入</span></button>
+        </form>
+        <form id="register">
+            <div id="title">
+                <span>註冊</span>
+            </div>
+            <div class="input-container">
+                <fieldset id="su-username"><label>帳號</label><input type="text" name="lastname"></fieldset>
+                <fieldset id="su-password"><label>密碼</label><input type="password" name="password"></fieldset>
+                <fieldset id="su-password-confirm"><label>確認</label><input type="password" name="password-confirm"></fieldset>
+                <fieldset id="su-email"><label>郵箱</label><input type="text" name="lastname"></fieldset>
+                <fieldset id="su-lastname"><label>姓氏</label><input type="text" name="lastname"></fieldset>
+                <fieldset id="su-firstname"><label>名字</label><input type="text" name="lastname"></fieldset>
+            </div>
+            <div id="register-output"><span></span></div>
+            <button id="su-submit" type="submit"><span>確定</span></button>
+        </form>
+    </div>
+    <script src="../js/login.js">
+    </script>
+</body>
+
+</html>
