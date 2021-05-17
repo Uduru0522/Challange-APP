@@ -192,6 +192,7 @@ function sendmessage_friend(your_message) {
             message = data;
             console.log(data);
             $('#chat-content').append("<div class='my-message'><div class='message-time'>" + data[data.length - 1].time + "</div><div class='what-i-say'>" + data[data.length - 1].talk + "</div></div>");
+            $('#chat-content').scrollTop(9999999)
         });
 
 }
@@ -240,6 +241,7 @@ function sendmessage_mission(your_message) {
             message = data;
             let mymessage = "<div class='my-message'><div class='message-time'>" + message[data.length - 1].time + "</div><div class='what-i-say'>" + message[data.length - 1].talk + "</div></div>";
             $('#chat-content').append(mymessage);
+            $('#chat-content').scrollTop(9999999)
         });
 
 }
