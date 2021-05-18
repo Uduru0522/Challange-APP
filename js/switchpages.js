@@ -18,6 +18,7 @@ const pages_selector = [
     "#quest-submit-field",
     "#click-friend",
     "#characteristic-analyze",
+    "#characteristic-history",
     "#mission-launched",
     "#Fcharacteristic-analyze",
     "#Fmission-launched"

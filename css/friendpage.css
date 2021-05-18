@@ -1,27 +1,29 @@
 #myfriend-main {
-    background:linear-gradient(#EAF6F7,white) ;
+    background: linear-gradient(#EAF6F7, white);
     overflow: hidden;
 }
 
 .Fmypage-title {
-    background:#7FC8BE;
-    width:100vw;
-    height:10vh;
-    margin:0;
-    padding:0;
-    position:fixed;
-    top:0;
-    border-style:none;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:1;
+    background: #7FC8BE;
+    width: 100vw;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
 }
-#Fmy-data{
-    color:white;
-    font-size:4vh;
-    letter-spacing:2vh;
-  }
+
+#Fmy-data {
+    color: white;
+    font-size: 4vh;
+    letter-spacing: 2vh;
+}
+
 #Fmypage-record {
     background: transparent;
     width: 100vw;
@@ -34,7 +36,7 @@
 #Fdata-pic {
     max-width: 25vw;
     margin: 5vw;
-    border-radius:50%;
+    border-radius: 50%;
 }
 
 #Fdata-name {
@@ -63,8 +65,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#7FC8BE;
-    font-size:5vw;
+    background-color: #7FC8BE;
+    font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
@@ -80,25 +82,25 @@
 }
 
 #Fcharacteristics-L {
-    position:fixed;
+    position: fixed;
     top: 51vh;
     left: 5vw;
     width: 35vw;
     height: 37vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#F1CE61;
-    box-shadow:2.5px 3px 5px gray;
-    text-align:center;
-    overflow:hidden;
+    background-color: #F1CE61;
+    box-shadow: 2.5px 3px 5px gray;
+    text-align: center;
+    overflow: hidden;
 }
-#FL-title{
-    color:rgb(53, 53, 53);
-    font-size:5vw;
+
+#FL-title {
+    color: rgb(53, 53, 53);
+    font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
-    padding:4vw;
-
+    padding: 4vw;
 }
 
 .Fcharacteristics-RT {
@@ -109,18 +111,20 @@
     height: 17.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#F1CE61;
+    background-color: #F1CE61;
     box-shadow: 3px 3px 5px gray;
     writing-mode: vertical-lr;
-    text-align:center;
-    padding:3vw;
+    text-align: center;
+    padding: 3vw;
 }
-#FRT-title{
-    color:rgb(53, 53, 53);
-    font-size:5vw;
+
+#FRT-title {
+    color: rgb(53, 53, 53);
+    font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
+
 .Fcharacteristics-RB {
     position: fixed;
     top: 70.5vh;
@@ -129,105 +133,115 @@
     height: 17.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#F1CE61;
+    background-color: #F1CE61;
     box-shadow: 3px 3px 5px gray;
     writing-mode: vertical-lr;
-    text-align:center;
-    padding:3vw;
+    text-align: center;
+    padding: 3vw;
 }
-#FRB-title{
-    color:rgb(53, 53, 53);
-    font-size:5vw;
+
+#FRB-title {
+    color: rgb(53, 53, 53);
+    font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
 
-
-#Fmission-launched{
-    z-index:10;
-    position:fixed;
-    top:10vh;
-    width:100vw;
-    height:80vh;
+#Fmission-launched {
+    z-index: 10;
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    height: 80vh;
     background-color: white;
 }
-.Fback-button img{
-    position:fixed;
-    top:11.5vh;
-    left:7vw;
-    height:4vh;
-}
-#Fmission-container{
-    position:fixed;
-    top:17vh;
-    width:100vw;
-    height:73vh;
-    background-color: #EAF6F7;
-    border-radius:6vh;
-    text-align: center;
-    overflow:scroll;
-}
-#Fmission-launched-title{
-    font-size:2.5vh;
-    letter-spacing:1vh;
-    text-indent:1vh;
-    padding:2vh;
-}
-.Flaunch-missions{
-    width:90vw;
-    height:8vh;
-    background-color:white;
-    text-align:center;
-    margin:5vw;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow: 3px 3px 5px gray;
-    border-radius:3vw;
 
+.Fback-button img {
+    position: fixed;
+    top: 11.5vh;
+    left: 7vw;
+    height: 4vh;
 }
-.Fmission-area{
-    background-color:#ECE569;
+
+#Fmission-container {
+    position: fixed;
+    top: 17vh;
+    width: 100vw;
+    height: 73vh;
+    background-color: #EAF6F7;
+    border-radius: 6vh;
+    text-align: center;
+    overflow: scroll;
+}
+
+#Fmission-launched-title {
+    font-size: 2.5vh;
+    letter-spacing: 1vh;
+    text-indent: 1vh;
+    padding: 2vh;
+}
+
+.Flaunch-missions {
+    width: 90vw;
+    height: 8vh;
+    background-color: white;
+    text-align: center;
+    margin: 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 3px 3px 5px gray;
+    border-radius: 3vw;
+}
+
+.Fmission-area {
+    background-color: #ECE569;
     border-bottom-left-radius: 3vw;
     border-top-left-radius: 3vw;
-    border-bottom-right-radius:80%;
+    border-bottom-right-radius: 80%;
     writing-mode: vertical-lr;
-    float:left;
-    width:12vw;
-    height:8vh;
-    padding:2vw;
+    float: left;
+    width: 12vw;
+    height: 8vh;
+    padding: 2vw;
 }
-.Flaunch-mission-name{
+
+.Flaunch-mission-name {
     line-height: 8vh;
-    font-size:2.2vh;
+    font-size: 2.2vh;
 }
-.Fbarchart{
-    max-height:3vh;
-    margin-right:5vw;
+
+.Fbarchart {
+    max-height: 3vh;
+    margin-right: 5vw;
 }
-#Fcharacteristic-analyze{
-    z-index:10;
-    position:fixed;
-    top:10vh;
-    width:100vw;
-    height:80vh;
+
+#Fcharacteristic-analyze {
+    z-index: 10;
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    height: 80vh;
     background-color: white;
 }
-#Fself-rador{
-    position:fixed;
-    top:17vh;
-    width:100vw;
-    height:73vh;
+
+#Fself-rador {
+    position: fixed;
+    top: 17vh;
+    width: 100vw;
+    height: 73vh;
     background-color: #EAF6F7;
-    border-radius:6vh;
+    border-radius: 6vh;
     text-align: center;
 }
-#Fcharacteristic-analyze-title{
-    font-size:2.5vh;
-    letter-spacing:1vh;
-    text-indent:1vh;
-    padding:2vh;
+
+#Fcharacteristic-analyze-title {
+    font-size: 2.5vh;
+    letter-spacing: 1vh;
+    text-indent: 1vh;
+    padding: 2vh;
 }
+
 #Fvalue-social,
 #Fvalue-travel,
 #Fvalue-food,
@@ -236,47 +250,104 @@
 #Fvalue-self {
     font-size: 5vw;
     padding: 2vw 0 2vw 8vw;
-    float:left;
+    float: left;
 }
-#Frador{
-    width:100%;
-    display:flex;
+
+#Frador {
+    width: 100%;
+    display: flex;
     justify-content: center;
 }
+
 #friendChart {
     max-width: 65vw;
     background-color: white;
-    border-radius:10%;
+    border-radius: 10%;
 }
-.Fcharacteristics-RT img{
-    max-width:25vw;
-    margin-left:7vw;
+
+.Fcharacteristics-RT img {
+    max-width: 25vw;
+    margin-left: 7vw;
 }
-.Fcharacteristics-RB img{
-    max-width:25vw;
-    margin-left:7vw;
+
+.Fcharacteristics-RB img {
+    max-width: 25vw;
+    margin-left: 7vw;
 }
-.Fmission-show {   
-    background-color:white;
-    width:30vw;
-    height:4vh;
-    margin:4vw 2.5vw;
-    border-radius:1vw;
-    overflow:hidden;
+
+.Fmission-show {
+    background-color: white;
+    width: 30vw;
+    height: 4vh;
+    margin: 4vw 2.5vw;
+    border-radius: 1vw;
+    overflow: hidden;
 }
-.Fyellow{
-    background-color:#7FC8BE;
+
+.Fyellow {
+    background-color: #7FC8BE;
     border-bottom-left-radius: 1vw;
     border-top-left-radius: 1vw;
-    border-bottom-right-radius:80%;
-    float:left;
-    width:5vw;
-    height:4vh;
+    border-bottom-right-radius: 80%;
+    float: left;
+    width: 5vw;
+    height: 4vh;
 }
-.Fsmall-mission-name{
+
+.Fsmall-mission-name {
     line-height: 4vh;
     letter-spacing: 0.5vw;
     text-indent: 1vw;
 }
 
+#Fcharacteristic-history {
+    z-index: 10;
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    height: 80vh;
+    background-color: white;
+}
 
+#Fself-history {
+    position: fixed;
+    top: 17vh;
+    width: 100vw;
+    height: 73vh;
+    background-color: #EAF6F7;
+    border-radius: 6vh;
+    text-align: center;
+}
+
+#Fcharacteristic-history-title {
+    font-size: 2.5vh;
+    letter-spacing: 1vh;
+    text-indent: 1vh;
+    padding: 2vh;
+}
+
+#Fphotobook-grid-wrapper {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 2vw;
+    column-gap: 2vw;
+    width: 100vw;
+    max-width: 100vw;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 32vw;
+    margin-top: 2vh;
+}
+
+#Fphotobook-grid-wrapper div {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25), -1px -1px 2px rgba(0, 0, 0, 0.25);
+    background-color: #FBE1B1;
+}
+
+#Fphotobook-grid-wrapper div .Fphotobook-grid-item {
+    vertical-align: middle;
+    object-fit: cover;
+    max-width: 100%;
+    height: 100%;
+}
