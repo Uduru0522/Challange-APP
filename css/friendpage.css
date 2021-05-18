@@ -1,10 +1,10 @@
-#mypage-main {
+#myfriend-main {
     background:linear-gradient(#EAF6F7,white) ;
     overflow: hidden;
 }
 
-.mypage-title {
-    background:#E9B83E;
+.Fmypage-title {
+    background:#7FC8BE;
     width:100vw;
     height:10vh;
     margin:0;
@@ -17,12 +17,12 @@
     align-items:center;
     z-index:1;
 }
-#my-data{
+#Fmy-data{
     color:white;
     font-size:4vh;
     letter-spacing:2vh;
   }
-#mypage-record {
+#Fmypage-record {
     background: transparent;
     width: 100vw;
     position: fixed;
@@ -31,28 +31,28 @@
     justify-content: flex-start;
 }
 
-#data-pic {
+#Fdata-pic {
     max-width: 25vw;
     margin: 5vw;
     border-radius:50%;
 }
 
-#data-name {
+#Fdata-name {
     font-size: 6vw;
     padding: 5vw 0 1vw 0;
 }
 
-#data-nickname {
+#Fdata-nickname {
     font-size: 5vw;
     padding: 1vw;
 }
 
-#data-ID {
+#Fdata-ID {
     font-size: 5vw;
     padding: 1vw;
 }
 
-#data-selfintro-title {
+#Fdata-selfintro-title {
     height: 10vw;
     width: 40vw;
     position: fixed;
@@ -63,13 +63,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#E9B83E;
+    background-color:#7FC8BE;
     font-size:5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
 
-#data-selfintro-text {
+#Fdata-selfintro-text {
     position: fixed;
     top: 32vh;
     margin: 0 8vw 0 8vw;
@@ -79,7 +79,7 @@
     overflow: scroll;
 }
 
-#characteristics-L {
+#Fcharacteristics-L {
     position:fixed;
     top: 51vh;
     left: 5vw;
@@ -87,12 +87,12 @@
     height: 37vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#CFE9EA;
+    background-color:#F1CE61;
     box-shadow:2.5px 3px 5px gray;
     text-align:center;
     overflow:hidden;
 }
-#L-title{
+#FL-title{
     color:rgb(53, 53, 53);
     font-size:5vw;
     text-indent: 1vw;
@@ -101,7 +101,7 @@
 
 }
 
-.characteristics-RT {
+.Fcharacteristics-RT {
     position: fixed;
     top: 51vh;
     right: 5vw;
@@ -109,19 +109,19 @@
     height: 17.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#CFE9EA;
+    background-color:#F1CE61;
     box-shadow: 3px 3px 5px gray;
     writing-mode: vertical-lr;
     text-align:center;
     padding:3vw;
 }
-#RT-title{
+#FRT-title{
     color:rgb(53, 53, 53);
     font-size:5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
-.characteristics-RB {
+.Fcharacteristics-RB {
     position: fixed;
     top: 70.5vh;
     right: 5vw;
@@ -129,32 +129,21 @@
     height: 17.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color:#CFE9EA;
+    background-color:#F1CE61;
     box-shadow: 3px 3px 5px gray;
     writing-mode: vertical-lr;
     text-align:center;
     padding:3vw;
 }
-#RB-title{
+#FRB-title{
     color:rgb(53, 53, 53);
     font-size:5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
 
-#logout{
-    position:fixed;
-    right:5vw;
-    top:15vh;
-    width:20vw;
-    height:10vw;
-    background:linear-gradient(#EB931D,#F1CE61);
-    border-style:none;
-    font-size:5vw;
-    color:white;
-    z-index:5
-}
-#mission-launched{
+
+#Fmission-launched{
     z-index:10;
     position:fixed;
     top:10vh;
@@ -162,13 +151,13 @@
     height:80vh;
     background-color: white;
 }
-.back-button img{
+.Fback-button img{
     position:fixed;
     top:11.5vh;
     left:7vw;
     height:4vh;
 }
-#mission-container{
+#Fmission-container{
     position:fixed;
     top:17vh;
     width:100vw;
@@ -178,13 +167,13 @@
     text-align: center;
     overflow:scroll;
 }
-#mission-launched-title{
+#Fmission-launched-title{
     font-size:2.5vh;
     letter-spacing:1vh;
     text-indent:1vh;
     padding:2vh;
 }
-.launch-missions{
+.Flaunch-missions{
     width:90vw;
     height:8vh;
     background-color:white;
@@ -197,7 +186,7 @@
     border-radius:3vw;
 
 }
-.mission-area{
+.Fmission-area{
     background-color:#ECE569;
     border-bottom-left-radius: 3vw;
     border-top-left-radius: 3vw;
@@ -208,15 +197,15 @@
     height:8vh;
     padding:2vw;
 }
-.launch-mission-name{
+.Flaunch-mission-name{
     line-height: 8vh;
     font-size:2.2vh;
 }
-.barchart{
+.Fbarchart{
     max-height:3vh;
     margin-right:5vw;
 }
-#characteristic-analyze{
+#Fcharacteristic-analyze{
     z-index:10;
     position:fixed;
     top:10vh;
@@ -224,7 +213,7 @@
     height:80vh;
     background-color: white;
 }
-#self-rador{
+#Fself-rador{
     position:fixed;
     top:17vh;
     width:100vw;
@@ -233,41 +222,41 @@
     border-radius:6vh;
     text-align: center;
 }
-#characteristic-analyze-title{
+#Fcharacteristic-analyze-title{
     font-size:2.5vh;
     letter-spacing:1vh;
     text-indent:1vh;
     padding:2vh;
 }
-#value-social,
-#value-travel,
-#value-food,
-#value-activity,
-#value-sport,
-#value-self {
+#Fvalue-social,
+#Fvalue-travel,
+#Fvalue-food,
+#Fvalue-activity,
+#Fvalue-sport,
+#Fvalue-self {
     font-size: 5vw;
     padding: 2vw 0 2vw 8vw;
     float:left;
 }
-#rador{
+#Frador{
     width:100%;
     display:flex;
     justify-content: center;
 }
-#myChart {
+#friendChart {
     max-width: 65vw;
     background-color: white;
     border-radius:10%;
 }
-.characteristics-RT img{
+.Fcharacteristics-RT img{
     max-width:25vw;
     margin-left:7vw;
 }
-.characteristics-RB img{
+.Fcharacteristics-RB img{
     max-width:25vw;
     margin-left:7vw;
 }
-.mission-show {   
+.Fmission-show {   
     background-color:white;
     width:30vw;
     height:4vh;
@@ -275,8 +264,8 @@
     border-radius:1vw;
     overflow:hidden;
 }
-.yellow{
-    background-color:#ECE569;
+.Fyellow{
+    background-color:#7FC8BE;
     border-bottom-left-radius: 1vw;
     border-top-left-radius: 1vw;
     border-bottom-right-radius:80%;
@@ -284,7 +273,7 @@
     width:5vw;
     height:4vh;
 }
-.small-mission-name{
+.Fsmall-mission-name{
     line-height: 4vh;
     letter-spacing: 0.5vw;
     text-indent: 1vw;

@@ -178,6 +178,22 @@ app.post('/html/mission/done', (req, res) => {
         res.send(data);
     });
 });
+app.post('/html/Fmission/done', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            4,
+            req.body.friend_ID
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
 
 app.post('/html/mission/accept', (req, res) => {
     let options = {
@@ -469,6 +485,12 @@ app.post('/html/findperson', (req, res) => {
 
 app.post('/html/mypage-record', (req, res) => {
     person.getInfo(req.session.uid, db).then(data => {
+ 
+        res.send(data);
+    })
+});
+app.post('/html/friendpage-record', (req, res) => {
+    person.getInfo(req.body.friend_ID, db).then(data => {
  
         res.send(data);
     })
