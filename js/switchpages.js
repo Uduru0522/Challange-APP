@@ -90,19 +90,11 @@ $(document).ready(() => {
             $("#img-grid-wrapper").empty();
 
             /* Process received images here ********* */
-            for (let i = 0; i < 16; ++i) {
+            qinfo[0].Pic_detail.forEach(img => {
                 let element = $("<img></img>").addClass("img-grid-item");
-                let wrapper = $("<div></div>")
-                wrapper.append(element);
-                element.attr("src", "../resources/click-to-upload.png");
-                $("#img-grid-wrapper").append(wrapper);
-            }
-
-            // qinfo[0].img.forEach(img => {
-            //     let element = $("<img></img>").addClass("img-grid-item");
-            //     !!!Set img tag source here!!!
-            //     $("#img-grid-wrapper").append(element);
-            // });
+                element.attr("src", img.picture); //文字說明: img.pic_text
+                $("#img-grid-wrapper").append(element);
+            });
             /* **************************************** */
 
             // Reset submit form
@@ -158,7 +150,7 @@ $(document).ready(() => {
 
     // Apply filter
     const quest_filter_options = [
-        "", "社交", "美食", "運動", "旅行", "冒險", "課業", "單人", "多人"
+        "", "人際", "美食", "課外", "旅行", "冒險", "學業", "單人", "多人"
     ];
     let filter_selected = [0];
     $(document).on("click", "#filter-confirm", function(e) {

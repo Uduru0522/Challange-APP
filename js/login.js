@@ -27,7 +27,7 @@ $(document).ready(function() {
     $("#register #su-submit").on("click", function(event) {
         event.preventDefault();
         $.post("./register", {
-            username: $("fieldset#su-username input").val(),
+            account: $("fieldset#su-username input").val(),
             password: $("fieldset#su-password input").val(),
             email: $("fieldset#su-email input").val(),
             lastname: $("fieldset#su-lastname input").val(),
