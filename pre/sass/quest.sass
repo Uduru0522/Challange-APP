@@ -12,30 +12,29 @@
 *
     box-sizing: border-box
 
-// Quest Main Page Relatexd
+// Header
+.container
+    .quest-header
+        @extend %flex-centeralize
+        width: 100vw
+        height: (1900vh / 147)
+        background-color: #F1CE61
+        color: white
 
+        span
+            margin-top: 4.2vh
+            text-align: center
+            font-size: 2em
+            letter-spacing: 10vw
+            margin-right: -10vw
+
+// Quest Main Page Relatexd
 #quest-main
     overflow-y: scroll
     -ms-overflow-style: none
     scrollbar-width: none
     &::-webkit-scrollbar
         display: none
-    
-    #quest-main-header
-        @extend %flex-centeralize
-        margin-top: calc(100vh / 15)
-        width: 100vw
-        height: 10vh
-        background-color: #E9B83E
-        color: white
-        // border-top: black solid 3px
-        // border-bottom: black solid 3px
-
-        span
-            text-align: center
-            font-size: 2em
-            letter-spacing: 10vw
-            margin-right: -10vw
     
     .dummy
         height: 20vh
@@ -53,7 +52,7 @@
         color: #E9B83E
 
     img
-        height: 50%
+        height: 60%
     span
         margin-left: 10px
         font-size: 1.3em
@@ -61,9 +60,8 @@
         letter-spacing: 0.1em
 
 .quest-peek
-    width: 90vw
-    height: calc(500vh / 12)
-    // border: black solid 3px
+    width: 92vw
+    height: calc(25000vh / 735)
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75)
     border-radius: 24px
     margin: 0 auto 25px
@@ -85,8 +83,8 @@
             vertical-align: middle
 
         span:nth-child(1)
-            font-size: 1.5em
-            letter-spacing: 0.2em
+            font-size: 2.7vh
+            letter-spacing: 0.4vh
         span:nth-child(2)
             font-size: 1em
 
@@ -95,18 +93,21 @@
         white-space: nowrap
         height: 81%
         line-height: 100%
+        margin-top: 1%
+
+        &::-webkit-scrollbar
+            visibility: hidden
 
         .quest-block
             display: inline-block
-            width: 40vw
-            height: calc(3100% / 39)
+            width: 41.5%
+            height:  calc(16500vh / 735)
             vertical-align: middle
             position: relative
             top: 50%
             transform: translateY(-50%)
-            margin: 0 5px 0 15px
+            margin: 0 2px 0 9px
             border-radius: 20px
-            // border: black solid 2px
             box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.75)
             overflow: hidden
             background-color: white
@@ -114,11 +115,11 @@
             .type
                 @extend %flex-centeralize
                 margin: 0 auto
-                height: calc(700% / 31)
-                width: 80%
+                height: calc(860% / 31)
+                width: calc(1000% / 13)
                 border-bottom: #ECE569 solid 2px
                 span
-                    font-size: 3vh
+                    font-size: 2.5vh
                     letter-spacing: 6vw
                     margin-right: -6vw
                     margin-top: 1vh
@@ -131,11 +132,9 @@
                     display: block
                     padding: 3%
                     white-space: normal
-                    font-size: 3vh
-                    line-height: 4vh
+                    font-size: 2.5vh
+                    line-height: 3vh
                     text-align: center
-                    letter-spacing: 2vw
-                    margin-right: -2vw
                     
 
             .accept-button
@@ -150,9 +149,9 @@
                 background-color: #ECE569
 
                 span
-                    font-size: 2.8vh
-                    letter-spacing: 3vh
-                    margin-right: -3vh
+                    font-size: 2.2vh
+                    letter-spacing: 2.2vh
+                    margin-right: -2.2vh
                     margin-top: 1vh
 
 // TODO: Quest Deatail Page Related    
@@ -319,21 +318,6 @@
         left: 90vw
         bottom: 22vw
         opacity: 0
-
-    #quest-main-header-filtering
-        @extend %flex-centeralize
-        margin-top: calc(100vh / 15)
-        width: 100vw
-        height: 10vh
-        background-color: #FFFFFF
-        border-top: black solid 3px
-        border-bottom: black solid 3px
-
-        span
-            text-align: center
-            font-size: 2em
-            letter-spacing: 10vw
-            margin-right: -10vw
 
     #filter-block
         width: 90vw

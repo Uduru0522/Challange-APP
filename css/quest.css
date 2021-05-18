@@ -1,4 +1,4 @@
-#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #filter #quest-main-header-filtering, #quest-detail #quest-submit-button, #quest-detail #preview, #quest-detail #quest-detail-button, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, #quest-main #quest-main-header {
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #quest-detail #quest-submit-button, #quest-detail #preview, #quest-detail #quest-detail-button, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, .container .quest-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,6 +8,20 @@
   box-sizing: border-box;
 }
 
+.container .quest-header {
+  width: 100vw;
+  height: 12.925170068vh;
+  background-color: #F1CE61;
+  color: white;
+}
+.container .quest-header span {
+  margin-top: 4.2vh;
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 10vw;
+  margin-right: -10vw;
+}
+
 #quest-main {
   overflow-y: scroll;
   -ms-overflow-style: none;
@@ -15,19 +29,6 @@
 }
 #quest-main::-webkit-scrollbar {
   display: none;
-}
-#quest-main #quest-main-header {
-  margin-top: calc(100vh / 15);
-  width: 100vw;
-  height: 10vh;
-  background-color: #E9B83E;
-  color: white;
-}
-#quest-main #quest-main-header span {
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: 10vw;
-  margin-right: -10vw;
 }
 #quest-main .dummy {
   height: 20vh;
@@ -46,7 +47,7 @@
   color: #E9B83E;
 }
 .filter-button img {
-  height: 50%;
+  height: 60%;
 }
 .filter-button span {
   margin-left: 10px;
@@ -56,8 +57,8 @@
 }
 
 .quest-peek {
-  width: 90vw;
-  height: calc(500vh / 12);
+  width: 92vw;
+  height: calc(25000vh / 735);
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75);
   border-radius: 24px;
   margin: 0 auto 25px;
@@ -78,8 +79,8 @@
   vertical-align: middle;
 }
 .quest-peek .peek-title span:nth-child(1) {
-  font-size: 1.5em;
-  letter-spacing: 0.2em;
+  font-size: 2.7vh;
+  letter-spacing: 0.4vh;
 }
 .quest-peek .peek-title span:nth-child(2) {
   font-size: 1em;
@@ -89,16 +90,20 @@
   white-space: nowrap;
   height: 81%;
   line-height: 100%;
+  margin-top: 1%;
+}
+.quest-peek .horizontal-scroll-container::-webkit-scrollbar {
+  visibility: hidden;
 }
 .quest-peek .horizontal-scroll-container .quest-block {
   display: inline-block;
-  width: 40vw;
-  height: calc(3100% / 39);
+  width: 41.5%;
+  height: calc(16500vh / 735);
   vertical-align: middle;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  margin: 0 5px 0 15px;
+  margin: 0 2px 0 9px;
   border-radius: 20px;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.75);
   overflow: hidden;
@@ -106,12 +111,12 @@
 }
 .quest-peek .horizontal-scroll-container .quest-block .type {
   margin: 0 auto;
-  height: calc(700% / 31);
-  width: 80%;
+  height: calc(860% / 31);
+  width: calc(1000% / 13);
   border-bottom: #ECE569 solid 2px;
 }
 .quest-peek .horizontal-scroll-container .quest-block .type span {
-  font-size: 3vh;
+  font-size: 2.5vh;
   letter-spacing: 6vw;
   margin-right: -6vw;
   margin-top: 1vh;
@@ -124,11 +129,9 @@
   display: block;
   padding: 3%;
   white-space: normal;
-  font-size: 3vh;
-  line-height: 4vh;
+  font-size: 2.5vh;
+  line-height: 3vh;
   text-align: center;
-  letter-spacing: 2vw;
-  margin-right: -2vw;
 }
 .quest-peek .horizontal-scroll-container .quest-block .accept-button {
   position: absolute;
@@ -140,9 +143,9 @@
   background-color: #ECE569;
 }
 .quest-peek .horizontal-scroll-container .quest-block .accept-button span {
-  font-size: 2.8vh;
-  letter-spacing: 3vh;
-  margin-right: -3vh;
+  font-size: 2.2vh;
+  letter-spacing: 2.2vh;
+  margin-right: -2.2vh;
   margin-top: 1vh;
 }
 
@@ -307,20 +310,6 @@
   left: 90vw;
   bottom: 22vw;
   opacity: 0;
-}
-#filter #quest-main-header-filtering {
-  margin-top: calc(100vh / 15);
-  width: 100vw;
-  height: 10vh;
-  background-color: #FFFFFF;
-  border-top: black solid 3px;
-  border-bottom: black solid 3px;
-}
-#filter #quest-main-header-filtering span {
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: 10vw;
-  margin-right: -10vw;
 }
 #filter #filter-block {
   width: 90vw;
