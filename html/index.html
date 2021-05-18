@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/chatroom.css">
     <link rel="stylesheet" href="../css/mypage.css">
     <link rel="stylesheet" href="../css/room.css" />
+    <link rel="stylesheet" href="../css/friendpage.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js">
     </script>
 </head>
@@ -24,12 +25,18 @@
     <script src="../js/fetch.js">
     </script>
     <!-- Navigation bar at the bottom-->
-    <div class="navbar"><img id="nav-chat" src="../resources/nav/chat.png"><img id="nav-friend" src="../resources/nav/friend.png"><img id="nav-mainpage" src="../resources/nav/mainpage.png"><img id="nav-mypage" src="../resources/nav/mypage.png"><img id="nav-quest" src="../resources/nav/quest.png"></div>
+    <div class="navbar">
+        <img id="nav-chat" src="../resources/nav/message_icon.png">
+        <img id="nav-friend" src="../resources/nav/book_icon.png">
+        <img id="nav-mainpage" src="../resources/nav/mainpage-clicked.png">
+        <img id="nav-mypage" src="../resources/nav/people_icon.png">
+        <img id="nav-quest" src="../resources/nav/fist_icon.png">
+    </div>
     <!-- Container class for each function page-->
     <!-- Except login page, uses a new html page.-->
     <!-- Mainpage, should land here after login -->
     <!-- Or after clicking the mainpage icon of nav-bar-->
-    <div class="container" id="mainpage">
+    <div class="container show" id="mainpage">
         <div id="city-container">
             <img id="building-d24" src="../resources/city/D24.png">
             <img id="building-dck" src="../resources/city/white-building.png">
@@ -109,7 +116,8 @@
     <div class="container" id="quest-detail">
         <div id="quest-detail-header"><img class="return-arrow" src="../resources/quest/return-next-arrow.png">
             <div id="quest-title-block">
-                <div class="wrapper"><span id="quest-tag">&emsp;屬&emsp;性&emsp;</span><span id="quest-points">10 </span></div><span id="quest-title-text">如何分辨出廢話自然是一個問題</span>
+                <div class="wrapper"><span id="quest-tag">&emsp;屬&emsp;性&emsp;</span><span id="quest-points">10 </span>
+                </div><span id="quest-title-text">如何分辨出廢話自然是一個問題</span>
             </div>
         </div>
         <div id="quest-intro">
@@ -146,7 +154,7 @@
             <form name="group-choose-mission" id="group-choose-mission">
                 <input type="text" placeholder="輸入任務名稱" name="missiontosearch" id="missiontosearch">
                 <button type="submit" class="search-mission">
-                    <img src="../resources/nav/search.png"/>
+                    <img src="../resources/nav/search.png" />
                 </button>
             </form>
         </div>
@@ -154,18 +162,18 @@
 
 
         <input type='radio' name='choose_mission' id='C_M'>
-        <label for='C_M'> 
-        <div class="button-sure hidden"onclick="choose_mission()">
-          確定
-        </div>
-      </label>
+        <label for='C_M'>
+            <div class="button-sure hidden" onclick="choose_mission()">
+                確定
+            </div>
+        </label>
 
         <div id="chat-choose-friends" class="create-chat-menu hidden">
             <div id='choose-friend-text'>選擇好友</div>
             <form name="group-choose-friend" id="group-choose-friend">
                 <input type="text" placeholder="輸入好友名稱" name="friendtosearch" id="friendtosearch">
                 <button type="submit" class="search-friend">
-                <img src="../resources/nav/search.png"/>
+                    <img src="../resources/nav/search.png" />
                 </button>
             </form>
         </div>
@@ -173,23 +181,17 @@
 
 
         <input type='checkbox' name='choose_friend' id='C_F'>
-        <label for='C_F'> 
-      <div class="button-creategroup hidden"onclick="choose_friend()">
-        <div>建立群組</div>
-      </div>
-      </label>
+        <label for='C_F'>
+            <div class="button-creategroup hidden" onclick="choose_friend()">
+                <div>建立群組</div>
+            </div>
+        </label>
 
         <div id="chat-choose-cover" class="chat-cover hidden"></div>
 
 
         <div id="chat-record">
-            <!--<div class="chat-room">
-          <img id="chat-header"src="../resources/nav/create_chat.png"/>
-          <div class="chat-room-text">
-            <h4 id="chat-group-name">鄭青宇</h4>
-            <h5 id="chat-firstline">哈哈哈哈哈哈哈哈</h5>
-          </div>
-        </div>-->
+
 
         </div>
     </div>
@@ -199,20 +201,7 @@
             <h2 id="chat-room-name"></h2>
         </div>
         <div id="chat-content">
-            <!--<div class="your-message">
-          <div class="message-pic">
-          <img class="your-header"src="../resources/nav/create_chat.png">
-          <div class="your-name"></div>
-          </div>
-          <div class="what-you-say"></div>
-          <div class="message-time"></div>
-        </div>        
-        <div class="my-message">
-          <div class="message-time"></div>
-          <div class="what-i-say"></div>
-          
-        </div>
-        -->
+
         </div>
         <div id="chat-input-img">
             <img src="../resources/nav/camera.png" />
@@ -248,21 +237,91 @@
         </div>
         <div id="data-selfintro-title">自我介紹</div>
         <div id="data-selfintro-text"></div>
-        <div id="data-characteristics">
-            <div class="characteristics-left">
+
+        <div id="characteristics-L"></div>
+        <div class="characteristics-RT">
+            <span id="RT-title">特質分析</span>
+            <img src="../resources/nav/RT.png">
+        </div>
+        <div class="characteristics-RB">
+            <span id="RB-title">挑戰經歷</span>
+            <img src="../resources/nav/RB.png">
+        </div>
+        <div id="mission-launched" class="hidden">
+            <div class="back-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="mission-container">
+
+            </div>
+        </div>
+        <div id="characteristic-analyze" class="hidden">
+            <div class="back-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="self-rador">
+                <div id="characteristic-analyze-title">特質分析</span>
+                <div id="rador">
+                    <canvas id="myChart"></canvas>
+                </div>
                 <div id="value-social"></div>
                 <div id="value-travel"></div>
                 <div id="value-food"></div>
                 <div id="value-activity"></div>
                 <div id="value-sport"></div>
-                <div id="value-self"></div>
+                <div id="value-self"></div>   
             </div>
-            <div class="characteristics-right">
-                <div id="rador">
+        </div>
 
-                    <canvas id="myChart"></canvas>
+    </div>
 
+    <div class="container" id="myfriend-main">
+        <div class="Fmypage-title">
+            <div id="Fmy-data">好友資訊</div>
+        </div>
+        <div id="Fmypage-record">
+            <img id="Fdata-pic" src="" />
+            <div class="Fdata-text">
+                <div id="Fdata-name"></div>
+                <div id="Fdata-nickname"></div>
+                <div id="Fdata-ID"></div>
+            </div>
+        </div>
+        <div id="Fdata-selfintro-title">自我介紹</div>
+        <div id="Fdata-selfintro-text"></div>
+
+        <div id="Fcharacteristics-L"></div>
+        <div class="Fcharacteristics-RT">
+            <span id="FRT-title">特質分析</span>
+            <img src="../resources/nav/RT.png">
+        </div>
+        <div class="Fcharacteristics-RB">
+            <span id="FRB-title">挑戰經歷</span>
+            <img src="../resources/nav/RB.png">
+        </div>
+        <div id="Fmission-launched" class="hidden">
+            <div class="Fback-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="Fmission-container">
+
+            </div>
+        </div>
+        <div id="Fcharacteristic-analyze" class="hidden">
+            <div class="Fback-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="Fself-rador">
+                <div id="Fcharacteristic-analyze-title">特質分析</span>
+                <div id="Frador">
+                    <canvas id="friendChart"></canvas>
                 </div>
+                <div id="Fvalue-social"></div>
+                <div id="Fvalue-travel"></div>
+                <div id="Fvalue-food"></div>
+                <div id="Fvalue-activity"></div>
+                <div id="Fvalue-sport"></div>
+                <div id="Fvalue-self"></div>   
             </div>
         </div>
 
@@ -277,11 +336,27 @@
             <form name="ID-choose-friend" id="ID-choose-friend">
                 <input type="text" placeholder="輸入 ID" id="persontosearch">
                 <button type="submit" class="output-search-ID">
-            <img src="../resources/nav/search.png"/>
-          </button>
+                    <img src="../resources/nav/search.png" />
+                </button>
             </form>
         </div>
+        <div id="click-friend" class="hidden">
+            <div class="click-friend-top">
+                <img id="click-friend-header" />
+                <div id="click-friend-name"></div>
+            </div>
+            <div class="click-friend-bottom">
+                <div id="click-friend-data">
+                    <img src="../resources/nav/frienddata.png" />
+                    <p>好友資訊</p>
+                </div>
+                <div id="click-friend-chat">
+                    <img src="../resources/nav/yellow message_icon.png" />
+                    <p>傳送訊息</p>
+                </div>
+            </div>
 
+        </div>
 
         <div id="friend-record">
             <div class="single-friend"></div>

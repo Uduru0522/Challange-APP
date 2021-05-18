@@ -1,7 +1,7 @@
 
 var friend_list_ID = [];
 var friend_list = [];
-var mission_list;
+var mission_list, launch_mission_list, Flaunch_mission_list;
 var header_pic, group_name, first_line;
 var friend_header, friend_name;
 var mission_name;
@@ -15,10 +15,11 @@ var check_friend = [];
 var message;
 var room_magnitude;
 var friend_magnitude;
-var mission_magnitude;
+var mission_magnitude, launch_mission_magnitude, Flaunch_mission_magnitude;
 var mydata;//="鄭青宇";
 var ID;
 var roomstyle, roomID;
+var friend_index;
 
 var value = { name: "鄭青宇", nickname: "?????", id: "E24076344", intro: "自介", social: 50, travel: 45, food: 23, activity: 20, sport: 15, self: 10 };
 
@@ -110,6 +111,64 @@ function appendfriends() {//show friends in group create
 
     }
 
+}
+function appendmissionsforlaunch() {//show missions in group create
+
+    document.getElementById("mission-container").innerHTML = "<div id='mission-launched-title'>發起任務</div>"
+    let missions = []
+    console.log(launch_mission_magnitude)
+    for (let i = 0; i < launch_mission_magnitude; i++) {
+        //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
+        missions = missions + "<div class='launch-missions'><div class='mission-area'>" + launch_mission_list[i].category + "</div><div class='launch-mission-name'>" + launch_mission_list[i].name + "</div><img class='barchart'src='../resources/nav/barchart.png'/></div>";
+
+        if (i == launch_mission_magnitude - 1) {
+            $("#mission-container").append(missions)
+        }
+
+    }
+}
+function appendmissionsforlaunchF() {//show missions in group create
+
+    document.getElementById("Fmission-container").innerHTML = "<div id='mission-launched-title'>發起任務</div>"
+    let missions = []
+    console.log(Flaunch_mission_magnitude)
+    for (let i = 0; i < Flaunch_mission_magnitude; i++) {
+        //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
+        missions = missions + "<div class='Flaunch-missions'><div class='Fmission-area'>" + launch_mission_list[i].category + "</div><div class='Flaunch-mission-name'>" + launch_mission_list[i].name + "</div><img class='Fbarchart'src='../resources/nav/barchart.png'/></div>";
+
+        if (i == Flaunch_mission_magnitude - 1) {
+            $("#Fmission-container").append(missions)
+        }
+
+    }
+}
+function appendmissionsforsmall() {//show missions in group create
+
+    document.getElementById("characteristics-L").innerHTML = "<div id='L-title'>發起任務</div>";
+    let missions = []
+    console.log(launch_mission_magnitude)
+    for (let i = 0; i < launch_mission_magnitude; i++) {
+        //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
+        missions = missions + "<div class='mission-show'><div class='yellow'></div><div class='small-mission-name'>" + launch_mission_list[i].name + "</div></div>";
+        if (i == launch_mission_magnitude - 1) {
+            $("#characteristics-L").append(missions)
+        }
+
+    }
+}
+function appendmissionsforsmallF() {//show missions in group create
+
+    document.getElementById("Fcharacteristics-L").innerHTML = "<div id='FL-title'>發起任務</div>";
+    let missions = []
+    console.log(Flaunch_mission_magnitude)
+    for (let i = 0; i < Flaunch_mission_magnitude; i++) {
+        //let missions="<input type='radio' name='choose_mission' id='C_M"+i+"'><label for='C_M"+i+"'><div id='choosed-mission"+i+"'class='choosed-mission unchosen'><h3>和陌生的你夜衝</h3></div></label>";
+        missions = missions + "<div class='Fmission-show'><div class='Fyellow'></div><div class='Fsmall-mission-name'>" + Flaunch_mission_list[i].name + "</div></div>";
+        if (i == Flaunch_mission_magnitude - 1) {
+            $("#Fcharacteristics-L").append(missions)
+        }
+
+    }
 }
 function newgroup() {//create a new group
     $.post('./newgroup', {
@@ -305,12 +364,12 @@ $(document).on("click", '#nav-chat', function () {
 
     appendrooms();
     $.post('./chatrecord',
-    function (chatrooms) {
-        console.log(chatrooms);
-        room_magnitude = chatrooms.length;
-        rooms_data = chatrooms;
+        function (chatrooms) {
+            console.log(chatrooms);
+            room_magnitude = chatrooms.length;
+            rooms_data = chatrooms;
 
-    });
+        });
     setTimeout(() => {
         appendrooms();
     }, 200);
@@ -331,7 +390,7 @@ $("#create-chat-button").click(function () {
 
 });
 $(".button-sure").click(function () {
-    
+
     appendfriends();
 });
 
@@ -342,7 +401,7 @@ function appendfriendsformenu() {
     console.log(friend_magnitude)
     let friend = [];
     for (let j = 0; j < friend_magnitude; j++) {
-               friend = friend + "<div class='slideleft'><button class='deletebutton'id='delete-num" + j + "'>删除</button><div id='friend-num" + j + "'class='friend'><img id='friend-header'src='" + friend_list[j].image + "'/><div class='friend-text'><h3 id='friend-name'>" + friend_list[j].name + "</h3></div></div><s class='space'></s></div>";
+        friend = friend + "<div class='slideleft'><button class='deletebutton'id='delete-num" + j + "'>删除</button><div id='friend-num" + j + "'class='friend'><img id='friend-header'src='" + friend_list[j].image + "'/><div class='friend-text'><h3 id='friend-name'>" + friend_list[j].name + "</h3></div></div><s class='space'></s></div>";
         if (j == friend_magnitude - 1) {
             $("#friend-record").append(friend)
         }
@@ -446,9 +505,10 @@ function deletefriend() {//delete friend
 
 //mypage page
 $("#nav-mypage").click(function () {
+    appendmissionsforsmall();
     $.post('./mypage-record',
         function (data) {
-                        value = data;
+            value = data;
             document.getElementById("data-pic").src = value.image;
             document.getElementById("data-name").innerHTML = value.name;
             document.getElementById("data-nickname").innerHTML = value.title;
@@ -462,20 +522,20 @@ $("#nav-mypage").click(function () {
             document.getElementById("value-self").innerHTML = "課業: " + value.self;
             var radardata = {
                 labels: [
-                    '人際',
-                    '旅遊',
-                    '食物',
-                    '活動',
+                    '社交',
+                    '旅行',
+                    '美食',
+                    '冒險',
                     '運動',
-                    '自我',
+                    '課業',
                 ],
                 datasets: [{
                     label: '你的任務',
                     data: [value.social, value.travel, value.food, value.activity, value.sport, value.self],
                     fill: true,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(233, 149, 53,0.3)',
+                    borderColor: '#EB931D',
+                    pointBackgroundColor: '#EB931D',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
                     pointHoverBorderColor: 'rgb(255, 99, 132)'
@@ -496,6 +556,7 @@ $("#nav-mypage").click(function () {
                     },
                     pointLabels:
                     {
+
                         font: {
                             size: 36,            //大小
                             weight: 700       //粗細
@@ -524,7 +585,7 @@ $("#nav-mypage").click(function () {
 
 });
 //room page
-function handle_message(type,room_id) {
+function handle_message(type, room_id) {
     console.log("print");
     document.getElementById("chat-content").innerHTML = "";
     let ourmessage = []
@@ -533,7 +594,7 @@ function handle_message(type,room_id) {
             chatroom_name: room_id
         },
             function (data) {
-                message=data;
+                message = data;
                 for (let i = 1; i < data.length; i++) {
                     for (let j = 0; j < friend_magnitude; j++) {
                         if (data[i].name == mydata.id) {
@@ -575,10 +636,10 @@ function handle_message(type,room_id) {
                         $('#chat-content').scrollTop(9999999)
                     }
                 }
-                
+
             });
     }
-    
+
 }
 
 $('.friend').click(function () {
@@ -606,6 +667,13 @@ $(document).ready(function () {
         $(".button-creategroup").removeClass("show").addClass("hidden");
         $(".chat-cover").removeClass("show").addClass("hidden");
     });
+    $.post('./mission/done',
+        function (data) {
+            console.log(data);
+            launch_mission_magnitude = data.length;
+            launch_mission_list = data;
+
+        });
 });
 
 $(document).on("click", '.chat-room', function () {
@@ -627,12 +695,12 @@ $(document).on("click", '.chat-room', function () {
 
     }
     roomID = rooms_data[i].name;
-    if(rooms_data[i].type == "mission"){
-        handle_message("mission",rooms_data[i].name);
-    }else{
-        handle_message("friend",rooms_data[i].name);
+    if (rooms_data[i].type == "mission") {
+        handle_message("mission", rooms_data[i].name);
+    } else {
+        handle_message("friend", rooms_data[i].name);
     }
-    
+
     $("#chat-main").removeClass("show").addClass("hidden");
     $("#room-main").removeClass("hidden").addClass("show");
 });
@@ -716,28 +784,42 @@ $(document).on("click", "#group-choose-friend button[type='submit']", function (
 //for(let i=0;i<friend_magnitude;i++){
 $(document).on("click", '.friend', function () {
 
-    let i = $(".friend").index(this);
-    console.log("friendroom" + i);
+    friend_index = $(".friend").index(this);
+    $("#click-friend").removeClass("hidden").addClass("show");
+    $(".friend-cover").removeClass("hidden").addClass("show");
+    document.getElementById("click-friend-header").src = friend_list[friend_index].image;
+    document.getElementById("click-friend-name").innerHTML = friend_list[friend_index].name;
+    $.post('./Fmission/done', {
+        friend_ID: friend_list_ID[friend_index]
+    },
+        function (data) {
+            console.log(data);
+            Flaunch_mission_magnitude = data.length;
+            Flaunch_mission_list = data;
+
+        });
+});
+$(document).on("click", '#click-friend-chat', function () {
     $("#room-main").removeClass("hidden").addClass("show");
     $.post('./singlefriend', {//****************************************************************
-        friend_ID: friend_list_ID[i]
+        friend_ID: friend_list_ID[friend_index]
     },
         function (data) {//get the chatroom_ID of you and the friend
             //chatroom_ID=ID
             data == "Success"
-            document.getElementById("chat-room-name").innerHTML = friend_list[i].name;//??
+            document.getElementById("chat-room-name").innerHTML = friend_list[friend_index].name;//??
             roomstyle = "friend";
-            roomID = friend_list[i].id;
+            roomID = friend_list[friend_index].id;
             $.post('./chatroom_friend', {//as same as the above one//****************************************************************
-                friend_ID: friend_list_ID[i]
+                friend_ID: friend_list_ID[friend_index]
             },
                 function (data) {
-
                     message = data;
-                    handle_message("friend",friend_list_ID[i]);
+                    handle_message("friend", friend_list_ID[friend_index]);
                 });
         });
-
+});
+$(document).on("click", '#click-friend-data', function () {
 
 });
 
@@ -777,6 +859,7 @@ $('.friend-cover').click((event) => {
     $(".addfriend").removeClass("show").addClass("hidden");
     $("#button_cantfind").removeClass("show").addClass("hidden");
     $("#button_add").removeClass("show").addClass("hidden");
+    $("#click-friend").removeClass("show").addClass("hidden");
 });
 $('.navbar').click((event) => {
     $(".friend-cover").removeClass("show").addClass("hidden");
@@ -814,4 +897,120 @@ $(document).on("click", '#logout', function () {
         if (data == 'jump')
             window.location.href = '../html/login.html';
     });
+});
+$(document).on("click", '#characteristics-L', function () {
+    console.log("success")
+
+    appendmissionsforlaunch();
+    $("#mission-launched").removeClass("hidden").addClass("show");
+});
+$(document).on("click", '.characteristics-RT', function () {
+    console.log("successs")
+    $("#characteristic-analyze").removeClass("hidden").addClass("show");
+});
+$(document).on("click", '.back-button', function () {
+    $("#mission-launched").removeClass("show").addClass("hidden");
+    $("#characteristic-analyze").removeClass("show").addClass("hidden");
+});
+$(document).on("click", '#click-friend-data', function () {
+    $("#myfriend-main").removeClass("hidden").addClass("show");
+    $("#friend-main").removeClass("show").addClass("hidden");
+    $("#click-friend").removeClass("show").addClass("hidden");
+    $(".friend-cover").removeClass("show").addClass("hidden");
+
+    appendmissionsforsmallF();
+    $.post('./friendpage-record',{
+        friend_ID:friend_list_ID[friend_index]
+    },
+        function (data) {
+            console.log(data);
+            value = data;
+            document.getElementById("Fdata-pic").src = value.image;
+            document.getElementById("Fdata-name").innerHTML = value.name;
+            document.getElementById("Fdata-nickname").innerHTML = value.title;
+            document.getElementById("Fdata-ID").innerHTML = value.id;
+            document.getElementById("Fdata-selfintro-text").innerHTML = value.intro;
+            document.getElementById("Fvalue-social").innerHTML = "社交: " + value.social;
+            document.getElementById("Fvalue-travel").innerHTML = "旅行: " + value.travel;
+            document.getElementById("Fvalue-food").innerHTML = "美食: " + value.food;
+            document.getElementById("Fvalue-activity").innerHTML = "冒險: " + value.activity;
+            document.getElementById("Fvalue-sport").innerHTML = "運動: " + value.sport;
+            document.getElementById("Fvalue-self").innerHTML = "課業: " + value.self;
+            var Fradardata = {
+                labels: [
+                    '社交',
+                    '旅行',
+                    '美食',
+                    '冒險',
+                    '運動',
+                    '課業',
+                ],
+                datasets: [{
+                    label: '你的任務',
+                    data: [value.social, value.travel, value.food, value.activity, value.sport, value.self],
+                    fill: true,
+                    backgroundColor: 'rgb(233, 149, 53,0.3)',
+                    borderColor: '#EB931D',
+                    pointBackgroundColor: '#EB931D',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(255, 99, 132)'
+                }]
+            };
+            var Fradaroptions =
+            {
+                scale:
+                {
+
+                    fontSize: 100,
+                    beginAtZero: true,
+                    maxTicksLimit: 7,
+                    min: 0,
+                    max: 100,
+                    ticks:
+                    {
+                    },
+                    pointLabels:
+                    {
+
+                        font: {
+                            size: 36,            //大小
+                            weight: 700       //粗細
+                        },
+                    },
+                    gridLines:
+                    {
+                        color: '#009FCC'
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+
+            };
+            var FchartRadarDOM = document.getElementById("friendChart");
+            var FchartRadar = new Chart(FchartRadarDOM, {
+                type: 'radar',
+                data: Fradardata,
+                options: Fradaroptions
+            });
+
+        });
+
+});
+$(document).on("click", '#Fcharacteristics-L', function () {
+    console.log("success")
+
+    appendmissionsforlaunchF();
+    $("#Fmission-launched").removeClass("hidden").addClass("show");
+});
+$(document).on("click", '.Fcharacteristics-RT', function () {
+
+    $("#Fcharacteristic-analyze").removeClass("hidden").addClass("show");
+});
+$(document).on("click", '.Fback-button', function () {
+    $("#Fmission-launched").removeClass("show").addClass("hidden");
+    $("#Fcharacteristic-analyze").removeClass("show").addClass("hidden");
 });
