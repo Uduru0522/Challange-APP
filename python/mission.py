@@ -181,20 +181,17 @@ def submit(conn,conn2, User, M_ID, Pic, Pic_text):#提交任務(已修改)
     cat = conn.execute("select category_no from {user} where ID = {m_ID};".format(user=User, m_ID=M_ID))#找分類
     Category=cat.fetchone()[0]
     if(Category == 1):
-        conn2.execute("UPDATE users SET sport=sport+{point} where ID = {user};".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET sport=sport+{point} where ID = '{user}';".format(point=Point, user=User))#加分
     elif(Category == 2):
-        conn2.execute("UPDATE users SET social=social+{point} where ID = {user};".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET social=social+{point} where ID = '{user}';".format(point=Point, user=User))#加分
     elif(Category == 3):
-        ADD=conn2.execute("select food from users where id = '{user}';".format(point=Point, user=User))
-        A=ADD.fetchone()[0]
-        Point=Point+A
-        conn2.execute("UPDATE users SET food={point} where id = '{user}';".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET food= food+ {point} where id = '{user}';".format(point=Point, user=User))#加分
     elif(Category == 4):
-        conn2.execute("UPDATE users SET activity=activity+{point} where ID = {user};".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET activity=activity+{point} where ID = '{user}';".format(point=Point, user=User))#加分
     elif(Category == 5):
-        conn2.execute("UPDATE users SET travel=travel+{point} where ID = {user};".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET travel=travel+{point} where ID = '{user}';".format(point=Point, user=User))#加分
     elif(Category == 6):
-        conn2.execute("UPDATE users SET self=self+{point} where ID = {user};".format(point=Point, user=User))#加分
+        conn2.execute("UPDATE users SET self=self+{point} where ID = '{user}';".format(point=Point, user=User))#加分
 
     conn.execute("UPDATE mission SET progressing=progressing-1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數減一
     Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
@@ -205,6 +202,8 @@ def submit(conn,conn2, User, M_ID, Pic, Pic_text):#提交任務(已修改)
     conn.execute("UPDATE mission SET member='{m}' where ID = {m_ID};".format(m=str,m_ID=M_ID))#把完成的人刪掉
     conn.commit()
     conn.close()
+    conn2.commit()
+    conn2.close()
 
 def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
     recent = conn.execute("select category_no from {user} order by date DESC LIMIT 1;".format(user=User))#最近做過的任務的類別
