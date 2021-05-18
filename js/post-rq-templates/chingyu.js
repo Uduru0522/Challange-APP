@@ -1019,34 +1019,32 @@ $(document).on("click", '.characteristics-RB', function() {
     console.log("RBsuccesss")
     $("#characteristic-history").removeClass("hidden").addClass("show");
 
-    /* ************************************************************* */
-    // $.post( /* Receive "self" history image */ , function(imgobj_arr) {
-    //     imgobj_arr.forEach(obj => {
-    //         let img = $("<img></img>").addClass("img-grid-item");
-    //         let wrapper = $("<div></div>");
+    $.post('./getphotos', function(imgobj_arr) {
+        imgobj_arr.forEach(obj => {
+            let img = $("<img></img>").addClass("img-grid-item");
+            let wrapper = $("<div></div>");
 
-    //         // img.attr("src", imgobj_arr.img);
-    //         wrapper.append(img);
-    //         $("#photobook-grid-wrapper").append(wrapper);
-    //     });
-    // });
-    /************************************************************** */
+            img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
+            wrapper.append(img);
+            $("#photobook-grid-wrapper").append(wrapper);
+        });
+    });
 });
 
 $(document).on("click", '.Fcharacteristics-RB', function() {
     console.log("FRBsuccesss")
     $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
 
-    /* ************************************************************* */
-    // $.post( /* Receive "self" history image */ , function(imgobj_arr) {
-    //     imgobj_arr.forEach(obj => {
-    //         let img = $("<img></img>").addClass("Fimg-grid-item");
-    //         let wrapper = $("<div></div>");
+    $.post('./getphotos_friend', {
+        friend_ID: friend_list_ID[friend_index]
+    }, function(imgobj_arr) {
+        imgobj_arr.forEach(obj => {
+            let img = $("<img></img>").addClass("Fimg-grid-item");
+            let wrapper = $("<div></div>");
 
-    //         // img.attr("src", imgobj_arr.img);
-    //         wrapper.append(img);
-    //         $("#Fphotobook-grid-wrapper").append(wrapper);
-    //     });
-    // });
-    /************************************************************** */
+            img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
+            wrapper.append(img);
+            $("#Fphotobook-grid-wrapper").append(wrapper);
+        });
+    });
 });
