@@ -1,4 +1,4 @@
-#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #quest-filtered #quest-list-header, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input, #quest-detail #quest-submit-button, #quest-detail #preview, #quest-detail #quest-detail-button, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-title-block .wrapper, #quest-detail #quest-detail-header #quest-title-block, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, .container .quest-header {
+#quest-filtered #quest-list .qblock .qblock-wrapper .qblock-state, #quest-filtered #quest-list .qblock .qblock-wrapper .qblock-points, #quest-filtered #quest-list .qblock .qblock-type, #filter #filter-block #filter-footer .filter-footer-button, #filter #filter-block #filter-header, #quest-detail #quest-submit-field #quest-submit-button, #quest-detail #quest-submit-field #preview, #quest-detail #quest-detail-button, #quest-detail #quest-intro #people-indicate, #quest-detail .qd-title, #quest-detail #quest-detail-header #quest-tag, #quest-detail #quest-detail-header #quest-points, .quest-peek .horizontal-scroll-container .quest-block .accept-button, .quest-peek .horizontal-scroll-container .quest-block .title, .quest-peek .horizontal-scroll-container .quest-block .type, .container .quest-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,16 +10,9 @@
 
 .container .quest-header {
   width: 100vw;
-  height: 12.925170068vh;
+  height: calc(1900vh / 147);
   background-color: #F1CE61;
   color: white;
-}
-.container .quest-header span {
-  margin-top: 4.2vh;
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: 10vw;
-  margin-right: -10vw;
 }
 
 #quest-main {
@@ -29,6 +22,13 @@
 }
 #quest-main::-webkit-scrollbar {
   display: none;
+}
+#quest-main .quest-header span {
+  margin-top: 4.2vh;
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 10vw;
+  margin-right: -10vw;
 }
 #quest-main .dummy {
   height: 20vh;
@@ -152,124 +152,118 @@
 #quest-detail {
   background-color: #FFFFFF;
   overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-x: none;
 }
 #quest-detail #quest-detail-header {
-  width: 100vw;
-  height: calc(1300vh / 60);
-  position: relative;
+  background-color: #FBE1B1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  z-index: 1;
+}
+#quest-detail #quest-detail-header img, #quest-detail #quest-detail-header #quest-points {
+  height: 5vh;
+  width: 5vh;
+  position: absolute;
+  top: 50%;
 }
 #quest-detail #quest-detail-header img {
-  margin: auto 0;
   display: block;
-  height: 3vh;
-  width: 3vh;
-  position: absolute;
-  right: 1.5vh;
-  top: 1.5vh;
+  left: 2.5vh;
+  transform: translateY(-50%) scaleX(-1);
 }
-#quest-detail #quest-detail-header #quest-title-block {
-  border-top: black solid 3px;
-  border-bottom: black solid 3px;
-  background-color: #F2F2F2;
-  width: 100vw;
-  height: calc(940vh / 60);
-  position: absolute;
-  bottom: 0;
-  flex-direction: column;
-  justify-content: space-around;
-}
-#quest-detail #quest-detail-header #quest-title-block .wrapper #quest-tag {
-  padding: 0px 20px;
-  height: 5vh;
-  line-height: 5vh;
-  display: inline-block;
-  background-color: #BFBFBF;
-  border-radius: 8px;
-  font-size: 2.7vh;
-  margin-right: calc(100vw / 26);
-}
-#quest-detail #quest-detail-header #quest-title-block .wrapper #quest-points {
-  height: calc(500vh / 120);
-  line-height: calc(500vh / 120);
+#quest-detail #quest-detail-header #quest-points {
+  right: 2.5vh;
   text-align: center;
-  width: calc(500vh / 120);
-  border-radius: calc(calc(500vh / 120) / 2);
-  display: inline-block;
+  border-radius: 2.5vh;
   background-color: #A6A6A6;
+  transform: translateY(-50%);
 }
-#quest-detail #quest-detail-header #quest-title-block #quest-title-text {
-  display: block;
+#quest-detail #quest-detail-header #quest-points span {
+  font-size: 2vh;
+  letter-spacing: 0;
+}
+#quest-detail #quest-detail-header #quest-tag {
+  width: 24vw;
+  background-color: transparent;
+  border-right: #E9B83E solid 1px;
+  border-left: #E9B83E solid 1px;
+}
+#quest-detail #quest-detail-header #quest-tag span {
+  color: #E9B83E;
   font-size: 3vh;
-  position: relative;
-  bottom: 0.5vh;
+  letter-spacing: 1.5vh;
+  margin-right: -1.5vh;
+}
+#quest-detail #quest-detail-header #quest-title-text {
+  margin-top: 0.5vh;
+  display: block;
+  color: black;
+  font-size: 3vh;
 }
 #quest-detail .qd-title {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 20vh;
+  width: 44vw;
   height: 5vh;
   border-radius: 8px;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.75), -3px -3px 6px rgba(0, 0, 0, 0.75);
-  background-color: #F2F2F2;
-}
-#quest-detail #quest-intro {
-  position: static;
-  width: 100vw;
-  margin-top: 3vh;
-  padding: 0 5vw;
-}
-#quest-detail #quest-intro #quest-intro-title {
+  background-color: #EB931D;
   margin-top: 2vh;
 }
-#quest-detail #quest-intro #quest-intro-title span {
-  font-size: 2.7vh;
+#quest-detail .qd-title span {
+  color: white;
+  font-size: 2.5vh;
+  letter-spacing: 0.8vh;
+  margin-right: -0.8vh;
 }
-#quest-detail #quest-intro #quest-intro-body {
+#quest-detail .qd-body {
+  position: relative;
   display: block;
+  height: fit-content;
+  width: 82vw;
+  margin: 2vh auto 0;
+  color: black;
+  font-size: 2.4vh;
+  word-wrap: break-word;
+}
+#quest-detail #quest-intro #people-indicate {
+  width: 22.5vw;
+  height: 4.33vh;
+  border: #EB931D solid 2px;
+  background-color: transparent;
+  border-radius: 8px;
+  margin-left: 9vw;
   margin-top: 2vh;
-  width: 90vw;
-  font-size: 2.7vh;
 }
-#quest-detail #quest-require {
-  position: static;
-  width: 100vw;
-  margin-top: 3vh;
-  padding: 0 5vw;
-}
-#quest-detail #quest-require #quest-require-title {
-  margin-top: 2vh;
-}
-#quest-detail #quest-require #quest-require-title span {
-  font-size: 2.7vh;
-}
-#quest-detail #quest-require #quest-require-body {
-  display: block;
-  margin-top: 2vh;
-  width: 90vw;
-  font-size: 2.7vh;
+#quest-detail #quest-intro #people-indicate span {
+  font-size: 2.2vh;
+  letter-spacing: 1vh;
+  margin-right: -1vh;
+  color: #EB931D;
 }
 #quest-detail #quest-detail-button {
   position: relative;
   width: calc(80vw / 3);
-  height: 6vh;
+  height: 4.9vh;
   border-radius: 8px;
   margin-left: calc(200vw / 3);
-  margin-top: 20px;
-  border: black solid 3px;
+  margin-top: 2vh;
 }
 #quest-detail #quest-detail-button span {
   font-size: 3vh;
 }
 #quest-detail #quest-detail-button.can-accept {
-  background-color: palegreen;
+  background-color: #EB931D;
+  color: white;
 }
 #quest-detail #quest-detail-button.already-accept {
-  background-color: slategrey;
+  background-color: transparent;
+  color: #EB931D;
+  border: #EB931D solid 1px;
 }
-#quest-detail #quest-submit-text {
+#quest-detail #quest-submit-field #quest-submit-text {
   margin: 10px 5vw;
   width: 90vw;
   position: relative;
@@ -278,7 +272,7 @@
   border-radius: 10px;
   float: none;
 }
-#quest-detail #preview {
+#quest-detail #quest-submit-field #preview {
   margin: 10px auto;
   box-shading: 2px 2px 5px rgba(0, 0, 0, 0.75);
   position: relative;
@@ -287,7 +281,7 @@
   border-radius: 20px;
   background-color: #C0C0C0;
 }
-#quest-detail #quest-submit-button {
+#quest-detail #quest-submit-field #quest-submit-button {
   margin: 10px auto;
   position: relative;
   width: 90vw;
@@ -295,102 +289,166 @@
   background-color: #C0C0C0;
   border-radius: 10px;
 }
-#quest-detail #quest-submit-button span {
+#quest-detail #quest-submit-field #quest-submit-button span {
   font-size: 3vh;
 }
-#quest-detail .dummy {
+#quest-detail #quest-submit-field .dummy {
   width: 100vw;
   height: 20vh;
 }
+#quest-detail #quest-history #img-grid-wrapper {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 2vw;
+  column-gap: 2vw;
+  width: 100vw;
+  max-width: 100vw;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 32vw;
+  margin-top: 2vh;
+}
+#quest-detail #quest-history #img-grid-wrapper div {
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25), -1px -1px 2px rgba(0, 0, 0, 0.25);
+  background-color: #FBE1B1;
+}
+#quest-detail #quest-history #img-grid-wrapper div .img-grid-item {
+  vertical-align: middle;
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+}
 
+@keyframes _select {
+  100% {
+    border: none;
+    background-color: #E9B83E;
+    color: white;
+  }
+}
+#filter * {
+  z-index: 1;
+}
 #filter #filter-return-area {
   position: absolute;
-  top: calc(50vh / 3);
-  right: 0;
-  left: 90vw;
-  bottom: 22vw;
-  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 #filter #filter-block {
-  width: 90vw;
-  height: calc(100vh - calc(calc(100vh / 15) + 10vh));
+  width: calc(1300vw / 14);
+  height: calc(55500vh / 735);
   background-color: #FFFFFF;
-  border-right: black solid 3px;
+  margin-top: calc(calc(1900vh / 147) / 2);
+  position: relative;
+  border-radius: 0 40px 40px 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 #filter #filter-block #filter-header {
   width: 100%;
-  height: 9.5vh;
-  background-color: #F2F2F2;
-  display: flex;
-  align-items: center;
-  border-bottom: black solid 3px;
+  height: calc(7000% / 555);
+  background-color: #CFE9EA;
 }
 #filter #filter-block #filter-header span {
   font-size: 4vh;
   letter-spacing: 2.5vw;
   margin-left: 6vw;
 }
-#filter #filter-block .filter-div {
+#filter #filter-block .filter-title {
+  position: relative;
   width: 100%;
-}
-#filter #filter-block .filter-div .filter-title {
-  width: 100%;
-  height: 6vh;
+  height: calc(1000% / 111);
   display: flex;
   align-items: center;
-  margin-top: 0.5vh;
 }
-#filter #filter-block .filter-div .filter-title span {
-  font-size: 3.5vh;
+#filter #filter-block .filter-title span {
+  font-size: 2.8vh;
   letter-spacing: 1.5vw;
   margin-left: 6vw;
   vertical-align: middle;
 }
-#filter #filter-block .filter-div .flex-wrapper {
-  width: 100%;
-  flex-wrap: wrap;
-  align-items: center;
+#filter #filter-block .grid-wrapper {
+  display: grid;
+  margin-left: 6vw;
+  grid-auto-flow: row;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+#filter #filter-block .grid-wrapper .filter-type {
+  position: relative;
+  border: #E9B83E solid 2px;
+  background-color: white;
+  color: black;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
+#filter #filter-block .grid-wrapper .filter-type span {
+  font-size: 2.5vh;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 0.6vh);
+  transform: translate(-50%, -50%);
+  letter-spacing: 1.2vh;
+  white-space: nowrap;
+}
+#filter #filter-block .grid-wrapper .selected {
+  animation: _select 0.3s ease forwards;
+}
+#filter #filter-block .grid-wrapper#grid-type-options {
+  grid-template-columns: repeat(3, calc(8000vh / 735));
+  grid-template-rows: repeat(2, calc(140vw / 14));
+}
+#filter #filter-block .grid-wrapper#grid-people-options {
+  grid-template-columns: repeat(3, calc(8000vh / 735));
+  grid-template-rows: calc(140vw / 14);
+}
+#filter #filter-block .range-container {
+  position: relative;
+  height: 10%;
+  width: 75%;
+  background-color: #C5DBD7;
+  margin-left: 6vw;
+  -webkit-appearance: none;
   display: flex;
-  justify-content: space-between;
-  padding-left: 6vw;
-  padding-right: 6vw;
+  justify-content: space-evenly;
+  align-items: center;
 }
-#filter #filter-block .filter-div .flex-wrapper .filter-type, #filter #filter-block .filter-div .flex-wrapper input {
-  height: 37.5%;
-  width: calc(435vw / 18);
-  border-radius: 8px;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75), -1px -1px 4px rgba(0, 0, 0, 0.75);
-  margin-top: 1vh;
-  margin-bottom: 0.5vh;
+#filter #filter-block .range-container input {
+  -webkit-appearance: none;
+  width: 33.3%;
+  height: 66.6%;
+  border-radius: 10px;
+  text-align: center;
+  border: none;
 }
-#filter #filter-block .filter-div .flex-wrapper .filter-type span {
-  font-size: 3vh;
-  letter-spacing: 2.5vw;
-  margin-right: -2.5vw;
-}
-#filter #filter-block .filter-div .flex-wrapper .selected {
-  background-color: #D0CECE;
-}
-#filter #filter-block .filter-div #filter-point-range {
-  background-color: #E7E6E6;
-}
-#filter #filter-block .filter-div #filter-point-range * {
-  font-size: 3vh;
-  display: inline-block;
-}
-#filter #filter-block .filter-div #filter-point-range span {
+#filter #filter-block .range-container span {
+  width: 6.6%;
   height: 2px;
-  width: calc(435vw / 36);
   background-color: black;
-  border: black solid 1px;
+}
+#filter #filter-block input[name=location] {
+  height: 6.6%;
+  width: 50%;
+  margin-left: 6vw;
+  border-radius: 10px;
+  border: #C5DBD7 solid 3px;
+  background: url("../resources/quest/search.png") no-repeat;
+  background-size: contain;
+  background-origin: padding-box;
+  font-size: 2.5vh;
+  padding-left: 40px;
 }
 #filter #filter-block #filter-footer {
   position: absolute;
-  bottom: 22vw;
+  bottom: 0;
   left: 0;
-  height: 8vh;
-  width: 90vw;
-  border-top: black solid 3px;
+  height: 10.8%;
+  width: 100%;
+  background-image: linear-gradient(to bottom, #E1E1E1, #FEFEFE);
   display: inline-block;
 }
 #filter #filter-block #filter-footer .filter-footer-button {
@@ -413,15 +471,7 @@
   background-color: #D0CECE;
 }
 
-#quest-filtered #quest-list-header {
-  margin-top: calc(100vh / 15);
-  width: 100vw;
-  height: 10vh;
-  background-color: #FFFFFF;
-  border-top: black solid 3px;
-  border-bottom: black solid 3px;
-}
-#quest-filtered #quest-list-header span {
+#quest-filtered .quest-header span {
   text-align: center;
   font-size: 2em;
   letter-spacing: 10vw;

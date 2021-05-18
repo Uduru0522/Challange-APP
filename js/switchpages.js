@@ -63,7 +63,7 @@ $(document).ready(() => {
             console.log("Clicked icon: " + nav_icons[i]);
             hide_all_page();
             $(pages_selector[i]).removeClass("hidden").addClass("show");
-            document.getElementById("chat-content").innerHTML="";
+            document.getElementById("chat-content").innerHTML = "";
         });
     }
 
@@ -75,15 +75,31 @@ $(document).ready(() => {
             console.log(qinfo[0]);
             $("#quest-intro-body").html(qinfo[0].description);
             $("#quest-require-body").html(qinfo[0].req);
-            $("#quest-tag").html(qinfo[0].category);
-            $("#quest-title-text").html(qinfo[0].name);
-            $("#quest-points").html(qinfo[0].points);
+            $("#quest-tag span").html(qinfo[0].category);
+            $("#quest-title-text span").html(qinfo[0].name);
+            $("#quest-points span").html(qinfo[0].points);
             $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
+            $("#people-indicate span").text(qinfo[0].multiple);
+
+            /* Process received images here ********* */
+            for (let i = 0; i < 16; ++i) {
+                let element = $("<img></img>").addClass("img-grid-item");
+                let wrapper = $("<div></div>")
+                wrapper.append(element);
+                element.attr("src", "../resources/click-to-upload.png");
+                $("#img-grid-wrapper").append(wrapper);
+            }
+
+            // qinfo[0].img.forEach(img => {
+            //     let element = $("<img></img>").addClass("img-grid-item");
+            //     !!!Set img tag source here!!!
+            //     $("#img-grid-wrapper").append(element);
+            // });
+            /* **************************************** */
 
             // Reset submit form
             $("#preview").attr("src", "../resources/click-to-upload.png");
             $("#quest-submit-text").val("");
-
 
             // Determine acceptation 
             if (qinfo[0].progress == 0) {
@@ -120,12 +136,14 @@ $(document).ready(() => {
         hide_all_but_current_page($(this).closest(".container").attr("id"));
         // reset_filter_options();
         $("#filter").removeClass("hidden").addClass("show");
+        $(".navbar").removeClass("show").addClass("hidden");
     });
 
     // Hide filter
     $(document).on("click", "#filter-return-area", function(e) {
         // Reset filter option?
         $("#filter").removeClass("show").addClass("hidden");
+        $(".navbar").removeClass("hidden").addClass("show");
     });
 
     // Apply filter
