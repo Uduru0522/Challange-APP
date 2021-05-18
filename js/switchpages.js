@@ -86,6 +86,7 @@ $(document).ready(() => {
             $("#quest-points span").html(qinfo[0].points);
             $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
             $("#people-indicate span").text(qinfo[0].multiple);
+            $("#img-grid-wrapper").empty();
 
             /* Process received images here ********* */
             for (let i = 0; i < 16; ++i) {
@@ -112,10 +113,12 @@ $(document).ready(() => {
                 $("#quest-detail-button").addClass("can-accept").removeClass("already-accept");
                 $("#quest-detail-button span").text("挑戰");
                 $("#quest-submit-field").addClass("hidden").removeClass("show");
+                $("#quest-submit-field").css("display", "none");
             } else if (qinfo[0].progress == 1) {
                 $("#quest-detail-button").addClass("already-accept").removeClass("can-accept");
                 $("#quest-detail-button span").text("已接取");
                 $("#quest-submit-field").addClass("show").removeClass("hidden");
+                $("#quest-submit-field").css("display", "block");
             } else {
                 console.log("Error: Quest progress not 1 or 0");
             }
@@ -220,6 +223,7 @@ $(document).ready(() => {
     $(document).on("click", ".can-accept#quest-detail-button", function() {
         $("#quest-info").toggleClass("show").toggleClass("hidden");
         $("#quest-submit").toggleClass("show").toggleClass("hidden");
+        $("#quest-submit-field").css("display", "block");
     });
 
     // Show more 
