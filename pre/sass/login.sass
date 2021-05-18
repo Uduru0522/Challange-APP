@@ -17,87 +17,162 @@ body
     width: 100%
     margin: 0 auto
     
+* 
+    box-sizing: border-box
 
 .container
     @extend %flex-centralize
     width: 100%
     height: 100%
+    background-image: linear-gradient(to bottom left, #F6F29D, #CFE9EA)
 
     form
+        @extend %flex-centralize
         position: relative
-        display: block
-        width: 90vw
-        height: 57.5vh
-        border: black solid 4px
-        border-radius: 60px
-        box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.75)
-        
-        // *
-        //     border: solid 1px red
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.75)
+        color: white
+        background-color: #E9B83E
+        border-radius: 40px
 
         #title
             @extend %flex-centralize
-            height: 21.7%
+            position: absolute
+            top: 0
+            left: 0
             width: 100%
-            line-height: 100%
-            border-bottom: black solid 4px
-            
-            #title-text
-                font-size: 2.3em
-                letter-spacing: 9vw
-                margin-right: -9vw
-        
-        fieldset
-            all: initial
+            background-color: transparent
+            border-bottom: white solid 1px
+
+            span
+                font-size: 4.8vh
+                letter-spacing: 5vh
+                margin-right: -5vh
+
+        .input-container
             display: flex
-            justify-content: space-around
-            height: 2.5em
+            flex-direction: column
+            justify-content: center
+            width: 90%
 
-            label
-                margin: auto -10% auto 0
-                display: inline-block
-                font-size: 2em
-                
-            input
-                display: inline-block
-                border-radius: 12px
-                border: solid black 2px
-                height: 100%
-                width: 57%
-                font-size: 1.7em
+            fieldset
+                all: initial
+                display: flex
+                justify-content: space-between
+                height: 5vh
+                width: 90%
+                margin: 0.85vh auto
 
-        fieldset#username
-            margin-top: 8vh
-
-        fieldset#pwd
-            margin-top: 3vh
-            margin-bottom: 1vh
-
-        a
-            margin-left: 35%
-            margin-bottom: 10%
-            color: #C0C0C0
-
+                label
+                    color: white
+                    display: inline-block
+                    font-size: 3vh
+                    letter-spacing: 1.5vh
+                    margin-right: -1.5vh
+                    
+                input
+                    display: inline-block
+                    border: none
+                    border-radius: 8px
+                    height: 100%
+                    width: 60%
+                    font-size: 2.5vh
+        
         button
             @extend %flex-centralize
             position: absolute
-            width: 30.4%
-            height: 11.6%
-            border-radius: 12px
-            box-shadow: 1.5px 1.5px 6px rgba(0, 0, 0, 0.75)
-            padding: 0
-            
-            div
-                width: 100%
-                font-size: 2em
+            width: 29.3vw
+            height: 5.5vh
+            border-radius: 10px
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.75) 
+            border: none
+
+            span
+                font-size: 3.3vh     
+
+    form#login
+        width: 90vw
+        height: 50vh
+
+        #title
+            height: 21%
+
+        a
+            position: absolute
+            top: 62%
+            left: 40%
+            font-size: 2vh
+            color: #FFFFFFA8
+
+        #signin-output
+            @extend %flex-centralize
+            position: absolute
+            top: 18%
+            bottom: 63%
+            left: 6%
+            right: 5%
+            border: #fc4343f3 solid 0.5vh
+            border-radius: 1vh
+            background-color:#ffebdbf3
+            opacity: 0
+
+            span
+                color: black
+                font-size: 2vh
 
         button#submit
-            background-color: #A6A6A6
+            background-color: #EB931D
             color: white
-            right: 3.7%
+            right: 6.6vw
             bottom: 7.4%
 
         button#sign-up
-            background-color: #D9D9D9
-            right: 35.9%
+            background-color: white
+            color: #E9B83E
+            right: calc(8vw + calc(26500% / 800))
             bottom: 7.4%    
+
+    form#register
+        display: none
+        width: 90vw
+        height: 70vh
+        
+        #title
+            height: 10.5vh
+
+        button#su-submit
+            right: 6.6vw
+            bottom: 4.5%
+
+        
+
+// Animation Related
+@keyframes fade-in
+    0%
+        opacity: 0
+    100%
+        opacity: 0.7
+@-webkit-keyframes fade-in
+    0%
+        opacity: 0
+    100%
+        opacity: 0.7
+@-moz-keyframes fade-in
+    0%
+        opacity: 0
+    100%
+        opacity: 0.7
+@-o-keyframes fade-in
+    0%
+        opacity: 0
+    100%
+        opacity: 0.7
+
+.fade-in
+    animation: fade-in ease 0.8s
+    -webkit-animation: fade-in ease 0.8s
+    -moz-animation: fade-in ease 0.8s
+    -o-animation: fade-in ease 0.8s
+    animation-fill-mode: forwards
+    -webkit-animation-fill-mode: forwards
+    -moz-animation-fill-mode: forwards
+    -o-animation-fill-mode: forwards
