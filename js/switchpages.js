@@ -6,6 +6,7 @@ const pages_selector = [
     "#friend-main",
     "#mypage-main",
     "#room-main",
+    "#myfriend-main",
     "#filter",
     "#quest-filtered",
     "#quest-book",
@@ -14,7 +15,12 @@ const pages_selector = [
     "#quest-info",
     "#quest-submit",
     "#chat-create-room",
-    "#quest-submit-field"
+    "#quest-submit-field",
+    "#click-friend",
+    "#characteristic-analyze",
+    "#mission-launched",
+    "#Fcharacteristic-analyze",
+    "#Fmission-launched"
 ];
 
 const nav_icons = [
@@ -58,7 +64,7 @@ $(document).ready(() => {
     $("#mainpage").addClass("show").removeClass("hidden");
 
     // Navbar icon actions
-    for (let i = 0; i < 6; ++i) {
+    for (let i = 0; i < 7; ++i) {
         $(nav_icons[i]).on("click", () => {
             console.log("Clicked icon: " + nav_icons[i]);
             hide_all_page();
