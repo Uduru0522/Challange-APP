@@ -324,11 +324,11 @@ function getmessage_mission(your_message) {
                 let ourmessage = []
                 for (let i = data.length - message.length - 1; i >= 0; i--) {
                     for (let j = 0; j < friend_list.length; j++) {
-                        if (message[i].name == mydata.id) {
+                        if (data[i].name == mydata.id) {
                             ourmessage = ourmessage + "<div class='my-message'><div class='message-time'>" + data[i].time + "</div><div class='what-i-say'>" + data[i].talk + "</div></div>";
                             break;
                         } else {
-                            if (message[i].name == friend_list[j].id) {
+                            if (data[i].name == friend_list[j].id) {
                                 ourmessage = ourmessage + "<div class='your-message'><div class='message-pic'><img class='your-header'src='" + friend_list[j].image + "'><div class='your-name'>" + friend_list[j].name + "</div></div><div class='what-you-say'>" + data[i].talk + "</div><div class='message-time'>" + data[i].time + "</div></div>";
                             }
                         }
@@ -346,7 +346,7 @@ function getmessage_mission(your_message) {
 }
 //var getbytime_F= setInterval(getmessage_friend,5000);
 //var getbytime_M= setInterval(getmessage_mission,5000);
-var settimecheck = setInterval(checkifroom, 5000);
+var settimecheck = setInterval(checkifroom, 1000);
 var getbytime_F;
 var getbytime_M;
 
@@ -457,7 +457,7 @@ $("#nav-friend").click(function() {
             friend_list_ID = friends.friend;
             appendfriendsformenu();
         });
-    
+
     $.post('./chatrecord',
         function(chatrooms) {
             console.log(chatrooms);
@@ -948,10 +948,7 @@ $(document).on("click", '#click-friend-data', function() {
             document.getElementById("Fvalue-activity").innerHTML = "冒險: " + value.activity;
             document.getElementById("Fvalue-sport").innerHTML = "運動: " + value.sport;
             document.getElementById("Fvalue-self").innerHTML = "課業: " + value.self;
-            delete Fradardata;
-            delete Fradaroptions;
-            delete FchartRadarDOM;
-            delete FchartRadar;
+
 
             let Fradardata = {
                 labels: [
@@ -981,7 +978,7 @@ $(document).on("click", '#click-friend-data', function() {
                     beginAtZero: true,
                     maxTicksLimit: 7,
                     min: 0,
-                    
+
                     ticks: {},
                     pointLabels: {
 
@@ -1001,9 +998,9 @@ $(document).on("click", '#click-friend-data', function() {
                 }
 
             };
-            document.getElementById("friendChart").innerHTML="";
+
             let FchartRadarDOM = document.getElementById("friendChart");
-            FchartRadar=delete Chart;
+            FchartRadar = delete Chart;
             let FchartRadar = new Chart(FchartRadarDOM, {
                 type: 'radar',
                 data: Fradardata,

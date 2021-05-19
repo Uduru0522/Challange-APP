@@ -22,7 +22,8 @@ const pages_selector = [
     "#mission-launched",
     "#Fcharacteristic-analyze",
     "#Fcharacteristic-history",
-    "#Fmission-launched"
+    "#Fmission-launched",
+    "#quest-filtered #quest-filtered-bg"
 ];
 
 const nav_icons = [
@@ -90,6 +91,8 @@ $(document).ready(() => {
             $("#quest-tag span").html(qinfo[0].category);
             $("#quest-title-text span").html(qinfo[0].name);
             $("#quest-points span").html(qinfo[0].points);
+            // console.log($(e.target).children(".qblock-qid").attr("id"));
+            // $("#quest-detail-button span").attr("id", $(e.target).children(".qblock-qid").attr("id"));
             $("#quest-detail-button span").attr("id", `quest-${qinfo[0].ID}`);
             $("#people-indicate span").text(qinfo[0].multiple);
             $("#img-grid-wrapper").empty();
@@ -166,8 +169,20 @@ $(document).ready(() => {
         let selected = new Set();
         let filtered_list = [];
 
-        // Fetch all quest
-        fetch_quest_brief_info("all", function(data) {
+        let option = "all";
+        if ($("input[name=lbound]").val() || $("input[name=hbound]").val()) {
+            option = "range";
+        } else {
+            if (!($("input[name=lbound]").val())) {
+                $("input[name=lbound]").val(0);
+            }
+            if (!($("input[name=hbound]").val())) {
+                $("input[name=hbound]").val(9999);
+            }
+        }
+
+        // Fetch quest
+        fetch_quest_brief_info(option, function(data) {
             console.log(data);
 
             if (filter_selected.length > 1) {
@@ -194,6 +209,7 @@ $(document).ready(() => {
 
         hide_all_page();
         $(".navbar").removeClass("hidden").addClass("show");
+        $("#quest-list").first().css("margin-top", "0");
         $("#quest-filtered").removeClass("hidden").addClass("show");
     });
 
@@ -236,6 +252,8 @@ $(document).ready(() => {
         });
         // fetch_quest_list_page(fetch_quest_brief_info($(this).attr("id"), 0).quest);
         hide_all_page();
+        $("#quest-filtered #quest-filtered-bg").removeClass("hidden").addClass("show");
+        $("#quest-list").first().css("margin-top", "10vh");
         $("#quest-filtered").removeClass("hidden").addClass("show");
     })
 

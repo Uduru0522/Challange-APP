@@ -10,11 +10,17 @@ function fetch_quest_brief_info(option, callback) {
         url += "done";
     } else if (option == "all") {
         url += "all_mission";
+    } else if (option == "range") {
+        url += "range";
     } else {
         console.log("Error in fetch_quest_brief_info(): invalid option");
     }
+
     $.post(
-        url,
+        url, {
+            lbound: $("input[name=lbound]").val(),
+            hbound: $("input[name=hbound]").val()
+        },
         callback
     )
 }
