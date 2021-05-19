@@ -309,14 +309,15 @@ def allpic(conn, User):
 
 
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述、6為下界、7為上界
+sys.stdout.reconfigure(encoding='utf-8')
 con = sqlite3.connect('./database/mission.db')
 con2 = sqlite3.connect('./database/users.db')
 if(sys.argv[1] == '0'):#全部任務
-    print(allmission(con))
+    print(allmission(con, sys.argv[2]))
 elif(sys.argv[1] == '1'):#你可能會喜歡的任務
     print(maylike(con, sys.argv[2]))
 elif(sys.argv[1] == '2'):#熱門任務
-    print(popular(con))
+    print(popular(con, sys.argv[2]))
 elif(sys.argv[1] == '3'):#進行中任務
     print(doing(con, sys.argv[2]))
 elif(sys.argv[1] == '4'):#做過的任務
@@ -332,6 +333,6 @@ elif(sys.argv[1] == '8'):#給任務詳細資料
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
     print(player(con, sys.argv[2]))
 elif(sys.argv[1] == '10'):#給分數區間
-    print(search_pts(con, sys.argv[2], sys.argv[6], sys.argv[7]))
+    print(search_pts(con, sys.argv[2], sys.argv[3], sys.argv[4]))
 elif(sys.argv[1] == '11'):#回傳所有照片
     print(allpic(con, sys.argv[2]))

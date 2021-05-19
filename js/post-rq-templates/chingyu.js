@@ -558,7 +558,7 @@ $("#nav-mypage").click(function() {
                     beginAtZero: true,
                     maxTicksLimit: 7,
                     min: 0,
-                    max: 100,
+                    // max: 100,
                     ticks: {},
                     pointLabels: {
 
