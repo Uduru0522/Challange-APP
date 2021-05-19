@@ -95,13 +95,15 @@ $(document).ready(() => {
             $("#img-grid-wrapper").empty();
 
             /* Process received images here ********* */
-            qinfo[0].Pic_detail.forEach(img => {
-                let element = $("<img></img>").addClass("img-grid-item");
-                let container = $("<div></div>");
-                element.attr("src", img.picture); //文字說明: img.pic_text
-                container.append(element);
-                $("#img-grid-wrapper").append(container);
-            });
+            if (qinfo[0].Pic_detail) {
+                qinfo[0].Pic_detail.forEach(img => {
+                    let element = $("<img></img>").addClass("img-grid-item");
+                    let container = $("<div></div>");
+                    element.attr("src", img.picture); //文字說明: img.pic_text
+                    container.append(element);
+                    $("#img-grid-wrapper").append(container);
+                });
+            }
             /* **************************************** */
 
             // Reset submit form

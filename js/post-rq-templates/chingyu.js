@@ -1020,6 +1020,7 @@ $(document).on("click", '.characteristics-RB', function() {
     $("#characteristic-history").removeClass("hidden").addClass("show");
 
     $.post('./getphotos', function(imgobj_arr) {
+        $("#photobook-grid-wrapper").empty();
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("photobook-grid-item");
             let wrapper = $("<div></div>");
@@ -1038,6 +1039,7 @@ $(document).on("click", '.Fcharacteristics-RB', function() {
     $.post('./getphotos_friend', {
         friend_ID: friend_list_ID[friend_index]
     }, function(imgobj_arr) {
+        $("#Fphotobook-grid-wrapper").empty();
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("Fphotobook-grid-item");
             let wrapper = $("<div></div>");
