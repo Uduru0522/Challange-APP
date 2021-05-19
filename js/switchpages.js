@@ -21,6 +21,7 @@ const pages_selector = [
     "#characteristic-history",
     "#mission-launched",
     "#Fcharacteristic-analyze",
+    "#Fcharacteristic-history",
     "#Fmission-launched"
 ];
 
