@@ -324,11 +324,11 @@ function getmessage_mission(your_message) {
                 let ourmessage = []
                 for (let i = data.length - message.length - 1; i >= 0; i--) {
                     for (let j = 0; j < friend_list.length; j++) {
-                        if (message[i].name == mydata.id) {
+                        if (data[i].name == mydata.id) {
                             ourmessage = ourmessage + "<div class='my-message'><div class='message-time'>" + data[i].time + "</div><div class='what-i-say'>" + data[i].talk + "</div></div>";
                             break;
                         } else {
-                            if (message[i].name == friend_list[j].id) {
+                            if (data[i].name == friend_list[j].id) {
                                 ourmessage = ourmessage + "<div class='your-message'><div class='message-pic'><img class='your-header'src='" + friend_list[j].image + "'><div class='your-name'>" + friend_list[j].name + "</div></div><div class='what-you-say'>" + data[i].talk + "</div><div class='message-time'>" + data[i].time + "</div></div>";
                             }
                         }
@@ -346,7 +346,7 @@ function getmessage_mission(your_message) {
 }
 //var getbytime_F= setInterval(getmessage_friend,5000);
 //var getbytime_M= setInterval(getmessage_mission,5000);
-var settimecheck = setInterval(checkifroom, 5000);
+var settimecheck = setInterval(checkifroom, 1000);
 var getbytime_F;
 var getbytime_M;
 
