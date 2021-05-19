@@ -14,7 +14,7 @@ $(document).ready(() => {
     $(document).on("click", ".qblock-state", function() {
         console.log($(this).children(":first").text());
         if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).siblings(".qblock-more").children(":first").attr("id").match(/\d+/g);
+            const qid = $(this).siblings(".qblock-qid").attr("id").match(/\d+/g);
             console.log(qid);
 
             // Send POST request to accept quest

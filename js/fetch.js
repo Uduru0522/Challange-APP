@@ -63,6 +63,9 @@ function fetch_quest_main_page(id) {
                     let button = document.createElement("div");
                     button.classList.add("accept-button");
                     button.classList.add("goto-quest-detail");
+                    let qid = document.createElement("div");
+                    qid.classList.add("qblock-qid");
+                    qid.setAttribute("id", "quest-" + qinfo.ID);
 
                     // Emit text
                     let type_span = document.createElement("span");
@@ -72,7 +75,6 @@ function fetch_quest_main_page(id) {
                     type_span.textContent = qinfo.category;
                     title_span.textContent = qinfo.name;
                     button_span.textContent = "挑戰";
-                    button_span.setAttribute("id", "quest-" + qinfo.ID);
 
                     // Append nodes
                     type.appendChild(type_span)
@@ -81,6 +83,7 @@ function fetch_quest_main_page(id) {
                     qblock.appendChild(title);
                     button.appendChild(button_span);
                     qblock.appendChild(button);
+                    button.appendChild(qid);
                     container.appendChild(qblock);
                 });
             }
@@ -100,19 +103,17 @@ function fetch_quest_list_page(q_list) {
         console.log(qinfo);
         let qblock = document.createElement("div");
         qblock.classList.add("qblock");
+        qblock.classList.add("goto-quest-detail");
 
         let type = document.createElement("div");
         type.classList.add("qblock-type");
 
-        let wrapper = document.createElement("div");
-        wrapper.classList.add("qblock-wrapper");
-
         let title = document.createElement("div");
         title.classList.add("qblock-title");
 
-        let more = document.createElement("div");
-        more.classList.add("qblock-more");
-        more.classList.add("goto-quest-detail");
+        let qid = document.createElement("div");
+        qid.classList.add("qblock-qid");
+        qid.setAttribute("id", "quest-" + qinfo.ID);
 
         let points = document.createElement("div");
         points.classList.add("qblock-points");
@@ -128,11 +129,6 @@ function fetch_quest_list_page(q_list) {
         let title_span = document.createElement("span");
         title_span.textContent = qinfo.name;
         title.appendChild(title_span);
-
-        let more_span = document.createElement("span");
-        more_span.setAttribute("id", "quest-" + qinfo.ID);
-        more_span.textContent = "更多內容"
-        more.appendChild(more_span);
 
         let points_span = document.createElement("span");
         points_span.textContent = qinfo.points
@@ -150,13 +146,11 @@ function fetch_quest_list_page(q_list) {
         }
         state.appendChild(state_span);
 
-        wrapper.appendChild(title);
-        wrapper.appendChild(more);
-        wrapper.appendChild(points);
-        wrapper.appendChild(state);
-
+        qblock.appendChild(title);
+        qblock.appendChild(qid);
+        qblock.appendChild(points);
+        qblock.appendChild(state);
         qblock.appendChild(type);
-        qblock.appendChild(wrapper);
 
         list.appendChild(qblock);
     });

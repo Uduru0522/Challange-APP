@@ -78,8 +78,12 @@ $(document).ready(() => {
     // Jumping to/Return from quest details
     let origin_page = "#mainpage" // Back to mainpage if unset
     $(document).on("click", ".goto-quest-detail", function(e) {
+        if (e.target !== this) {
+            return;
+        }
+
         // Fetch quest information
-        fetch_quest_info($(this).children(":first").attr("id"), function(qinfo) {
+        fetch_quest_info($(this).children(".qblock-qid").attr("id"), function(qinfo) {
             console.log(qinfo);
             $("#quest-intro-body").html(qinfo[0].description);
             $("#quest-require-body").html(qinfo[0].req);
