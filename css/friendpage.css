@@ -336,6 +336,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 32vw;
     margin-top: 2vh;
+    overflow:scroll;
 }
 
 #Fphotobook-grid-wrapper div {

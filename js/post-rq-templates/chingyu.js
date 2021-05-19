@@ -1020,12 +1020,14 @@ $(document).on("click", '.characteristics-RB', function() {
     $("#characteristic-history").removeClass("hidden").addClass("show");
 
     $.post('./getphotos', function(imgobj_arr) {
+        document.getElementById("photobook-grid-wrapper").innerHTML = "";
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("photobook-grid-item");
             let wrapper = $("<div></div>");
 
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
+            
             $("#photobook-grid-wrapper").append(wrapper);
         });
     });
@@ -1038,10 +1040,11 @@ $(document).on("click", '.Fcharacteristics-RB', function() {
     $.post('./getphotos_friend', {
         friend_ID: friend_list_ID[friend_index]
     }, function(imgobj_arr) {
+        document.getElementById("Fphotobook-grid-wrapper").innerHTML = "";
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("Fphotobook-grid-item");
             let wrapper = $("<div></div>");
-
+            
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#Fphotobook-grid-wrapper").append(wrapper);
