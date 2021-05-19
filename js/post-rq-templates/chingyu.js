@@ -457,7 +457,7 @@ $("#nav-friend").click(function() {
             friend_list_ID = friends.friend;
             appendfriendsformenu();
         });
-    
+
     $.post('./chatrecord',
         function(chatrooms) {
             console.log(chatrooms);
@@ -948,10 +948,7 @@ $(document).on("click", '#click-friend-data', function() {
             document.getElementById("Fvalue-activity").innerHTML = "冒險: " + value.activity;
             document.getElementById("Fvalue-sport").innerHTML = "運動: " + value.sport;
             document.getElementById("Fvalue-self").innerHTML = "課業: " + value.self;
-            delete Fradardata;
-            delete Fradaroptions;
-            delete FchartRadarDOM;
-            delete FchartRadar;
+
 
             let Fradardata = {
                 labels: [
@@ -981,7 +978,7 @@ $(document).on("click", '#click-friend-data', function() {
                     beginAtZero: true,
                     maxTicksLimit: 7,
                     min: 0,
-                    
+
                     ticks: {},
                     pointLabels: {
 
@@ -1001,9 +998,9 @@ $(document).on("click", '#click-friend-data', function() {
                 }
 
             };
-            document.getElementById("friendChart").innerHTML="";
+
             let FchartRadarDOM = document.getElementById("friendChart");
-            FchartRadar=delete Chart;
+            FchartRadar = delete Chart;
             let FchartRadar = new Chart(FchartRadarDOM, {
                 type: 'radar',
                 data: Fradardata,

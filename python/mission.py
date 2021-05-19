@@ -73,11 +73,12 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
         else:
             _row_json["progress"] = "0"
         for field in range(len(row)):
-            if(field_name[field]!='ID'and field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'picture'and field_name[field]!= 'pic_text'):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'picture'and field_name[field]!= 'pic_text'):
                 _row_json[field_name[field]] = row[field]
     Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Picture
-    Pic = Picture.fetchone()[0]
-    if(Pic != None):
+    Pic = Picture.fetchone()
+    if((Pic != None) and (Pic[0] != None)):
+        Pic = Pic[0]
         pic=Pic.split(";;")
         Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Pic_text
         Pic_text = Picture_text.fetchone()[0]
