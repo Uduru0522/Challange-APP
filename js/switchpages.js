@@ -79,7 +79,7 @@ $(document).ready(() => {
     $(document).on("click", ".goto-quest-detail", function(e) {
         // Fetch quest information
         fetch_quest_info($(this).children(":first").attr("id"), function(qinfo) {
-            console.log(qinfo[0]);
+            console.log(qinfo);
             $("#quest-intro-body").html(qinfo[0].description);
             $("#quest-require-body").html(qinfo[0].req);
             $("#quest-tag span").html(qinfo[0].category);
@@ -92,8 +92,10 @@ $(document).ready(() => {
             /* Process received images here ********* */
             qinfo[0].Pic_detail.forEach(img => {
                 let element = $("<img></img>").addClass("img-grid-item");
+                let container = $("<div></div>");
                 element.attr("src", img.picture); //文字說明: img.pic_text
-                $("#img-grid-wrapper").append(element);
+                container.append(element);
+                $("#img-grid-wrapper").append(container);
             });
             /* **************************************** */
 

@@ -1021,7 +1021,7 @@ $(document).on("click", '.characteristics-RB', function() {
 
     $.post('./getphotos', function(imgobj_arr) {
         imgobj_arr.forEach(obj => {
-            let img = $("<img></img>").addClass("img-grid-item");
+            let img = $("<img></img>").addClass("photobook-grid-item");
             let wrapper = $("<div></div>");
 
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
@@ -1039,7 +1039,7 @@ $(document).on("click", '.Fcharacteristics-RB', function() {
         friend_ID: friend_list_ID[friend_index]
     }, function(imgobj_arr) {
         imgobj_arr.forEach(obj => {
-            let img = $("<img></img>").addClass("Fimg-grid-item");
+            let img = $("<img></img>").addClass("Fphotobook-grid-item");
             let wrapper = $("<div></div>");
 
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID

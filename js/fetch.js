@@ -20,7 +20,7 @@ function fetch_quest_brief_info(option, callback) {
 }
 
 function fetch_quest_info(id_str, callback) {
-    console.log(`Quest if string = \"${id_str}\"`)
+    console.log(`Quest if string = \"${id_str}\"`);
     let qid = parseInt(id_str.replace(/quest-/, ""));
     console.log(qid);
     console.log("Fetching quest info of qid=" + qid);
