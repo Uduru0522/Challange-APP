@@ -187,6 +187,7 @@ $(document).ready(() => {
         });
 
         hide_all_page();
+        $(".navbar").removeClass("hidden").addClass("show");
         $("#quest-filtered").removeClass("hidden").addClass("show");
     });
 

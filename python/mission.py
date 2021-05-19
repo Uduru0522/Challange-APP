@@ -77,17 +77,18 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
                 _row_json[field_name[field]] = row[field]
     Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Picture
     Pic = Picture.fetchone()[0]
-    pic=Pic.split(";;")
-    Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Pic_text
-    Pic_text = Picture_text.fetchone()[0]
-    pic_Text=Pic_text.split(";;")
-    Pic_detail=[]
-    for num in range(len(pic)):
-        Pic_Detail = dict()
-        Pic_Detail["picture"] = pic[num]
-        Pic_Detail["pic_text"] = pic_Text[num]
-        Pic_detail.append(Pic_Detail)
-    _row_json['Pic_detail'] = Pic_detail
+    if(Pic != None):
+        pic=Pic.split(";;")
+        Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Pic_text
+        Pic_text = Picture_text.fetchone()[0]
+        pic_Text=Pic_text.split(";;")
+        Pic_detail=[]
+        for num in range(len(pic)):
+            Pic_Detail = dict()
+            Pic_Detail["picture"] = pic[num]
+            Pic_Detail["pic_text"] = pic_Text[num]
+            Pic_detail.append(Pic_Detail)
+        _row_json['Pic_detail'] = Pic_detail
     _json.append(_row_json)
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
