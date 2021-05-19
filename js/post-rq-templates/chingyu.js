@@ -325,11 +325,11 @@ function getmessage_mission(your_message) {
                 for (let i = data.length - message.length - 1; i >= 0; i--) {
                     for (let j = 0; j < friend_list.length; j++) {
                         if (message[i].name == mydata.id) {
-                            ourmessage = ourmessage + "<div class='my-message'><div class='message-time'>" + message[i].time + "</div><div class='what-i-say'>" + message[i].talk + "</div></div>";
+                            ourmessage = ourmessage + "<div class='my-message'><div class='message-time'>" + data[i].time + "</div><div class='what-i-say'>" + data[i].talk + "</div></div>";
                             break;
                         } else {
                             if (message[i].name == friend_list[j].id) {
-                                ourmessage = ourmessage + "<div class='your-message'><div class='message-pic'><img class='your-header'src='" + friend_list[j].image + "'><div class='your-name'>" + friend_list[j].name + "</div></div><div class='what-you-say'>" + message[i].talk + "</div><div class='message-time'>" + message[i].time + "</div></div>";
+                                ourmessage = ourmessage + "<div class='your-message'><div class='message-pic'><img class='your-header'src='" + friend_list[j].image + "'><div class='your-name'>" + friend_list[j].name + "</div></div><div class='what-you-say'>" + data[i].talk + "</div><div class='message-time'>" + data[i].time + "</div></div>";
                             }
                         }
                     }
@@ -450,7 +450,14 @@ function refreshfriend() {
 }
 //friend page
 $("#nav-friend").click(function() {
-    appendfriendsformenu();
+    $.post('./friendrecord',
+        function(friends) {
+
+            friend_magnitude = friends.friend.length;
+            friend_list_ID = friends.friend;
+            appendfriendsformenu();
+        });
+    
     $.post('./chatrecord',
         function(chatrooms) {
             console.log(chatrooms);
@@ -941,7 +948,12 @@ $(document).on("click", '#click-friend-data', function() {
             document.getElementById("Fvalue-activity").innerHTML = "冒險: " + value.activity;
             document.getElementById("Fvalue-sport").innerHTML = "運動: " + value.sport;
             document.getElementById("Fvalue-self").innerHTML = "課業: " + value.self;
-            var Fradardata = {
+            delete Fradardata;
+            delete Fradaroptions;
+            delete FchartRadarDOM;
+            delete FchartRadar;
+
+            let Fradardata = {
                 labels: [
                     '社交',
                     '旅行',
@@ -962,14 +974,14 @@ $(document).on("click", '#click-friend-data', function() {
                     pointHoverBorderColor: 'rgb(255, 99, 132)'
                 }]
             };
-            var Fradaroptions = {
+            let Fradaroptions = {
                 scale: {
 
                     fontSize: 100,
                     beginAtZero: true,
                     maxTicksLimit: 7,
                     min: 0,
-                    max: 100,
+                    
                     ticks: {},
                     pointLabels: {
 
@@ -989,8 +1001,10 @@ $(document).on("click", '#click-friend-data', function() {
                 }
 
             };
-            var FchartRadarDOM = document.getElementById("friendChart");
-            var FchartRadar = new Chart(FchartRadarDOM, {
+            document.getElementById("friendChart").innerHTML="";
+            let FchartRadarDOM = document.getElementById("friendChart");
+            FchartRadar=delete Chart;
+            let FchartRadar = new Chart(FchartRadarDOM, {
                 type: 'radar',
                 data: Fradardata,
                 options: Fradaroptions
