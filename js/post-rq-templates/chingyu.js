@@ -354,10 +354,13 @@ function checkifroom() {
     if(("#chat-main").is(".show")){
         $.post('./chatrecord',
         function(chatrooms) {
-            console.log(chatrooms);
+            if(chatrooms.length>room_magnitude){
             room_magnitude = chatrooms.length;
             rooms_data = chatrooms;
             appendrooms();
+            }
+            
+            
         });
     }
     if(("#friend-main").is(".show")){
