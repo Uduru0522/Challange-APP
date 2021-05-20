@@ -351,7 +351,26 @@ var getbytime_F;
 var getbytime_M;
 
 function checkifroom() {
-
+    if(("#chat-main").is(".show")){
+        $.post('./chatrecord',
+        function(chatrooms) {
+            if(chatrooms.length>room_magnitude){
+            room_magnitude = chatrooms.length;
+            rooms_data = chatrooms;
+            appendrooms();
+            }
+            
+            
+        });
+    }
+    if(("#friend-main").is(".show")){
+        $.post('./friendrecord',
+        function(friends) {
+            if(friends.length>friend_magnitude){
+                refreshfriend();
+            }
+        });
+    }
     if ($("#room-main").is(".show")) {
         console.log("show");
         if (roomstyle == "friend") {
@@ -1000,7 +1019,6 @@ $(document).on("click", '#click-friend-data', function() {
             };
 
             let FchartRadarDOM = document.getElementById("friendChart");
-            FchartRadar = delete Chart;
             let FchartRadar = new Chart(FchartRadarDOM, {
                 type: 'radar',
                 data: Fradardata,
