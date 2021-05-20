@@ -19,7 +19,7 @@ var mydata; //="鄭青宇";
 var ID;
 var roomstyle, roomID;
 var friend_index;
-
+var FchartRadar;
 var value = { name: "鄭青宇", nickname: "?????", id: "E24076344", intro: "自介", social: 50, travel: 45, food: 23, activity: 20, sport: 15, self: 10 };
 
 
@@ -351,7 +351,7 @@ var getbytime_F;
 var getbytime_M;
 
 function checkifroom() {
-    if(("#chat-main").is(".show")){
+    if($("#chat-main").is(".show")){
         $.post('./chatrecord',
         function(chatrooms) {
             if(chatrooms.length>room_magnitude){
@@ -363,7 +363,7 @@ function checkifroom() {
             
         });
     }
-    if(("#friend-main").is(".show")){
+    if($("#friend-main").is(".show")){
         $.post('./friendrecord',
         function(friends) {
             if(friends.length>friend_magnitude){
@@ -710,6 +710,7 @@ $(document).on("click", '.chat-room', function() {
 
     let i = $(".chat-room").index(this);
     $("#room-main").removeClass("hidden").addClass("show");
+    
     if (rooms_data[i].type == "mission") {
         document.getElementById("chat-room-name").innerHTML = rooms_data[i].name;
         roomstyle = "mission";
@@ -831,6 +832,7 @@ $(document).on("click", '.friend', function() {
 });
 $(document).on("click", '#click-friend-chat', function() {
     $("#room-main").removeClass("hidden").addClass("show");
+    $("#friend-main").removeClass("show").addClass("hidden");
     $.post('./singlefriend', { //****************************************************************
             friend_ID: friend_list_ID[friend_index]
         },
@@ -948,7 +950,10 @@ $(document).on("click", '#click-friend-data', function() {
     $("#friend-main").removeClass("show").addClass("hidden");
     $("#click-friend").removeClass("show").addClass("hidden");
     $(".friend-cover").removeClass("show").addClass("hidden");
-
+    if(FchartRadar){
+        FchartRadar.destroy();
+    }
+    
     appendmissionsforsmallF();
     $.post('./friendpage-record', {
             friend_ID: friend_list_ID[friend_index]
@@ -1019,12 +1024,13 @@ $(document).on("click", '#click-friend-data', function() {
             };
 
             let FchartRadarDOM = document.getElementById("friendChart");
-            let FchartRadar = new Chart(FchartRadarDOM, {
+            
+            FchartRadar = new Chart(FchartRadarDOM, {
                 type: 'radar',
                 data: Fradardata,
                 options: Fradaroptions
             });
-
+            
         });
 
 });
