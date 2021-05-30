@@ -45,6 +45,12 @@ def delfriend(name1,name2):#name1,name2互刪好友
             output[i].remove(name1)
     with open("./json/friend.json","w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
+    #刪除json檔案
+    if not os.path.isfile("./json/"+name1+","+name2+".json"):
+        os.remove("./json/"+name2+","+name1+".json")
+    else:
+        os.remove("./json/"+name1+","+name2+".json")
+            
 
 def findfriend(name):#輸入name,找到name這個人的所有好友
     data={}
@@ -60,7 +66,7 @@ def findfriend(name):#輸入name,找到name這個人的所有好友
             data = json.dumps(data)
             return data
 
-
+"""
 sys.stdout.reconfigure(encoding='utf-8')
 
 if(sys.argv[1]=="addfriend"):
@@ -69,6 +75,6 @@ elif(sys.argv[1]=="delfriend"):
     delfriend(sys.argv[2], sys.argv[3])
 elif(sys.argv[1]=="findfriend"):
     print(findfriend(sys.argv[2]))
-
+"""
 
 #print(findfriend(sys.argv[2]))
