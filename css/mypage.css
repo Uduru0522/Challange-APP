@@ -92,7 +92,7 @@
     background-color: #CFE9EA;
     box-shadow: 2.5px 3px 5px gray;
     text-align: center;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 #L-title {
@@ -249,20 +249,28 @@
 }
 
 #characteristic-analyze-title {
-    font-size: 2.5vh;
+    font-size: 3vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
     padding: 2vh;
 }
-
+.self-rador-white{
+    background:white;
+    height:60vh;
+    width:80vw;
+    position:absolute;
+    top:8vh;
+    left:10vw;
+    border-radius:3vh;
+}
 #value-social,
 #value-travel,
 #value-food,
 #value-activity,
 #value-sport,
 #value-self {
-    font-size: 5vw;
-    padding: 2vw 0 2vw 0vw;
+    font-size: 2.5vh;
+    padding: 1vh 0 1vh 0vw;
     float: left;
     width:50%;
 }
@@ -274,8 +282,9 @@
 }
 
 #myChart {
-    max-width: 65vw;
-    background-color: white;
+    margin:2vh;
+    max-height: 35vh;
+    background-color: transparent;
     border-radius: 10%;
 }
 
