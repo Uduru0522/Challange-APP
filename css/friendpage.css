@@ -236,7 +236,7 @@
 }
 
 #Fcharacteristic-analyze-title {
-    font-size: 2.5vh;
+    font-size: 3vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
     padding: 2vh;
@@ -248,9 +248,10 @@
 #Fvalue-activity,
 #Fvalue-sport,
 #Fvalue-self {
-    font-size: 5vw;
-    padding: 2vw 0 2vw 8vw;
+    font-size: 2.5vh;
+    padding: 1vh 0 1vh 0vw;
     float: left;
+    width:50%;
 }
 
 #Frador {

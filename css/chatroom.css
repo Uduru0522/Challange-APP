@@ -43,14 +43,8 @@
   color:#EB931D;
   font-size:2.3vh;
 }
-.search-mission{
-  visibility:hidden;
-  margin:0;
-}
-.search-friend{
-  visibility:hidden;
-  margin:0;
-}
+
+
 #create-chat-button{
   background-color:#EAF6F7;
   width:100vw;
@@ -112,12 +106,7 @@ border-radius:50%;
   z-index:2;
   overflow:none;
 }
-hidden{
-  display:none;
-}
-show{
-  display:none;
-}
+
 .create-chat-menu{
   background:white;
   border-style:none;
@@ -142,19 +131,37 @@ show{
   border:none;
   outline: none;
   height:3.8vh;
-  width:87%;
+  width:68vw;
   font-size: 2vh;
   border-radius:35px;
-  
+  margin:0 6vw 0 6vw;
+  text-indent: 9vw;
+}
+.search-mission{
+  height:2.6vh;
+  position:absolute;
+  top:10.6vh;
+  left:8vw;
 }
 #friendtosearch{
   background-color:#FBE1B1;
   border:none;
   outline: none;
   height:3.8vh;
-  width:87%;
+  width:68vw;
   font-size: 2vh;
   border-radius:35px;
+  margin:0 6vw 0 6vw;
+  text-indent: 9vw;
+}
+.search-friend{
+  height:2.6vh;
+  position:absolute;
+  top:10.6vh;
+  left:8vw;
+}
+.hidden-button{
+  display:none;
 }
 .choosed-friend{
   width:34vw;
@@ -183,26 +190,8 @@ show{
 #chat-choose-missions{
   text-align:center;
 }
-.search-friend{
-  background-color:transparent;
-  border-width:0px;
-	outline:none;
-  
-}
-.search-mission{
-  background-color:transparent;
-  border-width:0px;
-	outline:none;
-  
-}
-.search-friend img{
-  max-height:2vh;
-  margin:0vw;
-}
-.search-mission img{
-  max-height:2vh;
-  margin:0vw;
-}
+
+
 
 .choosed-mission{
   width:72vw;
@@ -287,10 +276,6 @@ show{
   line-height:10vw;
 }
 
-[type="text"]{
-  margin:0 0 0 5vw;
-  float:left;
-}
 
 .gone{
    display:none;	

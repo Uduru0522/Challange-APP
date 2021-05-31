@@ -42,24 +42,34 @@
     align-items: center;
     justify-content: flex-start;
 }
-
-[type="text"] {
-    margin: 0 4vw 0 4vw;
-    float: left;
+#inside-image{
+    height:2.6vh;
+    position:fixed;
+    top:11.2vh;
+    left:7vw;
+}
+#persontosearch {
+    border-radius: 1.75vh;
+    height: 3.3vh;
+    width: 90vw;
+    outline: none;
+    border-style: none;
+    background-color:#FBE1B1;
+    margin: 0.85vh 5vw 0.85vh 5vw;
+    font-size: 2.2vh;  
+    text-indent: 10vw;
 }
 
-#search-ID img {
-    max-height: 2.5vh;
-    margin: 0;
-}
 
 #friend-record {
     position: fixed;
     top: 15vh;
-    width: 100vw;
+    left:5vw;
+    width: 90vw;
     height: 75vh;
     overflow: scroll;
     z-index: 1;
+    padding:1vh 0 1vh 0;
 }
 
 #friend-header {
@@ -77,11 +87,7 @@
     visibility: show;
 }
 
-.output-search-ID {
-    background: transparent;
-    border-width: 0px;
-    outline: none;
-}
+
 
 .slideleft {
     display: flex;
@@ -92,14 +98,13 @@
 
 .friend {
     height: 12vh;
-    border-top-style: solid;
-    border-bottom-style: solid;
+    border-style: solid;
     border-width: thin;
     border-color: #E9B83E;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex: 0 0 100vw;
+    flex: 0 0 90vw;
     background-color: white;
     position: relative;
     scroll-snap-align: start;
@@ -115,8 +120,11 @@
     height: 12vh;
     position: absolute;
     right: 0;
-    background-color: red;
-    border-color: red;
+    background-color: #fa3434;
+    border-color: #fa3434;
+    color:white;    
+    font-size:5vw;
+    writing-mode:vertical-lr;
 }
 
 .deletebutton:active {
@@ -183,16 +191,7 @@
     overflow:none;
 }
 
-#search-ID input[type="text"] {
-    border-radius: 1.75vh;
-    height: 3.3vh;
-    width: 80%;
-    outline: none;
-    border-style: none;
-    background-color:#FBE1B1;
-    margin: 0.7vh 0.5vh 0.5vh 2vh;
-    font-size: 2.2vh;
-}
+
 #click-friend{
     background:white;
     border-style:none;
