@@ -221,24 +221,6 @@ def findassifile(name,assi):
                 break
     return assignmentfile
     
-
-def findassifile(name,assi):
-    
-    with open("./json/assignmentname.json", 'r',encoding='utf-8') as obj:
-        output = json.load(obj)
-    str1=output[1]['group'].split(',')#找到assignment
-    for i in range(len(str1)):
-        if str1[i]==name and assi==output[0]['assignment']:
-            assignmentfile=output[2]['searchname']
-            break
-    for i in range(3,len(output)):
-        str1=output[i][1]['group'].split(',')
-        for j in range(len(str1)):
-            if str1[j]==name and output[i][0]['assignment']==assi:
-                assignmentfile=output[i][2]['searchname']
-                break
-    return assignmentfile
-    
 def chatroomlist(name):
     listfinal=[]    
     if os.path.isfile("./json/"+"friendtalk.json"):
@@ -294,8 +276,6 @@ def assignmentfile(assi,name):#任務聊天室剛點進去的內容
 
 
 
-
-"""
 sys.stdout.reconfigure(encoding='utf-8')
 if(sys.argv[1]=="setuptalk"):
     setuptalk(sys.argv[2],sys.argv[3])
@@ -307,12 +287,12 @@ elif(sys.argv[1]=="assignmentadd"):
     assignmentadd(sys.argv[2],sys.argv[3],sys.argv[4])
 elif(sys.argv[1]=="assignmenttalk"):
     print(assignmenttalk(sys.argv[2],sys.argv[3],sys.argv[4]))
-    #print(sys.argv[2],sys.argv[3],sys.argv[4])
 elif(sys.argv[1]=="chatroomlist"):
     print(chatroomlist(sys.argv[2]))
 elif(sys.argv[1]=="talkfile"):
     print(talkfile(sys.argv[2],sys.argv[3]))
 elif(sys.argv[1]=="assignmentfile"):
     print(assignmentfile(sys.argv[2],sys.argv[3]))
-    """
+elif(sys.argv[1]=="assignmentdel"):
+    assignmentdel(sys.argv[2],sys.argv[3])
 

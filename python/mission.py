@@ -29,7 +29,7 @@ def allmission(conn, User):
     return output
 
 def accept(conn, User, M_ID):#傳入使用者名字和要接的任務
-    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text text)".format(user=User))#建立玩家任務清單
+    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)".format(user=User))#建立玩家任務清單
     conn.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM mission WHERE ID= {m_ID};".format(user=User, m_ID=M_ID))
     conn.execute("UPDATE mission SET progressing=progressing+1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數加一
 
@@ -401,9 +401,9 @@ def alltitle(conn, User):#傳入使用者名字
         _json.append(_row_json)
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
-    return output
     conn.commit()
     conn.close()
+    return output
 
 def choosetitle(conn, User, T_ID):#傳入使用者名字和要選的稱號
     conn.execute("UPDATE {user} SET chosen= 0 where chosen=1;".format(user=User))
@@ -434,11 +434,11 @@ elif(sys.argv[1] == '3'):#進行中任務
 elif(sys.argv[1] == '4'):#做過的任務
     print(done(con, sys.argv[2]))
 elif(sys.argv[1] == '5'):#接取任務
-    print(accept(con, sys.argv[2], sys.argv[3]))
+    accept(con, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '6'):#放棄任務
-    print(giveup(con, sys.argv[2], sys.argv[3]))
+    giveup(con, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '7'):#提交任務
-    print(submit(con, con2, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]))
+    submit(con, con2, con3, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 elif(sys.argv[1] == '8'):#給任務詳細資料
     print(getdetail(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
@@ -450,4 +450,4 @@ elif(sys.argv[1] == '11'):#回傳所有照片
 elif(sys.argv[1] == '12'):#回傳所有稱號
     print(alltitle(con3, sys.argv[2]))
 elif(sys.argv[1] == '13'):#選擇稱號
-    print(choosetitle(con3, sys.argv[2], sys.argv[8]))
+    choosetitle(con3, sys.argv[2], sys.argv[3])
