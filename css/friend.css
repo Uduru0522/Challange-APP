@@ -42,24 +42,34 @@
     align-items: center;
     justify-content: flex-start;
 }
-
-[type="text"] {
-    margin: 0 4vw 0 4vw;
-    float: left;
+#inside-image{
+    height:2.6vh;
+    position:fixed;
+    top:11.2vh;
+    left:7vw;
+}
+#persontosearch {
+    border-radius: 1.75vh;
+    height: 3.3vh;
+    width: 90vw;
+    outline: none;
+    border-style: none;
+    background-color:#FBE1B1;
+    margin: 0.85vh 5vw 0.85vh 5vw;
+    font-size: 2.2vh;  
+    text-indent: 10vw;
 }
 
-#search-ID img {
-    max-height: 2.5vh;
-    margin: 0;
-}
 
 #friend-record {
     position: fixed;
     top: 15vh;
-    width: 100vw;
+    left:5vw;
+    width: 90vw;
     height: 75vh;
     overflow: scroll;
     z-index: 1;
+    padding:1vh 0 1vh 0;
 }
 
 #friend-header {
@@ -77,11 +87,7 @@
     visibility: show;
 }
 
-.output-search-ID {
-    background: transparent;
-    border-width: 0px;
-    outline: none;
-}
+
 
 .slideleft {
     display: flex;
@@ -92,14 +98,13 @@
 
 .friend {
     height: 12vh;
-    border-top-style: solid;
-    border-bottom-style: solid;
+    border-style: solid;
     border-width: thin;
     border-color: #E9B83E;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex: 0 0 100vw;
+    flex: 0 0 90vw;
     background-color: white;
     position: relative;
     scroll-snap-align: start;
@@ -115,8 +120,11 @@
     height: 12vh;
     position: absolute;
     right: 0;
-    background-color: red;
-    border-color: red;
+    background-color: #fa3434;
+    border-color: #fa3434;
+    color:white;    
+    font-size:5vw;
+    writing-mode:vertical-lr;
 }
 
 .deletebutton:active {
@@ -131,11 +139,11 @@
     left: 20vw;
     width: 60vw;
     height: 35vh;
-    border-style: solid;
     text-align: center;
     padding: 0;
     z-index: 3;
     overflow: none;
+    box-shadow: 3px 3px 5px gray;
 }
 
 #addfriend_pic {
@@ -156,7 +164,7 @@
     border-style:none;
     font-size:5vw;
     margin:5vw;
-    box-shadow: (3px,3px,5px,gray);
+    box-shadow: 3px 3px 5px gray;
 }
 
 #button_cantfind {
@@ -167,7 +175,7 @@
     border-style:none;
     font-size:5vw;
     margin:5vw;
-    box-shadow: (3px,3px,5px,gray);
+    box-shadow: 3px 3px 5px gray;
 }
 
 .friend-cover {
@@ -183,13 +191,70 @@
     overflow:none;
 }
 
-#search-ID input[type="text"] {
-    border-radius: 1.75vh;
-    height: 3.3vh;
-    width: 80%;
-    outline: none;
-    border-style: none;
-    background-color:#FBE1B1;
-    margin: 0.7vh 0.5vh 0.5vh 2vh;
-    font-size: 2.2vh;
+
+#click-friend{
+    background:white;
+    border-style:none;
+    border-radius:20px;
+    position:fixed;
+    top:20vh;
+    left:13vw;
+    width:74vw;
+    height:49vh;
+    text-align:center;
+    overflow:none;
+    z-index:3;
+    padding:0;
+    box-shadow:10px 10px 15px gray;
+}
+.click-friend-top{
+    width:100%;
+    height:65%;
+    text-align:center;
+    margin:15% 0 0 0;
+}
+#click-friend-header{
+    max-width:45%;
+    border-radius:50%;
+}
+#click-friend-name{
+    padding:1vh;
+    font-size:2.5vh;
+    font-weight: bold;
+    letter-spacing:0.5vh;
+    text-indent: 0.5vh;
+}
+.click-friend-bottom{
+    width:100%;
+    height:35%;
+}
+#click-friend-data{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:50%;
+    height:35%;
+    text-align:center;
+}
+#click-friend-data img{
+    max-height:35%;
+}
+#click-friend-data p{
+    font-size:4vw;
+    color:#E9B83E;
+}
+#click-friend-chat{
+    position:absolute;
+    bottom:0;
+    right:0;
+    text-align:center;
+    width:50%;
+    height:35%;
+}
+#click-friend-chat img{
+    max-height:35%;
+}
+#click-friend-chat p{
+    font-size:4vw;
+    color:#E9B83E;
 }

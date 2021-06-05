@@ -12,6 +12,7 @@ const port = 4114
 var fs = require('fs');
 var db = new sqlite3.Database("./database/users.db");
 
+
 app.use(bodyParser.json({ limit: "1mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(session({
@@ -62,36 +63,40 @@ app.post('/html/login', (req, res) => {
     }
 });
 
-// app.post('/html/register', (req, res) => {
-//     if (req.body.account != "" && req.body.password != ""){
-//         db.get("SELECT account FROM users WHERE account = ?", [req.body.account], function(err, row) {
-//             if(row == undefined){
-//                 db.serialize(function() {
-//                     db.run("CREATE TABLE IF NOT EXISTS users (account TEXT, password TEXT, id TEXT, name TEXT, title TEXT, intro TEXT, image BLOB, social INTEGER, travel INTEGER, food INTEGER, activity INTEGER, sport INTEGER, self INTEGER)");
-//                     function check(){
-//                         var randomString = crypto.randomBytes(32).toString('hex').substr(0, 8);
-//                         db.get("SELECT id FROM users WHERE id = ?", randomString, function(err, row) {
-//                             if(row != undefined){
-//                                 check();
-//                             }
-//                             else{
-//                                 db.run("INSERT INTO users (account, password, id) VALUES (?, ?, ?)", [req.body.account, req.body.password, randomString]);
-//                             }
-//                         });
-//                     }
-//                     check();
-//                 });
-//                 res.send("Rigister successfully!");
-//             }
-//             else{
-//                 res.send("Account has existed!");
-//             }
-//         })
-//     }
-//     else{
-//         res.send("Account or Password cannot be empty!");
-//     }
-// });
+app.post('/html/register', (req, res) => {
+    if (req.body.account != "" && req.body.password != "") {
+        db.get("SELECT account FROM users WHERE account = ?", [req.body.account], function(err, row) {
+            if (row == undefined) {
+                db.serialize(function() {
+                    db.run("CREATE TABLE IF NOT EXISTS users (account TEXT, password TEXT, email TEXT, lastname TEXT, firstname TEXT, id TEXT, name TEXT, title TEXT, intro TEXT, image BLOB, social INTEGER, travel INTEGER, food INTEGER, activity INTEGER, sport INTEGER, self INTEGER)");
+
+                    function check() {
+                        var randomString = String.fromCharCode(Math.floor(Math.random() * 26) + "a".charCodeAt(0)) + String(Math.random()).slice(2, 9)
+                        db.get("SELECT id FROM users WHERE id = ?", randomString, function(err, row) {
+                            if (row != undefined) {
+                                check();
+                            } else {
+                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "#無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0]);
+                                var db_mission = new sqlite3.Database("./database/mission.db");
+                                db_mission.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)`);
+                                db_mission.close();
+                                var db_title = new sqlite3.Database("./database/title.db");
+                                db_title.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)`);
+                                db_title.close();
+                            }
+                        });
+                    }
+                    check();
+                });
+                res.send("註冊成功！");
+            } else {
+                res.send("帳號已存在！");
+            }
+        })
+    } else {
+        res.send("帳號或密碼不能空白！");
+    }
+});
 
 app.post('/html/mission/all_mission', (req, res) => {
     let options = {
@@ -178,6 +183,22 @@ app.post('/html/mission/done', (req, res) => {
         res.send(data);
     });
 });
+app.post('/html/Fmission/done', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            4,
+            req.body.friend_ID
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
 
 app.post('/html/mission/accept', (req, res) => {
     let options = {
@@ -226,7 +247,7 @@ app.post('/html/mission/report_single', (req, res) => {
             req.body.text
         ],
     };
-    
+
     PythonShell.run("mission.py", options, function(err, data) {
         res.send("Success");
     });
@@ -258,6 +279,94 @@ app.post('/html/mission/samequest', (req, res) => {
         args: [
             9,
             req.body.qid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/mission/range', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            10,
+            req.session.uid,
+            req.body.lbound,
+            req.body.hbound,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/getphotos', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            11,
+            req.session.uid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/getphotos_friend', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            11,
+            req.body.friend_ID,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/alltitle', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            12,
+            req.session.uid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/choosetitle', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            13,
+            req.session.uid,
+            req.body.title_id
         ],
     };
 
@@ -353,7 +462,7 @@ app.post('/html/friendrecord', (req, res) => {
 
     PythonShell.run("friend.py", options, function(err, data) {
         data = JSON.parse(data)
-        
+
         res.send(data);
     });
 });
@@ -444,6 +553,7 @@ app.post('/html/singlefriend', (req, res) => {
         res.send("Success");
     });
 });
+
 app.post('/html/assignmentadd', (req, res) => {
     let options = {
         mode: "text",
@@ -461,6 +571,24 @@ app.post('/html/assignmentadd', (req, res) => {
         res.send("Success");
     });
 });
+
+app.post('/html/assignmentdel', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            "assignmentdel",
+            req.body.chatroom_name,
+            req.session.uid
+        ],
+    };
+
+    PythonShell.run("chat.py", options, function(err, data) {
+        res.send("Success");
+    });
+});
+
 app.post('/html/findperson', (req, res) => {
     person.getInfo(req.body.person_ID, db).then(data => {
         res.send(data);
@@ -469,7 +597,13 @@ app.post('/html/findperson', (req, res) => {
 
 app.post('/html/mypage-record', (req, res) => {
     person.getInfo(req.session.uid, db).then(data => {
- 
+
+        res.send(data);
+    })
+});
+app.post('/html/friendpage-record', (req, res) => {
+    person.getInfo(req.body.friend_ID, db).then(data => {
+
         res.send(data);
     })
 });

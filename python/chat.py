@@ -41,6 +41,7 @@ def setuptalk(name1,name2):#建立好友聊天室,name1跟name2的
         with open("./json/friendtalk.json","w", encoding='utf-8') as f:
             json.dump(output, f, ensure_ascii=False) #########################
 
+
 def talk(name1,name2,talk):#好友聊天,name1對name2說talk,然後會回傳聊天內容
     name="./json/"+name1+","+name2+".json"#選出正確的json檔
     if not os.path.isfile(name):
@@ -52,7 +53,9 @@ def talk(name1,name2,talk):#好友聊天,name1對name2說talk,然後會回傳聊
     with open(name, 'r',encoding='utf-8') as obj:
         output = json.load(obj)
     output.append(data)
-    
+
+    for i in range(len(output)):
+        output[i].update({name1:1})
     with open(name,"w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
     output=json.dumps(output, ensure_ascii = False)
@@ -113,7 +116,36 @@ def assignmentadd(assi,name1,name2):#加入任務聊天室,name1:invite,name2:re
                 break
     with open("./json/assignmentname.json","w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
-    
+
+def assignmentdel(assi,name):
+    with open("./json/assignmentname.json", 'r',encoding='utf-8') as obj:
+        output = json.load(obj)
+    str1=output[1]['group'].split(',')
+    str1.remove(name)
+    output[1]['group']=""
+    for i in range(len(str1)):
+        if output[0]['assignment']==assi:
+            output[1]['group']+=str1[i]
+            output[1]['group']+=','
+            break
+    output[1]['group']=output[1]['group'][:-1]
+    for i in range(3,len(output)):
+        str2=output[i][1]['group'].split(',')
+        str2.remove(name)
+        output[i][1]['group']=""
+        for j in range(len(str2)):
+            if output[i][0]['assignment']==assi:
+                output[i][1]['group']+=str2[j]
+                output[i][1]['group']+=','
+                break
+        output[i][1]['group']=output[i][1]['group'][:-1]
+        """
+    if output[i][1]['group']=="":
+        os.remove(findassifile(name,assi))
+        """
+    with open("./json/assignmentname.json","w", encoding='utf-8') as f:
+        json.dump(output, f, ensure_ascii=False) 
+
 def assignmenttalk(assi,name,talk):#任務聊天,在assi這個任務聊天室,name這個人說了talk,然後會回傳聊天內容
     with open("./json/assignmentname.json", 'r',encoding='utf-8') as obj:
         output = json.load(obj)
@@ -137,10 +169,14 @@ def assignmenttalk(assi,name,talk):#任務聊天,在assi這個任務聊天室,na
         output = json.load(obj)
     output.append(data)
     
+    for i in range(len(output)):
+        output[i].update({name:1})
     with open(str2,"w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
     output=json.dumps(output, ensure_ascii = False)
+
     return output #########################
+
 
 
 def findfriendtalk(name):#輸入name,找到這個人有跟哪些人聊天,回傳那些人的list
@@ -185,24 +221,6 @@ def findassifile(name,assi):
                 break
     return assignmentfile
     
-
-def findassifile(name,assi):
-    
-    with open("./json/assignmentname.json", 'r',encoding='utf-8') as obj:
-        output = json.load(obj)
-    str1=output[1]['group'].split(',')#找到assignment
-    for i in range(len(str1)):
-        if str1[i]==name and assi==output[0]['assignment']:
-            assignmentfile=output[2]['searchname']
-            break
-    for i in range(3,len(output)):
-        str1=output[i][1]['group'].split(',')
-        for j in range(len(str1)):
-            if str1[j]==name and output[i][0]['assignment']==assi:
-                assignmentfile=output[i][2]['searchname']
-                break
-    return assignmentfile
-    
 def chatroomlist(name):
     listfinal=[]    
     if os.path.isfile("./json/"+"friendtalk.json"):
@@ -213,7 +231,12 @@ def chatroomlist(name):
                 namecor="./json/"+list1[i]+","+name+".json"
             with open(namecor, 'r',encoding='utf-8') as obj:
                 output = json.load(obj)
-            a={"name":list1[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"],"type":"friend"}
+            #number
+            num=0
+            for j in range(len(output)):
+                if not output[j].__contains__(name):
+                    num+=1
+            a={"name":list1[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"],"type":"friend","number":num}
             listfinal.append(a)
 
     if os.path.isfile("./json/"+"assignmentname.json"):
@@ -222,14 +245,19 @@ def chatroomlist(name):
             filename=findassifile(name,list2[i])
             with open(filename, 'r',encoding='utf-8') as obj:
                 output = json.load(obj)
-            b={"name":list2[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"],"type":"mission"}
+            #number
+            num2=0
+            for k in range(len(output)):
+                if not output[k].__contains__(name):
+                    num2+=1
+            b={"name":list2[i],"time_num":output[len(output)-1]["time_num"],"time":output[len(output)-1]["time"],"talk":output[len(output)-1]["talk"],"type":"mission","number":num2}
             listfinal.append(b)
             
     listfinal.sort(key = lambda s: s["time_num"],reverse=True)
     listfinal=json.dumps(listfinal, ensure_ascii = False)
     return listfinal
 
-    
+
 def talkfile(name1,name2):#好友聊天室剛點進去的內容
     name="./json/"+name1+","+name2+".json"#選出正確的json檔
     if not os.path.isfile(name):
@@ -245,8 +273,6 @@ def assignmentfile(assi,name):#任務聊天室剛點進去的內容
         output = json.load(obj)
     output=json.dumps(output, ensure_ascii = False)
     return output
-
-
 
 
 
@@ -267,3 +293,6 @@ elif(sys.argv[1]=="talkfile"):
     print(talkfile(sys.argv[2],sys.argv[3]))
 elif(sys.argv[1]=="assignmentfile"):
     print(assignmentfile(sys.argv[2],sys.argv[3]))
+elif(sys.argv[1]=="assignmentdel"):
+    assignmentdel(sys.argv[2],sys.argv[3])
+

@@ -14,7 +14,7 @@ $(document).ready(() => {
     $(document).on("click", ".qblock-state", function() {
         console.log($(this).children(":first").text());
         if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).siblings(".qblock-more").children(":first").attr("id").match(/\d+/g);
+            const qid = $(this).siblings(".qblock-qid").attr("id").match(/\d+/g);
             console.log(qid);
 
             // Send POST request to accept quest
@@ -57,7 +57,7 @@ $(document).ready(() => {
     // Submit quests
     $(document).on("click", "#quest-submit-button", function() {
         // Send post request to submit quest
-        const img64 = compress(document.getElementById('preview'), 500, 500, 0.85);
+        const img64 = compress(document.getElementById('preview'), 200, 200, 0.9);
         console.log($("#quest-detail-button span").attr("id"));
         const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
         console.log(qid);

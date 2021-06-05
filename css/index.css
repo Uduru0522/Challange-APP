@@ -7,17 +7,12 @@ html {
   height: 100%;
   width: 100%;
 }
-@font-face {
-    font-family: Ming;
-    src: url(./resources/Medium.tff);
-  }
+
 body {
   background-color: white;
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  overflow:none;
-  
 }
 
 .navbar {
@@ -26,11 +21,11 @@ body {
   display: flex;
   justify-content: space-around;
   width: 100vw;
-  height: 22vw;
-  border-top: black solid 3px;
-  background-color: white;
+  height: 8vh;
+  border-top: none;
+  background-color: #FBE1B1;
   /* Max z-index */
-  z-index: 100;
+  z-index: 99;
 }
 .navbar img {
   margin: auto 0;
@@ -52,7 +47,7 @@ body {
 }
 
 .transparent-background {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.45);
 }
 
 #loading-cover {
