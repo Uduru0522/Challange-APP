@@ -39,6 +39,15 @@ function hide_all_page() {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
         }
+        let stranger = document.getElementById("show-stranger");
+        let stranger_pre = document.getElementById("pre-stranger");
+        let stranger_full = document.getElementById("full-stranger");
+        stranger.classList.remove("stranger-full");
+        stranger.classList.add("stranger-hidden");
+        stranger_pre.classList.add("animate-fade-in");
+        stranger_pre.classList.remove("animate-fade-out");
+        stranger_full.classList.add("animate-fade-out");
+        stranger_full.classList.remove("animate-fade-in");
     });
     return;
 }
@@ -107,7 +116,6 @@ $(document).ready(() => {
                     $("#img-grid-wrapper").append(container);
                 });
             }
-            /* **************************************** */
 
             // Reset submit form
             $("#preview").attr("src", "../resources/click-to-upload.png");
@@ -127,6 +135,12 @@ $(document).ready(() => {
             } else {
                 console.log("Error: Quest progress not 1 or 0");
             }
+
+            // Stranger form
+            $("#pre-stranger").removeClass("animate-fade-out").addClass("animate-fade-in");
+            $("#full-stranger").removeClass("animate-fade-in").addClass("animate-fade-out");
+            $("#show-stranger").addClass("stranger-hidden");
+            $("#show-stranger").removeClass("stranger-full");
         });
 
         // Build page
@@ -159,6 +173,10 @@ $(document).ready(() => {
         $("#filter").removeClass("show").addClass("hidden");
         $(".navbar").removeClass("hidden").addClass("show");
     });
+
+    // TODO:
+    //      Change to "Show all quests -> hide filtered"
+    //      To achieve search in list.
 
     // Apply filter
     const quest_filter_options = [

@@ -9,6 +9,9 @@
     left: 50%
     transform: translate(-50%, -50%)
 
+:root
+    --stranger-radar: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%)
+
 *
     box-sizing: border-box
 
@@ -158,11 +161,50 @@
             .qblock-qid
                 diaplay: none
 
-// TODO: Quest Deatail Page Related    
+@keyframes _stranger-full
+    0%
+        background-position: top -120vh left 0%
+        border-radius: 50% 50% 0 0 / 20% 20% 0 0
+    100%
+        height: 90vh
+        background-position: top 0vh left 0%
+        border-radius: 5vw 5vw 0 0
+    
+@keyframes _stranger-hidden
+    0%
+        background-position: top 0vh left 0%
+        border-radius: 5vw 5vw 0 0
+    100%
+        position: fixed
+        bottom: 0
+        height: 30vh
+        background-position: top -120vh left 0%
+        border-radius: 50% 50% 0 0 / 20% 20% 0 0
+
+@keyframes _fade-in
+    0%
+        opacity: 0%
+    100%
+        opacity: 100%
+
+@keyframes _fade-out
+    0%
+        opacity: 100%
+    100%
+        opacity: 0%
+
+.animate-fade-out
+    animation: _fade-out 1.5s ease forwards
+.animate-fade-in
+    animation: _fade-in 1.5s ease forwards
+
 #quest-detail
     background-color: #FFFFFF
     overflow-y: scroll
     overflow-x: none
+
+    &::-webkit-scrollbar
+        display: none
 
     #quest-detail-header
         background-color: #FBE1B1
@@ -243,6 +285,8 @@
         word-wrap: break-word
 
     #quest-intro
+        margin-top: 15vh
+
         #people-indicate
             @extend %flex-centeralize
             width: 22.5vw
@@ -337,14 +381,152 @@
                     max-width: 100%
                     height: 100%
                 
+    #show-stranger
+        position: fixed
+        bottom: 0
+        width: 100vw
+        z-index: 1
+        height: 30vh
+        background-image: linear-gradient(180deg, rgba(207,233,234,1) 0%, rgba(207,233,234,1) 50%, rgba(127,200,190,1) 80%, rgba(255,255,255,1) 100%)
+        background-size: 100vw 150vh
+
+        #show-stranger-title
+            position: absolute
+            width: 100vw
+            text-align: center
+            font-size: 3vh
+            letter-spacing: 2vw
+            color: #11A196
+            top: 2vh
+            
+        .shape-chevron
+            position: absolute
+            text-align: center
+            padding: 2px
+            left: 0
+            right: 0
+            margin: 0 auto
+            height: 0px
+            width: 15%
+
+            &:before
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                height: 100%
+                width: 51%
+                background: white
+                transform: skew(0deg, -15deg)
+            &:after
+                content: ''
+                position: absolute
+                top: 0
+                right: 0
+                height: 100%
+                width: 50%
+                background: white
+                transform: skew(0deg, 15deg)
+    
+        :nth-child(2).shape-chevron
+            top: 10vh
+        :nth-child(3).shape-chevron
+            top: 13vh
+
+    .stranger-hidden
+        animation: _stranger-hidden .5s ease forwards
+
+    .stranger-full
+        animation: _stranger-full .5s ease forwards
+        position: relative
+
+        #full-stranger
+            & > div:nth-child(1)
+                height: 20vh
+                width: 100vw
+                display: flex
+                flex-direction: row
+                justify-content: center
+                
+                position: relative
+                margin-top: 5%
+                padding: 0 3% 0 5%
+                
+                #stranger-icon
+                    margin-right: 8vw
+                    img
+                        border-radius: 50%
+                        border: 2vh white solid
+                        max-height: 100%
+
+                #stranger-info-flex
+                    width: 48%
+                    display: flex
+                    flex-direction: column
+                    justify-content: space-between
+                    align-items: flex-start
+                    padding: 2vh 0
+
+                    *
+                        color: black
+
+                    #stranger-id
+                        font-size: 3.2vh
+                    #stranger-hashtag
+                        font-size: 2.7vh
+                    #stranger-req 
+                        @extend %flex-centeralize
+                        background-color: #ece569
+                        border-radius: 1vh
+                        box-shadow: 0.2vh 0.2vh 0.6vh rgb(0 0 0 / 60%)
+                        width: 100%
+                        height: 30%
+                        font-size: 3vh
+                        margin-left: -1.5vw
+                        span
+                            color: white
+
+            & > div:nth-child(2)                                   
+                height: 19vh
+                width: 100vw
+                display: flex
+                flex-direction: row
+                justify-content: center
+                position: relative
+                margin-top: 4vh
+                padding: 0 10% 0 9%
+
+                #stranger-top-stat-flex
+                    display: flex
+                    flex-direction: column
+                    justify-content: space-between
+                    width: 40%
+                    margin-right: 8vw
+            
+                    *
+                        font-size: 2.9vh
+
+                #stranger-radar
+                    position: relative
+                    width: 60%
+
+                    display: flex
+                    justify-content: center
+
+                    img
+                        position: absolute
+                        max-height: 100%
+
+                    img#stranger-radar-inner
+                        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)
+                        filter: invert(75%) sepia(65%) saturate(1547%) hue-rotate(326deg) brightness(105%) contrast(101%)
 
 @keyframes _select
     100%
         border: none
         background-color: #E9B83E
         color: white
-
-
+        border-radius-top: 15vw 15vw 0 0
 
 // Filter
 #filter

@@ -1,3 +1,4 @@
+// Utils
 function compress(img, width, height, ratio) {
     var canvas, ctx, img64;
     canvas = document.createElement('canvas');
@@ -9,6 +10,100 @@ function compress(img, width, height, ratio) {
     return img64;
 }
 
+// Detect mouse drag / touchscreen swipe
+function swipedetect(el, callback) {
+    let target = el;
+    let swipedir, startX, startY, distX, distY; // Record and calculate drag/swipe vector
+    let threshold = 150; // Required min distance traveled to be considered swipe
+    let restraint = 100; // Maximum distance allowed at the same time in perpendicular direction
+    let window = 300; // Maximum time allowed to travel that distance
+    let elapsedTime, startTime; // Handle drag/swipe time vector
+    let handleswipe = callback || function(swipedir) {};
+
+    let dragging = false,
+        swiping = false; // Allow only one of the event
+
+    target.addEventListener("mousedown", function(e) {
+        if (!swiping) {
+            dragging = true;
+            swipedir = "none";
+            dist = 0;
+            startX = e.pageX;
+            startY = e.pageY;
+            startTime = new Date().getTime(); // Record contact time (milisecond)
+        } else {
+            console.log("Already swiping");
+        }
+    }, false);
+
+    target.addEventListener('touchstart', function(e) {
+        let touchobj = e.changedTouches[0]; // Accept 1 and the first touch event at the same time
+        if (!dragging) {
+            swiping = true;
+            swipedir = "none";
+            dist = 0;
+            startX = touchobj.pageX;
+            startY = touchobj.pageY;
+            startTime = new Date().getTime(); // Record contact time (milisecond)
+        } else {
+            console.log("Already dragging");
+        }
+    }, false);
+
+    // Prevent page scrolling when swiping
+    target.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    }, false);
+
+    target.addEventListener("mousemove", function(e) {
+        e.preventDefault();
+    }, false);
+
+    target.addEventListener('touchend', function(e) {
+        if (swiping) {
+            let touchobj = e.changedTouches[0];
+            distX = touchobj.pageX - startX;
+            distY = touchobj.pageY - startY;
+            elapsedTime = new Date().getTime() - startTime;
+            if (elapsedTime <= window) {
+                // Swipe/Drag Vector check
+                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                    swipedir = (distX < 0) ? "left" : "right";
+                } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
+                    swipedir = (distY < 0) ? "up" : "down";
+                }
+            } else {
+                console.log("Swipe faster! Elapsed time =" + elapsedTime + ", Window = " + window);
+            }
+        }
+        swiping = false;
+        handleswipe(swipedir);
+        e.preventDefault();
+    }, false);
+
+    target.addEventListener("mouseup", function(e) {
+        if (dragging) {
+            distX = e.pageX - startX;
+            distY = e.pageY - startY;
+            elapsedTime = new Date().getTime() - startTime;
+            if (elapsedTime <= window) {
+                // Swipe/Drag Vector check
+                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                    swipedir = (distX < 0) ? "left" : "right";
+                } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
+                    swipedir = (distY < 0) ? "up" : "down";
+                }
+            } else {
+                console.log("Drag faster! Elapsed time =" + elapsedTime + ", Window = " + window);
+            }
+            dragging = false;
+            handleswipe(swipedir);
+            e.preventDefault();
+        }
+    }, false);
+}
+
+// Event Listeners on page load
 $(document).ready(() => {
     // Accept in list
     $(document).on("click", ".qblock-state", function() {
@@ -91,5 +186,27 @@ $(document).ready(() => {
     // Redirect click event on uploading image
     $(document).on("click", "#preview", function() {
         $("#quest-submit-img").trigger("click");
+    });
+
+    let hidetimer = null;
+    swipedetect(document.getElementById("show-stranger"), function(dir) {
+        if (dir != "none") {
+            clearTimeout(hidetimer);
+            console.log("Swiped/Dragged" + dir);
+            if (dir == "up") {
+                // Transform to full information
+                let target = document.getElementById("show-stranger");
+                target.classList.add("stranger-full");
+                target.classList.remove("stranger-hidden");
+
+                let pre = document.getElementById("pre-stranger");
+                let full = document.getElementById("full-stranger");
+
+                pre.classList.add("animate-fade-out");
+                pre.classList.remove("animate-fade-in");
+                full.classList.add("animate-fade-in");
+                full.classList.remove("animate-fade-out");
+            }
+        }
     });
 });
