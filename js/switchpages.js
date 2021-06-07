@@ -23,7 +23,9 @@ const pages_selector = [
     "#Fcharacteristic-analyze",
     "#Fcharacteristic-history",
     "#Fmission-launched",
-    "#quest-filtered #quest-filtered-bg"
+    "#quest-filtered #quest-filtered-bg",
+    ".quest-more-open",
+    ".quest-more-closed"
 ];
 
 const nav_icons = [
@@ -82,6 +84,13 @@ $(document).ready(() => {
             hide_all_page();
             $(pages_selector[i]).removeClass("hidden").addClass("show");
             document.getElementById("chat-content").innerHTML = "";
+
+            // Switch to function pointers plz
+            if (nav_icons[i] == "#nav-quest") {
+                $(".quest-more-closed").removeClass("hidden").addClass("show");
+                $(".quest-more-open").removeClass("show").addClass("hidden");
+                $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
+            }
         });
     }
 
