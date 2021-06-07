@@ -274,5 +274,4 @@ $(document).ready(() => {
         $("#quest-list").first().css("margin-top", "10vh");
         $("#quest-filtered").removeClass("hidden").addClass("show");
     })
-
 });

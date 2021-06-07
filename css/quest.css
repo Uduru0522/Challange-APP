@@ -27,7 +27,7 @@
 #quest-main::-webkit-scrollbar {
   display: none;
 }
-#quest-main .quest-header span {
+#quest-main .quest-header > span {
   margin-top: 4.2vh;
   text-align: center;
   font-size: 2em;
@@ -782,4 +782,86 @@
 }
 #quest-filtered #quest-list .qblock .qblock-state.already-accept span {
   color: #EB931D;
+}
+
+@keyframes _quest-more-expand {
+  0% {
+    height: 50px;
+  }
+  100% {
+    height: 225px;
+  }
+}
+@keyframes _quest-more-shrink {
+  0% {
+    height: 225px;
+  }
+  100% {
+    height: 50px;
+  }
+}
+.quest-more {
+  position: fixed;
+  bottom: 11.5vh;
+  right: 6.5vw;
+  width: 60px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #E2D6A8;
+}
+.quest-more * {
+  position: absolute;
+}
+.quest-more .quest-more-closed {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quest-more .quest-more-closed .quest-more-option {
+  max-width: 100%;
+}
+.quest-more .quest-more-open {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.quest-more .quest-more-open div {
+  width: 100%;
+  height: 65px;
+  position: relative;
+}
+.quest-more .quest-more-open span {
+  position: relative;
+  color: white;
+  font-size: 9pt;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+.quest-more .quest-more-open img {
+  max-width: 70%;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.quest-more .quest-more-open .quest-more-x {
+  height: 45px;
+}
+.quest-more .quest-more-open .quest-more-x img {
+  max-width: 45%;
+}
+
+.quest-more-expand {
+  animation: _quest-more-expand 0.5s ease forwards;
+}
+
+.quest-more-shrink {
+  animation: _quest-more-shrink 0.5s ease forwards;
 }

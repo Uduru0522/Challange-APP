@@ -209,4 +209,17 @@ $(document).ready(() => {
             }
         }
     });
+
+    // Question option menu
+    $(".quest-more-option").on("click", function(e) {
+        $(".quest-more").removeClass("quest-more-shrink").addClass("quest-more-expand");
+        $(".quest-more-closed").removeClass("show").addClass("hidden");
+        $(".quest-more-open").removeClass("hidden").addClass("show");
+    });
+
+    $(".quest-more-x").on("click", function(e) {
+        $(".quest-more").removeClass("quest-more-expand").addClass("quest-more-shrink");
+        $(".quest-more-closed").removeClass("hidden").addClass("show");
+        $(".quest-more-open").removeClass("show").addClass("hidden");
+    });
 });
