@@ -216,10 +216,167 @@ $(document).ready(() => {
         $(".quest-more-closed").removeClass("show").addClass("hidden");
         $(".quest-more-open").removeClass("hidden").addClass("show");
     });
-
     $(".quest-more-x").on("click", function(e) {
         $(".quest-more").removeClass("quest-more-expand").addClass("quest-more-shrink");
         $(".quest-more-closed").removeClass("hidden").addClass("show");
         $(".quest-more-open").removeClass("show").addClass("hidden");
+    });
+
+    // Goto create new quest
+    let quest_create_current_step = 1;
+    $(".quest-more-new").on("click", function(e) {
+        hide_all_page();
+        $("#quest-create-new").removeClass("hidden").addClass("show");
+
+        // Initialize all inputs
+        $("#quest-create-new input, #quest-create-new textarea").val("");
+        $(".owbtn-select").addClass("owbtn-deselect").removeClass("owbtn-select");
+        qc_f = undefined, qc_d = undefined, qc_p.clear();
+
+        // Set to first page
+        $("#quest-create-inputs").removeClass("quest-create-tostep" + quest_create_current_step);
+        quest_create_current_step = 1;
+
+        let si = $("#quest-create-progress");
+        si.children(".quest-create-progress-dot").each(function(e) {
+            console.log("eh?")
+            $(this).removeClass("pd-on").addClass("pd-off");
+        });
+        $("#quest-create-progress *:first-child").removeClass("pd-off").addClass("pd-on");
+
+        // Continue / Finish button
+        $("#quest-create-finish").css("display", "none");
+        $("#quest-create-next").css("display", "block");
+
+        // Disable step button by default
+        $(".step-confirm").addClass("disabled-grayscale");
+
+        // Hide success screen
+        $("#quest-create-success").css("display", "none");
+    });
+
+    // Advance in create new
+    let quest_create_step_clk = 0;
+    $(".step-confirm").on("click", function() {
+        // Prevent fast clicking causing skips
+        let click_time = new Date().getTime();
+        if (click_time - quest_create_step_clk < 500) {
+            console.log("time=" + (click_time - quest_create_step_clk))
+            return;
+        } else if ($(this).hasClass("disabled-grayscale")) {
+            console.log("Fill u fuck");
+            return;
+        }
+        quest_create_step_clk = click_time;
+
+        // Swipe to new input fields
+        let target = $("#quest-create-inputs");
+        if (quest_create_current_step < 6 && !target.is(":animated")) {
+            target.removeClass("quest-create-tostep" + quest_create_current_step);
+            target.addClass("quest-create-tostep" + (++quest_create_current_step));
+
+            // Update step indicator
+            let si = $("#quest-create-progress");
+            si.children().eq(quest_create_current_step - 1).addClass("pd-on");
+            si.children().eq(quest_create_current_step - 1).removeClass("pd-off");
+            si.children().eq(quest_create_current_step - 2).addClass("pd-off");
+            si.children().eq(quest_create_current_step - 2).removeClass("pd-on");
+        } else {
+            // Last step done, show success
+            $("#quest-create-success").css("display", "block");
+            return;
+        }
+
+        // Disable button after traveled to new step
+        $(".step-confirm").addClass("disabled-grayscale");
+
+        // Switch to finish icon when at last step
+        if (quest_create_current_step == 6) {
+            $("#quest-create-finish").css("display", "block");
+            $("#quest-create-next").css("display", "none");
+        }
+    });
+
+    // Select button in create new
+    let qc_f, qc_d, qc_p = new Set();
+    $(".quest-create-owbtn").on("click", function(e) {
+        // Get index and group
+        let trim = $(this).attr("id").replace(/quest-create-grid-item/, "");
+        let index = trim[0];
+        let group = trim[1];
+        console.log(trim + group);
+
+        if ($(this).hasClass("owbtn-deselect")) {
+            switch (group) {
+                case "f": // Step 2
+                    $("#quest-create-part2 .quest-create-grid-wrapper .owbtn-select").each(function() {
+                        console.log("reset 1");
+                        $(this).addClass("owbtn-deselect").removeClass("owbtn-select");
+                    });
+                    qc_f = index;
+                    break;
+                case "p": // Step 3
+                    qc_p.add(index);
+                    break;
+                case "d": // Step 6
+                    $("#quest-create-part6 .quest-create-grid-wrapper .owbtn-select").each(function() {
+                        $(this).addClass("owbtn-deselect").removeClass("owbtn-select");
+                    });
+                    qc_d = index;
+                    break;
+                default:
+                    console.log("Nope, should not be here(group");
+                    break;
+            }
+            // Apply select animation
+            $(this).addClass("owbtn-select").removeClass("owbtn-deselect");
+
+            // Enable step to next step
+            $(".step-confirm").removeClass("disabled-grayscale");
+        } else {
+            switch (group) {
+                case "f": // Step 2
+                    qc_f = undefined;
+
+                    // Disable step to next step
+                    $(".step-confirm").addClass("disabled-grayscale");
+                    break;
+                case "p": // Step 3
+                    qc_p.delete(index);
+                    if (!qc_p.size) {
+                        $(".step-confirm").addClass("disabled-grayscale");
+                    }
+                    break;
+                case "d": // Step 6
+                    qc_d = undefined;
+
+                    // Disable step to next step
+                    $(".step-confirm").addClass("disabled-grayscale");
+                    break;
+                default:
+                    console.log("Nope, should not be here(group");
+                    break;
+            }
+            // Apply deselect animation
+            $(this).addClass("owbtn-deselect").removeClass("owbtn-select");
+
+            // Disable step to next step
+            $(".step-confirm").addClass("disabled-grayscale");
+        }
+        console.log(qc_f, qc_d, qc_p);
+    });
+
+    // Make sure info is filled in creating quest
+    $("#quest-create-part1 > input[type=text], .quest-create-step textarea").on("input", function(e) {
+        if (!$(this).val()) {
+            $(".step-confirm").addClass("disabled-grayscale");
+        } else {
+            $(".step-confirm").removeClass("disabled-grayscale");
+        }
+    });
+
+    // Jump back to quest main page after successfully create new quest
+    $("#quest-create-success-confirm").on("click", function(e) {
+        $("#nav-quest").trigger("click");
     });
 });

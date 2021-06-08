@@ -48,7 +48,7 @@
     </div>
     <!-- Land here after clicking quest icon of nav-bar-->
     <div class="container" id="quest-main">
-        <div class="quest-header"><span>任務</span></div>
+        <div class="quest-header"><span></span></div>
         <div class="filter-button"><img src="../resources/quest/filter.png" object-fit="contain"><span>篩選</span></div>
         <div class="quest-peek" id="everyone-like">
             <div class="peek-title"> <span>大家都想挑戰⋯</span><span class="showmore" id="el">查看全部</span></div>
@@ -82,405 +82,477 @@
         <script>
             fetch_quest_main_page(0);
         </script>
-        <!-- Filter Options-->
-        <div class="container transparent-background" id="filter">
-            <div class="quest-header"><span>任務</span></div>
-            <div id="filter-block">
-                <div id="filter-header"><span>篩選器</span></div>
+    </div>
+    <!-- Filter Options-->
+    <div class="container transparent-background" id="filter">
+        <div class="quest-header"><span></span></div>
+        <div id="filter-block">
+            <div id="filter-header"><span>篩選器</span></div>
 
-                <div class="filter-title"> <span>領域</span></div>
-                <div class="grid-wrapper" id="grid-type-options">
-                    <div class="filter-type" id="filter-option-1"><span>人際</span></div>
-                    <div class="filter-type" id="filter-option-2"><span>美食</span></div>
-                    <div class="filter-type" id="filter-option-3"><span>課外</span></div>
-                    <div class="filter-type" id="filter-option-4"><span>旅行</span></div>
-                    <div class="filter-type" id="filter-option-5"><span>冒險</span></div>
-                    <div class="filter-type" id="filter-option-6"><span>學業</span></div>
-                </div>
-
-                <div class="filter-title"> <span>人數限制</span></div>
-                <div class="grid-wrapper" id="grid-people-options">
-                    <div class="filter-type" id="filter-option-7"><span>單人</span></div>
-                    <div class="filter-type" id="filter-option-8"><span>多人</span></div>
-                </div>
-
-                <div class="filter-title"> <span>任務積分</span></div>
-                <div class="range-container">
-                    <input name="lbound" type="number">
-                    <span id="range-bar"></span>
-                    <input name="hbound" type="number">
-                </div>
-
-                <div class="filter-title"> <span>地點</span></div>
-                <input name="location" type="text" placeholder="輸入地點">
-
-                <div id="filter-footer">
-                    <div class="filter-footer-button" id="filter-confirm"><span>確定</span></div>
-                    <div class="filter-footer-button" id="filter-reset"><span>重設</span></div>
-                </div>
+            <div class="filter-title"> <span>領域</span></div>
+            <div class="grid-wrapper" id="grid-type-options">
+                <div class="filter-type" id="filter-option-1"><span>人際</span></div>
+                <div class="filter-type" id="filter-option-2"><span>美食</span></div>
+                <div class="filter-type" id="filter-option-3"><span>課外</span></div>
+                <div class="filter-type" id="filter-option-4"><span>旅行</span></div>
+                <div class="filter-type" id="filter-option-5"><span>冒險</span></div>
+                <div class="filter-type" id="filter-option-6"><span>學業</span></div>
             </div>
-            <div id="filter-return-area"></div>
-        </div>
-        <!-- After filtered, or clicked "show-all" button-->
-        <!-- Lists individual quests.-->
-        <div class="container" id="quest-filtered">
-            <div class="quest-header" id="quest-list-header"><span>任務</span></div>
-            <div class="hidden" id="quest-filtered-bg">
-                <div id="quest-filtered-bg-title"><span></span></div>
+
+            <div class="filter-title"> <span>人數限制</span></div>
+            <div class="grid-wrapper" id="grid-people-options">
+                <div class="filter-type" id="filter-option-7"><span>單人</span></div>
+                <div class="filter-type" id="filter-option-8"><span>多人</span></div>
             </div>
-            <div id="quest-list"></div>
-            <div class="dummy"></div>
-            <div class="quest-more">
-                <div class="quest-more-closed">
-                    <img class="quest-more-option" src="../resources/quest/quest-more-option.png">
-                </div>
-                <div class="quest-more-open hidden">
-                    <div class="quest-more-new">
-                        <img src="../resources/quest/quest-more-new.png">
-                        <span>發起任務</span>
-                    </div>
-                    <div class="quest-more-ongoing">
-                        <img src="../resources/quest/quest-more-ongoing.png">
-                        <span>進行中</span>
-                    </div>
-                    <div class="quest-more-x">
-                        <img src="../resources/quest/quest-more-x.png">
-                    </div>
-                </div>
+
+            <div class="filter-title"> <span>任務積分</span></div>
+            <div class="range-container">
+                <input name="lbound" type="number">
+                <span id="range-bar"></span>
+                <input name="hbound" type="number">
+            </div>
+
+            <div class="filter-title"> <span>地點</span></div>
+            <input name="location" type="text" placeholder="輸入地點">
+
+            <div id="filter-footer">
+                <div class="filter-footer-button" id="filter-confirm"><span>確定</span></div>
+                <div class="filter-footer-button" id="filter-reset"><span>重設</span></div>
             </div>
         </div>
-        <!-- Show after quest-book icon is clicked.-->
-        <div class="container transparent-background" id="quest-book"></div>
-        <!-- Details for quests. -->
-        <!-- Show after clicked "Details" on entries within each quest pages-->
-        <div class="container" id="quest-detail">
-            <div class="quest-header" id="quest-detail-header">
-                <img class="return-arrow" src="../resources/quest/return-next-arrow.png">
-                <div id="quest-points"><span>10</span></div>
-                <div id="quest-tag"><span>出廢</span></div>
-                <div id="quest-title-text"><span>如何分辨出廢話自然是一個問題</span></div>
+        <div id="filter-return-area"></div>
+    </div>
+    <!-- After filtered, or clicked "show-all" button-->
+    <!-- Lists individual quests.-->
+    <div class="container" id="quest-filtered">
+        <div class="quest-header" id="quest-list-header"><span></span></div>
+        <div class="hidden" id="quest-filtered-bg">
+            <div id="quest-filtered-bg-title"><span></span></div>
+        </div>
+        <div id="quest-list"></div>
+        <div class="dummy"></div>
+        <div class="quest-more">
+            <div class="quest-more-closed">
+                <img class="quest-more-option" src="../resources/quest/quest-more-option.png">
             </div>
-            <div id="quest-intro">
-                <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
-                <span class="qd-body" id="quest-intro-body"></span>
-                <div id="people-indicate"><span></span></div>
-            </div>
-            <div id="quest-require">
-                <div class="qd-title" id="quest-require-title"> <span>完成條件</span></div>
-                <div class="qd-body" id="quest-require-body"></div>
-            </div>
-            <div id="quest-detail-button"><span></span></div>
-            <!-- Temp Upload form, will change later-->
-            <div id="quest-submit-field" class="hidden">
-                <img id="preview" src="../resources/click-to-upload.png">
-                <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
-                <input id="quest-submit-text" type="text" placeholder="Enter Image Discription Here...">
-                <div id="quest-submit-button">
-                    <span>提交</span>
+            <div class="quest-more-open hidden">
+                <div class="quest-more-new">
+                    <img src="../resources/quest/quest-more-new.png">
+                    <span>發起任務</span>
+                </div>
+                <div class="quest-more-ongoing">
+                    <img src="../resources/quest/quest-more-ongoing.png">
+                    <span>進行中</span>
+                </div>
+                <div class="quest-more-x">
+                    <img src="../resources/quest/quest-more-x.png">
                 </div>
             </div>
-
-            <div id="quest-history">
-                <div class="qd-title"><span>挑戰經歷</span></div>
-                <div id="img-grid-wrapper"></div>
+        </div>
+    </div>
+    <!-- Details for quests. -->
+    <!-- Show after clicked "Details" on entries within each quest pages-->
+    <div class="container" id="quest-detail">
+        <div class="quest-header" id="quest-detail-header">
+            <img class="return-arrow" src="../resources/quest/return-next-arrow.png">
+            <div id="quest-points"><span>10</span></div>
+            <div id="quest-tag"><span>出廢</span></div>
+            <div id="quest-title-text"><span>如何分辨出廢話自然是一個問題</span></div>
+        </div>
+        <div id="quest-intro">
+            <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
+            <span class="qd-body" id="quest-intro-body"></span>
+            <div id="people-indicate"><span></span></div>
+        </div>
+        <div id="quest-require">
+            <div class="qd-title" id="quest-require-title"> <span>完成條件</span></div>
+            <div class="qd-body" id="quest-require-body"></div>
+        </div>
+        <div id="quest-detail-button"><span></span></div>
+        <!-- Temp Upload form, will change later-->
+        <div id="quest-submit-field" class="hidden">
+            <img id="preview" src="../resources/click-to-upload.png">
+            <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
+            <input id="quest-submit-text" type="text" placeholder="Enter Image Discription Here...">
+            <div id="quest-submit-button">
+                <span>提交</span>
             </div>
-            <div class="dummy"></div>
+        </div>
 
-            <div id="show-stranger">
-                <div id="pre-stranger">
-                    <span class="ss-pre" id="show-stranger-title">看看有誰</span>
-                    <div class="shape-chevron ss-pre"></div>
-                    <div class="shape-chevron ss-pre"></div>
-                </div>
-                <div id="full-stranger">
-                    <div>
-                        <div id="stranger-icon">
-                            <img src="../resources/quest/placeholder-1_1.png">
-                        </div>
-                        <div id="stranger-info-flex">
-                            <div id="stranger-id"><span>戰經戰戰經</span></div>
-                            <div id="stranger-hashtag"><span>#戰戰經經</span></div>
-                            <div id="stranger-req"><span>戰經戰</span></div>
-                        </div>
+        <div id="quest-history">
+            <div class="qd-title"><span>挑戰經歷</span></div>
+            <div id="img-grid-wrapper"></div>
+        </div>
+        <div class="dummy"></div>
+
+        <div id="show-stranger">
+            <div id="pre-stranger">
+                <span class="ss-pre" id="show-stranger-title">看看有誰</span>
+                <div class="shape-chevron ss-pre"></div>
+                <div class="shape-chevron ss-pre"></div>
+            </div>
+            <div id="full-stranger">
+                <div>
+                    <div id="stranger-icon">
+                        <img src="../resources/quest/placeholder-1_1.png">
                     </div>
-                    <div>
-                        <div id="stranger-top-stat-flex">
-                            <span id="stranger-top-stat-1">項目：42</span>
-                            <span id="stranger-top-stat-2">項目：42</span>
-                            <span id="stranger-top-stat-3">項目：42</span>
-                            <span id="stranger-top-stat-4">項目：42</span>
-                        </div>
-                        <div id="stranger-radar">
-                            <img src="../resources/quest/radar_base.png" />
-                            <img id="stranger-radar-inner" src="../resources/quest/radar-inner-black.png" />
-                        </div>
+                    <div id="stranger-info-flex">
+                        <div id="stranger-id"><span>戰經戰戰經</span></div>
+                        <div id="stranger-hashtag"><span>#戰戰經經</span></div>
+                        <div id="stranger-req"><span>戰經戰</span></div>
+                    </div>
+                </div>
+                <div>
+                    <div id="stranger-top-stat-flex">
+                        <span id="stranger-top-stat-1">項目：42</span>
+                        <span id="stranger-top-stat-2">項目：42</span>
+                        <span id="stranger-top-stat-3">項目：42</span>
+                        <span id="stranger-top-stat-4">項目：42</span>
+                    </div>
+                    <div id="stranger-radar">
+                        <img src="../resources/quest/radar_base.png" />
+                        <img id="stranger-radar-inner" src="../resources/quest/radar-inner-black.png" />
                     </div>
                 </div>
             </div>
-            <!-- List user already accepted the quest (who's in)-->
-            <div class="container transparent-background" id="quest-whosin"></div>
-            <!-- Land here after clicking the chat room icon-->
-            <div class="container" id="chat-main">
-                <div class="chat-title">
-                    <div id="chatroom-title">聊天室</div>
+        </div>
+    </div>
+
+    <!-- Show when to create new quest -->
+    <div class="container hidden" id="quest-create-new">
+        <div class="quest-header"><span></span></div>
+
+        <div id="quest-create-inputs">
+            <div id="quest-create-part1" class="quest-create-step">
+                <span class="quest-create-steptitle">為新任務命名</span>
+                <input type="text" id="new-quest-name">
+            </div>
+            <div id="quest-create-part2" class="quest-create-step">
+                <span class="quest-create-steptitle">選擇此任務的領域</span>
+                <span class="quest-create-steptitle-ps">（可複選）</span>
+                <div class="quest-create-grid-wrapper">
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1f"><span>人際</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2f"><span>美食</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3f"><span>課外</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item4f"><span>旅行</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item5f"><span>冒險</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item6f"><span>學業</span></div>
                 </div>
-                <div id="create-chat-button">
-                    <img src="../resources/nav/create_chat.png">
-                    <div id="build-group">建立群組</div>
+            </div>
+            <div id="quest-create-part3" class="quest-create-step">
+                <span class="quest-create-steptitle">選擇人數限制</span>
+                <span class="quest-create-steptitle-ps">（可複選）</span>
+                <div class="quest-create-grid-wrapper">
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1p"><span>單人</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2p"><span>多人</span></div>
                 </div>
-                <div id="chat-choose-missions" class="create-chat-menu hidden">
-                    <div id="choose-mission-text">選擇任務</div>
-                    <form name="group-choose-mission" id="group-choose-mission">
-                        <img class="search-mission" src="../resources/nav/search.png">
-                        <input type="text" placeholder="        輸入任務名稱" name="missiontosearch" id="missiontosearch">
-                    </form>
-                    <div id="put-mission-here"></div>
+            </div>
+            <div id="quest-create-part4" class="quest-create-step">
+                <span class="quest-create-steptitle">介紹這個任務？</span>
+                <textarea id="quest-create-intro"></textarea>
+
+            </div>
+            <div id="quest-create-part5" class="quest-create-step">
+                <span class="quest-create-steptitle">如何完成任務？</span>
+                <textarea id="quest-create-brief"></textarea>
+            </div>
+            <div id="quest-create-part6" class="quest-create-step">
+                <span class="quest-create-steptitle">此任務的難度如何？</span>
+                <span class="quest-create-steptitle-ps">（管理員將參照您選擇的任務難度予以配分）</span>
+                <div class="quest-create-grid-wrapper">
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1d"><span>簡單</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2d"><span>普通</span></div>
+                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3d"><span>困難</span></div>
                 </div>
+            </div>
+        </div>
+
+        <div id="quest-create-progress">
+            <div class="quest-create-progress-dot"></div>
+            <div class="quest-create-progress-dot"></div>
+            <div class="quest-create-progress-dot"></div>
+            <div class="quest-create-progress-dot"></div>
+            <div class="quest-create-progress-dot"></div>
+            <div class="quest-create-progress-dot"></div>
+        </div>
+        <div id="quest-create-next" class="step-confirm"><img src="../resources/quest/new-next.png"></div>
+        <div id="quest-create-finish" class="step-confirm"><img src="../resources/quest/new-done.png"></div>
+        <div id="quest-create-success">
+            <div>
+                <span>你發起的新任務</span><br>
+                <span>已經提交至管理員審查</span><br>
+                <span>待審查通過後將會出現在</span><br>
+                <span>「最新任務」</span><br>
+                <span>「挑戰中」</span>
+                <div id="quest-create-success-confirm">
+                    <span>確定</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Land here after clicking the chat room icon-->
+    <div class="container" id="chat-main">
+        <div class="chat-title">
+            <div id="chatroom-title">聊天室</div>
+        </div>
+        <div id="create-chat-button">
+            <img src="../resources/nav/create_chat.png">
+            <div id="build-group">建立群組</div>
+        </div>
+        <div id="chat-choose-missions" class="create-chat-menu hidden">
+            <div id="choose-mission-text">選擇任務</div>
+            <form name="group-choose-mission" id="group-choose-mission">
+                <img class="search-mission" src="../resources/nav/search.png">
+                <input type="text" placeholder="        輸入任務名稱" name="missiontosearch" id="missiontosearch">
+            </form>
+            <div id="put-mission-here"></div>
+        </div>
 
 
 
-                <input type='radio' name='choose_mission' id='C_M'>
-                <label for='C_M'>
+        <input type='radio' name='choose_mission' id='C_M'>
+        <label for='C_M'>
             <div class="button-sure hidden" onclick="choose_mission()">
                 確定
             </div>
         </label>
 
-                <div id="chat-choose-friends" class="create-chat-menu hidden">
-                    <div id='choose-friend-text'>選擇好友</div>
-                    <form name="group-choose-friend" id="group-choose-friend">
-                        <img class="search-friend" src="../resources/nav/search.png">
-                        <input type="text" placeholder="        輸入好友名稱" name="friendtosearch" id="friendtosearch">
-                    </form>
-                    <div id="put-friend-here"></div>
-                </div>
+        <div id="chat-choose-friends" class="create-chat-menu hidden">
+            <div id='choose-friend-text'>選擇好友</div>
+            <form name="group-choose-friend" id="group-choose-friend">
+                <img class="search-friend" src="../resources/nav/search.png">
+                <input type="text" placeholder="        輸入好友名稱" name="friendtosearch" id="friendtosearch">
+            </form>
+            <div id="put-friend-here"></div>
+        </div>
 
 
 
-                <input type='checkbox' name='choose_friend' id='C_F'>
-                <label for='C_F'>
+        <input type='checkbox' name='choose_friend' id='C_F'>
+        <label for='C_F'>
             <div class="button-creategroup hidden" onclick="choose_friend()">
                 <div>建立群組</div>
             </div>
         </label>
 
-                <div id="chat-choose-cover" class="chat-cover hidden"></div>
+        <div id="chat-choose-cover" class="chat-cover hidden"></div>
 
 
-                <div id="chat-record">
+        <div id="chat-record">
 
+
+        </div>
+    </div>
+    <!-- Room Page? -->
+    <div class="container hidden" id="room-main">
+        <div class="room-title">
+            <h2 id="chat-room-name"></h2>
+        </div>
+        <div id="chat-content">
+
+        </div>
+        <div id="chat-bottom">
+            <div id="chat-input-img">
+                <img src="../resources/nav/camera.png" />
+                <img src="../resources/nav/picture.png" />
+            </div>
+            <div id="chat-input-area">
+
+                <form name="input-message" id="input-message">
+                    <input type="text" name="messagetosend" id="messagetosend">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Show after clicked "Create Group"-->
+    <div class="container transparent-background" id="chat-create-room"></div>
+    <!-- Land here after clicked my-page icon-->
+    <div class="container" id="mypage-main">
+        <div class="mypage-title">
+            <div id="my-data">我的資訊</div>
+        </div>
+        <div id="mypage-record">
+            <img id="data-pic" src="" />
+            <div class="data-text">
+                <div id="data-name"></div>
+                <div id="data-nickname"></div>
+                <div id="data-ID"></div>
+            </div>
+            <div id="lg">
+                <button id="logout">登 出</button>
+            </div>
+        </div>
+        <div id="data-selfintro-title">自我介紹</div>
+        <div id="data-selfintro-text"></div>
+
+        <div id="characteristics-L"></div>
+        <div class="characteristics-RT">
+            <span id="RT-title">特質分析</span>
+            <img src="../resources/nav/RT.png">
+        </div>
+        <div class="characteristics-RB">
+            <span id="RB-title">挑戰經歷</span>
+            <img src="../resources/nav/RB.png">
+        </div>
+        <div id="mission-launched" class="hidden">
+            <div class="back-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="mission-container">
+
+            </div>
+        </div>
+        <div id="characteristic-analyze" class="hidden">
+            <div class="back-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="self-rador">
+
+                <div id="characteristic-analyze-title">特質分析</div>
+                <div class="self-rador-white">
+                    <div id="rador">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div id="value-social"></div>
+                    <div id="value-travel"></div>
+                    <div id="value-food"></div>
+                    <div id="value-activity"></div>
+                    <div id="value-sport"></div>
+                    <div id="value-self"></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="characteristic-history">
+            <div class="back-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="self-history">
+                <div id="characteristic-history-title">挑戰經歷</div>
+                <div id="photobook-grid-wrapper"></div>
+            </div>
+        </div>
+
+        <div class="container" id="myfriend-main">
+            <div class="Fmypage-title">
+                <div id="Fmy-data">好友資訊</div>
+            </div>
+            <div id="Fmypage-record">
+                <img id="Fdata-pic" src="" />
+                <div class="Fdata-text">
+                    <div id="Fdata-name"></div>
+                    <div id="Fdata-nickname"></div>
+                    <div id="Fdata-ID"></div>
+                </div>
+            </div>
+            <div id="Fdata-selfintro-title">自我介紹</div>
+            <div id="Fdata-selfintro-text"></div>
+
+            <div id="Fcharacteristics-L"></div>
+            <div class="Fcharacteristics-RT">
+                <span id="FRT-title">特質分析</span>
+                <img src="../resources/nav/RT.png">
+            </div>
+            <div class="Fcharacteristics-RB">
+                <span id="FRB-title">挑戰經歷</span>
+                <img src="../resources/nav/RB.png">
+            </div>
+            <div id="Fmission-launched" class="hidden">
+                <div class="Fback-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="Fmission-container">
 
                 </div>
             </div>
-            <!-- Room Page? -->
-            <div class="container hidden" id="room-main">
-                <div class="room-title">
-                    <h2 id="chat-room-name"></h2>
+            <div id="Fcharacteristic-analyze" class="hidden">
+                <div class="Fback-button">
+                    <img src="../resources/nav/arrow.png">
                 </div>
-                <div id="chat-content">
-
-                </div>
-                <div id="chat-bottom">
-                    <div id="chat-input-img">
-                        <img src="../resources/nav/camera.png" />
-                        <img src="../resources/nav/picture.png" />
+                <div id="Fself-rador">
+                    <div id="Fcharacteristic-analyze-title">特質分析</span>
                     </div>
-                    <div id="chat-input-area">
-
-                        <form name="input-message" id="input-message">
-                            <input type="text" name="messagetosend" id="messagetosend">
-                        </form>
+                    <div class="self-rador-white">
+                        <div id="Frador">
+                            <canvas id="friendChart"></canvas>
+                        </div>
+                        <div id="Fvalue-social"></div>
+                        <div id="Fvalue-travel"></div>
+                        <div id="Fvalue-food"></div>
+                        <div id="Fvalue-activity"></div>
+                        <div id="Fvalue-sport"></div>
+                        <div id="Fvalue-self"></div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
-            <!-- Show after clicked "Create Group"-->
-            <div class="container transparent-background" id="chat-create-room"></div>
-            <!-- Land here after clicked my-page icon-->
-            <div class="container" id="mypage-main">
-                <div class="mypage-title">
-                    <div id="my-data">我的資訊</div>
-                </div>
-                <div id="mypage-record">
-                    <img id="data-pic" src="" />
-                    <div class="data-text">
-                        <div id="data-name"></div>
-                        <div id="data-nickname"></div>
-                        <div id="data-ID"></div>
-                    </div>
-                    <div id="lg">
-                        <button id="logout">登 出</button>
-                    </div>
-                </div>
-                <div id="data-selfintro-title">自我介紹</div>
-                <div id="data-selfintro-text"></div>
+        </div>
+        <div id="Fcharacteristic-history">
+            <div class="Fback-button">
+                <img src="../resources/nav/arrow.png">
+            </div>
+            <div id="Fself-history">
+                <div id="Fcharacteristic-history-title">挑戰經歷</div>
+                <div id="Fphotobook-grid-wrapper"></div>
+            </div>
+        </div>
+        <!-- Land here after clicked the friend icon-->
+        <div class="container" id="friend-main">
+            <div class="friend-title">
+                <div id="friend-title-text">好友</div>
+            </div>
 
-                <div id="characteristics-L"></div>
-                <div class="characteristics-RT">
-                    <span id="RT-title">特質分析</span>
-                    <img src="../resources/nav/RT.png">
-                </div>
-                <div class="characteristics-RB">
-                    <span id="RB-title">挑戰經歷</span>
-                    <img src="../resources/nav/RB.png">
-                </div>
-                <div id="mission-launched" class="hidden">
-                    <div class="back-button">
-                        <img src="../resources/nav/arrow.png">
-                    </div>
-                    <div id="mission-container">
-
-                    </div>
-                </div>
-                <div id="characteristic-analyze" class="hidden">
-                    <div class="back-button">
-                        <img src="../resources/nav/arrow.png">
-                    </div>
-                    <div id="self-rador">
-
-                        <div id="characteristic-analyze-title">特質分析</div>
-                        <div class="self-rador-white">
-                            <div id="rador">
-                                <canvas id="myChart"></canvas>
-                            </div>
-                            <div id="value-social"></div>
-                            <div id="value-travel"></div>
-                            <div id="value-food"></div>
-                            <div id="value-activity"></div>
-                            <div id="value-sport"></div>
-                            <div id="value-self"></div>
-                        </div>
-                    </div>
-
-                </div>
-                <div id="characteristic-history">
-                    <div class="back-button">
-                        <img src="../resources/nav/arrow.png">
-                    </div>
-                    <div id="self-history">
-                        <div id="characteristic-history-title">挑戰經歷</div>
-                        <div id="photobook-grid-wrapper"></div>
-                    </div>
-                </div>
-
-                <div class="container" id="myfriend-main">
-                    <div class="Fmypage-title">
-                        <div id="Fmy-data">好友資訊</div>
-                    </div>
-                    <div id="Fmypage-record">
-                        <img id="Fdata-pic" src="" />
-                        <div class="Fdata-text">
-                            <div id="Fdata-name"></div>
-                            <div id="Fdata-nickname"></div>
-                            <div id="Fdata-ID"></div>
-                        </div>
-                    </div>
-                    <div id="Fdata-selfintro-title">自我介紹</div>
-                    <div id="Fdata-selfintro-text"></div>
-
-                    <div id="Fcharacteristics-L"></div>
-                    <div class="Fcharacteristics-RT">
-                        <span id="FRT-title">特質分析</span>
-                        <img src="../resources/nav/RT.png">
-                    </div>
-                    <div class="Fcharacteristics-RB">
-                        <span id="FRB-title">挑戰經歷</span>
-                        <img src="../resources/nav/RB.png">
-                    </div>
-                    <div id="Fmission-launched" class="hidden">
-                        <div class="Fback-button">
-                            <img src="../resources/nav/arrow.png">
-                        </div>
-                        <div id="Fmission-container">
-
-                        </div>
-                    </div>
-                    <div id="Fcharacteristic-analyze" class="hidden">
-                        <div class="Fback-button">
-                            <img src="../resources/nav/arrow.png">
-                        </div>
-                        <div id="Fself-rador">
-                            <div id="Fcharacteristic-analyze-title">特質分析</span>
-                            </div>
-                            <div class="self-rador-white">
-                                <div id="Frador">
-                                    <canvas id="friendChart"></canvas>
-                                </div>
-                                <div id="Fvalue-social"></div>
-                                <div id="Fvalue-travel"></div>
-                                <div id="Fvalue-food"></div>
-                                <div id="Fvalue-activity"></div>
-                                <div id="Fvalue-sport"></div>
-                                <div id="Fvalue-self"></div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div id="Fcharacteristic-history">
-                    <div class="Fback-button">
-                        <img src="../resources/nav/arrow.png">
-                    </div>
-                    <div id="Fself-history">
-                        <div id="Fcharacteristic-history-title">挑戰經歷</div>
-                        <div id="Fphotobook-grid-wrapper"></div>
-                    </div>
-                </div>
-                <!-- Land here after clicked the friend icon-->
-                <div class="container" id="friend-main">
-                    <div class="friend-title">
-                        <div id="friend-title-text">好友</div>
-                    </div>
-
-                    <div id="search-ID">
-                        <form name="ID-choose-friend" id="ID-choose-friend">
-                            <img id="inside-image" src="../resources/nav/search.png" />
-                            <input type="text" placeholder="         輸入 ID" id="persontosearch">
-                            <!--<button type="submit" class="output-search-ID">
+            <div id="search-ID">
+                <form name="ID-choose-friend" id="ID-choose-friend">
+                    <img id="inside-image" src="../resources/nav/search.png" />
+                    <input type="text" placeholder="         輸入 ID" id="persontosearch">
+                    <!--<button type="submit" class="output-search-ID">
                         <img src="../resources/nav/search.png" />
                     </button>-->
-                        </form>
+                </form>
+            </div>
+            <div id="click-friend" class="hidden">
+                <div class="click-friend-top">
+                    <img id="click-friend-header" />
+                    <div id="click-friend-name"></div>
+                </div>
+                <div class="click-friend-bottom">
+                    <div id="click-friend-data">
+                        <img src="../resources/nav/frienddata.png" />
+                        <p>好友資訊</p>
                     </div>
-                    <div id="click-friend" class="hidden">
-                        <div class="click-friend-top">
-                            <img id="click-friend-header" />
-                            <div id="click-friend-name"></div>
-                        </div>
-                        <div class="click-friend-bottom">
-                            <div id="click-friend-data">
-                                <img src="../resources/nav/frienddata.png" />
-                                <p>好友資訊</p>
-                            </div>
-                            <div id="click-friend-chat">
-                                <img src="../resources/nav/yellow message_icon.png" />
-                                <p>傳送訊息</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div id="friend-record">
-                        <div class="single-friend"></div>
-                    </div>
-                    <div class="emergency">
-                        <div class="friend-cover hidden"></div>
-                        <div id="addfriend" class="addfriend hidden">
-                            <img id="addfriend_pic" src="" />
-                            <div id="addfriend_name"></div>
-                            <button id="button_add" class="button_add hidden">加入</button>
-                            <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
-                        </div>
+                    <div id="click-friend-chat">
+                        <img src="../resources/nav/yellow message_icon.png" />
+                        <p>傳送訊息</p>
                     </div>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <script src="../js/switchpages.js">
-                </script>
-                <script src="../js/post-rq-templates/chingyu.js">
-                </script>
-                <script src="../js/quest.js">
-                </script>
+
+            </div>
+
+            <div id="friend-record">
+                <div class="single-friend"></div>
+            </div>
+            <div class="emergency">
+                <div class="friend-cover hidden"></div>
+                <div id="addfriend" class="addfriend hidden">
+                    <img id="addfriend_pic" src="" />
+                    <div id="addfriend_name"></div>
+                    <button id="button_add" class="button_add hidden">加入</button>
+                    <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../js/switchpages.js">
+        </script>
+        <script src="../js/post-rq-templates/chingyu.js">
+        </script>
+        <script src="../js/quest.js">
+        </script>
 
 </body>
 

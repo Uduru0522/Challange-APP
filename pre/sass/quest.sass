@@ -16,13 +16,35 @@
     box-sizing: border-box
 
 // Header
-.container
-    .quest-header
-        @extend %flex-centeralize
-        width: 100vw
-        height: calc(1900vh / 147)
-        background-color: #F1CE61
+.quest-header
+    @extend %flex-centeralize
+    position: absolute
+    top: 0
+    left: 0
+    width: 100vw
+    height: 120px
+    background-color: #F1CE61
+    
+    > span
+        display: block
+        position: absolute
+        width: 100%
+        bottom: 20%
+
         color: white
+        font-size: 20pt
+        --letter-space-val: 25px
+        letter-spacing: var(--letter-space-val)
+        margin-left: var(--letter-space-val)
+        text-align: center
+
+#quest-create-new .quest-header
+    > span::after
+        content: "發起新任務"
+
+#quest-detail>.quest-header, #quest-main>.quest-header, #quest-filtered>.quest-header
+    > span::after
+        content: "任務"
 
 // Quest Main Page Relatexd
 #quest-main
@@ -31,14 +53,6 @@
     scrollbar-width: none
     &::-webkit-scrollbar
         display: none
-    
-    .quest-header
-        > span
-            margin-top: 4.2vh
-            text-align: center
-            font-size: 2em
-            letter-spacing: 10vw
-            margin-right: -10vw
 
     .dummy
         height: 20vh
@@ -678,13 +692,6 @@
 
 // Quest List
 #quest-filtered
-    .quest-header
-        span
-            text-align: center
-            font-size: 2em
-            letter-spacing: 10vw
-            margin-right: -10vw
-
     #quest-filtered-bg
         position: absolute
         z-index: -1
@@ -867,3 +874,296 @@
 
 .quest-more-shrink
     animation: _quest-more-shrink 0.5s ease forwards
+
+// New Quest
+#quest-create-new
+    overflow: hidden
+    #quest-create-inputs
+        display: block
+        width: 600vw
+        height: 60vh
+        
+        position: absolute
+        top: 25%
+        left: 0
+
+        .quest-create-step
+            height: 100%
+            width: 100vh
+            position: absolute
+            top: 0
+
+        #quest-create-part1
+            left: 0
+            .quest-create-steptitle
+                margin-top: 12%
+
+            input
+                position: absolute
+                width: 80%
+                max-width: calc(100vw - 60px)
+                height: 9vh
+
+                position: absolute
+                left: 30px
+
+                background-color: transparent
+                border: none
+                border-bottom: #EB931D solid 2px
+                outline: 0
+                
+                font-size: 32pt
+                padding-top: 20px
+                color: #727272
+                text-align: center
+
+        #quest-create-part2
+            left: 100vw
+            .quest-create-steptitle
+                margin-top: 12%
+
+        #quest-create-part3
+            left: 200vw
+            .quest-create-steptitle
+                margin-top: 12%
+
+        #quest-create-part4
+            left: 300vw
+
+        #quest-create-part5
+            left: 400vw
+
+        #quest-create-part6
+            left: 500vw
+            .quest-create-steptitle
+                margin-top: 12%
+
+        .quest-create-steptitle
+            position: relative
+            display: block
+            // margin-top: 12%
+            left: 30px
+            font-size: 20pt
+            color: #EB931D
+        .quest-create-steptitle-ps
+            position: relative
+            display: block
+            left: 23px
+            font-size: 12pt
+            color: #EB931D
+        .quest-create-grid-wrapper
+            position: relative
+            left: 24px
+            margin-top: 15px
+
+            display: grid
+            width: calc(100vw - 48px)
+            height: 35vh
+
+            grid-template-columns: repeat(auto-fill, minmax(80px, 105px))
+            grid-template-rows: repeat(auto-fill, 40px)
+            row-gap: 10px 
+            justify-items: center
+            justify-content: space-between
+            align-items: center
+        
+        .quest-create-owbtn
+            @extend %flex-centeralize
+            position: relative
+            height: 100%
+            width: 100%
+
+            border-radius: 5px
+            border: black solid 1px
+
+            span
+                font-size: 15pt
+                letter-spacing: 2px
+                margin-left: 2px
+
+        textarea
+            position: relative
+            margin-top: 15px
+            left: 30px
+            width: calc(100vw - 60px)
+            height: 30vh
+            border: #EB931D solid 2px
+            outline: 0
+            border-radius: 15px
+            padding: 5px
+            font-size: 15pt
+            color: #333333
+            padding: 15px
+
+    #quest-create-progress
+        position: absolute
+        bottom: 15vh
+        left: 50%
+        transform: translateX(-50%)
+        width: auto
+        height: auto
+
+        display: flex
+        justify-content: space-evenly
+        align-items: center
+        
+        .quest-create-progress-dot
+            width: 8px
+            height: 8px
+            margin: 0 3px
+            background-color: #EB931D
+            border-radius: 4px
+            
+    #quest-create-next, #quest-create-finish
+        display: block
+        position: absolute
+        width: 8vh
+        height: 8vh
+        bottom: 22vh
+        right: 3vh
+
+        img
+            max-width: 100%
+
+    #quest-create-success
+        display: none
+        width: 100vw
+        height: 100vh
+        position: absolute
+        top: 0
+        bottom: 0
+        background-color: rgba(0, 0, 0, 0.4)
+
+        > div
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            text-align: center
+            width: 85%
+            height: 45vh
+            background-color: white
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            padding: 8% 0 20% 0
+            border-radius: 25px
+
+            > span
+                color: #EB931D
+                font-size: 3.2vh
+        
+        #quest-create-success-confirm
+            @extend %flex-centeralize
+            position: absolute
+            height: 11%
+            width: 40%
+            bottom: 4%
+            left: 50%
+            transform: translateX(-50%)
+            background-color: #EB931D
+            border-radius: 7px
+
+            > span
+                font-size: 3.2vh
+                color: white
+            
+
+
+// New Quest Animations
+@keyframes _tostep2
+    0%
+        left: 0
+    100%
+        left: -100vw
+
+@keyframes _tostep3
+    0%
+        left: -100vw
+    100%
+        left: -200vw
+
+@keyframes _tostep4
+    0%
+        left: -200vw
+    100%
+        left: -300vw
+
+@keyframes _tostep5
+    0%
+        left: -300vw
+    100%
+        left: -400vw
+
+@keyframes _tostep6
+    0%
+        left: -400vw
+    100%
+        left: -500vw
+
+.quest-create-tostep2
+    animation: _tostep2 0.5s ease-in-out forwards
+.quest-create-tostep3
+    animation: _tostep3 0.5s ease-in-out forwards
+.quest-create-tostep4
+    animation: _tostep4 0.5s ease-in-out forwards
+.quest-create-tostep5
+    animation: _tostep5 0.5s ease-in-out forwards
+.quest-create-tostep6
+    animation: _tostep6 0.5s ease-in-out forwards
+
+// Select / Deselet orange-white button
+@keyframes _owbtn-select
+    0%
+        background-color: #FFFFFF
+        border: 2px solid #EB931D
+        color: #000000
+        box-shadow: none
+        transform: translate(0, 0)
+    100%
+        background-color: #EB931D
+        color: #FFFFFF
+        border: none
+        box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.45)
+        transform: translate(-2px, -2px)
+
+@keyframes _owbtn-deselect
+    0%
+        background-color: #EB931D
+        color: #FFFFFF
+        border: none
+        box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.45)
+        transform: translate(-2px, -2px)
+    100%
+        background-color: #FFFFFF
+        border: 2px solid #EB931D
+        color: #000000
+        box-shadow: none
+        transform: translate(0, 0)
+
+.owbtn-deselect
+    animation: _owbtn-deselect 0.4s ease forwards
+.owbtn-select
+    animation: _owbtn-select 0.4s ease forwards
+        
+// Progress dot expand/shrink
+@keyframes _progress-on
+    0%
+        width: 8px
+    100%
+        width: 30px
+    
+@keyframes _progress-off
+    0%
+        width: 30px
+    100%
+        width: 8px
+
+.pd-on
+    animation: _progress-on 0.5s ease forwards
+.pd-off
+    animation: _progress-off 0.5s ease forwards
+
+// Indicate disabled items
+.disabled-grayscale
+    filter: grayscale(100%)

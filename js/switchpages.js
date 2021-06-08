@@ -25,7 +25,8 @@ const pages_selector = [
     "#Fmission-launched",
     "#quest-filtered #quest-filtered-bg",
     ".quest-more-open",
-    ".quest-more-closed"
+    ".quest-more-closed",
+    "#quest-create-new"
 ];
 
 const nav_icons = [
