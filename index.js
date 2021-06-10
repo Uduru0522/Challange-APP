@@ -354,6 +354,10 @@ app.post('/html/alltitle', (req, res) => {
 
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
+<<<<<<< HEAD
+        console.log(data)
+=======
+>>>>>>> 6aff930a64d2d84f2377ec3ab41be54217418a72
         res.send(data);
     });
 });
@@ -608,11 +612,11 @@ app.post('/html/friendpage-record', (req, res) => {
     })
 });
 
-// app.post('/html/edit', (req, res) => {
-//     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
-//         res.send(data);
-//     })
-// });
+ app.post('/html/edit', (req, res) => {
+     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
+         res.send(data);
+     })
+ });
 
 app.post('/html/logout', (req, res) => {
     req.session.destroy();
