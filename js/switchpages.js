@@ -23,7 +23,12 @@ const pages_selector = [
     "#Fcharacteristic-analyze",
     "#Fcharacteristic-history",
     "#Fmission-launched",
-    "#quest-filtered #quest-filtered-bg"
+    "#quest-filtered ",
+    "#quest-filtered-bg",
+    "#edit-mydata",
+    "#rank-main",
+    "#makesure-deletefriend",
+    "#makesure-deletegroup"
 ];
 
 const nav_icons = [

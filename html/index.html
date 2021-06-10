@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../css/mypage.css">
     <link rel="stylesheet" href="../css/room.css" />
     <link rel="stylesheet" href="../css/friendpage.css" />
+    <link rel="stylesheet" href="../css/rank.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js">
     </script>
 </head>
@@ -164,9 +167,9 @@
             <div id="build-group">建立群組</div>
         </div>
         <div id="chat-choose-missions" class="create-chat-menu hidden">
-             <div id="choose-mission-text">選擇任務</div>
+            <div id="choose-mission-text">選擇任務</div>
             <form name="group-choose-mission" id="group-choose-mission">
-                <img class="search-mission"src="../resources/nav/search.png">
+                <img class="search-mission" src="../resources/nav/search.png">
                 <input type="text" placeholder="        輸入任務名稱" name="missiontosearch" id="missiontosearch">
             </form>
             <div id="put-mission-here"></div>
@@ -184,7 +187,7 @@
         <div id="chat-choose-friends" class="create-chat-menu hidden">
             <div id='choose-friend-text'>選擇好友</div>
             <form name="group-choose-friend" id="group-choose-friend">
-                <img class="search-friend"src="../resources/nav/search.png">
+                <img class="search-friend" src="../resources/nav/search.png">
                 <input type="text" placeholder="        輸入好友名稱" name="friendtosearch" id="friendtosearch">
             </form>
             <div id="put-friend-here"></div>
@@ -206,6 +209,17 @@
 
 
         </div>
+        <div id="makesure-deletegroup" class="hidden">
+            <div class="makesure-top">
+                <img class="makesure-pic" >
+                <div class="makesure-name"></div>
+                <div class="makesure-text">移除好友後，聊天紀錄也將刪除，是否確定移除?</div>
+            </div>
+
+            <div class="makesure-cancel">取消</div>
+            <div class="makesure-sure">確定</div>
+
+        </div>
     </div>
     <!-- Room Page? -->
     <div class="container hidden" id="room-main">
@@ -216,10 +230,10 @@
 
         </div>
         <div id="chat-bottom">
-            <div id="chat-input-img">
+            <!--<div id="chat-input-img">
                 <img src="../resources/nav/camera.png" />
                 <img src="../resources/nav/picture.png" />
-            </div>
+            </div>-->
             <div id="chat-input-area">
 
                 <form name="input-message" id="input-message">
@@ -236,29 +250,32 @@
     <div class="container" id="mypage-main">
         <div class="mypage-title">
             <div id="my-data">我的資訊</div>
-        </div>
-        <div id="mypage-record">
-            <img id="data-pic" src="" />
-            <div class="data-text">
-                <div id="data-name"></div>
-                <div id="data-nickname"></div>
-                <div id="data-ID"></div>
-            </div>
-            <div id="lg">
-                <button id="logout">登 出</button>
-            </div>
-        </div>
-        <div id="data-selfintro-title">自我介紹</div>
-        <div id="data-selfintro-text"></div>
 
-        <div id="characteristics-L"></div>
-        <div class="characteristics-RT">
-            <span id="RT-title">特質分析</span>
-            <img src="../resources/nav/RT.png">
         </div>
-        <div class="characteristics-RB">
-            <span id="RB-title">挑戰經歷</span>
-            <img src="../resources/nav/RB.png">
+        <div id="mypage-container">
+            <div id="mypage-record">
+                <img id="data-pic" src="" />
+                <div class="data-text">
+                    <div id="data-name"></div>
+                    <div id="data-nickname"></div>
+                    <div id="data-ID"></div>
+                </div>
+                <a id="edit-link">編輯</a>
+            </div>
+            <div id="data-selfintro-title">自我介紹</div>
+            <div id="data-selfintro-text"></div>
+
+            <div id="characteristics-L"></div>
+            <div class="characteristics-RT">
+                <span id="RT-title">特質分析</span>
+                <img src="../resources/nav/RT.png">
+            </div>
+            <div class="characteristics-RB">
+                <span id="RB-title">挑戰經歷</span>
+                <img src="../resources/nav/RB.png">
+            </div>
+            <div id="logout-overflow"></div>
+            <button id="logout">登 出</button>
         </div>
         <div id="mission-launched" class="hidden">
             <div class="back-button">
@@ -298,123 +315,448 @@
                 <div id="photobook-grid-wrapper"></div>
             </div>
         </div>
+        <div id="edit-mydata">
+            <div id="edit-top">
+                <div id="edit-back-button"></div>
+                <div id="edit-title">編輯個人資訊</div>
+            </div>
+            <div id="edit-header">
+                <div id="edit-header-package">
+                    <img id="edit-header-pic">
+                    <input id="edit-submit-header" style="display: none;" type="file" name="image/*">
+                    <div id="edit-header-text">編輯大頭貼照</div>
+                </div>
 
-        <div class="container" id="myfriend-main">
-            <div class="Fmypage-title">
-                <div id="Fmy-data">好友資訊</div>
             </div>
-            <div id="Fmypage-record">
-                <img id="Fdata-pic" src="" />
-                <div class="Fdata-text">
-                    <div id="Fdata-name"></div>
-                    <div id="Fdata-nickname"></div>
-                    <div id="Fdata-ID"></div>
-                </div>
-            </div>
-            <div id="Fdata-selfintro-title">自我介紹</div>
-            <div id="Fdata-selfintro-text"></div>
-
-            <div id="Fcharacteristics-L"></div>
-            <div class="Fcharacteristics-RT">
-                <span id="FRT-title">特質分析</span>
-                <img src="../resources/nav/RT.png">
-            </div>
-            <div class="Fcharacteristics-RB">
-                <span id="FRB-title">挑戰經歷</span>
-                <img src="../resources/nav/RB.png">
-            </div>
-            <div id="Fmission-launched" class="hidden">
-                <div class="Fback-button">
-                    <img src="../resources/nav/arrow.png">
-                </div>
-                <div id="Fmission-container">
-
-                </div>
-            </div>
-            <div id="Fcharacteristic-analyze" class="hidden">
-                <div class="Fback-button">
-                    <img src="../resources/nav/arrow.png">
-                </div>
-                <div id="Fself-rador">
-                    <div id="Fcharacteristic-analyze-title">特質分析</span></div>
-                    <div class="self-rador-white">
-                        <div id="Frador">
-                            <canvas id="friendChart"></canvas>
-                        </div>
-                        <div id="Fvalue-social"></div>
-                        <div id="Fvalue-travel"></div>
-                        <div id="Fvalue-food"></div>
-                        <div id="Fvalue-activity"></div>
-                        <div id="Fvalue-sport"></div>
-                        <div id="Fvalue-self"></div>
+            <form id="edit-text">
+                <div id="edit-name">
+                    <div id="edit-name-text">
+                        姓名
                     </div>
-
+                    <input id="edit-name-input">
                 </div>
-            </div>
-
+                <div id="edit-nickname">
+                    <div id="edit-nickname-text">
+                        稱號
+                    </div>
+                    <select id="edit-nickname-input">
+                    </select>
+                </div>
+                <div id="edit-intro">
+                    <div id="edit-intro-text">
+                        自我介紹
+                    </div>
+                    <textarea id="edit-intro-input"></textarea>
+                </div>
+                <div id="edit-submit">
+                    確認
+                </div>
+            </form>
         </div>
-        <div id="Fcharacteristic-history">
+    </div>
+    <div class="container" id="myfriend-main">
+        <div class="Fmypage-title">
+            <div id="Fmy-data">好友資訊</div>
+        </div>
+        <div id="Fmypage-record">
+            <img id="Fdata-pic" src="" />
+            <div class="Fdata-text">
+                <div id="Fdata-name"></div>
+                <div id="Fdata-nickname"></div>
+                <div id="Fdata-ID"></div>
+            </div>
+        </div>
+        <div id="Fdata-selfintro-title">自我介紹</div>
+        <div id="Fdata-selfintro-text"></div>
+
+        <div id="Fcharacteristics-L"></div>
+        <div class="Fcharacteristics-RT">
+            <span id="FRT-title">特質分析</span>
+            <img src="../resources/nav/RT.png">
+        </div>
+        <div class="Fcharacteristics-RB">
+            <span id="FRB-title">挑戰經歷</span>
+            <img src="../resources/nav/RB.png">
+        </div>
+        <div id="Fmission-launched" class="hidden">
             <div class="Fback-button">
                 <img src="../resources/nav/arrow.png">
             </div>
-            <div id="Fself-history">
-                <div id="Fcharacteristic-history-title">挑戰經歷</div>
-                <div id="Fphotobook-grid-wrapper"></div>
+            <div id="Fmission-container">
+
             </div>
         </div>
-        <!-- Land here after clicked the friend icon-->
-        <div class="container" id="friend-main">
-            <div class="friend-title">
-                <div id="friend-title-text">好友</div>
+        <div id="Fcharacteristic-analyze" class="hidden">
+            <div class="Fback-button">
+                <img src="../resources/nav/arrow.png">
             </div>
-
-            <div id="search-ID">
-                <form name="ID-choose-friend" id="ID-choose-friend">
-                    <img id="inside-image"src="../resources/nav/search.png"/>
-                    <input type="text" placeholder="         輸入 ID" id="persontosearch">
-                    <!--<button type="submit" class="output-search-ID">
-                        <img src="../resources/nav/search.png" />
-                    </button>-->
-                </form>
-            </div>
-            <div id="click-friend" class="hidden">
-                <div class="click-friend-top">
-                    <img id="click-friend-header" />
-                    <div id="click-friend-name"></div>
-                </div>
-                <div class="click-friend-bottom">
-                    <div id="click-friend-data">
-                        <img src="../resources/nav/frienddata.png" />
-                        <p>好友資訊</p>
+            <div id="Fself-rador">
+                <div id="Fcharacteristic-analyze-title">特質分析</span></div>
+                <div class="self-rador-white">
+                    <div id="Frador">
+                        <canvas id="friendChart"></canvas>
                     </div>
-                    <div id="click-friend-chat">
-                        <img src="../resources/nav/yellow message_icon.png" />
-                        <p>傳送訊息</p>
-                    </div>
+                    <div id="Fvalue-social"></div>
+                    <div id="Fvalue-travel"></div>
+                    <div id="Fvalue-food"></div>
+                    <div id="Fvalue-activity"></div>
+                    <div id="Fvalue-sport"></div>
+                    <div id="Fvalue-self"></div>
                 </div>
 
-            </div>
-
-            <div id="friend-record">
-                <div class="single-friend"></div>
-            </div>
-            <div class="emergency">
-                <div class="friend-cover hidden"></div>
-                <div id="addfriend" class="addfriend hidden">
-                    <img id="addfriend_pic" src="" />
-                    <div id="addfriend_name"></div>
-                    <button id="button_add" class="button_add hidden">加入</button>
-                    <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
-                </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="../js/switchpages.js">
-        </script>
-        <script src="../js/post-rq-templates/chingyu.js">
-        </script>
-        <script src="../js/quest.js">
-        </script>
+
+    </div>
+    <div id="Fcharacteristic-history">
+        <div class="Fback-button">
+            <img src="../resources/nav/arrow.png">
+        </div>
+        <div id="Fself-history">
+            <div id="Fcharacteristic-history-title">挑戰經歷</div>
+            <div id="Fphotobook-grid-wrapper"></div>
+        </div>
+    </div>
+    <!-- Land here after clicked the friend icon-->
+    <div class="container" id="friend-main">
+        <div class="friend-title">
+            <div id="friend-title-text">好友</div>
+        </div>
+
+        <div id="search-ID">
+            <form name="ID-choose-friend" id="ID-choose-friend">
+                <img id="inside-image" src="../resources/nav/search.png" />
+                <input type="text" placeholder="         輸入 ID" id="persontosearch">
+            </form>
+        </div>
+        <div id="click-friend" class="hidden">
+            <div class="click-friend-top">
+                <img id="click-friend-header" />
+                <div id="click-friend-name"></div>
+            </div>
+            <div class="click-friend-bottom">
+                <div id="click-friend-data">
+                    <img src="../resources/nav/frienddata.png" />
+                    <p>好友資訊</p>
+                </div>
+                <div id="click-friend-chat">
+                    <img src="../resources/nav/yellow message_icon.png" />
+                    <p>傳送訊息</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="friend-record">
+            <div class="single-friend"></div>
+        </div>
+        <div id="makesure-deletefriend" class="hidden">
+            <div class="makesure-top">
+                <img class="makesure-pic" >
+                <div class="makesure-name"></div>
+                <div class="makesure-text">移除好友後，聊天紀錄也將刪除，是否確定移除?</div>
+            </div>
+
+            <div class="makesure-cancel">取消</div>
+            <div class="makesure-sure">確定</div>
+
+        </div>
+        <div class="emergency">
+            <div class="friend-cover hidden"></div>
+            <div id="addfriend" class="addfriend hidden">
+                <img id="addfriend_pic" src="" />
+                <div id="addfriend_name"></div>
+                <button id="button_add" class="button_add hidden">加入</button>
+                <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
+            </div>
+        </div>
+    </div>
+    <div id="rank-main" class="container">
+        <div id="rank-title">排行榜</div>
+        <div id="rank-container" class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- total -->
+                <div id="total-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score">87</div>
+                        </div>
+                        <div class="rank-title">
+                            <div class="title-text">總排行</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score">321</div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+                <!-- social -->
+                <div id="social-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score">24</div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">人際</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score">345</div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                <img src="../resources/update/first.png">
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                <img src="../resources/update/second.png">
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                <img src="../resources/update/third.png">
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                4
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                5
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                6
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">天地一方</div>
+                            <div class="rank-block-score">875</div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                7
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                        <div class="rank-block">
+                            <div class="rank-block-order">
+                                8
+                            </div>
+                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                            <div class="rank-block-name">
+                                天地一方
+                            </div>
+                            <div class="rank-block-score">
+                                875
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- food -->
+                <div id="food-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score"></div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">美食</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score"></div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+                <!-- travel -->
+                <div id="travel-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score"></div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">旅行</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score"></div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+                <!-- study -->
+                <div id="study-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score">
+                            </div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">學業</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score"></div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+                <!-- activity -->
+                <div id="activity-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score"></div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">課外</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score"></div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+                <!-- adventure -->
+                <div id="adventure-rank" class="swiper-slide">
+                    <div class="rank-top">
+                        <div class="rank-myrank">
+                            <div class="myrank-text">我的排名</div>
+                            <div class="myrank-score"></div>
+                        </div>
+                        <div class="rank-title">
+                            <img class="title-img" src="../resources/nav/people_icon.png">
+                            <div class="title-text">冒險</div>
+                        </div>
+                        <div class="rank-myscore">
+                            <div class="myscore-text">我的積分</div>
+                            <div class="myscore-score"></div>
+                        </div>
+                    </div>
+                    <div class="rank-mid">
+
+                    </div>
+                    <div class="rank-buttom">
+
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination">
+
+            </div>
+        </div>
+        <!-- If we need scrollbar -->
+
+
+    </div>
+    <!--
+        <div id="rank-container">
+            
+            <div id="rank-mid">
+                
+            </div>
+            <div id="rank-buttom">
+                
+            </div>
+        </div>-->
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/switchpages.js">
+    </script>
+    <script src="../js/post-rq-templates/chingyu.js">
+    </script>
+    <script src="../js/quest.js">
+    </script>
+    <script src="../js/rank.js">
+    </script>
 
 </body>
 

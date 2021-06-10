@@ -66,7 +66,7 @@ def findfriend(name):#輸入name,找到name這個人的所有好友
             data = json.dumps(data)
             return data
 
-"""
+
 sys.stdout.reconfigure(encoding='utf-8')
 
 if(sys.argv[1]=="addfriend"):
@@ -75,6 +75,6 @@ elif(sys.argv[1]=="delfriend"):
     delfriend(sys.argv[2], sys.argv[3])
 elif(sys.argv[1]=="findfriend"):
     print(findfriend(sys.argv[2]))
-"""
+
 
 #print(findfriend(sys.argv[2]))

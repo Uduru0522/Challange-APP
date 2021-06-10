@@ -4,7 +4,8 @@
 }
 
 .Fmypage-title {
-    background: #7FC8BE;
+    background-image: url("../resources/update/blue_texture.png");
+    background-size:cover;
     width: 100vw;
     height: 10vh;
     margin: 0;
@@ -21,6 +22,7 @@
 #Fmy-data {
     color: white;
     font-size: 4vh;
+    text-indent: 2vh;
     letter-spacing: 2vh;
 }
 
@@ -72,13 +74,19 @@
 }
 
 #Fdata-selfintro-text {
-    position: fixed;
+    position: absolute;
+    width:84vw;
     top: 32vh;
-    margin: 0 8vw 0 8vw;
+    margin: 1vh 8vw 0 8vw;
     padding: 3vw;
     font-size: 5vw;
-    height: 18vh;
+    height: 17vh;
+    white-space:pre-wrap;
     overflow: scroll;
+    white-space:normal;
+	word-break:break-all;
+	word-wrap:break-word;
+
 }
 
 #Fcharacteristics-L {
@@ -207,7 +215,9 @@
 }
 
 .Flaunch-mission-name {
-    line-height: 8vh;
+    display:flex;
+    align-items: center;
+
     font-size: 2.2vh;
 }
 

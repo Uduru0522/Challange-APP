@@ -3,7 +3,8 @@
 }
 
 .friend-title {
-    background:#7FC8BE;
+    background-image: url("../resources/update/blue_texture.png");
+    background-size:cover;
     width:100vw;
     height:10vh;
     margin:0;
@@ -71,12 +72,20 @@
     z-index: 1;
     padding:1vh 0 1vh 0;
 }
-
-#friend-header {
+.friend-lefttwo{
+    height:100%;
+    width:53vw;
+    display:flex;
+    align-items: center;
+    float:left;
+    overflow-x: scroll;
+}
+.friend-header {
     margin: 0 5vw 0 5vw;
     height: 60%;
     float: left;
     border-radius:50%;
+    
 }
 
 .hidden {
@@ -100,14 +109,22 @@
     height: 12vh;
     border-style: solid;
     border-width: thin;
-    border-color: #E9B83E;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    border-color: #F1CE61;
     flex: 0 0 90vw;
     background-color: white;
     position: relative;
     scroll-snap-align: start;
+}
+.friend-nickname{
+    color: #EB931D;
+    position: absolute;
+    right:-5vw;
+    height:100%;
+    width: 35vw;
+    overflow-x: scroll;
+    display:flex;
+    align-items: center;
+    justify-content: end;
 }
 
 .space {
@@ -127,9 +144,6 @@
     writing-mode:vertical-lr;
 }
 
-.deletebutton:active {
-    background-color: green;
-}
 
 #addfriend {
     background-color: white;
@@ -183,7 +197,7 @@
     position:fixed;
     top:0;
     width:100vw;
-    height:90vh;
+    height:92vh;
     margin:0;
     padding:0;
     opacity:0.9;
@@ -257,4 +271,75 @@
 #click-friend-chat p{
     font-size:4vw;
     color:#E9B83E;
+}
+#makesure-deletefriend{
+    z-index:100;
+}
+.makesure-top{
+    position:fixed;
+    background: linear-gradient(#FBE1B1,white);
+    top:23vh;
+    left:12.5vw;
+    height:40vh;
+    width:75vw;
+    border-radius:5vw;
+    border-style: none;
+    z-index:100;
+    text-align: center;
+    box-shadow: 1vh 1vh 2vh gray;
+}
+.makesure-pic{
+    margin-top: 5vh;
+    height:14vh;
+    width:14vh;
+    border-radius: 50%;    
+}
+.makesure-name{
+    font-size:3vh;
+    text-indent: 1vh;
+    letter-spacing: 1vh;
+    margin:2vh;
+}
+.makesure-text{
+    text-align: center;
+    width:70%;
+    position:relative;
+    left:15%;
+    font-size:2.2vh;
+}
+.makesure-cancel{
+    position:fixed;
+    top:66vh;
+    left:20vw;
+    width:25vw;
+    height:5vh;
+    z-index:100;
+    background-color: white;
+    border-style:solid;
+    border-color:  #E9B83E;
+    border-radius:2vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:2.2vh;
+    text-indent: 1.5vh;
+    letter-spacing: 1.5vh;
+    box-shadow: 0.5vh 0.5vh 1vh gray;
+}
+.makesure-sure{
+    position:fixed;
+    top:66vh;
+    right:20vw;
+    width:25vw;
+    height:5vh;
+    z-index:100;
+    background-color: #EB931D;
+    border-radius:2vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:2.2vh;
+    text-indent: 1.5vh;
+    letter-spacing: 1.5vh;
+    box-shadow: 0.5vh 0.5vh 1vh gray;
 }

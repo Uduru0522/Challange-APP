@@ -1,3 +1,7 @@
+@font-face{
+  font-family:ming;
+  src:url(../resources/Medium.ttf);
+}
 #mainpage {
   background-image: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
   overflow: hidden;

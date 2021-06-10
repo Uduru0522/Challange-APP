@@ -1,10 +1,11 @@
 #mypage-main {
-    background: linear-gradient(#EAF6F7, white);
-    overflow: hidden;
+    
+
 }
 
 .mypage-title {
-    background: #E9B83E;
+    background-image: url("../resources/update/edit_texture.png");
+    background-size:cover;
     width: 100vw;
     height: 10vh;
     margin: 0;
@@ -21,14 +22,22 @@
 #my-data {
     color: white;
     font-size: 4vh;
+    text-indent: 2vh;
     letter-spacing: 2vh;
 }
-
+#mypage-container{
+    position:fixed;
+    top:10vh;
+    background: linear-gradient(#EAF6F7, white);
+    width:100%;
+    height:82vh;
+    overflow-y:scroll;
+}
 #mypage-record {
-    background: transparent;
+    background-color: transparent;
     width: 100vw;
-    position: fixed;
-    top: 10vh;
+    position: absolute;
+    top: 0vh;
     display: flex;
     justify-content: flex-start;
 }
@@ -37,6 +46,7 @@
     max-width: 25vw;
     margin: 5vw;
     border-radius: 50%;
+    background-color:white;
 }
 
 #data-name {
@@ -57,8 +67,8 @@
 #data-selfintro-title {
     height: 10vw;
     width: 40vw;
-    position: fixed;
-    top: 25vh;
+    position: absolute;
+    top: 15vh;
     margin: 5vw;
     border-style: none;
     border-radius: 4pt;
@@ -72,18 +82,24 @@
 }
 
 #data-selfintro-text {
-    position: fixed;
-    top: 32vh;
-    margin: 0 8vw 0 8vw;
+    position: absolute;
+    width:84vw;
+    top: 22vh;
+    margin: 1vh 8vw 0 8vw;
     padding: 3vw;
     font-size: 5vw;
-    height: 18vh;
+    height: 17vh;
+    white-space:pre-wrap;
     overflow: scroll;
+    white-space:normal;
+	word-break:break-all;
+	word-wrap:break-word;
+
 }
 
 #characteristics-L {
-    position: fixed;
-    top: 51vh;
+    position: absolute;
+    top: 41vh;
     left: 5vw;
     width: 35vw;
     height: 37vh;
@@ -104,8 +120,8 @@
 }
 
 .characteristics-RT {
-    position: fixed;
-    top: 51vh;
+    position: absolute;
+    top: 41vh;
     right: 5vw;
     width: 51vw;
     height: 17.5vh;
@@ -126,8 +142,8 @@
 }
 
 .characteristics-RB {
-    position: fixed;
-    top: 70.5vh;
+    position: absolute;
+    top: 60.5vh;
     right: 5vw;
     width: 51vw;
     height: 17.5vh;
@@ -146,18 +162,28 @@
     text-indent: 1vw;
     letter-spacing: 1vw;
 }
-
+#logout-overflow{
+    width:100%;
+    height:80vh;
+}
 #logout {
-    position: fixed;
-    right: 5vw;
-    top: 15vh;
     width: 20vw;
-    height: 10vw;
+    height: 4.5vh;
+    margin:0 7vw 2vh 7vw;
     background: linear-gradient(#EB931D, #F1CE61);
+    border-radius: 2.5vw;
     border-style: none;
+    box-shadow: 1vw 1vw 2vw gray;
     font-size: 5vw;
     color: white;
-    z-index: 5
+}
+#edit-link{
+    position: absolute;
+    right: 5vw;
+    top: 1vh;
+    font-size:5vw;
+    text-decoration:underline;
+    color:#E9B83E;
 }
 
 #mission-launched {
@@ -165,7 +191,7 @@
     position: fixed;
     top: 10vh;
     width: 100vw;
-    height: 80vh;
+    height: 82vh;
     background-color: white;
 }
 
@@ -188,6 +214,7 @@
 }
 
 #mission-launched-title {
+    color:rgb(53, 53, 53);
     font-size: 2.5vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
@@ -220,7 +247,8 @@
 }
 
 .launch-mission-name {
-    line-height: 8vh;
+    display:flex;
+    align-items: center;
     font-size: 2.2vh;
 }
 
@@ -234,7 +262,7 @@
     position: fixed;
     top: 10vh;
     width: 100vw;
-    height: 80vh;
+    height: 82vh;
     background-color: white;
 }
 
@@ -249,6 +277,7 @@
 }
 
 #characteristic-analyze-title {
+    color:rgb(53, 53, 53);
     font-size: 3vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
@@ -328,7 +357,7 @@
     position: fixed;
     top: 10vh;
     width: 100vw;
-    height: 80vh;
+    height: 82vh;
     background-color: white;
 }
 
@@ -343,6 +372,7 @@
 }
 
 #characteristic-history-title {
+    color:rgb(53, 53, 53);
     font-size: 2.5vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
@@ -373,4 +403,152 @@
     object-fit: cover;
     max-width: 100%;
     height: 100%;
+}
+#edit-mydata{
+    z-index:10;
+}
+#edit-top{
+    background-image: url("../resources/update/edit_texture.png");
+    background-size:cover;
+    width: 100vw;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+#edit-title{
+    color: white;
+    font-size: 3.5vh;
+    text-indent: 1vh;
+    letter-spacing: 1vh;
+}
+#edit-back-button{
+    background-image: url("../resources/nav/arrow.png");
+    position:fixed;
+    top:40vh;
+    left:7vw;
+    height:3vh;
+}
+#edit-header{
+    position:fixed;
+    top:10vh;
+    height:25vh;
+    width:100%;
+    background-color:white;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+}
+#edit-text{
+    color:#EB931D;
+    position:fixed;
+    top:34vh;
+    height:58vh;
+    width:100%;
+    background-color:white;
+    border-style: none;
+}
+#edit-header-package{
+    text-align:center;
+    border-style: none;
+}
+#edit-header-pic{
+    height:15vh;
+    width:15vh;
+    border-radius: 50%;
+}
+#edit-name{
+    position:absolute;
+    top:0vh;
+    left:10vw;
+    text-align: left;
+    
+}
+#edit-name-text{
+    color:gray;
+    font-size:2vh;
+    letter-spacing: 0.5vh;
+    margin:1vh 0;
+}
+#edit-name-input{
+    font-size:2.5vh;
+    border-style:none;
+    border-bottom: solid #F1CE61;
+    outline:none;
+}
+#edit-nickname{
+    position:absolute;
+    top:8vh;
+    left:10vw;
+    text-align: left;
+}
+#edit-nickname-text{
+    color:gray;
+    font-size:2vh;
+    letter-spacing: 0.5vh;
+    margin:1vh 0;
+}
+#edit-nickname-input{
+    max-width:80vw;
+    font-size:2.5vh;
+    border-style:none;
+    border-bottom: solid #F1CE61;
+    background-color:white;
+    outline:none;
+}
+#edit-nickname-input :focus{
+    box-shadow: 0 0 5px 2px #467BF4;    
+
+    background-color: #E9B83E;
+}
+#edit-nickname-input option{
+    font-size:1.5vh;
+    padding:0;
+    background-color: white;
+    margin:0;
+}
+
+#edit-intro{
+    position:absolute;
+    top:16vh;
+    left:10vw;
+    text-align: left;
+}
+#edit-intro-text{
+    color:gray;
+    font-size:2vh;
+    letter-spacing: 0.5vh;
+    margin:1vh 0;
+}
+#edit-intro-input{
+    width:80vw;
+    height:30vh;
+    font-size:2.2vh;
+    border: solid thin #F1CE61;
+    background-color:white;
+    font-family:ming;
+    font-weight: normal;
+    outline:none;
+}
+
+#edit-submit{
+    height:4vh;
+    width:20vw;
+    position:absolute;
+    right:5vw;
+    bottom:2vh;
+    background-color: #E9B83E;
+    font-size:2vh;
+    color:white;
+    line-height:4vh;
+    text-align: center;
+    border-radius: 1.5vw;
+    box-shadow: 0.5vw 0.5vw 1vw gray;
 }
