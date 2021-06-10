@@ -354,7 +354,10 @@ app.post('/html/alltitle', (req, res) => {
 
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
+<<<<<<< HEAD
         console.log(data)
+=======
+>>>>>>> 6aff930a64d2d84f2377ec3ab41be54217418a72
         res.send(data);
     });
 });
