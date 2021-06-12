@@ -354,7 +354,6 @@ app.post('/html/alltitle', (req, res) => {
 
     PythonShell.run("mission.py", options, function(err, data) {
         data = JSON.parse(data)
-        console.log(data)
         res.send(data);
     });
 });
@@ -368,6 +367,40 @@ app.post('/html/choosetitle', (req, res) => {
             13,
             req.session.uid,
             req.body.title_id
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/leaderboard', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            14
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/find_M_friend', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            15,
+            req.session.uid,
+            req.body.qid
         ],
     };
 
