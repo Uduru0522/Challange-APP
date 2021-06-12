@@ -487,4 +487,3 @@ elif(sys.argv[1] == '14'):#排行榜
     print(leaderboard(con2))
 elif(sys.argv[1] == '15'):#找到相同任務的好友
     print(find_M_friend(con, sys.argv[2], sys.argv[3]))
-
