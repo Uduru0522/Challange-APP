@@ -4,7 +4,6 @@ import json
 
 def allmission(conn, User):
     rows = conn.execute("select * from mission;")
-    data = conn.execute("select * from {user};".format(user=User))
     _json = []
     
     field_name = [des[0] for des in rows.description]#找到項目名
@@ -29,7 +28,7 @@ def allmission(conn, User):
     return output
 
 def accept(conn, User, M_ID):#傳入使用者名字和要接的任務
-    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)".format(user=User))#建立玩家任務清單
+    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text text)".format(user=User))#建立玩家任務清單
     conn.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM mission WHERE ID= {m_ID};".format(user=User, m_ID=M_ID))
     conn.execute("UPDATE mission SET progressing=progressing+1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數加一
 
@@ -73,13 +72,12 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
         else:
             _row_json["progress"] = "0"
         for field in range(len(row)):
-            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'picture'and field_name[field]!= 'pic_text'):
+            if(field_name[field]!='ID'and field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'picture'and field_name[field]!= 'pic_text'):
                 _row_json[field_name[field]] = row[field]
     
     Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Picture
-    Pic = Picture.fetchone()
-    if((Pic != None) and (Pic[0] != None)):
-        Pic = Pic[0]
+    Pic = Picture.fetchone()[0]
+    if(Pic != None):
         pic=Pic.split(";;")
         Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Pic_text
         Pic_text = Picture_text.fetchone()[0]
@@ -142,7 +140,6 @@ def player(conn, M_ID):
 
 def done(conn, User):#做過的任務
     rows = conn.execute("select * from {user} where completed=1;".format(user=User))
-    data = conn.execute("select * from {user};".format(user=User))
     _json = []
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
@@ -190,7 +187,7 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET sport={point} where ID = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='101'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='102'))
@@ -203,7 +200,7 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET social={point} where ID = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='201'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='202'))
@@ -212,13 +209,14 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         elif(Point<1000 and pts>=1000):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='204'))
         if(M_ID == "204" and repeat == False):
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='205'))
     elif(Category == 3):
         Pts=conn2.execute("SELECT food from users where ID = '{user}';".format(point=Point, user=User))#拿原分數
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET food={point} where id = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='301'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='302'))
@@ -227,13 +225,14 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         elif(Point<1000 and pts>=1000):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='304'))
         if(M_ID == "304"and repeat == False):
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='305'))
     elif(Category == 4):
         Pts=conn2.execute("SELECT activity from users where ID = '{user}';".format(point=Point, user=User))#拿原分數
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET activity={point} where ID = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='401'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='402'))
@@ -242,13 +241,14 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         elif(Point<1000 and pts>=1000):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='404'))
         if(M_ID == "402"and repeat == False):
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='405'))
     elif(Category == 5):
         Pts=conn2.execute("SELECT travel from users where ID = '{user}';".format(point=Point, user=User))#拿原分數
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET travel={point} where ID = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='501'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='502'))
@@ -257,15 +257,17 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         elif(Point<1000 and pts>=1000):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='504'))
         if(M_ID == "513"and repeat == False):
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='505'))
         if(M_ID == "515"and repeat == False):
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='506'))
     elif(Category == 6):
         Pts=conn2.execute("SELECT self from users where ID = '{user}';".format(point=Point, user=User))#拿原分數
         pts = Pts.fetchone()[0]+Point#加總後分數
         conn2.execute("UPDATE users SET self={point} where ID = '{user}';".format(point=pts, user=User))#加分
         if(Point<100 and pts>=100):
-            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
+            conn3.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家稱號清單
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='601'))
         elif(Point<300 and pts>=300):
             conn3.execute("INSERT INTO {user} (name, category, description, points, ID, category_no) SELECT name, category, description, points, ID, category_no FROM title WHERE ID= {m_ID};".format(user=User, m_ID='602'))
@@ -292,7 +294,6 @@ def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
     recent = conn.execute("select category_no from {user} order by date DESC LIMIT 1;".format(user=User))#最近做過的任務的類別
     like=recent.fetchone()[0]
     rows = conn.execute("select * from mission where category_no = {recommend};".format(recommend=like))
-    data = conn.execute("select * from {user};".format(user=User))
     _json = []
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
@@ -317,7 +318,6 @@ def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
 
 def popular(conn, User):#很多人在做的任務
     rows = conn.execute("select * from mission order by progressing DESC limit 10;")#從多人進行中的任務排到少人
-    data = conn.execute("select * from {user};".format(user=User))
     _json = []
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
@@ -342,7 +342,6 @@ def popular(conn, User):#很多人在做的任務
 
 def search_pts(conn, User, num1, num2):
     rows = conn.execute("select * from mission where points between {Num1} and {Num2};".format(Num1=num1,Num2=num2))
-    data = conn.execute("select * from {user};".format(user=User))
     _json = []
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
@@ -390,7 +389,7 @@ def allpic(conn, User):
     return output
 
 def alltitle(conn, User):#傳入使用者名字
-    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家任務清單
+    conn.execute("create table if not exists {user}(name text, category text, description text, points integer, ID text, chosen boolean DEFAULT(0), category_no integer)".format(user=User))#建立玩家任務清單
     _json=[]
     rows = conn.execute("select * from {user};".format(user=User))
     field_name = [des[0] for des in rows.description]#找到項目名
@@ -401,6 +400,7 @@ def alltitle(conn, User):#傳入使用者名字
         _json.append(_row_json)
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
+    
     conn.commit()
     conn.close()
     return output
@@ -410,6 +410,38 @@ def choosetitle(conn, User, T_ID):#傳入使用者名字和要選的稱號
     conn.execute("UPDATE {user} SET chosen= 1 where ID = {t_ID};".format(user=User, t_ID=T_ID))#設為完成
     conn.commit()
     conn.close()
+
+def leaderboard(conn):
+    rows = conn.execute("select account from users order by total DESC;")
+    data=rows.fetchall()
+    output = json.dumps(data, ensure_ascii = False)
+    #print(output)
+    return output
+
+
+def find_M_friend(conn, User, M_ID):#User,找到User這個人的所有有該任務的好友
+    data={}
+    with open("./json/friend.json", 'r',encoding='utf-8') as obj:
+        output = json.load(obj)
+    for i in range(len(output)): 
+        
+        if output[i][0]==User:
+            data={"friend":output[i][1:]}
+    
+    Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
+    _json=[]
+    Mem = Member.fetchone()[0]
+    _member=Mem.split(",")
+    _row_json = dict()
+    _mem=[]
+    for Mem in data["friend"]:
+        if Mem in _member[1:-1]:#去掉空的
+            _mem.append(Mem)
+    _row_json["M_friend"] = _mem
+    _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    return output
 
 
 
@@ -421,7 +453,7 @@ con2 = sqlite3.connect('./database/users.db')
 con3 = sqlite3.connect('./database/title.db')
 
 
-#sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述、6為下界、7為上界、8為稱號ID
+#sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述
 
 if(sys.argv[1] == '0'):#全部任務
     print(allmission(con, sys.argv[2]))
@@ -443,11 +475,15 @@ elif(sys.argv[1] == '8'):#給任務詳細資料
     print(getdetail(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
     print(player(con, sys.argv[2]))
-elif(sys.argv[1] == '10'):#給分數區間
+elif(sys.argv[1] == '10'):#給分數區間3為下界、4為上界
     print(search_pts(con, sys.argv[2], sys.argv[3], sys.argv[4]))
 elif(sys.argv[1] == '11'):#回傳所有照片
     print(allpic(con, sys.argv[2]))
 elif(sys.argv[1] == '12'):#回傳所有稱號
     print(alltitle(con3, sys.argv[2]))
-elif(sys.argv[1] == '13'):#選擇稱號
-    choosetitle(con3, sys.argv[2], sys.argv[3])
+elif(sys.argv[1] == '13'):#選擇稱號、3為稱號ID
+    choosetitle(con3, sys.argv[2], sys.argv[3]))
+elif(sys.argv[1] == '14'):#排行榜
+    print(leaderboard(con2))
+elif(sys.argv[1] == '15'):#找到相同任務的好友
+    print(find_M_friend(con, sys.argv[2], sys.argv[3]))
