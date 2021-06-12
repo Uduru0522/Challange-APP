@@ -169,16 +169,23 @@ $(document).ready(() => {
             console.log($(this));
 
             // Apply filters
+            if (!fop_field.size && fop_ppl.size) {
+                [1, 2, 3, 4, 5, 6].forEach(n => {
+                    fop_field.add(n);
+                });
+            } else if (fop_field.size && !fop_ppl.size) {
+                fop_ppl.add(1);
+                fop_ppl.add(2);
+            }
+            console.log(fop_field, fop_ppl);
             fop_field.forEach(opt => {
                 if (parseInt($(this).data("field")) == parseInt(opt)) {
                     matched = true;
                 }
             });
-            fop_ppl.forEach(opt => {
-                if (matched && (parseInt($(this).data("plim")) != parseInt(opt))) {
-                    matched = false;
-                }
-            });
+            if (matched && !fop_ppl.has(parseInt($(this).data("plim")))) {
+                matched = false
+            }
             let lower_bound, upper_bound;
             let linput = $("#pts-filter input[name=lb]"),
                 uinput = $("#pts-filter input[name=ub]"),
