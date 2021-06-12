@@ -26,6 +26,10 @@ const pages_selector = [
     ".quest-more-open",
     ".quest-more-closed",
     "#quest-create-new",
+    "#edit-mydata",
+    "#rank-main",
+    "#makesure-deletefriend",
+    "#makesure-deletegroup"
 ];
 
 const nav_icons = [

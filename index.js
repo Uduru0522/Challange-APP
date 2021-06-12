@@ -12,6 +12,7 @@ const port = 4114
 var fs = require('fs');
 var db = new sqlite3.Database("./database/users.db");
 
+
 app.use(bodyParser.json({ limit: "1mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(session({
@@ -70,12 +71,18 @@ app.post('/html/register', (req, res) => {
                     db.run("CREATE TABLE IF NOT EXISTS users (account TEXT, password TEXT, email TEXT, lastname TEXT, firstname TEXT, id TEXT, name TEXT, title TEXT, intro TEXT, image BLOB, social INTEGER, travel INTEGER, food INTEGER, activity INTEGER, sport INTEGER, self INTEGER)");
 
                     function check() {
-                        var randomString = crypto.randomBytes(32).toString('hex').substr(0, 8);
+                        var randomString = String.fromCharCode(Math.floor(Math.random() * 26) + "a".charCodeAt(0)) + String(Math.random()).slice(2, 9)
                         db.get("SELECT id FROM users WHERE id = ?", randomString, function(err, row) {
                             if (row != undefined) {
                                 check();
                             } else {
-                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id) VALUES (?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString]);
+                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "#無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0]);
+                                var db_mission = new sqlite3.Database("./database/mission.db");
+                                db_mission.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)`);
+                                db_mission.close();
+                                var db_title = new sqlite3.Database("./database/title.db");
+                                db_title.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID integer, chosen boolean DEFAULT(0), category_no integer)`);
+                                db_title.close();
                             }
                         });
                     }
@@ -334,6 +341,45 @@ app.post('/html/getphotos_friend', (req, res) => {
     });
 });
 
+app.post('/html/alltitle', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            12,
+            req.session.uid,
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+<<<<<<< HEAD
+        console.log(data)
+=======
+>>>>>>> 6aff930a64d2d84f2377ec3ab41be54217418a72
+        res.send(data);
+    });
+});
+
+app.post('/html/choosetitle', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            13,
+            req.session.uid,
+            req.body.title_id
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
 app.post('/html/newgroup', (req, res) => {
     let options = {
         mode: "text",
@@ -511,6 +557,7 @@ app.post('/html/singlefriend', (req, res) => {
         res.send("Success");
     });
 });
+
 app.post('/html/assignmentadd', (req, res) => {
     let options = {
         mode: "text",
@@ -528,6 +575,24 @@ app.post('/html/assignmentadd', (req, res) => {
         res.send("Success");
     });
 });
+
+app.post('/html/assignmentdel', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            "assignmentdel",
+            req.body.chatroom_name,
+            req.session.uid
+        ],
+    };
+
+    PythonShell.run("chat.py", options, function(err, data) {
+        res.send("Success");
+    });
+});
+
 app.post('/html/findperson', (req, res) => {
     person.getInfo(req.body.person_ID, db).then(data => {
         res.send(data);
@@ -547,11 +612,11 @@ app.post('/html/friendpage-record', (req, res) => {
     })
 });
 
-// app.post('/html/edit', (req, res) => {
-//     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
-//         res.send(data);
-//     })
-// });
+ app.post('/html/edit', (req, res) => {
+     person.editInfo(req.session.uid, db, req.body.name, req.body.title, req.body.intro, req.body.image).then((data) => {
+         res.send(data);
+     })
+ });
 
 app.post('/html/logout', (req, res) => {
     req.session.destroy();
