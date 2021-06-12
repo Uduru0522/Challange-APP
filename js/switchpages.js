@@ -7,7 +7,6 @@ const pages_selector = [
     "#mypage-main",
     "#room-main",
     "#myfriend-main",
-    "#filter",
     "#quest-filtered",
     "#quest-book",
     "#quest-detail",
@@ -23,7 +22,14 @@ const pages_selector = [
     "#Fcharacteristic-analyze",
     "#Fcharacteristic-history",
     "#Fmission-launched",
-    "#quest-filtered #quest-filtered-bg"
+    "#quest-filtered #quest-filtered-bg",
+    ".quest-more-open",
+    ".quest-more-closed",
+    "#quest-create-new",
+    "#edit-mydata",
+    "#rank-main",
+    "#makesure-deletefriend",
+    "#makesure-deletegroup"
 ];
 
 const nav_icons = [
@@ -39,6 +45,17 @@ function hide_all_page() {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
         }
+        let stranger = document.getElementById("show-stranger");
+        let stranger_pre = document.getElementById("pre-stranger");
+        let stranger_full = document.getElementById("full-stranger");
+        stranger.classList.remove("stranger-full");
+        stranger.classList.add("stranger-hidden");
+        stranger_pre.classList.add("animate-fade-in");
+        stranger_pre.classList.remove("animate-fade-out");
+        stranger_full.classList.add("animate-fade-out");
+        stranger_full.classList.remove("animate-fade-in");
+        document.getElementById("quest-titled-listing").style.display = "none";
+        document.getElementById("quest-listing").style.display = "none";
     });
     return;
 }
@@ -73,6 +90,13 @@ $(document).ready(() => {
             hide_all_page();
             $(pages_selector[i]).removeClass("hidden").addClass("show");
             document.getElementById("chat-content").innerHTML = "";
+
+            // Switch to function pointers plz
+            if (nav_icons[i] == "#nav-quest") {
+                $(".quest-more-closed").removeClass("hidden").addClass("show");
+                $(".quest-more-open").removeClass("show").addClass("hidden");
+                $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
+            }
         });
     }
 
@@ -107,7 +131,6 @@ $(document).ready(() => {
                     $("#img-grid-wrapper").append(container);
                 });
             }
-            /* **************************************** */
 
             // Reset submit form
             $("#preview").attr("src", "../resources/click-to-upload.png");
@@ -127,6 +150,12 @@ $(document).ready(() => {
             } else {
                 console.log("Error: Quest progress not 1 or 0");
             }
+
+            // Stranger form
+            $("#pre-stranger").removeClass("animate-fade-out").addClass("animate-fade-in");
+            $("#full-stranger").removeClass("animate-fade-in").addClass("animate-fade-out");
+            $("#show-stranger").addClass("stranger-hidden");
+            $("#show-stranger").removeClass("stranger-full");
         });
 
         // Build page
@@ -145,99 +174,6 @@ $(document).ready(() => {
         $(origin_page).removeClass("hidden").addClass("show");
     });
 
-    // Show Filter
-    $(document).on("click", ".filter-button", function(e) {
-        hide_all_but_current_page($(this).closest(".container").attr("id"));
-        // reset_filter_options();
-        $("#filter").removeClass("hidden").addClass("show");
-        $(".navbar").removeClass("show").addClass("hidden");
-    });
-
-    // Hide filter
-    $(document).on("click", "#filter-return-area", function(e) {
-        // Reset filter option?
-        $("#filter").removeClass("show").addClass("hidden");
-        $(".navbar").removeClass("hidden").addClass("show");
-    });
-
-    // Apply filter
-    const quest_filter_options = [
-        "", "人際", "美食", "課外", "旅行", "冒險", "學業", "單人", "多人"
-    ];
-    let filter_selected = [0];
-    $(document).on("click", "#filter-confirm", function(e) {
-        let selected = new Set();
-        let filtered_list = [];
-
-        let option = "all";
-        if ($("input[name=lbound]").val() || $("input[name=hbound]").val()) {
-            option = "range";
-        } else {
-            if (!($("input[name=lbound]").val())) {
-                $("input[name=lbound]").val(0);
-            }
-            if (!($("input[name=hbound]").val())) {
-                $("input[name=hbound]").val(9999);
-            }
-        }
-
-        // Fetch quest
-        fetch_quest_brief_info(option, function(data) {
-            console.log(data);
-
-            if (filter_selected.length > 1) {
-                for (let i = 0; i < data.length; ++i) {
-                    for (let opt = 1; opt < quest_filter_options.length; opt++) {
-                        if (filter_selected.indexOf(opt) != -1) {
-                            console.log(data[i].category + " | " + quest_filter_options[opt]);
-                            if (data[i].category == quest_filter_options[opt] ||
-                                data[i].pcount == quest_filter_options[opt]) {
-                                selected.add(i);
-                            }
-                        }
-                    }
-                }
-            }
-
-            console.log(selected);
-            for (const index of selected) {
-                filtered_list.push(data[index]);
-            }
-            console.log(filtered_list);
-            fetch_quest_list_page(filtered_list);
-        });
-
-        hide_all_page();
-        $(".navbar").removeClass("hidden").addClass("show");
-        $("#quest-list").first().css("margin-top", "0");
-        $("#quest-filtered").removeClass("hidden").addClass("show");
-    });
-
-    $(document).on("click", ".filter-type", function(e) {
-        $(this).toggleClass("selected");
-        let num = parseInt($(this).attr("id").match(/\d/g)[0]);
-        console.log(num);
-        if (num > 8 || num < 1) {
-            console.log("option fetching failed");
-            return;
-        }
-
-        if ($(this).hasClass("selected")) {
-            filter_selected.push(num);
-            console.log(filter_selected);
-            return;
-        }
-
-        let index = filter_selected.indexOf(num);
-        if (index == -1) {
-            console.log("Error: no such element to remove");
-            return;
-        }
-        filter_selected.splice(index, 1);
-        console.log(filter_selected);
-        return;
-    });
-
     // Quest submit
     $(document).on("click", ".can-accept#quest-detail-button", function() {
         $("#quest-info").toggleClass("show").toggleClass("hidden");
@@ -245,16 +181,23 @@ $(document).ready(() => {
         $("#quest-submit-field").css("display", "block");
     });
 
-    // Show more 
-    $(document).on("click", ".showmore", function() {
-        fetch_quest_brief_info($(this).attr("id"), function(response) {
-            fetch_quest_list_page(response);
-        });
-        // fetch_quest_list_page(fetch_quest_brief_info($(this).attr("id"), 0).quest);
+    // Show more (Land into titled listing)
+    $(".showmore").on("click", function() {
         hide_all_page();
-        $("#quest-filtered #quest-filtered-bg").removeClass("hidden").addClass("show");
-        $("#quest-list").first().css("margin-top", "10vh");
-        $("#quest-filtered").removeClass("hidden").addClass("show");
-    })
-
+        document.getElementById("quest-titled-listing").style.removeProperty("display");
+        switch ($(this).data("div")) {
+            case "el":
+                document.getElementById("quest-list-title").innerHTML = "大家都喜歡";
+                break;
+            case "yml":
+                document.getElementById("quest-list-title").innerHTML = "你可能還會喜歡";
+                break;
+            case "af":
+                document.getElementById("quest-list-title").innerHTML = "最新任務";
+                break;
+            default:
+                document.getElementById("quest-list-title").innerHTML = "不該是這樣的";
+        }
+        build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), $(this).data("div"));
+    });
 });

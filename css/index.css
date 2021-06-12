@@ -13,6 +13,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .navbar {
@@ -21,11 +22,11 @@ body {
   display: flex;
   justify-content: space-around;
   width: 100vw;
-  height: 8vh;
-  border-top: none;
-  background-color: #FBE1B1;
+  height: 22vw;
+  border-top: black solid 3px;
+  background-color: white;
   /* Max z-index */
-  z-index: 99;
+  z-index: 100;
 }
 .navbar img {
   margin: auto 0;

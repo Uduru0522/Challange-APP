@@ -1,4 +1,3 @@
-// Local temp fetch
 function fetch_quest_brief_info(option, callback) {
     // POST request: get pre-filtered quest brief
     let url = "./mission/";

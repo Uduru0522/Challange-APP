@@ -450,4 +450,10 @@ elif(sys.argv[1] == '11'):#回傳所有照片
 elif(sys.argv[1] == '12'):#回傳所有稱號
     print(alltitle(con3, sys.argv[2]))
 elif(sys.argv[1] == '13'):#選擇稱號
+<<<<<<< HEAD
     choosetitle(con3, sys.argv[2], sys.argv[3])
+
+    
+=======
+    choosetitle(con3, sys.argv[2], sys.argv[3])
+>>>>>>> 6aff930a64d2d84f2377ec3ab41be54217418a72
