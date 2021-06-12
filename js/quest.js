@@ -105,28 +105,189 @@ function swipedetect(el, callback) {
 
 // Event Listeners on page load
 $(document).ready(() => {
-    // Accept in list
-    $(document).on("click", ".qblock-state", function() {
-        console.log($(this).children(":first").text());
-        if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).siblings(".qblock-qid").attr("id").match(/\d+/g);
-            console.log(qid);
 
-            // Send POST request to accept quest
-            $.post(
-                "mission/accept", {
-                    qid: qid
-                },
-                function() {
-                    console.log("Quest accepted successfully");
-                }
-            )
-            $(this).addClass("already-accept").removeClass("can-accept");
-            $(this).children("span").text("已接取");
+    /***************************************************************************** */
+    /* Filter events                                                               */
+    /***************************************************************************** */
+
+    // Show filter panel
+    let to_filter;
+    let fop_ppl = new Set(),
+        fop_field = new Set();
+    $(document).on("click", ".filter-button", function(e) {
+        // Show filter
+        document.getElementById("filter").style.removeProperty("display");
+        document.querySelector(".navbar").style.display = "none";
+
+        // Reset options
+        fop_ppl.clear(), fop_field.clear();
+        $(".filter-option").removeClass("owbtn-select").addClass("owbtn-deselect");
+
+        // Set target to filter
+        if ($(this).closest(".container").attr("id") == "quest-main") {
+            // Generate and filter all-quest listing
+            to_filter = $("#quest-listing .quest-list-container");
+            build_quest_list(to_filter[0], "all");
         } else {
-            console.log("Nope");
+            // Or filter current page
+            to_filter = $(this).closest(".container").find(".quest-list-container");
         }
     });
+
+    // Close filter panel
+    $(document).on("click", "#filter-return", function(e) {
+        document.getElementById("filter").style.display = "none";
+        document.querySelector(".navbar").style.removeProperty("display");
+    });
+
+    // Reset filter options
+    $("#filter-footer .reset").on("click", function(e) {
+        fop_ppl.clear(), fop_field.clear();
+        $(".filter-option.owbtn-select").removeClass("owbtn-select").addClass("owbtn-deselect");
+    });
+
+    // Apply filter
+    $("#filter-footer .confirm").on("click", function(e) {
+        console.log(to_filter.children(".quest-list-item"));
+        // Close filter panel
+        $("#filter-return")[0].click();
+
+        // Switch to all-quest listing if on quest-main
+        if ($("#quest-main").hasClass("show")) {
+            $("#quest-main").removeClass("show").addClass("hidden");
+            console.log(to_filter[0]);
+            document.getElementById("quest-listing").style.removeProperty("display");
+        }
+
+        // Filter in order
+        let disappear_interval = 5;
+        let promise = Promise.resolve();
+        console.log(to_filter);
+        console.log(to_filter.children());
+        to_filter.children(".quest-list-item").each(function(index, element) {
+            let matched = false;
+            console.log($(this));
+
+            // Apply filters
+            fop_field.forEach(opt => {
+                if (parseInt($(this).data("field")) == parseInt(opt)) {
+                    matched = true;
+                }
+            });
+            fop_ppl.forEach(opt => {
+                if (matched && (parseInt($(this).data("plim")) != parseInt(opt))) {
+                    matched = false;
+                }
+            });
+            let lower_bound, upper_bound;
+            let linput = $("#pts-filter input[name=lb]"),
+                uinput = $("#pts-filter input[name=ub]"),
+                elem_pts = parseInt($(this).data("pts"));
+            if (linput.val() == null || linput.val() == "") {
+                lower_bound = 0;
+            } else {
+                lower_bound = parseInt(linput.val());
+            }
+            if (uinput.val() == null || uinput.val() == "") {
+                upper_bound = 99999;
+            } else {
+                upper_bound = parseInt(uinput.val());
+            }
+            console.log(lower_bound + ", " + upper_bound);
+
+            if (matched && (elem_pts < lower_bound || elem_pts > upper_bound)) {
+                matched = false
+            }
+
+            // Toggle quest show / hidden with time delay between
+            promise = promise.then(() => {
+                if (!matched && $(this).hasClass("item-show-90px")) {
+                    if ($(this).hasClass("item-show-90px")) {
+                        $(this).removeClass("item-show-90px").delay(5).queue(function(next) {
+                            $(this).addClass("item-hide-90px");
+                            next();
+                        });
+                    }
+                } else if (matched && $(this).hasClass("item-hide-90px")) {
+                    $(this).delay(200).queue(function(next) {
+                        $(this).addClass("item-show-90px");
+                        $(this).removeClass("item-hide-90px")
+                        next();
+                    });
+                } else {
+                    // No animation, no delay
+                    return new Promise(function(resolve) {
+                        setTimeout(resolve, 0);
+                    });
+                }
+                return new Promise(function(resolve) {
+                    setTimeout(resolve, disappear_interval);
+                });
+            })
+        });
+    });
+
+    // Select field options
+    $("#field-filter .filter-option").on("click", function(e) {
+        if ($(this).hasClass("owbtn-deselect")) {
+            $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
+            fop_field.add($(this).data("option"));
+        } else {
+            $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
+            fop_field.delete($(this).data("option"));
+        }
+        console.log(fop_field);
+    });
+
+    // Select people limit options
+    $("#ppllimit-filter .filter-option").on("click", function(e) {
+        if ($(this).hasClass("owbtn-deselect")) {
+            $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
+            fop_ppl.add($(this).data("option"));
+        } else {
+            $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
+            fop_ppl.delete($(this).data("option"));
+        }
+        console.log(fop_ppl);
+    });
+
+    /***************************************************************************** */
+    /* Quest List Events                                                           */
+    /***************************************************************************** */
+
+    // Accept quest in list
+    $(document).on("click", ".qli-accept.can-accept", function() {
+        // Get qid
+        let qid = $(this).closest(".quest-list-item").data("qid");
+        console.log(qid);
+
+        // Send POST req
+        $.post(
+            "mission/accept", {
+                qid: qid
+            },
+            function(response) {
+                console.log("Quest accepted successfully");
+            }
+        )
+
+        $(this).removeClass("can-accept").addClass("did-accept");
+        $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
+    });
+
+    // Goto quest-detail from quest list
+    $(document).on("click", ".quest-list-item", function(e) {
+        // Dont trigger on accept quest button
+        if ($(e.target).hasClass("qli-accept")) {
+            return;
+        }
+
+        build_quest_detail($(this).data("qid"));
+    });
+
+    /***************************************************************************** */
+    /* Quest List events                                                           */
+    /***************************************************************************** */
 
     // Accept quest in detail page
     $(document).on("click", "#quest-detail-button", function() {
@@ -170,24 +331,25 @@ $(document).ready(() => {
         $(this).closest(".container").find(".return-arrow").trigger("click");
     });
 
-    const myFile = document.querySelector('#quest-submit-img')
-    myFile.addEventListener('change', function(e) {
-        const file = e.target.files[0]
-        const reader = new FileReader()
-        const img = document.querySelector('#preview') // 需要開一個img的tag來存預覽的圖片，id="preview"
-        reader.readAsDataURL(file)
-        reader.onload = function() {
-            img.src = reader.result;
-            // $("#preview").css({ "width": "30vw", "height": "30vw", "background-size": "cover" }) // 預覽圖片的css屬性
-            console.log("loaded preview.");
-        }
-    })
+    // Image preview on upload
+    // const myFile = document.querySelector('#quest-submit-img')
+    // myFile.addEventListener('change', function(e) {
+    //     const file = e.target.files[0]
+    //     const reader = new FileReader()
+    //     const img = document.querySelector('#preview')
+    //     reader.readAsDataURL(file)
+    //     reader.onload = function() {
+    //         img.src = reader.result;
+    //         console.log("loaded preview.");
+    //     }
+    // })
 
     // Redirect click event on uploading image
     $(document).on("click", "#preview", function() {
         $("#quest-submit-img").trigger("click");
     });
 
+    // Show stranger panel in quest detail
     let hidetimer = null;
     swipedetect(document.getElementById("show-stranger"), function(dir) {
         if (dir != "none") {
@@ -210,7 +372,11 @@ $(document).ready(() => {
         }
     });
 
-    // Question option menu
+    /***************************************************************************** */
+    /* Quest more-action list related events                                       */
+    /***************************************************************************** */
+
+    // Quest option menu
     $(".quest-more-option").on("click", function(e) {
         $(".quest-more").removeClass("quest-more-shrink").addClass("quest-more-expand");
         $(".quest-more-closed").removeClass("show").addClass("hidden");
@@ -254,6 +420,10 @@ $(document).ready(() => {
         // Hide success screen
         $("#quest-create-success").css("display", "none");
     });
+
+    /***************************************************************************** */
+    /* New-quest-create events                                                               */
+    /***************************************************************************** */
 
     // Advance in create new
     let quest_create_step_clk = 0;

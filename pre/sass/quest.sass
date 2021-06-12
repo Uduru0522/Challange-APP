@@ -22,8 +22,9 @@
     top: 0
     left: 0
     width: 100vw
-    height: 120px
+    height: 100px
     background-color: #F1CE61
+    z-index: 999
     
     > span
         display: block
@@ -42,12 +43,15 @@
     > span::after
         content: "發起新任務"
 
-#quest-detail>.quest-header, #quest-main>.quest-header, #quest-filtered>.quest-header
+#quest-detail>.quest-header, #quest-main>.quest-header, 
+#quest-filtered>.quest-header, #quest-book>.quest-header,
+#quest-listing>.quest-header, #quest-titled-listing>.quest-header, #filter>.quest-header
     > span::after
         content: "任務"
 
 // Quest Main Page Relatexd
 #quest-main
+    overflow-x: hidden
     overflow-y: scroll
     -ms-overflow-style: none
     scrollbar-width: none
@@ -58,31 +62,13 @@
         height: 20vh
         width: 100vw
 
-.filter-button
-    margin: 5px 0 5px 10px
-    display: inline-block
-    height: calc(100vh / 12)
-    width: fit-content
-    line-height: calc(100vh / 12)
-
-    & *
-        vertical-align: middle
-        color: #E9B83E
-
-    img
-        height: 60%
-    span
-        margin-left: 10px
-        font-size: 1.3em
-        height: 1.3em
-        letter-spacing: 0.1em
-
 .quest-peek
     width: 92vw
-    height: calc(25000vh / 735)
+    height: 40vh
+    min-height: 300px
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75)
     border-radius: 24px
-    margin: 0 auto 25px
+    margin: 10px auto 0
     overflow: hidden
     background-color: #EAF6F7
 
@@ -271,6 +257,39 @@
             color: black
             font-size: 3vh
 
+    #quest-submit-field
+        margin-top: 20vh
+        #quest-submit-text
+            margin: 10px 5vw
+            width: 90vw
+            position: relative
+            height: 40px
+            border: black solid 1px
+            border-radius: 10px
+            float: none
+
+        #preview
+            @extend %flex-centeralize
+            margin: 10px auto
+            box-shading: 2px 2px 5px rgba(0, 0, 0, 0.75)
+            position: relative
+            width: 90vw
+            height: calc(810vw / 16)
+            border-radius: 20px
+            background-color: #C0C0C0
+
+        #quest-submit-button
+            @extend %flex-centeralize
+            margin: 10px auto
+            position: relative
+            width: 90vw
+            height: 40px
+            background-color: #C0C0C0
+            border-radius: 10px
+
+            span 
+                font-size: 3vh
+
     .qd-title
         @extend %flex-centeralize
         position: relative
@@ -299,8 +318,6 @@
         word-wrap: break-word
 
     #quest-intro
-        margin-top: 15vh
-
         #people-indicate
             @extend %flex-centeralize
             width: 22.5vw
@@ -336,41 +353,10 @@
             background-color: transparent
             color: #EB931D
             border: #EB931D solid 1px
-    #quest-submit-field
-        #quest-submit-text
-            margin: 10px 5vw
-            width: 90vw
-            position: relative
-            height: 40px
-            border: black solid 1px
-            border-radius: 10px
-            float: none
 
-        #preview
-            @extend %flex-centeralize
-            margin: 10px auto
-            box-shading: 2px 2px 5px rgba(0, 0, 0, 0.75)
-            position: relative
-            width: 90vw
-            height: calc(810vw / 16)
-            border-radius: 20px
-            background-color: #C0C0C0
-
-        #quest-submit-button
-            @extend %flex-centeralize
-            margin: 10px auto
-            position: relative
-            width: 90vw
-            height: 40px
-            background-color: #C0C0C0
-            border-radius: 10px
-
-            span 
-                font-size: 3vh
-
-        .dummy
-            width: 100vw
-            height: 20vh
+    .dummy
+        width: 100vw
+        height: 20vh
     
     #quest-history
         #img-grid-wrapper
@@ -544,257 +530,334 @@
 
 // Filter
 #filter
-
-    *
-        z-index: 1
-    
-    #filter-return-area
+    background-color: rgba(0, 0, 0, 0.65)
+    z-index: 20
+    #filter-return
+        height: 100vh
+        width: 100vw
         position: absolute
         top: 0
         left: 0
-        width: 100%
-        height: 100%
-        z-index: -1
+        
+        z-index: 10
+        background-color: rgba(0, 0, 0, 0)
 
-    #filter-block
-        width: calc(1300vw / 14)
-        height: calc(55500vh / 735)
-        background-color: #FFFFFF
-        margin-top: calc(calc(1900vh / 147) / 2)
-        position: relative
+    #filter-panel
+        height: calc(calc(100vh - 100px) * 0.9)
+        width: 90%
+        position: absolute
+        top: 120px
+        left: 0
+        background-color: white
+        z-index: 30
         border-radius: 0 40px 40px 0
-        overflow-x: hidden
+        overflow: hidden
+
+    #filter-header, #filter-footer
+        width: 100%
+        position: relative
+
+    #filter-header
+        background-color: #CFE9EA
+        height: 80px
+        
+        &::after
+            content: "篩選器"
+            display: flex
+            justify-content: center
+            align-items: center
+            font-size: 1.5em
+            letter-spacing: 0.5em
+            padding-left: 0.5em
+            height: 100%
+            width: 100%
+        
+    #filter-body
+        width: 100%
+        height: calc(100% - 145px)
+        position: relative
         overflow-y: scroll
 
-        #filter-header
-            @extend %flex-centeralize
-            width: 100%
-            height: calc(7000% / 555)
-            background-color: #CFE9EA
-
-            span
-                font-size: 4vh
-                letter-spacing: 2.5vw
-                margin-left: 6vw
-            
-        .filter-title
+        & > *
             position: relative
-            width: 100%
-            height: calc(1000% / 111)
-            display: flex
-            align-items: center
-            
-            span
-                font-size: 2.8vh
-                letter-spacing: 1.5vw
-                margin-left: 6vw
-                vertical-align: middle
+            margin-left: 7%            
 
-        .grid-wrapper
+        .filter-option-title
+            padding: 0.5em 0
+            font-size: 1.5em
+            color: #000000
+
+        .filter-option-grid
+            width: 80%
             display: grid
-            margin-left: 6vw
-            grid-auto-flow: row
-            column-gap: 15px
-            row-gap: 15px
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr))
+            grid-auto-rows: 35px
+            grid-gap: 10px
 
-            .filter-type
-                position: relative
-                border: #E9B83E solid 2px
-                background-color: white
-                color: black
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75)         
-                border-radius: 5px
-                       
-                span
-                    font-size: 2.5vh
-                    position: absolute
-                    top: 50%
-                    left: calc(50% + 0.6vh)
-                    transform: translate(-50%, -50%)
-                    letter-spacing: 1.2vh
-                    white-space: nowrap
+            .filter-option
+                display: flex
+                justify-content: center
+                align-items: center
+                border-radius: 8px
+                font-size: 1em
+                letter-spacing: 0.4em
+                padding-left: 0.4em
 
-            .selected
-                animation: _select 0.3s ease forwards
-                
-        .grid-wrapper#grid-type-options
-            grid-template-columns: repeat(3, calc(8000vh / 735))
-            grid-template-rows: repeat(2, calc(140vw / 14))
+        .filter-option-range, .filter-option-input
+            min-height: 35px
 
-        .grid-wrapper#grid-people-options
-            grid-template-columns: repeat(3, calc(8000vh / 735))
-            grid-template-rows: calc(140vw / 14)
+        .filter-option-range
+            height: 11%
+            width: 70%
+            line-height: 50px
 
-        .range-container
-            position: relative
-            height: 10%
-            width: 75%
-            background-color: #C5DBD7
-            margin-left: 6vw
-            -webkit-appearance: none
             display: flex
+            flex-direction: row
             justify-content: space-evenly
             align-items: center
 
+            background-color: #C7E1D9
+
+            > * 
+                display: inline-block
+                vertical-align: middle
+                width: 30%
+
             input
-                -webkit-appearance: none
-                width: 33.3%
-                height: 66.6%
-                border-radius: 10px
-                text-align: center
+                height: 70%
+                background-color: #FFFFFF
                 border: none
-
-            span
-                width: 6.6%
-                height: 2px
-                background-color: black
-
-        input[name="location"]
-            height: 6.6%
-            width: 50%
-            margin-left: 6vw
-            border-radius: 10px
-            border: #C5DBD7 solid 3px
-            background: url("../resources/quest/search.png") no-repeat
-            background-size: contain
-            background-origin: padding-box
-            font-size: 2.5vh
-            padding-left: 40px
-
-        #filter-footer 
-            position: absolute
-            bottom: 0
-            left: 0
-            height: 10.8%
-            width: 100%
-            background-image: linear-gradient(to bottom, #E1E1E1, #FEFEFE)
-            display: inline-block
-
-            .filter-footer-button
-                @extend %flex-centeralize
-                height: 62.5%
-                width: calc(435vw / 18)
                 border-radius: 8px
-                box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75), -1px -1px 4px rgba(0, 0, 0, 0.75)
-                position: relative
-                top: 50%
-                transform: translateY(-50%)
-                margin-right: 2vh
-                float: right
-
-                span
-                    font-size: 3vh
-                    letter-spacing: 2.5vw
-                    margin-right: -2.5vw
-
-            #filter-confirm
-                background-color: #D0CECE
-
-// Quest List
-#quest-filtered
-    #quest-filtered-bg
-        position: absolute
-        z-index: -1
-        height: 80vh
-        bottom: 0
-        left: 0
-        width: 100vw
-        border-radius: 20px 20px 0 0
-        background-color: #EAF6F7
-
-        #quest-filtered-bg-title
-            position: absolute
-            top: 0
-            left: 0
-            width: 100vw
-            height: 10%
-            span
-                font-size: 2vh
-
-    #quest-list
-        position: absolute
-        top: calc(50vh / 3)
-        bottom: 22vw
-        left: 0
-        right: 0
-        overflow-y: scroll
-
-
-        .qblock
-            @extend %flex-centeralize
-            position: relative
-            width: 92vw
-            height: 12.5vh
-            background-color: white
-            border-radius: 3.2vh
-            margin: 10px auto 0
-            box-shadow: 1vw 1vw 2vw rgba(0, 0, 0, 0.25), .5vw .5vw 1vw rgba(0, 0, 0, 0.25)
-            overflow: hidden
-
-            .qblock-type
-                @extend %flex-centeralize
-                position: absolute
-                left: 0
-                top: 0
-                height: 100%
-                width: 20%
-                border-radius: 0% 100% 50% 49% / 100% 0% 100% 0% 
-                background-color: #ECE569
-                
-                span
-                    color: black
-                    writing-mode: vertical-lr
-                    white-space: normal
-                    font-size: 3.5vh
-                    line-height: 5.5vh
-
-            .qblock-title
-                width: 45%
-                span
-                    font-size: 2.5vh
-                    line-height: 3vh
-                    white-space: normal
-
-            .qblock-points
-                @extend %flex-centeralize
-                position: absolute
-                top: 10%
-                right: 4.5vw
-                height: 4.2vh
-                width: 4.2vh
-                border-radius: 50%
-                background-color: #9C9C9C
-
-                span
-                    font-size: 2.5vh
-
-            .quest-id
-                display: none
-
-            .qblock-state
-                @extend %flex-centeralize
-                position: absolute
-                bottom: 10%
-                right: 4.5vw
-                width: 21.3%
-                height: 33.3%
-                border-radius: 1vh
-                box-shadow: 1vw 1vw 2vw rgba(0, 0, 0, 0.25), .5vw .5vw 1vw rgba(0, 0, 0, 0.25)
-
-                span
-                    font-size: 2.2vh
-
-                &.can-accept
-                    background-color: #EB931D
-                    span 
-                        color: white
+                outline: 0
+                text-align: center
+                font-size: 1.5em
             
-                &.already-accept
-                    background-color: transparent
-                    border: 1px solid #EB931D
-                    span
-                        color: #EB931D
+            div
+                height: 2px
+                width: 15%
+                background-color: #000000
+        
+        .filter-option-input
+            height: 8%
+            width: 70%
+            padding-left: calc(calc(calc(100vh - 100px) * 0.9) * 0.06)
 
+            background-repeat: no-repeat
+            background-position: top 50% left 5px
+            background-size: auto 80%
+
+        #loc-filter.filter-option-input
+            background-image: url("../resources/quest/search.png")
+        
+    #filter-footer
+        height: 65px
+        display: flex
+        flex-direction: row-reverse
+        justify-content: flex-start
+        align-items: center
+        padding-right: 15px
+        background-image: linear-gradient(#DEDEDE, #FFFFFF)
+        
+        *
+            height: 40px
+            width: 28%
+            min-width: 70px
+            max-width: 120px
+            display: flex
+            justify-content: center
+            align-items: center
+            margin-right: 15px
+            border-radius: 5px
+            font-size: 1.3em
+            letter-spacing: 0.4em
+            padding-left: 0.4em
+            box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.35)
+
+        .reset
+            background-color: white
+            color: black
+        .confirm
+            background-color: #E9B83E
+            color: white
+
+// Quest listing, all quests
+#quest-listing
+    .quest-list-container
+        position: absolute
+        bottom: 0
+        
+        display: block
+        width: 100%
+        height: calc(100vh - 155px)
+
+        .container-fadeout-top
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)
+
+// Quest Listing, within division
+#quest-titled-listing
+    #quest-list-bg
+        position: absolute
+        left: 0
+        bottom: 0
+
+        display: block
+        height: calc(100vh - 155px)
+        width: 100%
+
+        border-radius: 30px 30px 0 0
+        background-color: #EAF6F7
+        
+        #quest-list-title
+            position: relative
+            height: 15%
+            max-height: 70px
+            width: 100%
+
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+
+            font-size: 1.5em
+            color: black
+            letter-spacing: 0.2em
+            padding-left: 0.2em
+
+        .quest-list-container
+            height: 90%
+
+// List container general
+.quest-list-container
+    position: relative
+    width: 100%
+
+    display: block
+    overflow-y: scroll
+
+    .container-fadeout-top
+        position: sticky
+        display: block
+        width: 100%
+        height: 20px
+        top: -1px
+        left: 0
+        z-index: 1
+        margin-bottom: -20px
+        background-image: linear-gradient(to bottom, rgba(234, 246, 247, 1) 0%, rgba(234, 246, 247, 0) 100%)
+
+    .quest-list-item
+        position: relative
+        width: 90%
+        height: 90px
+        margin: 10px auto 0
+
+        background-color: white
+        border-radius: 15px
+        box-shadow: 2px 2px 5.5px rgb(0 0 0 / 40%)
+        overflow: hidden
+
+        *
+            position: absolute
+
+        .qli-field
+            top: 0
+            bottom: -15px
+            left: 0
+            width: 65px
+            border-radius: 0% 1% 100% 0%/0% 15% 85% 0%
+            background-color: #ECE569
+            writing-mode: vertical-rl
+            white-space: nowrap
+            font-size: 1.2em
+            color: black
+            p 
+                position: absolute
+                top: 19px
+                left: -7px
+                letter-spacing: 12px               
+
+        .qli-title
+            top: 50%
+            left: 85px
+            width: calc(100% - 165px)
+            max-height: 100%
+
+            transform: translateY(-50%)
+
+            white-space: normal
+            font-size: 1em
+            line-height: 1.3em
+            color: black
+
+        .qli-pt
+            top: 10px
+            right: 10px
+
+            display: flex
+            height: 30px
+            width: 30px
+            justify-content: center
+            align-items: center
+            color: white
+            font-size: 12pt
+            border-radius: 50%
+            background-color: #468189
+
+        .qli-accept
+            right: 10px
+            bottom: 7px
+
+            height: 30px
+            width: 75px
+            border-radius: 3px
+
+            font-size: 1em
+            letter-spacing: 5px
+            padding-left: 5px
+
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+            &.can-accept::after
+                content: "挑戰"
+            &.did-accept::after
+                content: "已接取"
+
+// Filtering bar in listing page
+.filter-bar
+    position: relative
+    margin-top: 110px
+
+    display: block
+    width: 100%
+    height: 35px
+    line-height: 35px
+
+    overflow-x: scroll
+
+    .filter-button
+        height: 100%
+        width: 90px
+        line-height: 35px
+
+        position: relative
+        margin-left: 5%
+
+        background-image: url("../resources/quest/filter.png")
+        background-size: contain
+        background-repeat: no-repeat
+
+        &::after
+            content: "篩選"
+            display: flex
+            flex-direction: row-reverse
+            font-size: 1.1em
+            letter-spacing: 0.4em
+            color: #EB931D
+            vertical-align: middle
+
+// Quest option list animatoin
 @keyframes _quest-more-expand
     0%
         height: 50px
@@ -806,8 +869,14 @@
         height: 225px
     100%
         height: 50px
-        
 
+.quest-more-expand
+    animation: _quest-more-expand 0.5s ease forwards
+
+.quest-more-shrink
+    animation: _quest-more-shrink 0.5s ease forwards        
+
+// Quest option list
 .quest-more
     position: fixed
     bottom: 11.5vh
@@ -858,22 +927,10 @@
             left: 50%
             transform: translateX(-50%)
 
-        .quest-more-new
-            img    
-            span
-        .quest-more-ongoing
-            img
-            span
         .quest-more-x
             height: 45px
             img
                 max-width: 45%
-
-.quest-more-expand
-    animation: _quest-more-expand 0.5s ease forwards
-
-.quest-more-shrink
-    animation: _quest-more-shrink 0.5s ease forwards
 
 // New Quest
 #quest-create-new
@@ -1068,6 +1125,193 @@
                 font-size: 3.2vh
                 color: white
             
+// Quest Book
+#quest-book
+    @extend %flex-centeralize
+    background-image: linear-gradient(#ECE569 0%, #FDFBF8 100%)
+
+    .quest-book-page
+        display: block
+        position: absolute
+        height: 70vh
+        width: 92vw
+
+        border-radius: 0 40px 40px 0
+        border: 3px solid #7DD1BA
+        border-left: 10px solid #7FC8BE
+        
+        background-color: white
+
+        overflow: hidden
+
+        .quest-book-page-header
+            @extend %flex-centeralize
+            position: absolute
+            width: 100%
+            height: 75px
+            background-color: #DEF3ED
+            span
+                color: black
+                font-size: 20pt
+                letter-spacing: 3.5pt
+                margin-left: 3.5pt
+                &::after
+                    content: "挑戰中"
+
+        .quest-book-filter
+            position: absolute
+            width: 110px
+            height: 40px
+            top: 85px
+            left: 7.5%
+
+            div
+                display: block
+                position: absolute
+                width: 40px
+                height: 40px
+                left: 0
+                top: 0
+                background-image: url("../resources/quest/filter.png")
+                background-size: contain
+                background-repeat: no-repeat
+
+            span
+                display: flex
+                width: 70px
+                height: 40px
+                position: absolute
+                right: 0
+                top: 0
+                justify-content: center
+                align-content: center
+                flex-direction: column
+                font-size: 13.5pt
+                color: #E9B83E
+                letter-spacing: 3px
+
+                &::after
+                    content: "篩選"
+
+        .quest-book-page-grid
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -38%)
+            display: grid
+            width: 85%
+            height: calc(100% - 185px)
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+            grid-template-rows: repeat(3, minmax(0, 1fr))
+            gap: 15px
+
+            .quest-book-page-grid-item
+                // border: black solid 1px
+                box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.7)
+                border-radius: 15px
+
+                > div
+                    position: relative
+                    display: block
+                    margin: 4% auto 0
+
+                .bar
+                    background-color: #ECE569
+                    width: 70%
+                    height: 1px
+
+                & div:nth-child(1)
+                    color: #545454
+                    font-size: 15pt 
+                    width: fit-content
+                
+                & div:nth-child(3)
+                    width: 85%
+                    font-size: 13pt
+                    line-height: 16pt
+                    color: black
+
+        .quest-book-next
+            bottom: 18px
+            right: 25px
+            div
+                background-image: url("../resources/quest/return-next-arrow.png")
+
+    .quest-book-page:first-of-type
+        displaty: none
+
+    #filter-bookpage.quest-book-page
+        #quest-book-filter-return
+            top: 85px
+            right: 15px
+            div
+                transform: rotateY(180deg)
+                background-image: url("../resources/quest/return-next-arrow.png")
+        #quest-book-filter-grid
+            position: absolute
+            width: 65%
+            height: 53.4vw
+            max-height: calc(60% - 75px)
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            
+            display: grid
+            grid-template-columns: repeat(2, 1fr)
+            grid-template-rows: 40px repeat(3, 1fr)
+            gap: 15px
+
+            & * 
+                display: flex
+                justify-content: center
+                align-content: center
+                align-items: center
+                flex-direction: column
+            > span
+                grid-column: 1 / 3
+                display: flex
+                white-space: nowrap
+                font-size: 16pt
+                color: black
+            
+            > div
+                border-radius: 5px
+
+                font-size: 16pt
+                letter-spacing: 3px
+                margin-left: 3px
+
+        #filter-bookpage-footer
+            position: absolute
+            display: flex
+            justify-content: flex-end
+            width: 100%
+            height: 10%
+            bottom: 10%
+            left: 0
+            background-color: #DEF3ED
+
+            & *
+                display: flex
+                position: relative
+                width: 22%
+                min-width: 90px
+                height: 40px
+                margin: auto 6% auto 0
+                justify-content: center
+                align-content: center
+                align-items: center
+                flex-direction: column
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4)
+                border-radius: 5px
+                font-size: 16pt
+
+            .reset
+                background-color: white
+
+            .confirm
+                background-color: #EB931D
+                color: white
 
 
 // New Quest Animations
@@ -1123,16 +1367,16 @@
     100%
         background-color: #EB931D
         color: #FFFFFF
-        border: none
-        box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.45)
+        border: 1px solid #EB931D
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4)
         transform: translate(-2px, -2px)
 
 @keyframes _owbtn-deselect
     0%
         background-color: #EB931D
         color: #FFFFFF
-        border: none
-        box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.45)
+        border: 1px solid #EB931D
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4)
         transform: translate(-2px, -2px)
     100%
         background-color: #FFFFFF
@@ -1167,3 +1411,80 @@
 // Indicate disabled items
 .disabled-grayscale
     filter: grayscale(100%)
+
+// Book page filp effects
+@keyframes _bookflip-to-left
+    0%
+        transform: rotateY(0deg)
+    100%
+        transform: rotateY(180deg)
+
+@keyframes _bookflip-from-left
+    0%
+        transform: rotateY(180deg)
+    100%
+        transform: rotateY(0deg)
+
+.bookflip-to-left
+    transform-origin: 0 0
+    animation: _bookflip-to-left .8s ease-in-out forwards
+
+.bookflip-from-left
+    transform-origin: 0 0
+    animation: _bookflip-from-left .8s ease-in-out forwards
+
+// Text-icon pair (size: small)
+.txic-small
+    position: absolute
+    width: 85px
+    height: 25px
+    
+    & *
+        position: absolute
+        
+    > div
+        display: inline-block
+        right: 0
+        top: 0
+        height: 25px
+        width: 25px
+
+        background-size: contain
+        background-repeat: no-repeat
+
+    > span
+        display: flex
+        flex-direction: column
+        justify-content: flex-end
+        align-items: center
+        flex-wrap: nowrap
+        width: 55px
+        height: 25px
+        font-size: 13.5pt
+        color: #E9B83E
+
+// Hide vertical list item,
+@keyframes _item-hide-90px
+    0% 
+        margin-top: 10px
+        height: 90px
+        opacity: 1
+    100%
+        margin-top: 0
+        height: 0
+        opacity: 0
+
+@keyframes _item-show-90px
+    0% 
+        margin-top: 0
+        height: 0
+        opacity: 0
+    100%
+        margin-top: 10px
+        height: 90px
+        opacity: 1
+
+.item-hide-90px
+    animation: _item-hide-90px 0.3s ease forwards
+.item-show-90px
+    animation: _item-show-90px 0.3s ease forwards
