@@ -13,7 +13,7 @@
   "dependencies": {
     "connect-sqlite3": "^0.9.11",
     "express": "^4.16.4",
-    "express-session": "^1.17.1",
+    "express-session": "^1.17.2",
     "pug": "^3.0.2",
     "python-shell": "^3.0.0",
     "sqlite": "^4.0.23",
