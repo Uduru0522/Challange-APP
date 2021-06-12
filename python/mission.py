@@ -482,7 +482,7 @@ elif(sys.argv[1] == '11'):#回傳所有照片
 elif(sys.argv[1] == '12'):#回傳所有稱號
     print(alltitle(con3, sys.argv[2]))
 elif(sys.argv[1] == '13'):#選擇稱號、3為稱號ID
-    choosetitle(con3, sys.argv[2], sys.argv[3]))
+    choosetitle(con3, sys.argv[2], sys.argv[3])
 elif(sys.argv[1] == '14'):#排行榜
     print(leaderboard(con2))
 elif(sys.argv[1] == '15'):#找到相同任務的好友
