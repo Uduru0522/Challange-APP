@@ -1,3 +1,21 @@
+// Generate random base64 image
+function b64ImgRandGen(width, height) {
+    const imageData = new ImageData(width, height);
+    const canvas = document.createElement('canvas');
+
+    canvas.width = width;
+    canvas.height = height;
+
+    imageData.data.set(imageData.data.map(() => _.random(0, 255)))
+    canvas.getContext('2d').putImageData(imageData, 0, 0);
+
+    return canvas.toDataURL();
+}
+
+/*********************************************** */
+/*  Actual building functions                    */
+/*********************************************** */
+
 function build_quest_list(container, division) {
     // Clear out container
     container.innerHTML = "";
@@ -16,12 +34,8 @@ function build_quest_list(container, division) {
         while (qlist.length) {
             // Clone new list item
             let new_item = base_item.cloneNode(true);
-
-            // Short-hand for info under use
-            let q = qlist[0];
-
-            // Remove unneeded attr. from base
             new_item.removeAttribute("id");
+            let q = qlist[0];
 
             // Assign dataset to item
             new_item.dataset.qid = q.ID;
@@ -29,9 +43,8 @@ function build_quest_list(container, division) {
                 if (q.category == e) {
                     new_item.dataset.field = index + 1;
                 }
-                console.log(q.category);
             });
-            ["單人", "多人", "both"].forEach(function(e, index) {
+            ["single", "multiple", "both"].forEach(function(e, index) {
                 if (q.multiple == e) {
                     new_item.dataset.plim = index + 1;
                 }
@@ -44,6 +57,7 @@ function build_quest_list(container, division) {
             new_item.querySelector(".qli-pt").innerText = q.points;
 
             // Determine accept state
+            new_item.querySelector(".qli-accept").dataset.qid = q.ID;
             if (q.progress == 0) {
                 new_item.querySelector(".qli-accept").classList.add("owbtn-select");
                 new_item.querySelector(".qli-accept").classList.add("can-accept");
@@ -70,5 +84,50 @@ function build_quest_detail(qid) {
         qid: qid
     }, function(data) {
         console.log(data);
+        let qdata = data[0];
+
+        // Header contents
+        document.querySelectorAll(".qdh-field").forEach(e => {
+            e.textContent = qdata.category;
+        });
+        document.querySelectorAll(".qdh-qname").forEach(e => {
+            e.textContent = qdata.name;
+        });
+        document.querySelectorAll(".qdh-pts").forEach(e => {
+            e.textContent = qdata.points;
+        });
+
+        // Body contents
+        document.querySelector("#qd-intro > span").textContent = qdata.description;
+        document.querySelector("#qd-guide > span").textContent = qdata.description; // Not existence in current database
+        let accept_button = document.getElementById("qd-accept");
+        accept_button.dataset.qid = qid;
+        if (qdata.progress == "0") {
+            accept_button.classList.remove("did-accept");
+            accept_button.classList.remove("owbtn-deselect");
+            accept_button.classList.add("can-accept");
+            accept_button.classList.add("owbtn-select");
+        } else {
+            accept_button.classList.remove("can-accept");
+            accept_button.classList.remove("owbtn-select");
+            accept_button.classList.add("did-accept");
+            accept_button.classList.add("owbtn-deselect");
+        }
+        if (qdata.stage > 1) {
+            let submit_past_base = document.getElementById("qdsp-toclone");
+            let container = document.getElementById("qd-submit-container");
+            let count = qdata.stage;
+            while (count > 1) {
+                let new_block = submit_past_base.cloneNode(true);
+                new_block.removeAttribute("id");
+
+                // Retreve past submit data
+                new_block.style.backgroundImage = "url(" + b64ImgRandGen(50, 50) + ")";
+
+                container.insertBefore(new_block, container.getElementsByClassName("dummy")[0]);
+                count--;
+            }
+        }
+
     });
 }

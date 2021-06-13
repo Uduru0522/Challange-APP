@@ -23,6 +23,11 @@ function swipedetect(el, callback) {
     let dragging = false,
         swiping = false; // Allow only one of the event
 
+    // Temp early return for debugging
+    if (!el) {
+        return;
+    }
+
     target.addEventListener("mousedown", function(e) {
         if (!swiping) {
             dragging = true;
@@ -162,11 +167,8 @@ $(document).ready(() => {
         // Filter in order
         let disappear_interval = 5;
         let promise = Promise.resolve();
-        console.log(to_filter);
-        console.log(to_filter.children());
         to_filter.children(".quest-list-item").each(function(index, element) {
             let matched = false;
-            console.log($(this));
 
             // Apply filters
             if (!fop_field.size && fop_ppl.size) {
@@ -183,8 +185,9 @@ $(document).ready(() => {
                     matched = true;
                 }
             });
-            if (matched && !fop_ppl.has(parseInt($(this).data("plim")))) {
-                matched = false
+            let elem_plim = parseInt($(this).data("plim"));
+            if (matched && elem_plim != 3 && !fop_ppl.has(elem_plim)) {
+                matched = false;
             }
             let lower_bound, upper_bound;
             let linput = $("#pts-filter input[name=lb]"),
@@ -200,7 +203,6 @@ $(document).ready(() => {
             } else {
                 upper_bound = parseInt(uinput.val());
             }
-            console.log(lower_bound + ", " + upper_bound);
 
             if (matched && (elem_pts < lower_bound || elem_pts > upper_bound)) {
                 matched = false
@@ -259,84 +261,68 @@ $(document).ready(() => {
     });
 
     /***************************************************************************** */
-    /* Quest List Events                                                           */
+    /* Quest List & Quest Detail Events                                            */
     /***************************************************************************** */
 
-    // Accept quest in list
-    $(document).on("click", ".qli-accept.can-accept", function() {
-        // Get qid
-        let qid = $(this).closest(".quest-list-item").data("qid");
-        console.log(qid);
-
+    // Accept quest
+    $(document).on("click", ".can-accept", function() {
         // Send POST req
         $.post(
             "mission/accept", {
-                qid: qid
+                qid: $(this).data("qid")
             },
             function(response) {
                 console.log("Quest accepted successfully");
             }
         )
-
         $(this).removeClass("can-accept").addClass("did-accept");
         $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
     });
 
-    // Goto quest-detail from quest list
-    $(document).on("click", ".quest-list-item", function(e) {
-        // Dont trigger on accept quest button
+    // Build and show quest detail page
+    $(document).on("click", ".goto-quest-detail", function(e) {
+        // Dont trigger on when clicking on other functional elements
         if ($(e.target).hasClass("qli-accept")) {
             return;
         }
 
+        // Show detail page
+        document.getElementById("quest-detail").style.removeProperty("display");
         build_quest_detail($(this).data("qid"));
+    })
+
+    // Goto quest submit page
+    $(document).on("click", ".qd-submit-upload", function(e) {
+        console.log("go sub");
+        document.getElementById("quest-submit").style.removeProperty("display");
     });
 
-    /***************************************************************************** */
-    /* Quest List events                                                           */
-    /***************************************************************************** */
-
-    // Accept quest in detail page
-    $(document).on("click", "#quest-detail-button", function() {
-        if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).children(":first").attr("id").match(/\d+/g);
-            $("#quest-submit-field").removeClass("hidden").addClass("show");
-            console.log(qid);
-
-            // Send POST request to accept quest
-            $.post(
-                "mission/accept", {
-                    qid: qid
-                },
-                function() {
-                    console.log("Quest accepted successfully");
-                }
-            )
-            $(this).addClass("already-accept").removeClass("can-accept");
-            $(this).children("span").text("已接取");
-        }
+    // Return to last page
+    $(document).on("click", ".qdh-return-arrow", function(e) {
+        console.log("return");
+        $(this).closest(".container")[0].style.display = "none";
     });
 
-    // Submit quests
-    $(document).on("click", "#quest-submit-button", function() {
-        // Send post request to submit quest
-        const img64 = compress(document.getElementById('preview'), 200, 200, 0.9);
-        console.log($("#quest-detail-button span").attr("id"));
-        const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
-        console.log(qid);
-        $.post(
-            "./mission/report_single", {
-                qid: qid,
-                img: img64,
-                text: $("#quest-submit-text").val()
-            },
-            function(data) {
-                console.log("Update success");
-            }
-        );
-        $("#quest-submit-field").removeClass("show").addClass("hidden");
-        $(this).closest(".container").find(".return-arrow").trigger("click");
-    });
+    // // Submit quests
+    // $(document).on("click", "#quest-submit-button", function() {
+    //     // Send post request to submit quest
+    //     const img64 = compress(document.getElementById('preview'), 200, 200, 0.9);
+    //     console.log($("#quest-detail-button span").attr("id"));
+    //     const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
+    //     console.log(qid);
+    //     $.post(
+    //         "./mission/report_single", {
+    //             qid: qid,
+    //             img: img64,
+    //             text: $("#quest-submit-text").val()
+    //         },
+    //         function(data) {
+    //             console.log("Update success");
+    //         }
+    //     );
+    //     $("#quest-submit-field").removeClass("show").addClass("hidden");
+    //     $(this).closest(".container").find(".return-arrow").trigger("click");
+    // });
 
     // Image preview on upload
     // const myFile = document.querySelector('#quest-submit-img')
@@ -502,7 +488,7 @@ $(document).ready(() => {
                     qc_d = index;
                     break;
                 default:
-                    console.log("Nope, should not be here(group");
+                    console.log("Nope, should not be here(group)");
                     break;
             }
             // Apply select animation

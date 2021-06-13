@@ -126,7 +126,7 @@
     </div>
 
     <!-- Quest list entry for cloning -->
-    <div class="quest-list-item" id="qli-toclone">
+    <div class="quest-list-item goto-quest-detail" id="qli-toclone">
         <div class="qli-field">
             <p></p>
         </div>
@@ -137,7 +137,7 @@
     <!-- Mask for fading out from -->
     <div class="container-fadeout-top"></div>
 
-    <!-- After filtered, or clicked "show-all" button-->
+    <!-- Quest Lists (All / Titled) -->
     <div class="container" id="quest-titled-listing" style="display: none;">
         <div class="quest-header"><span></span></div>
         <div class="filter-bar">
@@ -152,7 +152,6 @@
             </div>
         </div>
     </div>
-
     <div class="container" id="quest-listing" style="display: none;">
         <div class="quest-header"><span></span></div>
         <div class="filter-bar">
@@ -162,9 +161,73 @@
         </div>
     </div>
 
-    <!-- Details for quests. -->
-    <!-- Show after clicked "Details" on entries within each quest pages-->
-    <div class="container" id="quest-detail">
+    <!-- Template for image upload-history block -->
+    <div class="qd-submit-past" id="qdsp-toclone">
+        <div class="qd-submit-mask"></div>
+        <div class="qdsp-location"></div>
+        <div class="qdsp-title"></div>
+    </div>
+
+    <!-- Quest Detail -->
+    <div class="container" id="quest-detail" style="display: none;">
+        <div class="quest-detail-header">
+            <div class="qdh-return-arrow"></div>
+            <div class="qdh-field"></div>
+            <div class="qdh-qname"></div>
+            <div class="qdh-pts"></div>
+        </div>
+        <div class="qd-block" id="qd-submit">
+            <div class="qd-block-title">完成紀錄</div>
+            <div id="qd-submit-container">
+                <div class="qd-submit-upload">
+                    <div class="qd-submit-mask"></div>
+                </div>
+
+                <!-- Put manually for showcase -->
+                <div class="qd-submit-past">
+                    <div class="qd-submit-mask"></div>
+                    <div class="qdsp-location"></div>
+                    <div class="qdsp-title"></div>
+                </div>
+                <!-- Showcase end -->
+
+                <div class="dummy"></div>
+            </div>
+            <input type="file" name="image/*" id="qd-submit-fileinput" style="display: none">
+        </div>
+        <div class="qd-block" id="qd-intro">
+            <div class="qd-block-title">任務介紹</div><span></span>
+            <div id="qd-plim"><span>單人</span><span>多人</span></div>
+        </div>
+        <div class="qd-block" id="qd-guide">
+            <div class="qd-block-title">完成條件</div><span></span>
+            <div class="can-accept owbtn-select" id="qd-accept"></div>
+        </div>
+        <div class="qd-accept"></div>
+        <div class="qd-block" id="qd-history">
+            <div class="qd-block-title">挑戰經歷</div>
+            <div id="qd-history-flex">
+                <div style="background-color: #031926"></div>
+                <div style="background-color: #468189"></div>
+                <div style="background-color: #468189"></div>
+                <div id="qd-history-flex-anchor" class="placeholder"></div>
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quest submit -->
+    <div class="container" id="quest-submit" style="display: none;">
+        <div class="quest-detail-header">
+            <div class="qdh-return-arrow"></div>
+            <div class="qdh-field"></div>
+            <div class="qdh-qname"></div>
+            <div class="qdh-pts"></div>
+        </div>
+    </div>
+
+    <!-- <div class="container" id="quest-detail">
         <div class="quest-header" id="quest-detail-header">
             <img class="return-arrow" src="../resources/quest/return-next-arrow.png">
             <div id="quest-points"><span>10</span></div>
@@ -174,62 +237,61 @@
 
         <div id="quest-submit-field" class="hidden">
             <div class="qd-title" id="quest-require-title"><span>完成紀錄</span></div>
-            <!-- <div class=""
             <div class="upload-new"></div> -->
-            <!-- <img id="preview_base" src="../resources/click-to-upload.png"> -->
-            <!-- <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
+    <!-- <img id="preview_base" src="../resources/click-to-upload.png"> -->
+    <!-- <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
             <input id="quest-submit-text" type="text" placeholder="Enter Image Discription Here..."> -->
-            <!-- <div id="quest-submit-button">
+    <!-- <div id="quest-submit-button">
                 <span>提交</span>
             </div> -->
-        </div>
-        <div id="quest-intro">
-            <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
-            <span class="qd-body" id="quest-intro-body"></span>
-            <div id="people-indicate"><span></span></div>
-        </div>
-        <div id="quest-require">
-            <div class="qd-title" id="quest-require-title"> <span>完成條件</span></div>
-            <div class="qd-body" id="quest-require-body"></div>
-        </div>
-        <!-- <div id="quest-detail-button"><span></span></div> -->
+    <!-- </div>
+    <div id="quest-intro">
+        <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
+        <span class="qd-body" id="quest-intro-body"></span>
+        <div id="people-indicate"><span></span></div>
+    </div>
+    <div id="quest-require">
+        <div class="qd-title" id="quest-require-title"> <span>完成條件</span></div>
+        <div class="qd-body" id="quest-require-body"></div>
+    </div> 
+    <div id="quest-detail-button"><span></span></div>
 
-        <div id="quest-history">
-            <div class="qd-title"><span>挑戰經歷</span></div>
-            <div id="img-grid-wrapper"></div>
+    <div id="quest-history">
+        <div class="qd-title"><span>挑戰經歷</span></div>
+        <div id="img-grid-wrapper"></div>
+    </div>
+    <div id="show-stranger">
+        <div id="pre-stranger">
+            <span class="ss-pre" id="show-stranger-title">看看有誰</span>
+            <div class="shape-chevron ss-pre"></div>
+            <div class="shape-chevron ss-pre"></div>
         </div>
-        <div id="show-stranger">
-            <div id="pre-stranger">
-                <span class="ss-pre" id="show-stranger-title">看看有誰</span>
-                <div class="shape-chevron ss-pre"></div>
-                <div class="shape-chevron ss-pre"></div>
-            </div>
-            <div id="full-stranger">
-                <div>
-                    <div id="stranger-icon">
-                        <img src="../resources/quest/placeholder-1_1.png">
-                    </div>
-                    <div id="stranger-info-flex">
-                        <div id="stranger-id"><span>戰經戰戰經</span></div>
-                        <div id="stranger-hashtag"><span>#戰戰經經</span></div>
-                        <div id="stranger-req"><span>戰經戰</span></div>
-                    </div>
+        <div id="full-stranger">
+            <div>
+                <div id="stranger-icon">
+                    <img src="../resources/quest/placeholder-1_1.png">
                 </div>
-                <div>
-                    <div id="stranger-top-stat-flex">
-                        <span id="stranger-top-stat-1">項目：42</span>
-                        <span id="stranger-top-stat-2">項目：42</span>
-                        <span id="stranger-top-stat-3">項目：42</span>
-                        <span id="stranger-top-stat-4">項目：42</span>
-                    </div>
-                    <div id="stranger-radar">
-                        <img src="../resources/quest/radar_base.png" />
-                        <img id="stranger-radar-inner" src="../resources/quest/radar-inner-black.png" />
-                    </div>
+                <div id="stranger-info-flex">
+                    <div id="stranger-id"><span>戰經戰戰經</span></div>
+                    <div id="stranger-hashtag"><span>#戰戰經經</span></div>
+                    <div id="stranger-req"><span>戰經戰</span></div>
+                </div>
+            </div>
+            <div>
+                <div id="stranger-top-stat-flex">
+                    <span id="stranger-top-stat-1">項目：42</span>
+                    <span id="stranger-top-stat-2">項目：42</span>
+                    <span id="stranger-top-stat-3">項目：42</span>
+                    <span id="stranger-top-stat-4">項目：42</span>
+                </div>
+                <div id="stranger-radar">
+                    <img src="../resources/quest/radar_base.png" />
+                    <img id="stranger-radar-inner" src="../resources/quest/radar-inner-black.png" />
                 </div>
             </div>
         </div>
     </div>
+    </div> -->
 
     <!-- Show when to create new quest -->
     <div class="container hidden" id="quest-create-new">
