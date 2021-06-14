@@ -38,10 +38,11 @@ const nav_icons = [
     "#nav-mypage"
 ];
 
-function hide_all_page() {
+function hide_all_page(index) {
     pages_selector.forEach(element => {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
+
         }
         let stranger = document.getElementById("show-stranger");
         let stranger_pre = document.getElementById("pre-stranger");
@@ -87,16 +88,28 @@ $(document).ready(() => {
     for (let i = 0; i < 7; ++i) {
         $(nav_icons[i]).on("click", () => {
             console.log("Clicked icon: " + nav_icons[i]);
-            hide_all_page();
-            $(pages_selector[i]).removeClass("hidden").addClass("show");
-            document.getElementById("chat-content").innerHTML = "";
+            for (let j = 0; j < 5; j++) {
+                if ($(pages_selector[j]).hasClass("show")) {
+                    console.log("show icon: " + nav_icons[j])
+                    $(pages_selector[j]).css('opacity', 1).animate({ opacity: 0 }, 300)
+                }
+                if (j == 4) {
+                    setTimeout(function () {
+                        hide_all_page();
+                        $(pages_selector[i]).removeClass("hidden").addClass("show")
+                        $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
+                        document.getElementById("chat-content").innerHTML = "";
+                        // Switch to function pointers plz
+                        if (nav_icons[i] == "#nav-quest") {
+                            $(".quest-more-closed").removeClass("hidden").addClass("show");
+                            $(".quest-more-open").removeClass("show").addClass("hidden");
+                            $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
+                        }
+                    }, 300)
 
-            // Switch to function pointers plz
-            if (nav_icons[i] == "#nav-quest") {
-                $(".quest-more-closed").removeClass("hidden").addClass("show");
-                $(".quest-more-open").removeClass("show").addClass("hidden");
-                $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
+                }
             }
+
         });
     }
 
@@ -175,14 +188,14 @@ $(document).ready(() => {
     });
 
     // Quest submit
-    $(document).on("click", ".can-accept#quest-detail-button", function() {
+    $(document).on("click", ".can-accept#quest-detail-button", function () {
         $("#quest-info").toggleClass("show").toggleClass("hidden");
         $("#quest-submit").toggleClass("show").toggleClass("hidden");
         $("#quest-submit-field").css("display", "block");
     });
 
     // Show more (Land into titled listing)
-    $(".showmore").on("click", function() {
+    $(".showmore").on("click", function () {
         hide_all_page();
         document.getElementById("quest-titled-listing").style.removeProperty("display");
         switch ($(this).data("div")) {
@@ -201,3 +214,10 @@ $(document).ready(() => {
         build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), $(this).data("div"));
     });
 });
+setTimeout(function () {
+    $(document).ready(function () {
+        document.getElementById("loading-icon").style.display = "none";
+        document.getElementById("loading-text").style.display = "none";
+        document.getElementById("bodybody").style.display = "block";
+    });
+ }, 2000);

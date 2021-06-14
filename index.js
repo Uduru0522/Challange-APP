@@ -387,6 +387,7 @@ app.post('/html/leaderboard', (req, res) => {
     };
 
     PythonShell.run("mission.py", options, function(err, data) {
+        console.log(data)
         data = JSON.parse(data)
         res.send(data);
     });
