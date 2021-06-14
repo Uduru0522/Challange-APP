@@ -23,211 +23,216 @@
 <body>
     <!-- Assume using iPhoneX sizing (1125x2436)-->
     <!-- Loading page, show this until all others are loaded.-->
-    <div class="container" id="loading-cover"></div>
+    <div class="container" id="loading-cover">
+        <div id="loading-icon"> 
+        </div>
+        <div id=loading-text>loading...</div>
+    </div>
     <!-- Script for fetching necessary datas-->
     <script src="../js/fetch.js">
     </script>
     <!-- Navigation bar at the bottom-->
-    <div class="navbar">
-        <img id="nav-chat" src="../resources/nav/message_icon.png">
-        <img id="nav-friend" src="../resources/nav/book_icon.png">
-        <img id="nav-mainpage" src="../resources/nav/mainpage-clicked.png">
-        <img id="nav-mypage" src="../resources/nav/people_icon.png">
-        <img id="nav-quest" src="../resources/nav/fist_icon.png">
-    </div>
-    <!-- Container class for each function page-->
-    <!-- Except login page, uses a new html page.-->
-    <!-- Mainpage, should land here after login -->
-    <!-- Or after clicking the mainpage icon of nav-bar-->
-    <div class="container show" id="mainpage">
-        <div id="city-container">
-            <img id="building-d24" src="../resources/city/D24.png">
-            <img id="building-dck" src="../resources/city/white-building.png">
-            <img id="building-dorm" src="../resources/city/dorm.png">
-            <img id="building-sculp" src="../resources/city/sculpture.png">
-            <img id="backround-decoration" src="../resources/city/bird-cloud.png">
+    <div id="bodybody">
+        <div class="navbar">
+            <img id="nav-friend" src="../resources/update/book_icon.png">
+            <img id="nav-chat" src="../resources/update/message_icon.png">
+            <img id="nav-mainpage" src="../resources/update/home_icon.png">
+            <img id="nav-quest" src="../resources/update/hand_icon.png">
+            <img id="nav-mypage" src="../resources/update/people_icon.png">
         </div>
-
-    </div>
-    <!-- Land here after clicking quest icon of nav-bar-->
-    <div class="container" id="quest-main">
-        <div class="quest-header"><span></span></div>
-        <div class="filter-bar">
-            <div class="filter-button"></div>
-        </div>
-        <div class="quest-peek" id="everyone-like">
-            <div class="peek-title"> <span>大家都想挑戰⋯</span><span class="showmore" data-div="el">查看全部</span></div>
-        </div>
-        <div class="quest-peek" id="you-might-like">
-            <div class="peek-title"> <span>你可能會喜歡⋯</span><span class="showmore" data-div="yml">查看全部</span></div>
-        </div>
-        <div class="quest-peek" id="already-finished">
-            <div class="peek-title"> <span>再挑戰一次⋯</span><span class="showmore" data-div="af">查看全部</span></div>
-        </div>
-        <div class="dummy"></div>
-
-        <div class="quest-more">
-            <div class="quest-more-closed">
-                <img class="quest-more-option" src="../resources/quest/quest-more-option.png">
+        <!-- Container class for each function page-->
+        <!-- Except login page, uses a new html page.-->
+        <!-- Mainpage, should land here after login -->
+        <!-- Or after clicking the mainpage icon of nav-bar-->
+        <div class="container show" id="mainpage">
+            <div id="city-container">
+                <img id="building-d24" src="../resources/city/D24.png">
+                <img id="building-dck" src="../resources/city/white-building.png">
+                <img id="building-dorm" src="../resources/city/dorm.png">
+                <img id="building-sculp" src="../resources/city/sculpture.png">
+                <img id="backround-decoration" src="../resources/city/bird-cloud.png">
             </div>
-            <div class="quest-more-open hidden">
-                <div class="quest-more-new">
-                    <img src="../resources/quest/quest-more-new.png">
-                    <span>發起任務</span>
+
+        </div>
+        <!-- Land here after clicking quest icon of nav-bar-->
+        <div class="container" id="quest-main">
+            <div class="quest-header"><span></span></div>
+            <div class="filter-bar">
+                <div class="filter-button"></div>
+            </div>
+            <div class="quest-peek" id="everyone-like">
+                <div class="peek-title"> <span>大家都想挑戰⋯</span><span class="showmore" data-div="el">查看全部</span></div>
+            </div>
+            <div class="quest-peek" id="you-might-like">
+                <div class="peek-title"> <span>你可能會喜歡⋯</span><span class="showmore" data-div="yml">查看全部</span></div>
+            </div>
+            <div class="quest-peek" id="already-finished">
+                <div class="peek-title"> <span>再挑戰一次⋯</span><span class="showmore" data-div="af">查看全部</span></div>
+            </div>
+            <div class="dummy"></div>
+
+            <div class="quest-more">
+                <div class="quest-more-closed">
+                    <img class="quest-more-option" src="../resources/quest/quest-more-option.png">
                 </div>
-                <div class="quest-more-book">
-                    <img src="../resources/quest/quest-more-ongoing.png">
-                    <span>進行中</span>
+                <div class="quest-more-open hidden">
+                    <div class="quest-more-new">
+                        <img src="../resources/quest/quest-more-new.png">
+                        <span>發起任務</span>
+                    </div>
+                    <div class="quest-more-book">
+                        <img src="../resources/quest/quest-more-ongoing.png">
+                        <span>進行中</span>
+                    </div>
+                    <div class="quest-more-x">
+                        <img src="../resources/quest/quest-more-x.png">
+                    </div>
                 </div>
-                <div class="quest-more-x">
-                    <img src="../resources/quest/quest-more-x.png">
+            </div>
+            <script>
+                fetch_quest_main_page(0);
+            </script>
+        </div>
+
+        <!-- Filter Options-->
+        <div class="container" id="filter" style="display: none">
+            <div class="quest-header"><span></span></div>
+            <div id="filter-return"></div>
+            <div id="filter-panel">
+                <div id="filter-header"></div>
+                <div id="filter-body">
+                    <div class="filter-option-title">領 域</div>
+                    <div class="filter-option-grid" id="field-filter">
+                        <div class="filter-option" data-option="1">美食</div>
+                        <div class="filter-option" data-option="2">人際</div>
+                        <div class="filter-option" data-option="3">旅行</div>
+                        <div class="filter-option" data-option="4">學業</div>
+                        <div class="filter-option" data-option="5">課外</div>
+                        <div class="filter-option" data-option="6">冒險</div>
+                    </div>
+                    <div class="filter-option-title">人數限制</div>
+                    <div class="filter-option-grid" id="ppllimit-filter">
+                        <div class="filter-option" data-option="1">單人</div>
+                        <div class="filter-option" data-option="2">多人</div>
+                    </div>
+                    <div class="filter-option-title">任務積分</div>
+                    <div class="filter-option-range" id="pts-filter">
+                        <input name="lb" type="number">
+                        <div></div><input name="ub" type="number">
+                    </div>
+                    <div class="filter-option-title">地 點</div>
+                    <input type="text" class="filter-option-input" id="loc-filter">
+                </div>
+                <div id="filter-footer">
+                    <div class="confirm">確定</div>
+                    <div class="reset">重設</div>
                 </div>
             </div>
         </div>
-        <script>
-            fetch_quest_main_page(0);
-        </script>
-    </div>
 
-    <!-- Filter Options-->
-    <div class="container" id="filter" style="display: none">
-        <div class="quest-header"><span></span></div>
-        <div id="filter-return"></div>
-        <div id="filter-panel">
-            <div id="filter-header"></div>
-            <div id="filter-body">
-                <div class="filter-option-title">領 域</div>
-                <div class="filter-option-grid" id="field-filter">
-                    <div class="filter-option" data-option="1">美食</div>
-                    <div class="filter-option" data-option="2">人際</div>
-                    <div class="filter-option" data-option="3">旅行</div>
-                    <div class="filter-option" data-option="4">學業</div>
-                    <div class="filter-option" data-option="5">課外</div>
-                    <div class="filter-option" data-option="6">冒險</div>
-                </div>
-                <div class="filter-option-title">人數限制</div>
-                <div class="filter-option-grid" id="ppllimit-filter">
-                    <div class="filter-option" data-option="1">單人</div>
-                    <div class="filter-option" data-option="2">多人</div>
-                </div>
-                <div class="filter-option-title">任務積分</div>
-                <div class="filter-option-range" id="pts-filter">
-                    <input name="lb" type="number">
-                    <div></div><input name="ub" type="number">
-                </div>
-                <div class="filter-option-title">地 點</div>
-                <input type="text" class="filter-option-input" id="loc-filter">
+        <!-- Quest list entry for cloning -->
+        <div class="quest-list-item goto-quest-detail" id="qli-toclone">
+            <div class="qli-field">
+                <p></p>
             </div>
-            <div id="filter-footer">
-                <div class="confirm">確定</div>
-                <div class="reset">重設</div>
+            <div class="qli-title"></div>
+            <div class="qli-pt"></div>
+            <div class="qli-accept"></div>
+        </div>
+        <!-- Mask for fading out from -->
+        <div class="container-fadeout-top"></div>
+
+        <!-- Quest Lists (All / Titled) -->
+        <div class="container" id="quest-titled-listing" style="display: none;">
+            <div class="quest-header"><span></span></div>
+            <div class="filter-bar">
+                <div class="filter-button"></div>
+            </div>
+            <div class="filter-button">
+                <div></div><span></span>
+            </div>
+            <div id="quest-list-bg">
+                <div id="quest-list-title"></div>
+                <div class="quest-list-container">
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Quest list entry for cloning -->
-    <div class="quest-list-item goto-quest-detail" id="qli-toclone">
-        <div class="qli-field">
-            <p></p>
-        </div>
-        <div class="qli-title"></div>
-        <div class="qli-pt"></div>
-        <div class="qli-accept"></div>
-    </div>
-    <!-- Mask for fading out from -->
-    <div class="container-fadeout-top"></div>
-
-    <!-- Quest Lists (All / Titled) -->
-    <div class="container" id="quest-titled-listing" style="display: none;">
-        <div class="quest-header"><span></span></div>
-        <div class="filter-bar">
-            <div class="filter-button"></div>
-        </div>
-        <div class="filter-button">
-            <div></div><span></span>
-        </div>
-        <div id="quest-list-bg">
-            <div id="quest-list-title"></div>
+        <div class="container" id="quest-listing" style="display: none;">
+            <div class="quest-header"><span></span></div>
+            <div class="filter-bar">
+                <div class="filter-button"></div>
+            </div>
             <div class="quest-list-container">
             </div>
         </div>
-    </div>
-    <div class="container" id="quest-listing" style="display: none;">
-        <div class="quest-header"><span></span></div>
-        <div class="filter-bar">
-            <div class="filter-button"></div>
+
+        <!-- Template for image upload-history block -->
+        <div class="qd-submit-past" id="qdsp-toclone">
+            <div class="qd-submit-mask"></div>
+            <div class="qdsp-location"></div>
+            <div class="qdsp-title"></div>
         </div>
-        <div class="quest-list-container">
-        </div>
-    </div>
 
-    <!-- Template for image upload-history block -->
-    <div class="qd-submit-past" id="qdsp-toclone">
-        <div class="qd-submit-mask"></div>
-        <div class="qdsp-location"></div>
-        <div class="qdsp-title"></div>
-    </div>
-
-    <!-- Quest Detail -->
-    <div class="container" id="quest-detail" style="display: none;">
-        <div class="quest-detail-header">
-            <div class="qdh-return-arrow"></div>
-            <div class="qdh-field"></div>
-            <div class="qdh-qname"></div>
-            <div class="qdh-pts"></div>
-        </div>
-        <div class="qd-block" id="qd-submit">
-            <div class="qd-block-title">完成紀錄</div>
-            <div id="qd-submit-container">
-                <div class="qd-submit-upload">
-                    <div class="qd-submit-mask"></div>
-                </div>
-
-                <!-- Put manually for showcase -->
-                <div class="qd-submit-past">
-                    <div class="qd-submit-mask"></div>
-                    <div class="qdsp-location"></div>
-                    <div class="qdsp-title"></div>
-                </div>
-                <!-- Showcase end -->
-
-                <div class="dummy"></div>
+        <!-- Quest Detail -->
+        <div class="container" id="quest-detail" style="display: none;">
+            <div class="quest-detail-header">
+                <div class="qdh-return-arrow"></div>
+                <div class="qdh-field"></div>
+                <div class="qdh-qname"></div>
+                <div class="qdh-pts"></div>
             </div>
-            <input type="file" name="image/*" id="qd-submit-fileinput" style="display: none">
-        </div>
-        <div class="qd-block" id="qd-intro">
-            <div class="qd-block-title">任務介紹</div><span></span>
-            <div id="qd-plim"><span>單人</span><span>多人</span></div>
-        </div>
-        <div class="qd-block" id="qd-guide">
-            <div class="qd-block-title">完成條件</div><span></span>
-            <div class="can-accept owbtn-select" id="qd-accept"></div>
-        </div>
-        <div class="qd-accept"></div>
-        <div class="qd-block" id="qd-history">
-            <div class="qd-block-title">挑戰經歷</div>
-            <div id="qd-history-flex">
-                <div style="background-color: #031926"></div>
-                <div style="background-color: #468189"></div>
-                <div style="background-color: #468189"></div>
-                <div id="qd-history-flex-anchor" class="placeholder"></div>
-                <div class="placeholder"></div>
-                <div class="placeholder"></div>
+            <div class="qd-block" id="qd-submit">
+                <div class="qd-block-title">完成紀錄</div>
+                <div id="qd-submit-container">
+                    <div class="qd-submit-upload">
+                        <div class="qd-submit-mask"></div>
+                    </div>
+
+                    <!-- Put manually for showcase -->
+                    <div class="qd-submit-past">
+                        <div class="qd-submit-mask"></div>
+                        <div class="qdsp-location"></div>
+                        <div class="qdsp-title"></div>
+                    </div>
+                    <!-- Showcase end -->
+
+                    <div class="dummy"></div>
+                </div>
+                <input type="file" name="image/*" id="qd-submit-fileinput" style="display: none">
+            </div>
+            <div class="qd-block" id="qd-intro">
+                <div class="qd-block-title">任務介紹</div><span></span>
+                <div id="qd-plim"><span>單人</span><span>多人</span></div>
+            </div>
+            <div class="qd-block" id="qd-guide">
+                <div class="qd-block-title">完成條件</div><span></span>
+                <div class="can-accept owbtn-select" id="qd-accept"></div>
+            </div>
+            <div class="qd-accept"></div>
+            <div class="qd-block" id="qd-history">
+                <div class="qd-block-title">挑戰經歷</div>
+                <div id="qd-history-flex">
+                    <div style="background-color: #031926"></div>
+                    <div style="background-color: #468189"></div>
+                    <div style="background-color: #468189"></div>
+                    <div id="qd-history-flex-anchor" class="placeholder"></div>
+                    <div class="placeholder"></div>
+                    <div class="placeholder"></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Quest submit -->
-    <div class="container" id="quest-submit" style="display: none;">
-        <div class="quest-detail-header">
-            <div class="qdh-return-arrow"></div>
-            <div class="qdh-field"></div>
-            <div class="qdh-qname"></div>
-            <div class="qdh-pts"></div>
+        <!-- Quest submit -->
+        <div class="container" id="quest-submit" style="display: none;">
+            <div class="quest-detail-header">
+                <div class="qdh-return-arrow"></div>
+                <div class="qdh-field"></div>
+                <div class="qdh-qname"></div>
+                <div class="qdh-pts"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- <div class="container" id="quest-detail">
+        <!-- <div class="container" id="quest-detail">
         <div class="quest-header" id="quest-detail-header">
             <img class="return-arrow" src="../resources/quest/return-next-arrow.png">
             <div id="quest-points"><span>10</span></div>
@@ -238,13 +243,13 @@
         <div id="quest-submit-field" class="hidden">
             <div class="qd-title" id="quest-require-title"><span>完成紀錄</span></div>
             <div class="upload-new"></div> -->
-    <!-- <img id="preview_base" src="../resources/click-to-upload.png"> -->
-    <!-- <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
+        <!-- <img id="preview_base" src="../resources/click-to-upload.png"> -->
+        <!-- <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
             <input id="quest-submit-text" type="text" placeholder="Enter Image Discription Here..."> -->
-    <!-- <div id="quest-submit-button">
+        <!-- <div id="quest-submit-button">
                 <span>提交</span>
             </div> -->
-    <!-- </div>
+        <!-- </div>
     <div id="quest-intro">
         <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
         <span class="qd-body" id="quest-intro-body"></span>
@@ -293,697 +298,708 @@
     </div>
     </div> -->
 
-    <!-- Show when to create new quest -->
-    <div class="container hidden" id="quest-create-new">
-        <div class="quest-header"><span></span></div>
+        <!-- Show when to create new quest -->
+        <div class="container hidden" id="quest-create-new">
+            <div class="quest-header"><span></span></div>
 
-        <div id="quest-create-inputs">
-            <div id="quest-create-part1" class="quest-create-step">
-                <span class="quest-create-steptitle">為新任務命名</span>
-                <input type="text" id="new-quest-name">
-            </div>
-            <div id="quest-create-part2" class="quest-create-step">
-                <span class="quest-create-steptitle">選擇此任務的領域</span>
-                <span class="quest-create-steptitle-ps">（可複選）</span>
-                <div class="quest-create-grid-wrapper">
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1f"><span>人際</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2f"><span>美食</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3f"><span>課外</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item4f"><span>旅行</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item5f"><span>冒險</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item6f"><span>學業</span></div>
+            <div id="quest-create-inputs">
+                <div id="quest-create-part1" class="quest-create-step">
+                    <span class="quest-create-steptitle">為新任務命名</span>
+                    <input type="text" id="new-quest-name">
+                </div>
+                <div id="quest-create-part2" class="quest-create-step">
+                    <span class="quest-create-steptitle">選擇此任務的領域</span>
+                    <span class="quest-create-steptitle-ps">（可複選）</span>
+                    <div class="quest-create-grid-wrapper">
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1f"><span>人際</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2f"><span>美食</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3f"><span>課外</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item4f"><span>旅行</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item5f"><span>冒險</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item6f"><span>學業</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="quest-create-part3" class="quest-create-step">
+                    <span class="quest-create-steptitle">選擇人數限制</span>
+                    <span class="quest-create-steptitle-ps">（可複選）</span>
+                    <div class="quest-create-grid-wrapper">
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1p"><span>單人</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2p"><span>多人</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="quest-create-part4" class="quest-create-step">
+                    <span class="quest-create-steptitle">介紹這個任務？</span>
+                    <textarea id="quest-create-intro"></textarea>
+
+                </div>
+                <div id="quest-create-part5" class="quest-create-step">
+                    <span class="quest-create-steptitle">如何完成任務？</span>
+                    <textarea id="quest-create-brief"></textarea>
+                </div>
+                <div id="quest-create-part6" class="quest-create-step">
+                    <span class="quest-create-steptitle">此任務的難度如何？</span>
+                    <span class="quest-create-steptitle-ps">（管理員將參照您選擇的任務難度予以配分）</span>
+                    <div class="quest-create-grid-wrapper">
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1d"><span>簡單</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2d"><span>普通</span>
+                        </div>
+                        <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3d"><span>困難</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="quest-create-part3" class="quest-create-step">
-                <span class="quest-create-steptitle">選擇人數限制</span>
-                <span class="quest-create-steptitle-ps">（可複選）</span>
-                <div class="quest-create-grid-wrapper">
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1p"><span>單人</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2p"><span>多人</span></div>
-                </div>
-            </div>
-            <div id="quest-create-part4" class="quest-create-step">
-                <span class="quest-create-steptitle">介紹這個任務？</span>
-                <textarea id="quest-create-intro"></textarea>
 
+            <div id="quest-create-progress">
+                <div class="quest-create-progress-dot"></div>
+                <div class="quest-create-progress-dot"></div>
+                <div class="quest-create-progress-dot"></div>
+                <div class="quest-create-progress-dot"></div>
+                <div class="quest-create-progress-dot"></div>
+                <div class="quest-create-progress-dot"></div>
             </div>
-            <div id="quest-create-part5" class="quest-create-step">
-                <span class="quest-create-steptitle">如何完成任務？</span>
-                <textarea id="quest-create-brief"></textarea>
-            </div>
-            <div id="quest-create-part6" class="quest-create-step">
-                <span class="quest-create-steptitle">此任務的難度如何？</span>
-                <span class="quest-create-steptitle-ps">（管理員將參照您選擇的任務難度予以配分）</span>
-                <div class="quest-create-grid-wrapper">
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item1d"><span>簡單</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item2d"><span>普通</span></div>
-                    <div class="quest-create-owbtn owbtn-deselect" id="quest-create-grid-item3d"><span>困難</span></div>
+            <div id="quest-create-next" class="step-confirm"><img src="../resources/quest/new-next.png"></div>
+            <div id="quest-create-finish" class="step-confirm"><img src="../resources/quest/new-done.png"></div>
+            <div id="quest-create-success">
+                <div>
+                    <span>你發起的新任務</span><br>
+                    <span>已經提交至管理員審查</span><br>
+                    <span>待審查通過後將會出現在</span><br>
+                    <span>「最新任務」</span><br>
+                    <span>「挑戰中」</span>
+                    <div id="quest-create-success-confirm">
+                        <span>確定</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="quest-create-progress">
-            <div class="quest-create-progress-dot"></div>
-            <div class="quest-create-progress-dot"></div>
-            <div class="quest-create-progress-dot"></div>
-            <div class="quest-create-progress-dot"></div>
-            <div class="quest-create-progress-dot"></div>
-            <div class="quest-create-progress-dot"></div>
-        </div>
-        <div id="quest-create-next" class="step-confirm"><img src="../resources/quest/new-next.png"></div>
-        <div id="quest-create-finish" class="step-confirm"><img src="../resources/quest/new-done.png"></div>
-        <div id="quest-create-success">
-            <div>
-                <span>你發起的新任務</span><br>
-                <span>已經提交至管理員審查</span><br>
-                <span>待審查通過後將會出現在</span><br>
-                <span>「最新任務」</span><br>
-                <span>「挑戰中」</span>
-                <div id="quest-create-success-confirm">
-                    <span>確定</span>
+        <!-- Book-like list for accepted missions -->
+        <div class="container hidden" id="quest-book">
+            <div class="quest-header">><span></span></div>
+            <div class="quest-book-page">
+                <div class="quest-book-page-header"><span></span></div>
+                <div class="quest-book-filter">
+                    <div></div><span></span>
+                </div>
+                <div class="quest-book-page-grid">
+                </div>
+                <div class="quest-book-next txic-small">
+                    <div></div><span>下一頁</span>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Book-like list for accepted missions -->
-    <div class="container hidden" id="quest-book">
-        <div class="quest-header">><span></span></div>
-        <div class="quest-book-page">
-            <div class="quest-book-page-header"><span></span></div>
-            <div class="quest-book-filter">
-                <div></div><span></span>
-            </div>
-            <div class="quest-book-page-grid">
-            </div>
-            <div class="quest-book-next txic-small">
-                <div></div><span>下一頁</span>
-            </div>
-        </div>
-        <div class="quest-book-page" id="filter-bookpage" style="z-index: 101;">
-            <div class="quest-book-page-header"><span></span></div>
-            <div id="quest-book-filter-return" class="txic-small">
-                <div></div><span>返回</span>
-            </div>
-            <div id="quest-book-filter-grid">
-                <span>在挑戰中進行篩選…</span>
-                <div class="owbtn-deselect qbf-option" data-opt="1" id="qbf-opt1">人際</div>
-                <div class="owbtn-deselect qbf-option" data-opt="2" id="qbf-opt2">美食</div>
-                <div class="owbtn-deselect qbf-option" data-opt="3" id="qbf-opt3">課外</div>
-                <div class="owbtn-deselect qbf-option" data-opt="4" id="qbf-opt4">旅行</div>
-                <div class="owbtn-deselect qbf-option" data-opt="5" id="qbf-opt5">冒險</div>
-                <div class="owbtn-deselect qbf-option" data-opt="6" id="qbf-opt6">學業</div>
-            </div>
-            <div id="filter-bookpage-footer">
-                <div class="reset">重設</div>
-                <div class="confirm">確認</div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Land here after clicking the chat room icon-->
-    <div class="container" id="chat-main">
-        <div class="chat-title">
-            <div id="chatroom-title">聊天室</div>
-        </div>
-        <div id="create-chat-button">
-            <img src="../resources/nav/create_chat.png">
-            <div id="build-group">建立群組</div>
-        </div>
-        <div id="chat-choose-missions" class="create-chat-menu hidden">
-            <div id="choose-mission-text">選擇任務</div>
-            <form name="group-choose-mission" id="group-choose-mission">
-                <img class="search-mission" src="../resources/nav/search.png">
-                <input type="text" placeholder="        輸入任務名稱" name="missiontosearch" id="missiontosearch">
-            </form>
-            <div id="put-mission-here"></div>
-        </div>
-
-
-
-        <input type='radio' name='choose_mission' id='C_M'>
-        <label for='C_M'>
-            <div class="button-sure hidden" onclick="choose_mission()">
-                確定
-            </div>
-        </label>
-
-        <div id="chat-choose-friends" class="create-chat-menu hidden">
-            <div id='choose-friend-text'>選擇好友</div>
-            <form name="group-choose-friend" id="group-choose-friend">
-                <img class="search-friend" src="../resources/nav/search.png">
-                <input type="text" placeholder="        輸入好友名稱" name="friendtosearch" id="friendtosearch">
-            </form>
-            <div id="put-friend-here"></div>
-        </div>
-
-
-
-        <input type='checkbox' name='choose_friend' id='C_F'>
-        <label for='C_F'>
-            <div class="button-creategroup hidden" onclick="choose_friend()">
-                <div>建立群組</div>
-            </div>
-        </label>
-
-        <div id="chat-choose-cover" class="chat-cover hidden"></div>
-
-
-        <div id="chat-record">
-
-
-        </div>
-        <div id="makesure-deletegroup" class="hidden">
-            <div class="makesure-top">
-                <img class="makesure-pic">
-                <div class="makesure-name"></div>
-                <div class="makesure-text">移除好友後，聊天紀錄也將刪除，是否確定移除?</div>
+            <div class="quest-book-page" id="filter-bookpage" style="z-index: 101;">
+                <div class="quest-book-page-header"><span></span></div>
+                <div id="quest-book-filter-return" class="txic-small">
+                    <div></div><span>返回</span>
+                </div>
+                <div id="quest-book-filter-grid">
+                    <span>在挑戰中進行篩選…</span>
+                    <div class="owbtn-deselect qbf-option" data-opt="1" id="qbf-opt1">人際</div>
+                    <div class="owbtn-deselect qbf-option" data-opt="2" id="qbf-opt2">美食</div>
+                    <div class="owbtn-deselect qbf-option" data-opt="3" id="qbf-opt3">課外</div>
+                    <div class="owbtn-deselect qbf-option" data-opt="4" id="qbf-opt4">旅行</div>
+                    <div class="owbtn-deselect qbf-option" data-opt="5" id="qbf-opt5">冒險</div>
+                    <div class="owbtn-deselect qbf-option" data-opt="6" id="qbf-opt6">學業</div>
+                </div>
+                <div id="filter-bookpage-footer">
+                    <div class="reset">重設</div>
+                    <div class="confirm">確認</div>
+                </div>
             </div>
 
-            <div class="makesure-cancel">取消</div>
-            <div class="makesure-sure">確定</div>
+        </div>
 
-        </div>
-    </div>
-    <!-- Room Page? -->
-    <div class="container hidden" id="room-main">
-        <div class="room-title">
-            <h2 id="chat-room-name"></h2>
-        </div>
-        <div id="chat-content">
+        <!-- Land here after clicking the chat room icon-->
+        <div class="container" id="chat-main">
+            <div class="chat-title">
+                <div id="chatroom-title">聊天室</div>
+            </div>
+            <div id="create-chat-button">
+                <img src="../resources/nav/create_chat.png">
+                <div id="build-group">建立群組</div>
+            </div>
+            <div id="chat-choose-missions" class="create-chat-menu hidden">
+                <div id="choose-mission-text">選擇任務</div>
+                <form name="group-choose-mission" id="group-choose-mission">
+                    <img class="search-mission" src="../resources/nav/search.png">
+                    <input type="text" placeholder="        輸入任務名稱" name="missiontosearch" id="missiontosearch">
+                </form>
+                <div id="put-mission-here"></div>
+            </div>
 
+
+
+            <input type='radio' name='choose_mission' id='C_M'>
+            <label for='C_M'>
+                <div class="button-sure hidden" onclick="choose_mission()">
+                    確定
+                </div>
+            </label>
+
+            <div id="chat-choose-friends" class="create-chat-menu hidden">
+                <div id='choose-friend-text'>選擇好友</div>
+                <form name="group-choose-friend" id="group-choose-friend">
+                    <img class="search-friend" src="../resources/nav/search.png">
+                    <input type="text" placeholder="        輸入好友名稱" name="friendtosearch" id="friendtosearch">
+                </form>
+                <div id="put-friend-here"></div>
+            </div>
+
+
+
+            <input type='checkbox' name='choose_friend' id='C_F'>
+            <label for='C_F'>
+                <div class="button-creategroup hidden" onclick="choose_friend()">
+                    <div>建立群組</div>
+                </div>
+            </label>
+
+            <div id="chat-choose-cover" class="chat-cover hidden"></div>
+
+
+            <div id="chat-record">
+
+
+            </div>
+            <div id="makesure-deletegroup" class="hidden">
+                <div class="makesure-top">
+                    <img class="makesure-pic">
+                    <div class="makesure-name"></div>
+                    <div class="makesure-text">退出群組後，聊天紀錄也將刪除，是否確定移除?</div>
+                </div>
+
+                <div class="makesure-cancel">取消</div>
+                <div class="makesure-sure">確定</div>
+
+            </div>
         </div>
-        <div id="chat-bottom">
-            <!--<div id="chat-input-img">
+        <!-- Room Page? -->
+        <div class="container hidden" id="room-main">
+            <div class="room-title">
+                <h2 id="chat-room-name"></h2>
+            </div>
+            <div id="chat-content">
+
+            </div>
+            <div id="chat-bottom">
+                <!--<div id="chat-input-img">
                 <img src="../resources/nav/camera.png" />
                 <img src="../resources/nav/picture.png" />
             </div>-->
-            <div id="chat-input-area">
+                <div id="chat-input-area">
 
-                <form name="input-message" id="input-message">
-                    <input type="text" name="messagetosend" id="messagetosend">
+                    <form name="input-message" id="input-message">
+                        <input type="text" name="messagetosend" id="messagetosend">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Show after clicked "Create Group"-->
+        <div class="container transparent-background" id="chat-create-room">
+        </div>
+
+        <!-- Land here after clicked my-page icon-->
+        <div class="container" id="mypage-main">
+            <div class="mypage-title">
+                <div id="my-data">我的資訊</div>
+
+            </div>
+            <div id="mypage-container">
+                <div id="mypage-record">
+                    <img id="data-pic" src="" />
+                    <div class="data-text">
+                        <div id="data-name"></div>
+                        <div id="data-nickname"></div>
+                        <div id="data-ID"></div>
+                    </div>
+                    <a id="edit-link">編輯</a>
+                </div>
+                <div id="data-selfintro-title">自我介紹</div>
+                <div id="data-selfintro-text"></div>
+
+                <div id="characteristics-L"></div>
+                <div class="characteristics-RT">
+                    <span id="RT-title">特質分析</span>
+                    <img src="../resources/nav/RT.png">
+                </div>
+                <div class="characteristics-RB">
+                    <span id="RB-title">挑戰經歷</span>
+                    <img src="../resources/nav/RB.png">
+                </div>
+                <div id="logout-overflow"></div>
+                <button id="logout">登 出</button>
+            </div>
+            <div id="mission-launched" class="hidden">
+                <div class="back-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="mission-container">
+
+                </div>
+            </div>
+            <div id="characteristic-analyze" class="hidden">
+                <div class="back-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="self-rador">
+
+                    <div id="characteristic-analyze-title">特質分析</div>
+                    <div class="self-rador-white">
+                        <div id="rador">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                        <div id="value-social"></div>
+                        <div id="value-travel"></div>
+                        <div id="value-food"></div>
+                        <div id="value-activity"></div>
+                        <div id="value-sport"></div>
+                        <div id="value-self"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="characteristic-history">
+                <div class="back-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="self-history">
+                    <div id="characteristic-history-title">挑戰經歷</div>
+                    <div id="photobook-grid-wrapper"></div>
+                </div>
+            </div>
+            <div id="edit-mydata">
+                <div id="edit-top">
+                    <div id="edit-back-button"></div>
+                    <div id="edit-title">編輯個人資訊</div>
+                </div>
+                <div id="edit-header">
+                    <div id="edit-header-package">
+                        <img id="edit-header-pic">
+                        <input id="edit-submit-header" style="display: none;" type="file" name="image/*">
+                        <div id="edit-header-text">編輯大頭貼照</div>
+                    </div>
+
+                </div>
+                <form id="edit-text">
+                    <div id="edit-name">
+                        <div id="edit-name-text">
+                            姓名
+                        </div>
+                        <input id="edit-name-input">
+                    </div>
+                    <div id="edit-nickname">
+                        <div id="edit-nickname-text">
+                            稱號
+                        </div>
+                        <select id="edit-nickname-input">
+                        </select>
+                    </div>
+                    <div id="edit-intro">
+                        <div id="edit-intro-text">
+                            自我介紹
+                        </div>
+                        <textarea id="edit-intro-input"></textarea>
+                    </div>
+                    <div id="edit-submit">
+                        確認
+                    </div>
                 </form>
             </div>
         </div>
-
-    </div>
-
-    <!-- Show after clicked "Create Group"-->
-    <div class="container transparent-background" id="chat-create-room">
-    </div>
-
-    <!-- Land here after clicked my-page icon-->
-    <div class="container" id="mypage-main">
-        <div class="mypage-title">
-            <div id="my-data">我的資訊</div>
-
-        </div>
-        <div id="mypage-container">
-            <div id="mypage-record">
-                <img id="data-pic" src="" />
-                <div class="data-text">
-                    <div id="data-name"></div>
-                    <div id="data-nickname"></div>
-                    <div id="data-ID"></div>
-                </div>
-                <a id="edit-link">編輯</a>
+        <div class="container" id="myfriend-main">
+            <div class="Fmypage-title">
+                <div id="Fmy-data">好友資訊</div>
             </div>
-            <div id="data-selfintro-title">自我介紹</div>
-            <div id="data-selfintro-text"></div>
+            <div id="Fmypage-record">
+                <img id="Fdata-pic" src="" />
+                <div class="Fdata-text">
+                    <div id="Fdata-name"></div>
+                    <div id="Fdata-nickname"></div>
+                    <div id="Fdata-ID"></div>
+                </div>
+            </div>
+            <div id="Fdata-selfintro-title">自我介紹</div>
+            <div id="Fdata-selfintro-text"></div>
 
-            <div id="characteristics-L"></div>
-            <div class="characteristics-RT">
-                <span id="RT-title">特質分析</span>
+            <div id="Fcharacteristics-L"></div>
+            <div class="Fcharacteristics-RT">
+                <span id="FRT-title">特質分析</span>
                 <img src="../resources/nav/RT.png">
             </div>
-            <div class="characteristics-RB">
-                <span id="RB-title">挑戰經歷</span>
+            <div class="Fcharacteristics-RB">
+                <span id="FRB-title">挑戰經歷</span>
                 <img src="../resources/nav/RB.png">
             </div>
-            <div id="logout-overflow"></div>
-            <button id="logout">登 出</button>
-        </div>
-        <div id="mission-launched" class="hidden">
-            <div class="back-button">
-                <img src="../resources/nav/arrow.png">
-            </div>
-            <div id="mission-container">
+            <div id="Fmission-launched" class="hidden">
+                <div class="Fback-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="Fmission-container">
 
+                </div>
             </div>
-        </div>
-        <div id="characteristic-analyze" class="hidden">
-            <div class="back-button">
-                <img src="../resources/nav/arrow.png">
-            </div>
-            <div id="self-rador">
-
-                <div id="characteristic-analyze-title">特質分析</div>
-                <div class="self-rador-white">
-                    <div id="rador">
-                        <canvas id="myChart"></canvas>
+            <div id="Fcharacteristic-analyze" class="hidden">
+                <div class="Fback-button">
+                    <img src="../resources/nav/arrow.png">
+                </div>
+                <div id="Fself-rador">
+                    <div id="Fcharacteristic-analyze-title">特質分析</span>
                     </div>
-                    <div id="value-social"></div>
-                    <div id="value-travel"></div>
-                    <div id="value-food"></div>
-                    <div id="value-activity"></div>
-                    <div id="value-sport"></div>
-                    <div id="value-self"></div>
+                    <div class="self-rador-white">
+                        <div id="Frador">
+                            <canvas id="friendChart"></canvas>
+                        </div>
+                        <div id="Fvalue-social"></div>
+                        <div id="Fvalue-travel"></div>
+                        <div id="Fvalue-food"></div>
+                        <div id="Fvalue-activity"></div>
+                        <div id="Fvalue-sport"></div>
+                        <div id="Fvalue-self"></div>
+                    </div>
+
                 </div>
             </div>
 
         </div>
-        <div id="characteristic-history">
-            <div class="back-button">
-                <img src="../resources/nav/arrow.png">
-            </div>
-            <div id="self-history">
-                <div id="characteristic-history-title">挑戰經歷</div>
-                <div id="photobook-grid-wrapper"></div>
-            </div>
-        </div>
-        <div id="edit-mydata">
-            <div id="edit-top">
-                <div id="edit-back-button"></div>
-                <div id="edit-title">編輯個人資訊</div>
-            </div>
-            <div id="edit-header">
-                <div id="edit-header-package">
-                    <img id="edit-header-pic">
-                    <input id="edit-submit-header" style="display: none;" type="file" name="image/*">
-                    <div id="edit-header-text">編輯大頭貼照</div>
-                </div>
-
-            </div>
-            <form id="edit-text">
-                <div id="edit-name">
-                    <div id="edit-name-text">
-                        姓名
-                    </div>
-                    <input id="edit-name-input">
-                </div>
-                <div id="edit-nickname">
-                    <div id="edit-nickname-text">
-                        稱號
-                    </div>
-                    <select id="edit-nickname-input">
-                    </select>
-                </div>
-                <div id="edit-intro">
-                    <div id="edit-intro-text">
-                        自我介紹
-                    </div>
-                    <textarea id="edit-intro-input"></textarea>
-                </div>
-                <div id="edit-submit">
-                    確認
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="container" id="myfriend-main">
-        <div class="Fmypage-title">
-            <div id="Fmy-data">好友資訊</div>
-        </div>
-        <div id="Fmypage-record">
-            <img id="Fdata-pic" src="" />
-            <div class="Fdata-text">
-                <div id="Fdata-name"></div>
-                <div id="Fdata-nickname"></div>
-                <div id="Fdata-ID"></div>
-            </div>
-        </div>
-        <div id="Fdata-selfintro-title">自我介紹</div>
-        <div id="Fdata-selfintro-text"></div>
-
-        <div id="Fcharacteristics-L"></div>
-        <div class="Fcharacteristics-RT">
-            <span id="FRT-title">特質分析</span>
-            <img src="../resources/nav/RT.png">
-        </div>
-        <div class="Fcharacteristics-RB">
-            <span id="FRB-title">挑戰經歷</span>
-            <img src="../resources/nav/RB.png">
-        </div>
-        <div id="Fmission-launched" class="hidden">
+        <div id="Fcharacteristic-history">
             <div class="Fback-button">
                 <img src="../resources/nav/arrow.png">
             </div>
-            <div id="Fmission-container">
-
+            <div id="Fself-history">
+                <div id="Fcharacteristic-history-title">挑戰經歷</div>
+                <div id="Fphotobook-grid-wrapper"></div>
             </div>
         </div>
-        <div id="Fcharacteristic-analyze" class="hidden">
-            <div class="Fback-button">
-                <img src="../resources/nav/arrow.png">
-            </div>
-            <div id="Fself-rador">
-                <div id="Fcharacteristic-analyze-title">特質分析</span>
-                </div>
-                <div class="self-rador-white">
-                    <div id="Frador">
-                        <canvas id="friendChart"></canvas>
-                    </div>
-                    <div id="Fvalue-social"></div>
-                    <div id="Fvalue-travel"></div>
-                    <div id="Fvalue-food"></div>
-                    <div id="Fvalue-activity"></div>
-                    <div id="Fvalue-sport"></div>
-                    <div id="Fvalue-self"></div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <div id="Fcharacteristic-history">
-        <div class="Fback-button">
-            <img src="../resources/nav/arrow.png">
-        </div>
-        <div id="Fself-history">
-            <div id="Fcharacteristic-history-title">挑戰經歷</div>
-            <div id="Fphotobook-grid-wrapper"></div>
-        </div>
-    </div>
-    <!-- Land here after clicked the friend icon-->
-    <div class="container" id="friend-main">
-        <div class="friend-title">
-            <div id="friend-title-text">好友</div>
-        </div>
-
-        <div id="search-ID">
-            <form name="ID-choose-friend" id="ID-choose-friend">
-                <img id="inside-image" src="../resources/nav/search.png" />
-                <input type="text" placeholder="         輸入 ID" id="persontosearch">
-            </form>
-        </div>
-        <div id="click-friend" class="hidden">
-            <div class="click-friend-top">
-                <img id="click-friend-header" />
-                <div id="click-friend-name"></div>
-            </div>
-            <div class="click-friend-bottom">
-                <div id="click-friend-data">
-                    <img src="../resources/nav/frienddata.png" />
-                    <p>好友資訊</p>
-                </div>
-                <div id="click-friend-chat">
-                    <img src="../resources/nav/yellow message_icon.png" />
-                    <p>傳送訊息</p>
-                </div>
+        <!-- Land here after clicked the friend icon-->
+        <div class="container" id="friend-main">
+            <div class="friend-title">
+                <div id="friend-title-text">好友</div>
             </div>
 
-        </div>
+            <div id="search-ID">
+                <form name="ID-choose-friend" id="ID-choose-friend">
+                    <img id="inside-image" src="../resources/nav/search.png" />
+                    <input type="text" placeholder="         輸入 ID" id="persontosearch">
+                </form>
+            </div>
+            <div id="click-friend" class="hidden">
+                <div class="click-friend-top">
+                    <img id="click-friend-header" />
+                    <div id="click-friend-name"></div>
+                </div>
+                <div class="click-friend-bottom">
+                    <div id="click-friend-data">
+                        <img src="../resources/nav/frienddata.png" />
+                        <p>好友資訊</p>
+                    </div>
+                    <div id="click-friend-chat">
+                        <img src="../resources/nav/yellow message_icon.png" />
+                        <p>傳送訊息</p>
+                    </div>
+                </div>
 
-        <div id="friend-record">
-            <div class="single-friend"></div>
-        </div>
-        <div id="makesure-deletefriend" class="hidden">
-            <div class="makesure-top">
-                <img class="makesure-pic">
-                <div class="makesure-name"></div>
-                <div class="makesure-text">移除好友後，聊天紀錄也將刪除，是否確定移除?</div>
             </div>
 
-            <div class="makesure-cancel">取消</div>
-            <div class="makesure-sure">確定</div>
-
-        </div>
-        <div class="emergency">
-            <div class="friend-cover hidden"></div>
-            <div id="addfriend" class="addfriend hidden">
-                <img id="addfriend_pic" src="" />
-                <div id="addfriend_name"></div>
-                <button id="button_add" class="button_add hidden">加入</button>
-                <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
+            <div id="friend-record">
+                <div class="single-friend"></div>
             </div>
-        </div>
-    </div>
-    <div id="rank-main" class="container">
-        <div id="rank-title">排行榜</div>
-        <div id="rank-container" class="swiper-container">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- total -->
-                <div id="total-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score">87</div>
-                        </div>
-                        <div class="rank-title">
-                            <div class="title-text">總排行</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score">321</div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
+            <div id="makesure-deletefriend" class="hidden">
+                <div class="makesure-top">
+                    <img class="makesure-pic">
+                    <div class="makesure-name"></div>
+                    <div class="makesure-text">移除好友後，聊天紀錄也將刪除，是否確定移除?</div>
                 </div>
-                <!-- social -->
-                <div id="social-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score">24</div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">人際</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score">345</div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                <img src="../resources/update/first.png">
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                <img src="../resources/update/second.png">
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                <img src="../resources/update/third.png">
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                4
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                5
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                6
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">天地一方</div>
-                            <div class="rank-block-score">875</div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                7
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                        <div class="rank-block">
-                            <div class="rank-block-order">
-                                8
-                            </div>
-                            <img class="rank-block-header" src="../resources/update/rank_texture.png">
-                            <div class="rank-block-name">
-                                天地一方
-                            </div>
-                            <div class="rank-block-score">
-                                875
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <!-- food -->
-                <div id="food-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score"></div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">美食</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score"></div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
-                </div>
-                <!-- travel -->
-                <div id="travel-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score"></div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">旅行</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score"></div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
-                </div>
-                <!-- study -->
-                <div id="study-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score">
-                            </div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">學業</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score"></div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
-                </div>
-                <!-- activity -->
-                <div id="activity-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score"></div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">課外</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score"></div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
-                </div>
-                <!-- adventure -->
-                <div id="adventure-rank" class="swiper-slide">
-                    <div class="rank-top">
-                        <div class="rank-myrank">
-                            <div class="myrank-text">我的排名</div>
-                            <div class="myrank-score"></div>
-                        </div>
-                        <div class="rank-title">
-                            <img class="title-img" src="../resources/nav/people_icon.png">
-                            <div class="title-text">冒險</div>
-                        </div>
-                        <div class="rank-myscore">
-                            <div class="myscore-text">我的積分</div>
-                            <div class="myscore-score"></div>
-                        </div>
-                    </div>
-                    <div class="rank-mid">
-
-                    </div>
-                    <div class="rank-buttom">
-
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-pagination">
+                <div class="makesure-cancel">取消</div>
+                <div class="makesure-sure">確定</div>
 
             </div>
+            <div class="emergency">
+                <div class="friend-cover hidden"></div>
+                <div id="addfriend" class="addfriend hidden">
+                    <img id="addfriend_pic" src="" />
+                    <div id="addfriend_name"></div>
+                    <button id="button_add" class="button_add hidden">加入</button>
+                    <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
+                </div>
+            </div>
         </div>
-        <!-- If we need scrollbar -->
+        <div id="rank-main" class="container">
+            <div id="rank-title">排行榜</div>
+            <div id="rank-container" class="swiper-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- total -->
+                    <div id="total-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score">87</div>
+                            </div>
+                            <div class="rank-title">
+                                <div class="title-text">總排行</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score">321</div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                    <!-- social -->
+                    <div id="social-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score">24</div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">人際</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score">345</div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    <img src="../resources/update/first.png">
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    <img src="../resources/update/second.png">
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    <img src="../resources/update/third.png">
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    4
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    5
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    6
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">天地一方</div>
+                                <div class="rank-block-score">875</div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    7
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                            <div class="rank-block">
+                                <div class="rank-block-order">
+                                    8
+                                </div>
+                                <img class="rank-block-header" src="../resources/update/rank_texture.png">
+                                <div class="rank-block-name">
+                                    天地一方
+                                </div>
+                                <div class="rank-block-score">
+                                    875
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- food -->
+                    <div id="food-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score"></div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">美食</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score"></div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                    <!-- travel -->
+                    <div id="travel-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score"></div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">旅行</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score"></div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                    <!-- study -->
+                    <div id="study-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score">
+                                </div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">學業</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score"></div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                    <!-- activity -->
+                    <div id="activity-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score"></div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">課外</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score"></div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                    <!-- adventure -->
+                    <div id="adventure-rank" class="swiper-slide">
+                        <div class="rank-top">
+                            <div class="rank-myrank">
+                                <div class="myrank-text">我的排名</div>
+                                <div class="myrank-score"></div>
+                            </div>
+                            <div class="rank-title">
+                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <div class="title-text">冒險</div>
+                            </div>
+                            <div class="rank-myscore">
+                                <div class="myscore-text">我的積分</div>
+                                <div class="myscore-score"></div>
+                            </div>
+                        </div>
+                        <div class="rank-mid">
+
+                        </div>
+                        <div class="rank-buttom">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination">
+
+                </div>
+            </div>
+            <!-- If we need scrollbar -->
 
 
-    </div>
-    <!--
+        </div>
+        <!--
         <div id="rank-container">
             
             <div id="rank-mid">
@@ -993,6 +1009,7 @@
                 
             </div>
         </div>-->
+    </div>
     </div>
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
