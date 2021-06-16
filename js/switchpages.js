@@ -52,10 +52,13 @@ function hide_all_page() {
         // stranger_pre.classList.remove("animate-fade-out");
         // stranger_full.classList.add("animate-fade-out");
         // stranger_full.classList.remove("animate-fade-in");
-        document.getElementById("quest-titled-listing").style.display = "none";
-        document.getElementById("quest-listing").style.display = "none";
-        document.getElementById("quest-detail").style.display = "none";
-        document.getElementById("quest-submit").style.display = "none";
+        [
+            "quest-listing", "quest-titled-listing", "quest-ongoing-listing",
+            "quest-detail", "quest-submit"
+        ].forEach(selector => {
+            document.getElementById(selector).style.display = "none";
+        });
+
     });
     return;
 }
@@ -167,37 +170,21 @@ $(document).ready(() => {
     //     $("#quest-detail").removeClass("hidden").addClass("show");
     // });
 
-    $(document).on("click", ".return-arrow", () => {
-        // Jump back to stored page
-        $("#quest-detail").removeClass("show").addClass("hidden");
-        $("#quest-submit-field").removeClass("show").addClass("hidden");
-        $(origin_page).removeClass("hidden").addClass("show");
-    });
-
-    // Quest submit
-    $(document).on("click", ".can-accept#quest-detail-button", function() {
-        $("#quest-info").toggleClass("show").toggleClass("hidden");
-        $("#quest-submit").toggleClass("show").toggleClass("hidden");
-        $("#quest-submit-field").css("display", "block");
-    });
-
     // Show more (Land into titled listing)
     $(".showmore").on("click", function() {
         hide_all_page();
         document.getElementById("quest-titled-listing").style.removeProperty("display");
-        switch ($(this).data("div")) {
-            case "el":
-                document.getElementById("quest-list-title").innerHTML = "大家都喜歡";
-                break;
-            case "yml":
-                document.getElementById("quest-list-title").innerHTML = "你可能還會喜歡";
-                break;
-            case "af":
-                document.getElementById("quest-list-title").innerHTML = "最新任務";
-                break;
-            default:
-                document.getElementById("quest-list-title").innerHTML = "不該是這樣的";
+        let div = $(this).data("div");
+        let title = document.querySelector("#quest-titled-listing .quest-list-title");
+        if (div == "el") {
+            title.innerHTML = "大家都喜歡";
+        } else if (div == "yml") {
+            title.innerHTML = "你可能還會喜歡"
+        } else if (div == "af") {
+            title.innerHTML = "最新任務"
+        } else {
+            title.innerHTML = "不該是這樣的";
         }
-        build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), $(this).data("div"));
+        build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), div);
     });
 });

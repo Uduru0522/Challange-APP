@@ -121,8 +121,13 @@ $(document).ready(() => {
         fop_field = new Set();
     $(document).on("click", ".filter-button", function(e) {
         // Show filter
-        document.getElementById("filter").style.removeProperty("display");
-        document.querySelector(".navbar").style.display = "none";
+        if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
+            console.log("slide");
+            $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tor").addClass("lr-slide-container-tol");
+        } else {
+            document.getElementById("filter").style.removeProperty("display");
+            document.querySelector(".navbar").style.display = "none";
+        }
 
         // Reset options
         fop_ppl.clear(), fop_field.clear();
@@ -137,6 +142,7 @@ $(document).ready(() => {
             // Or filter current page
             to_filter = $(this).closest(".container").find(".quest-list-container");
         }
+        console.log(to_filter);
     });
 
     // Close filter panel
@@ -146,16 +152,20 @@ $(document).ready(() => {
     });
 
     // Reset filter options
-    $("#filter-footer .reset").on("click", function(e) {
+    $(".filter-footer .reset").on("click", function(e) {
         fop_ppl.clear(), fop_field.clear();
         $(".filter-option.owbtn-select").removeClass("owbtn-select").addClass("owbtn-deselect");
     });
 
     // Apply filter
-    $("#filter-footer .confirm").on("click", function(e) {
+    $(".filter-footer .confirm").on("click", function(e) {
         console.log(to_filter.children(".quest-list-item"));
         // Close filter panel
-        $("#filter-return")[0].click();
+        if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
+            $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tol").addClass("lr-slide-container-tor");
+        } else {
+            $("#filter-return")[0].click();
+        }
 
         // Switch to all-quest listing if on quest-main
         if ($("#quest-main").hasClass("show")) {
@@ -169,6 +179,8 @@ $(document).ready(() => {
         let promise = Promise.resolve();
         to_filter.children(".quest-list-item").each(function(index, element) {
             let matched = false;
+
+            console.log("Processing", element);
 
             // Apply filters
             if (!fop_field.size && fop_ppl.size) {
@@ -190,8 +202,8 @@ $(document).ready(() => {
                 matched = false;
             }
             let lower_bound, upper_bound;
-            let linput = $("#pts-filter input[name=lb]"),
-                uinput = $("#pts-filter input[name=ub]"),
+            let linput = $(".pts-filter input[name=lb]"),
+                uinput = $(".pts-filter input[name=ub]"),
                 elem_pts = parseInt($(this).data("pts"));
             if (linput.val() == null || linput.val() == "") {
                 lower_bound = 0;
@@ -223,6 +235,19 @@ $(document).ready(() => {
                         $(this).removeClass("item-hide-90px")
                         next();
                     });
+                } else if (!matched && $(this).hasClass("item-show-70px")) {
+                    if ($(this).hasClass("item-show-70px")) {
+                        $(this).removeClass("item-show-70px").delay(5).queue(function(next) {
+                            $(this).addClass("item-hide-70px");
+                            next();
+                        });
+                    }
+                } else if (matched && $(this).hasClass("item-hide-70px")) {
+                    $(this).delay(200).queue(function(next) {
+                        $(this).addClass("item-show-70px");
+                        $(this).removeClass("item-hide-70px")
+                        next();
+                    });
                 } else {
                     // No animation, no delay
                     return new Promise(function(resolve) {
@@ -237,7 +262,7 @@ $(document).ready(() => {
     });
 
     // Select field options
-    $("#field-filter .filter-option").on("click", function(e) {
+    $(".field-filter .filter-option").on("click", function(e) {
         if ($(this).hasClass("owbtn-deselect")) {
             $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
             fop_field.add($(this).data("option"));
@@ -249,7 +274,7 @@ $(document).ready(() => {
     });
 
     // Select people limit options
-    $("#ppllimit-filter .filter-option").on("click", function(e) {
+    $(".ppllimit-filter .filter-option").on("click", function(e) {
         if ($(this).hasClass("owbtn-deselect")) {
             $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
             fop_ppl.add($(this).data("option"));
@@ -297,7 +322,7 @@ $(document).ready(() => {
         document.getElementById("quest-submit").style.removeProperty("display");
     });
 
-    // Return to last page
+    // Return to last page in quest detail
     $(document).on("click", ".qdh-return-arrow", function(e) {
         console.log("return");
         $(this).closest(".container")[0].style.display = "none";
@@ -337,33 +362,33 @@ $(document).ready(() => {
     //     }
     // })
 
-    // Redirect click event on uploading image
-    $(document).on("click", "#preview", function() {
-        $("#quest-submit-img").trigger("click");
-    });
+    // // Redirect click event on uploading image
+    // $(document).on("click", "#preview", function() {
+    //     $("#quest-submit-img").trigger("click");
+    // });
 
     // Show stranger panel in quest detail
-    let hidetimer = null;
-    swipedetect(document.getElementById("show-stranger"), function(dir) {
-        if (dir != "none") {
-            clearTimeout(hidetimer);
-            console.log("Swiped/Dragged" + dir);
-            if (dir == "up") {
-                // Transform to full information
-                let target = document.getElementById("show-stranger");
-                target.classList.add("stranger-full");
-                target.classList.remove("stranger-hidden");
+    // let hidetimer = null;
+    // swipedetect(document.getElementById("show-stranger"), function(dir) {
+    //     if (dir != "none") {
+    //         clearTimeout(hidetimer);
+    //         console.log("Swiped/Dragged" + dir);
+    //         if (dir == "up") {
+    //             // Transform to full information
+    //             let target = document.getElementById("show-stranger");
+    //             target.classList.add("stranger-full");
+    //             target.classList.remove("stranger-hidden");
 
-                let pre = document.getElementById("pre-stranger");
-                let full = document.getElementById("full-stranger");
+    //             let pre = document.getElementById("pre-stranger");
+    //             let full = document.getElementById("full-stranger");
 
-                pre.classList.add("animate-fade-out");
-                pre.classList.remove("animate-fade-in");
-                full.classList.add("animate-fade-in");
-                full.classList.remove("animate-fade-out");
-            }
-        }
-    });
+    //             pre.classList.add("animate-fade-out");
+    //             pre.classList.remove("animate-fade-in");
+    //             full.classList.add("animate-fade-in");
+    //             full.classList.remove("animate-fade-out");
+    //         }
+    //     }
+    // });
 
     /***************************************************************************** */
     /* Quest more-action list related events                                       */
@@ -414,8 +439,16 @@ $(document).ready(() => {
         $("#quest-create-success").css("display", "none");
     });
 
+    // Goto ongoing quest list
+    $(document).on("click", ".quest-more-ongoing", function(e) {
+        build_ongoing_list();
+        document.querySelector("#quest-ongoing-listing .lr-slide-container").classList.remove("lr-slide-container-tol");
+        document.querySelector("#quest-ongoing-listing .lr-slide-container").classList.add("lr-slide-container-tor");
+        document.getElementById("quest-ongoing-listing").style.removeProperty("display");
+    });
+
     /***************************************************************************** */
-    /* New-quest-create events                                                               */
+    /* New-quest-create events                                                     */
     /***************************************************************************** */
 
     // Advance in create new

@@ -12,6 +12,23 @@ function b64ImgRandGen(width, height) {
     return canvas.toDataURL();
 }
 
+// Assign dataset to item according to list
+function assignData(item, qid, qcat, qplim, qpts) {
+    item.dataset.qid = qid;
+    ["美食", "人際", "旅行", "學業", "課外", "冒險"].forEach(function(e, index) {
+        if (qcat == e) {
+            item.dataset.field = index + 1;
+        }
+    });
+    ["single", "multiple", "both"].forEach(function(e, index) {
+        if (qplim == e) {
+            item.dataset.plim = index + 1;
+        }
+    });
+    item.dataset.pts = qpts;
+}
+
+
 /*********************************************** */
 /*  Actual building functions                    */
 /*********************************************** */
@@ -36,20 +53,7 @@ function build_quest_list(container, division) {
             let new_item = base_item.cloneNode(true);
             new_item.removeAttribute("id");
             let q = qlist[0];
-
-            // Assign dataset to item
-            new_item.dataset.qid = q.ID;
-            ["美食", "人際", "旅行", "學業", "課外", "冒險"].forEach(function(e, index) {
-                if (q.category == e) {
-                    new_item.dataset.field = index + 1;
-                }
-            });
-            ["single", "multiple", "both"].forEach(function(e, index) {
-                if (q.multiple == e) {
-                    new_item.dataset.plim = index + 1;
-                }
-            });
-            new_item.dataset.pts = q.points;
+            assignData(new_item, q.ID, q.category, q.multiple, q.points);
 
             // Assign content for each field
             new_item.querySelector(":scope .qli-field p").innerText = q.category;
@@ -73,6 +77,52 @@ function build_quest_list(container, division) {
             // Remove from array
             qlist.shift();
         }
+    });
+}
+
+function build_ongoing_list() {
+    let container = document.querySelector("#quest-ongoing-listing .quest-list-container");
+    container.innerHTML = "";
+    container.appendChild(document.getElementsByClassName("container-fadeout-top")[0].cloneNode(true));
+    let item_base = document.getElementById("qoli-toclone");
+
+    $.post("mission/doing", function(qdata) {
+        console.log(qdata);
+
+        // Temp input for testing
+        qdata = [
+            { qid: 999, category: "美食", name: "放事室用断大山定", plim: "single", pts: 20, goal: 3, current: 2 },
+            { qid: 999, category: "美食", name: "手宏対写", plim: "both", pts: 25, goal: 1, current: 0 },
+            { qid: 999, category: "人際", name: "週言無任社", plim: "multiple", pts: 30, goal: 4, current: 1 },
+            { qid: 999, category: "人際", name: "百人業骨治般広", plim: "single", pts: 35, goal: 1, current: 0 },
+            { qid: 999, category: "旅行", name: "毎読戸問回題", plim: "both", pts: 40, goal: 5, current: 3 },
+            { qid: 999, category: "美食", name: "携喫川米商局粉送", plim: "multiple", pts: 10, goal: 9, current: 8 },
+            { qid: 999, category: "美食", name: "大山定能温埼自載", plim: "single", pts: 15, goal: 2, current: 1 },
+            { qid: 999, category: "學業", name: "穂宮服件富", plim: "both", pts: 20, goal: 5, current: 4 },
+            { qid: 999, category: "人際", name: "際口百", plim: "both", pts: 20, goal: 3, current: 0 }
+        ];
+
+        qdata.forEach(function(q) {
+            console.log(q);
+            let new_item = item_base.cloneNode(true);
+            new_item.removeAttribute("id");
+            assignData(new_item, q.qid, q.category, q.plim, q.pts);
+
+            // Assign content for each field
+            new_item.querySelector(":scope .qli-field p").innerText = q.category;
+            new_item.querySelector(".qli-title").innerText = q.name;
+
+            // Set Progress Bar Look
+            let progress_width = (q.current * 100 / q.goal).toString() + "%";
+            console.log(progress_width);
+            new_item.querySelector(".qli-progress").style.setProperty("--progress-width", progress_width);
+            new_item.querySelector(".qli-progress").dataset.goal = q.goal;
+
+            // Append item
+            new_item.classList.add("item-show-70px");
+            container.appendChild(new_item);
+        });
+
     });
 }
 
@@ -123,6 +173,7 @@ function build_quest_detail(qid) {
 
                 // Retreve past submit data
                 new_block.style.backgroundImage = "url(" + b64ImgRandGen(50, 50) + ")";
+
 
                 container.insertBefore(new_block, container.getElementsByClassName("dummy")[0]);
                 count--;

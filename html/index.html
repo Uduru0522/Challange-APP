@@ -75,7 +75,7 @@
                     <img src="../resources/quest/quest-more-new.png">
                     <span>發起任務</span>
                 </div>
-                <div class="quest-more-book">
+                <div class="quest-more-ongoing">
                     <img src="../resources/quest/quest-more-ongoing.png">
                     <span>進行中</span>
                 </div>
@@ -93,11 +93,11 @@
     <div class="container" id="filter" style="display: none">
         <div class="quest-header"><span></span></div>
         <div id="filter-return"></div>
-        <div id="filter-panel">
-            <div id="filter-header"></div>
-            <div id="filter-body">
+        <div class="filter-panel">
+            <div class="filter-header"></div>
+            <div class="filter-body">
                 <div class="filter-option-title">領 域</div>
-                <div class="filter-option-grid" id="field-filter">
+                <div class="filter-option-grid field-filter">
                     <div class="filter-option" data-option="1">美食</div>
                     <div class="filter-option" data-option="2">人際</div>
                     <div class="filter-option" data-option="3">旅行</div>
@@ -106,19 +106,19 @@
                     <div class="filter-option" data-option="6">冒險</div>
                 </div>
                 <div class="filter-option-title">人數限制</div>
-                <div class="filter-option-grid" id="ppllimit-filter">
+                <div class="filter-option-grid ppllimit-filter">
                     <div class="filter-option" data-option="1">單人</div>
                     <div class="filter-option" data-option="2">多人</div>
                 </div>
                 <div class="filter-option-title">任務積分</div>
-                <div class="filter-option-range" id="pts-filter">
+                <div class="filter-option-range pts-filter">
                     <input name="lb" type="number">
                     <div></div><input name="ub" type="number">
                 </div>
                 <div class="filter-option-title">地 點</div>
-                <input type="text" class="filter-option-input" id="loc-filter">
+                <input type="text" class="filter-option-input loc-filter">
             </div>
-            <div id="filter-footer">
+            <div class="filter-footer">
                 <div class="confirm">確定</div>
                 <div class="reset">重設</div>
             </div>
@@ -137,7 +137,7 @@
     <!-- Mask for fading out from -->
     <div class="container-fadeout-top"></div>
 
-    <!-- Quest Lists (All / Titled) -->
+    <!-- Quest List (All / Titled) -->
     <div class="container" id="quest-titled-listing" style="display: none;">
         <div class="quest-header"><span></span></div>
         <div class="filter-bar">
@@ -146,8 +146,8 @@
         <div class="filter-button">
             <div></div><span></span>
         </div>
-        <div id="quest-list-bg">
-            <div id="quest-list-title"></div>
+        <div class="quest-list-bg">
+            <div class="quest-list-title"></div>
             <div class="quest-list-container">
             </div>
         </div>
@@ -158,6 +158,70 @@
             <div class="filter-button"></div>
         </div>
         <div class="quest-list-container">
+        </div>
+    </div>
+
+    <!-- Quest list item for ongoing lists -->
+    <div class="quest-list-item goto-quest-detail" id="qoli-toclone">
+        <div class="qli-field">
+            <p></p>
+        </div>
+        <div class="qli-title"></div>
+        <div class="qli-progress"></div>
+        <div class="qli-submit"></div>
+    </div>
+
+    <!-- Quest List (Ongoing) -->
+    <div class="container" id="quest-ongoing-listing" style="display: none;">
+        <div class="quest-header"><span></span></div>
+        <div class="quest-list-bg">
+            <div class="quest-list-title">挑戰中</div>
+            <div class="lr-slide-container">
+                <div class="lr-slide-container-r">
+                    <div class="filter-bar">
+                        <div class="filter-button"></div>
+                    </div>
+                    <div class="quest-list-container">
+                    </div>
+                </div>
+                <!-- Different filter UI on this page -->
+                <div class="lr-slide-container-l">
+                    <div id="ongoing-filter">
+                        <div class="filter-panel">
+                            <div class="filter-header">
+                                <div id="quest-ongoing-filter-return"></div>
+                            </div>
+                            <div class="filter-body">
+                                <div class="filter-option-title">領 域</div>
+                                <div class="filter-option-grid field-filter">
+                                    <div class="filter-option" data-option="1">美食</div>
+                                    <div class="filter-option" data-option="2">人際</div>
+                                    <div class="filter-option" data-option="3">旅行</div>
+                                    <div class="filter-option" data-option="4">學業</div>
+                                    <div class="filter-option" data-option="5">課外</div>
+                                    <div class="filter-option" data-option="6">冒險</div>
+                                </div>
+                                <div class="filter-option-title">人數限制</div>
+                                <div class="filter-option-grid ppllimit-filter">
+                                    <div class="filter-option" data-option="1">單人</div>
+                                    <div class="filter-option" data-option="2">多人</div>
+                                </div>
+                                <div class="filter-option-title">任務積分</div>
+                                <div class="filter-option-range pts-filter">
+                                    <input name="lb" type="number">
+                                    <div></div><input name="ub" type="number">
+                                </div>
+                                <div class="filter-option-title">地 點</div>
+                                <input type="text" class="filter-option-input loc-filter">
+                            </div>
+                            <div class="filter-footer">
+                                <div class="confirm">確定</div>
+                                <div class="reset">重設</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
