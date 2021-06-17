@@ -3,7 +3,7 @@ $.post(
     "./mission/popular" || "./mission/maylike" || "./mission/done" || "./mission/doing",
     (data) => {
         /* Return data structire here */
-        data[0].name, data[0].category,... // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
+        data[0].name, data[0].category // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
     }
 )
 
@@ -14,7 +14,7 @@ $.post(
     },
     (data) => {
         /* Return data structire here */
-        data.name, data.category,... // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
+        data.name, data.category // 0可以換成其他數字,有哪些屬性可以去看mission.db的column name
     }
 )
 

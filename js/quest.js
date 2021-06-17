@@ -23,6 +23,11 @@ function swipedetect(el, callback) {
     let dragging = false,
         swiping = false; // Allow only one of the event
 
+    // Temp early return for debugging
+    if (!el) {
+        return;
+    }
+
     target.addEventListener("mousedown", function(e) {
         if (!swiping) {
             dragging = true;
@@ -116,8 +121,13 @@ $(document).ready(() => {
         fop_field = new Set();
     $(document).on("click", ".filter-button", function(e) {
         // Show filter
-        document.getElementById("filter").style.removeProperty("display");
-        document.querySelector(".navbar").style.display = "none";
+        if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
+            console.log("slide");
+            $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tor").addClass("lr-slide-container-tol");
+        } else {
+            document.getElementById("filter").style.removeProperty("display");
+            document.querySelector(".navbar").style.display = "none";
+        }
 
         // Reset options
         fop_ppl.clear(), fop_field.clear();
@@ -132,6 +142,7 @@ $(document).ready(() => {
             // Or filter current page
             to_filter = $(this).closest(".container").find(".quest-list-container");
         }
+        console.log(to_filter);
     });
 
     // Close filter panel
@@ -141,16 +152,20 @@ $(document).ready(() => {
     });
 
     // Reset filter options
-    $("#filter-footer .reset").on("click", function(e) {
+    $(".filter-footer .reset").on("click", function(e) {
         fop_ppl.clear(), fop_field.clear();
         $(".filter-option.owbtn-select").removeClass("owbtn-select").addClass("owbtn-deselect");
     });
 
     // Apply filter
-    $("#filter-footer .confirm").on("click", function(e) {
+    $(".filter-footer .confirm").on("click", function(e) {
         console.log(to_filter.children(".quest-list-item"));
         // Close filter panel
-        $("#filter-return")[0].click();
+        if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
+            $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tol").addClass("lr-slide-container-tor");
+        } else {
+            $("#filter-return")[0].click();
+        }
 
         // Switch to all-quest listing if on quest-main
         if ($("#quest-main").hasClass("show")) {
@@ -162,11 +177,10 @@ $(document).ready(() => {
         // Filter in order
         let disappear_interval = 5;
         let promise = Promise.resolve();
-        console.log(to_filter);
-        console.log(to_filter.children());
         to_filter.children(".quest-list-item").each(function(index, element) {
             let matched = false;
-            console.log($(this));
+
+            console.log("Processing", element);
 
             // Apply filters
             if (!fop_field.size && fop_ppl.size) {
@@ -183,12 +197,13 @@ $(document).ready(() => {
                     matched = true;
                 }
             });
-            if (matched && !fop_ppl.has(parseInt($(this).data("plim")))) {
-                matched = false
+            let elem_plim = parseInt($(this).data("plim"));
+            if (matched && elem_plim != 3 && !fop_ppl.has(elem_plim)) {
+                matched = false;
             }
             let lower_bound, upper_bound;
-            let linput = $("#pts-filter input[name=lb]"),
-                uinput = $("#pts-filter input[name=ub]"),
+            let linput = $(".pts-filter input[name=lb]"),
+                uinput = $(".pts-filter input[name=ub]"),
                 elem_pts = parseInt($(this).data("pts"));
             if (linput.val() == null || linput.val() == "") {
                 lower_bound = 0;
@@ -200,7 +215,6 @@ $(document).ready(() => {
             } else {
                 upper_bound = parseInt(uinput.val());
             }
-            console.log(lower_bound + ", " + upper_bound);
 
             if (matched && (elem_pts < lower_bound || elem_pts > upper_bound)) {
                 matched = false
@@ -221,6 +235,19 @@ $(document).ready(() => {
                         $(this).removeClass("item-hide-90px")
                         next();
                     });
+                } else if (!matched && $(this).hasClass("item-show-70px")) {
+                    if ($(this).hasClass("item-show-70px")) {
+                        $(this).removeClass("item-show-70px").delay(5).queue(function(next) {
+                            $(this).addClass("item-hide-70px");
+                            next();
+                        });
+                    }
+                } else if (matched && $(this).hasClass("item-hide-70px")) {
+                    $(this).delay(200).queue(function(next) {
+                        $(this).addClass("item-show-70px");
+                        $(this).removeClass("item-hide-70px")
+                        next();
+                    });
                 } else {
                     // No animation, no delay
                     return new Promise(function(resolve) {
@@ -235,7 +262,7 @@ $(document).ready(() => {
     });
 
     // Select field options
-    $("#field-filter .filter-option").on("click", function(e) {
+    $(".field-filter .filter-option").on("click", function(e) {
         if ($(this).hasClass("owbtn-deselect")) {
             $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
             fop_field.add($(this).data("option"));
@@ -247,7 +274,7 @@ $(document).ready(() => {
     });
 
     // Select people limit options
-    $("#ppllimit-filter .filter-option").on("click", function(e) {
+    $(".ppllimit-filter .filter-option").on("click", function(e) {
         if ($(this).hasClass("owbtn-deselect")) {
             $(this).removeClass("owbtn-deselect").addClass("owbtn-select");
             fop_ppl.add($(this).data("option"));
@@ -259,84 +286,68 @@ $(document).ready(() => {
     });
 
     /***************************************************************************** */
-    /* Quest List Events                                                           */
+    /* Quest List & Quest Detail Events                                            */
     /***************************************************************************** */
 
-    // Accept quest in list
-    $(document).on("click", ".qli-accept.can-accept", function() {
-        // Get qid
-        let qid = $(this).closest(".quest-list-item").data("qid");
-        console.log(qid);
-
+    // Accept quest
+    $(document).on("click", ".can-accept", function() {
         // Send POST req
         $.post(
             "mission/accept", {
-                qid: qid
+                qid: $(this).data("qid")
             },
             function(response) {
                 console.log("Quest accepted successfully");
             }
         )
-
         $(this).removeClass("can-accept").addClass("did-accept");
         $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
     });
 
-    // Goto quest-detail from quest list
-    $(document).on("click", ".quest-list-item", function(e) {
-        // Dont trigger on accept quest button
+    // Build and show quest detail page
+    $(document).on("click", ".goto-quest-detail", function(e) {
+        // Dont trigger on when clicking on other functional elements
         if ($(e.target).hasClass("qli-accept")) {
             return;
         }
 
+        // Show detail page
+        document.getElementById("quest-detail").style.removeProperty("display");
         build_quest_detail($(this).data("qid"));
+    })
+
+    // Goto quest submit page
+    $(document).on("click", ".qd-submit-upload", function(e) {
+        console.log("go sub");
+        document.getElementById("quest-submit").style.removeProperty("display");
     });
 
-    /***************************************************************************** */
-    /* Quest List events                                                           */
-    /***************************************************************************** */
-
-    // Accept quest in detail page
-    $(document).on("click", "#quest-detail-button", function() {
-        if ($(this).children(":first").text() == "挑戰") {
-            const qid = $(this).children(":first").attr("id").match(/\d+/g);
-            $("#quest-submit-field").removeClass("hidden").addClass("show");
-            console.log(qid);
-
-            // Send POST request to accept quest
-            $.post(
-                "mission/accept", {
-                    qid: qid
-                },
-                function() {
-                    console.log("Quest accepted successfully");
-                }
-            )
-            $(this).addClass("already-accept").removeClass("can-accept");
-            $(this).children("span").text("已接取");
-        }
+    // Return to last page in quest detail
+    $(document).on("click", ".qdh-return-arrow", function(e) {
+        console.log("return");
+        $(this).closest(".container")[0].style.display = "none";
     });
 
-    // Submit quests
-    $(document).on("click", "#quest-submit-button", function() {
-        // Send post request to submit quest
-        const img64 = compress(document.getElementById('preview'), 200, 200, 0.9);
-        console.log($("#quest-detail-button span").attr("id"));
-        const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
-        console.log(qid);
-        $.post(
-            "./mission/report_single", {
-                qid: qid,
-                img: img64,
-                text: $("#quest-submit-text").val()
-            },
-            function(data) {
-                console.log("Update success");
-            }
-        );
-        $("#quest-submit-field").removeClass("show").addClass("hidden");
-        $(this).closest(".container").find(".return-arrow").trigger("click");
-    });
+    // // Submit quests
+    // $(document).on("click", "#quest-submit-button", function() {
+    //     // Send post request to submit quest
+    //     const img64 = compress(document.getElementById('preview'), 200, 200, 0.9);
+    //     console.log($("#quest-detail-button span").attr("id"));
+    //     const qid = $("#quest-detail-button span").attr("id").match(/\d+/g);
+    //     console.log(qid);
+    //     $.post(
+    //         "./mission/report_single", {
+    //             qid: qid,
+    //             img: img64,
+    //             text: $("#quest-submit-text").val()
+    //         },
+    //         function(data) {
+    //             console.log("Update success");
+    //         }
+    //     );
+    //     $("#quest-submit-field").removeClass("show").addClass("hidden");
+    //     $(this).closest(".container").find(".return-arrow").trigger("click");
+    // });
 
     // Image preview on upload
     // const myFile = document.querySelector('#quest-submit-img')
@@ -351,33 +362,33 @@ $(document).ready(() => {
     //     }
     // })
 
-    // Redirect click event on uploading image
-    $(document).on("click", "#preview", function() {
-        $("#quest-submit-img").trigger("click");
-    });
+    // // Redirect click event on uploading image
+    // $(document).on("click", "#preview", function() {
+    //     $("#quest-submit-img").trigger("click");
+    // });
 
     // Show stranger panel in quest detail
-    let hidetimer = null;
-    swipedetect(document.getElementById("show-stranger"), function(dir) {
-        if (dir != "none") {
-            clearTimeout(hidetimer);
-            console.log("Swiped/Dragged" + dir);
-            if (dir == "up") {
-                // Transform to full information
-                let target = document.getElementById("show-stranger");
-                target.classList.add("stranger-full");
-                target.classList.remove("stranger-hidden");
+    // let hidetimer = null;
+    // swipedetect(document.getElementById("show-stranger"), function(dir) {
+    //     if (dir != "none") {
+    //         clearTimeout(hidetimer);
+    //         console.log("Swiped/Dragged" + dir);
+    //         if (dir == "up") {
+    //             // Transform to full information
+    //             let target = document.getElementById("show-stranger");
+    //             target.classList.add("stranger-full");
+    //             target.classList.remove("stranger-hidden");
 
-                let pre = document.getElementById("pre-stranger");
-                let full = document.getElementById("full-stranger");
+    //             let pre = document.getElementById("pre-stranger");
+    //             let full = document.getElementById("full-stranger");
 
-                pre.classList.add("animate-fade-out");
-                pre.classList.remove("animate-fade-in");
-                full.classList.add("animate-fade-in");
-                full.classList.remove("animate-fade-out");
-            }
-        }
-    });
+    //             pre.classList.add("animate-fade-out");
+    //             pre.classList.remove("animate-fade-in");
+    //             full.classList.add("animate-fade-in");
+    //             full.classList.remove("animate-fade-out");
+    //         }
+    //     }
+    // });
 
     /***************************************************************************** */
     /* Quest more-action list related events                                       */
@@ -428,8 +439,16 @@ $(document).ready(() => {
         $("#quest-create-success").css("display", "none");
     });
 
+    // Goto ongoing quest list
+    $(document).on("click", ".quest-more-ongoing", function(e) {
+        build_ongoing_list();
+        document.querySelector("#quest-ongoing-listing .lr-slide-container").classList.remove("lr-slide-container-tol");
+        document.querySelector("#quest-ongoing-listing .lr-slide-container").classList.add("lr-slide-container-tor");
+        document.getElementById("quest-ongoing-listing").style.removeProperty("display");
+    });
+
     /***************************************************************************** */
-    /* New-quest-create events                                                               */
+    /* New-quest-create events                                                     */
     /***************************************************************************** */
 
     // Advance in create new
@@ -502,7 +521,7 @@ $(document).ready(() => {
                     qc_d = index;
                     break;
                 default:
-                    console.log("Nope, should not be here(group");
+                    console.log("Nope, should not be here(group)");
                     break;
             }
             // Apply select animation

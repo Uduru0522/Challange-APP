@@ -9,19 +9,13 @@ function fetch_quest_brief_info(option, callback) {
         url += "done";
     } else if (option == "all") {
         url += "all_mission";
-    } else if (option == "range") {
-        url += "range";
+    } else if (option == "doing") {
+        url += "doing";
     } else {
         console.log("Error in fetch_quest_brief_info(): invalid option");
     }
 
-    $.post(
-        url, {
-            lbound: $("input[name=lbound]").val(),
-            hbound: $("input[name=hbound]").val()
-        },
-        callback
-    )
+    $.post(url, callback);
 }
 
 function fetch_quest_info(id_str, callback) {

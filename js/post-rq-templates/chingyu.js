@@ -1223,10 +1223,7 @@ $(document).ready(() => {
     })
 
 });
-$(document).on("click", '#nav-mainpage', function(event) {
-    $("#mainpage").removeClass("show").addClass("hidden")
-    $("#rank-main").removeClass("hidden").addClass("show")
-})
+
 
 function deletegroup() { //delete group
     console.log(deletegroupname)
@@ -1264,3 +1261,13 @@ $('#makesure-deletegroup .makesure-cancel').click((event) => {
     $("#makesure-deletegroup").removeClass("show").addClass("hidden")
     $(".chat-cover").removeClass("show").addClass("hidden");
 })
+/*
+$(document).on("click", '#nav-mainpage', function(event) {
+    $("#mainpage").removeClass("show").addClass("hidden")
+    $("#rank-main").removeClass("hidden").addClass("show")
+    $.post('./leaderboard', {
+    },
+    function(data) {
+        console.log(data)
+    });
+})*/
