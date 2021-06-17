@@ -452,7 +452,7 @@ con = sqlite3.connect('./database/mission.db')
 con2 = sqlite3.connect('./database/users.db')
 con3 = sqlite3.connect('./database/title.db')
 
-
+# print(maylike(con, "b5e4453e"))
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述
 
 if(sys.argv[1] == '0'):#全部任務
