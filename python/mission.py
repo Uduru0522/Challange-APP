@@ -9,7 +9,7 @@ def allmission(conn, User):
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()
-        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
         Mem = Member.fetchone()[0]
         _member=Mem.split(",")
         if(User in _member):
@@ -63,6 +63,7 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
     Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
     Mem = Member.fetchone()[0]
     _member=Mem.split(",")
+    
     field_name = [des[0] for des in rows.description]#找到項目名
     _json=[]
     for row in rows:
@@ -72,24 +73,38 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
         else:
             _row_json["progress"] = "0"
         for field in range(len(row)):
-            if(field_name[field]!='ID'and field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'picture'and field_name[field]!= 'pic_text'):
+            if(field_name[field]!='ID'and field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'F_member'):
                 _row_json[field_name[field]] = row[field]
     
-    Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Picture
-    Pic = Picture.fetchone()
-    if((Pic != None) and (Pic[0] != None)):
-        Pic = Pic[0]
-        pic=Pic.split(";;")
-        Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=User,m_ID=M_ID))#拿出Pic_text
-        Pic_text = Picture_text.fetchone()[0]
-        pic_Text=Pic_text.split(";;")
-        Pic_detail=[]
-        for number in range(len(pic)-2):#去頭尾
-            Pic_Detail = dict()
-            Pic_Detail["picture"] = pic[number+1]#不要第一項
-            Pic_Detail["pic_text"] = pic_Text[number+1]
-            Pic_detail.append(Pic_Detail)
-        _row_json['Pic_detail'] = Pic_detail
+    F_Member = conn.execute("SELECT F_member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出F_member
+    F_Mem = F_Member.fetchone()[0]
+    if(F_Mem != ','):
+        f_member=F_Mem.split(",")
+        check=True#有完成過的使用者
+    else:
+        check=False
+
+    
+    if(check == True):
+        for F_mem in f_member :
+            if(F_mem !=""):
+                Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID} and completed = 1;".format(user=F_mem,m_ID=M_ID))#拿出Picture
+                Pic = Picture.fetchone()
+                if((Pic != None) and (Pic[0] != None)):
+                    Pic = Pic[0]
+                    pic=Pic.split(";;")
+                    Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=F_mem,m_ID=M_ID))#拿出Pic_text
+                    Pic_text = Picture_text.fetchone()[0]
+                    pic_Text=Pic_text.split(";;")
+                    Pic_detail=[]
+                    for number in range(len(pic)-2):#去頭尾
+                        Pic_Detail = dict()
+                        Pic_Detail["picture"] = pic[number+1]#不要第一項
+                        Pic_Detail["pic_text"] = pic_Text[number+1]
+                        Pic_detail.append(Pic_Detail)
+                    _row_json['Pic_detail'] = Pic_detail
+    
+    
     _json.append(_row_json)
 
 
@@ -147,7 +162,7 @@ def done(conn, User):#做過的任務
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()
-        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
         Mem = Member.fetchone()[0]
         _member=Mem.split(",")
         if(User in _member):
@@ -321,7 +336,7 @@ def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()
-        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
         Mem = Member.fetchone()[0]
         _member=Mem.split(",")
         if(User in _member):
@@ -345,7 +360,7 @@ def popular(conn, User):#很多人在做的任務
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()
-        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
         Mem = Member.fetchone()[0]
         _member=Mem.split(",")
         if(User in _member):
@@ -369,7 +384,7 @@ def search_pts(conn, User, num1, num2):
     field_name = [des[0] for des in rows.description]#找到項目名
     for row in rows:
         _row_json = dict()
-        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[4]))#拿出member
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
         Mem = Member.fetchone()[0]
         _member=Mem.split(",")
         if(User in _member):
@@ -436,20 +451,27 @@ def choosetitle(conn, User, T_ID):#傳入使用者名字和要選的稱號
 
 def leaderboard(conn, category):
     if(category == 1):
-        rows = conn.execute("select account from users order by sport DESC;")
+        rows = conn.execute("select name,sport,image from users order by sport DESC;")
     elif(category == 2):
-        rows = conn.execute("select account from users order by self DESC;")
+        rows = conn.execute("select name,self,image from users order by self DESC;")
     elif(category == 3):
-        rows = conn.execute("select account from users order by food DESC;")
+        rows = conn.execute("select name,food,image from users order by food DESC;")
     elif(category == 4):
-        rows = conn.execute("select account from users order by activity DESC;")
+        rows = conn.execute("select name,activity,image from users order by activity DESC;")
     elif(category == 5):
-        rows = conn.execute("select account from users order by travel DESC;")
+        rows = conn.execute("select name,travel,image from users order by travel DESC;")
     elif(category == 6):
-        rows = conn.execute("select account from users order by social DESC;")
+        rows = conn.execute("select name,social,image from users order by social DESC;")
     elif(category == 7):
-        rows = conn.execute("select account from users order by total DESC;")
+        rows = conn.execute("select name,total,image from users order by total DESC;")
     data=rows.fetchall()
+    _json=[]
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        for field in range(len(row)):
+            _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
     output = json.dumps(data, ensure_ascii = False)
     #print(data)
     return output
