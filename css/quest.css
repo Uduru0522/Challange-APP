@@ -1633,8 +1633,12 @@
   }
   30% {
     width: 120vw;
-    border-radius: 40px;
+    border-radius: 50% 50% 0 0/30px 30px 0 0;
     height: 70vh;
+  }
+  90% {
+    width: 120vw;
+    height: 88vh;
   }
   100% {
     width: 100vw;

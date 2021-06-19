@@ -15,7 +15,7 @@ function b64ImgRandGen(width, height) {
 // Assign dataset to item according to list
 function assignData(item, qid, qcat, qplim, qpts) {
     item.dataset.qid = qid;
-    ["美食", "人際", "旅行", "學業", "課外", "冒險"].forEach(function(e, index) {
+    ["美食", "旅遊", "活動", "工作", "感情", "朋友"].forEach(function(e, index) {
         if (qcat == e) {
             item.dataset.field = index + 1;
         }
@@ -47,13 +47,14 @@ function build_quest_list(container, division) {
         // Retrieve base <div> to clone
         let base_item = document.getElementById("qli-toclone");
 
-        qlist = [
-            { ID: 999, category: "美食", multiple: "single", points: 12, name: "事室用断大山" },
-            { ID: 999, category: "美食", multiple: "multi", points: 15, name: "事室用断大山" },
-            { ID: 999, category: "人際", multiple: "single", points: 20, name: "事室用断大山" },
-            { ID: 999, category: "人際", multiple: "any", points: 25, name: "事室用断大山" },
-            { ID: 999, category: "美食", multiple: "multi", points: 30, name: "事室用断大山" }
-        ];
+        console.log(qlist);
+        // qlist = [
+        //     { ID: 999, category: "美食", multiple: "single", points: 12, name: "事室用断大山" },
+        //     { ID: 999, category: "美食", multiple: "multi", points: 15, name: "事室用断大山" },
+        //     { ID: 999, category: "人際", multiple: "single", points: 20, name: "事室用断大山" },
+        //     { ID: 999, category: "人際", multiple: "any", points: 25, name: "事室用断大山" },
+        //     { ID: 999, category: "美食", multiple: "multi", points: 30, name: "事室用断大山" }
+        // ];
 
         // Loop through array
         while (qlist.length) {
@@ -157,7 +158,7 @@ function build_quest_detail(qid) {
 
         // Body contents
         document.querySelector("#qd-intro > span").textContent = qdata.description;
-        document.querySelector("#qd-guide > span").textContent = qdata.description; // Not existence in current database
+        document.querySelector("#qd-guide > span").textContent = qdata.guide;
         let accept_button = document.getElementById("qd-accept");
         accept_button.dataset.qid = qid;
         if (qdata.progress == "0") {

@@ -180,8 +180,6 @@ $(document).ready(() => {
         to_filter.children(".quest-list-item").each(function(index, element) {
             let matched = false;
 
-            console.log("Processing", element);
-
             // Apply filters
             if (!fop_field.size && fop_ppl.size) {
                 [1, 2, 3, 4, 5, 6].forEach(n => {
@@ -334,6 +332,9 @@ $(document).ready(() => {
     // Return to last page in quest detail
     $(document).on("click", ".qdh-return-arrow", function(e) {
         console.log("return");
+        if ($(this).closest(".container").attr("id") == "quest-detail") {
+            document.getElementById("quest-stranger").style.display = "none";
+        }
         $(this).closest(".container")[0].style.display = "none";
     });
 
