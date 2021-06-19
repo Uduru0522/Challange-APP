@@ -68,7 +68,7 @@ app.post('/html/register', (req, res) => {
         db.get("SELECT account FROM users WHERE account = ?", [req.body.account], function(err, row) {
             if (row == undefined) {
                 db.serialize(function() {
-                    db.run("CREATE TABLE IF NOT EXISTS users (account TEXT, password TEXT, email TEXT, lastname TEXT, firstname TEXT, id TEXT, name TEXT, title TEXT, intro TEXT, image BLOB, social INTEGER, travel INTEGER, food INTEGER, activity INTEGER, sport INTEGER, self INTEGER)");
+                    db.run("CREATE TABLE IF NOT EXISTS users (account TEXT, password TEXT, email TEXT, lastname TEXT, firstname TEXT, id TEXT, name TEXT, title TEXT, intro TEXT, image BLOB, social INTEGER, travel INTEGER, food INTEGER, activity INTEGER, sport INTEGER, self INTEGER, total INTEFER)");
 
                     function check() {
                         var randomString = String.fromCharCode(Math.floor(Math.random() * 26) + "a".charCodeAt(0)) + String(Math.random()).slice(2, 9)
@@ -76,7 +76,7 @@ app.post('/html/register', (req, res) => {
                             if (row != undefined) {
                                 check();
                             } else {
-                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "#無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0]);
+                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "#無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0, 0]);
                                 var db_mission = new sqlite3.Database("./database/mission.db");
                                 db_mission.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)`);
                                 db_mission.close();
@@ -382,12 +382,12 @@ app.post('/html/leaderboard', (req, res) => {
         pythonOptions: ["-u"], // get print results in real-time
         scriptPath: "./python/",
         args: [
-            14
+            14,
+            req.body.category
         ],
     };
 
     PythonShell.run("mission.py", options, function(err, data) {
-        console.log(data)
         data = JSON.parse(data)
         res.send(data);
     });
