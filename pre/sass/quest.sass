@@ -160,26 +160,6 @@
             .qblock-qid
                 diaplay: none
 
-@keyframes _stranger-full
-    0%
-        background-position: top -120vh left 0%
-        border-radius: 50% 50% 0 0 / 20% 20% 0 0
-    100%
-        height: 90vh
-        background-position: top 0vh left 0%
-        border-radius: 5vw 5vw 0 0
-    
-@keyframes _stranger-hidden
-    0%
-        background-position: top 0vh left 0%
-        border-radius: 5vw 5vw 0 0
-    100%
-        position: fixed
-        bottom: 0
-        height: 30vh
-        background-position: top -120vh left 0%
-        border-radius: 50% 50% 0 0 / 20% 20% 0 0
-
 @keyframes _fade-in
     0%
         opacity: 0%
@@ -376,7 +356,23 @@
             div.placeholder
                 background-color: rgba(0, 0, 0, 0)
 
+    #stranger-return
+        width: 100vw
+        height: 100vh
+        position: fixed
+        top: 0
+        left: 0
+        display: block
+        background-color: rgba(#000, 0.25)
+        z-index: 1000
+        
+        .stranger-return-chevron
+            transform: rotate(180deg)
+            top: 25px
+            width: 40%
+
 #quest-submit
+    z-index: 1010
     background-color: #FAFAFA
 
 .quest-detail-header
@@ -441,145 +437,180 @@
         letter-spacing: 0.5px
         padding-ledr: 0.5px
                 
-//     #show-stranger
-//         position: fixed
-//         bottom: 0
-//         width: 100vw
-//         z-index: 1
-//         height: 30vh
-//         background-image: linear-gradient(180deg, rgba(207,233,234,1) 0%, rgba(207,233,234,1) 50%, rgba(127,200,190,1) 80%, rgba(255,255,255,1) 100%)
-//         background-size: 100vw 150vh
+#quest-stranger
+    display: block
+    position: fixed
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    #stranger-closed-container
+        width: 100%
+        height: 100%
+        position: relative
+        background-image: linear-gradient(transparent, rgba(255, 255, 255, 0.6))
+        &::before
+            content: "看看有誰"
+            display: flex
+            justify-content: center
+            font-size: 1.5em
+            color: #5E9289
+            padding-top: 15px
+            letter-spacing: 0.2em
+            padding-left: 0.2em
 
-//         #show-stranger-title
-//             position: absolute
-//             width: 100vw
-//             text-align: center
-//             font-size: 3vh
-//             letter-spacing: 2vw
-//             color: #11A196
-//             top: 2vh
+    #stranger-opened-container
+        // > *
+        //     border: 2px #C0C0C0 solid
+        #stranger-icon
+            height: 18vh
+            width: 18vh
+            position: absolute
+            top: 3vh
+            left: min(5vw, 19px)
+            border-radius: 50%
+            border: #FFFFFF 7px solid
+            background-image: url("../resources/quest/placeholder_1x1.png")
+            background-position: 50% 50%
+            background-size: 100% auto
+            background-repeat: no-repeat
             
-//         .shape-chevron
-//             position: absolute
-//             text-align: center
-//             padding: 2px
-//             left: 0
-//             right: 0
-//             margin: 0 auto
-//             height: 0px
-//             width: 15%
+        #stranger-info
+            height: 16vh
+            width: calc(calc(95vw - 18vh) - calc(2 * min(5vw, 19px)))
+            position: absolute
+            top: 3.5vh
+            right: 5vw
+            display: grid
+            grid-template-rows: 3fr 2fr 4fr
+            grid-template-columns: 1fr
 
-//             &:before
-//                 content: ''
-//                 position: absolute
-//                 top: 0
-//                 left: 0
-//                 height: 100%
-//                 width: 51%
-//                 background: white
-//                 transform: skew(0deg, -15deg)
-//             &:after
-//                 content: ''
-//                 position: absolute
-//                 top: 0
-//                 right: 0
-//                 height: 100%
-//                 width: 50%
-//                 background: white
-//                 transform: skew(0deg, 15deg)
-    
-//         :nth-child(2).shape-chevron
-//             top: 10vh
-//         :nth-child(3).shape-chevron
-//             top: 13vh
+            > *
+                margin: 0 0 0 1.3vh
+                color: black
+                text-align: left
+                display: flex
+                justify-content: flex-start
+                align-items: center
 
-//     .stranger-hidden
-//         animation: _stranger-hidden .5s ease forwards
+            p#stranger-name
+                font-size: 1.35em
+            p#stranger-hashtag
+                font-size: 1em
+                &::before
+                    content: "＃"
+            #stranger-send-request
+                margin: 1.3vh 0 1.3vh 1.3vh
+                border-radius: 8px
+                color: #FFFFFF
+                font-size: 1.25em
+                background-color: #D6CE41
+                justify-content: center
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25)
 
-//     .stranger-full
-//         animation: _stranger-full .5s ease forwards
-//         position: relative
-
-//         #full-stranger
-//             & > div:nth-child(1)
-//                 height: 20vh
-//                 width: 100vw
-//                 display: flex
-//                 flex-direction: row
-//                 justify-content: center
-                
-//                 position: relative
-//                 margin-top: 5%
-//                 padding: 0 3% 0 5%
-                
-//                 #stranger-icon
-//                     margin-right: 8vw
-//                     img
-//                         border-radius: 50%
-//                         border: 2vh white solid
-//                         max-height: 100%
-
-//                 #stranger-info-flex
-//                     width: 48%
-//                     display: flex
-//                     flex-direction: column
-//                     justify-content: space-between
-//                     align-items: flex-start
-//                     padding: 2vh 0
-
-//                     *
-//                         color: black
-
-//                     #stranger-id
-//                         font-size: 3.2vh
-//                     #stranger-hashtag
-//                         font-size: 2.7vh
-//                     #stranger-req 
-//                         @extend %flex-centeralize
-//                         background-color: #ece569
-//                         border-radius: 1vh
-//                         box-shadow: 0.2vh 0.2vh 0.6vh rgb(0 0 0 / 60%)
-//                         width: 100%
-//                         height: 30%
-//                         font-size: 3vh
-//                         margin-left: -1.5vw
-//                         span
-//                             color: white
-
-//             & > div:nth-child(2)                                   
-//                 height: 19vh
-//                 width: 100vw
-//                 display: flex
-//                 flex-direction: row
-//                 justify-content: center
-//                 position: relative
-//                 margin-top: 4vh
-//                 padding: 0 10% 0 9%
-
-//                 #stranger-top-stat-flex
-//                     display: flex
-//                     flex-direction: column
-//                     justify-content: space-between
-//                     width: 40%
-//                     margin-right: 8vw
+        #stranger-stats
+            height: 18vh
+            width: 6em
+            position: absolute
+            top: 25vh
+            left: min(9vw, 34px)
+            display: flex
+            flex-direction: column
+            justify-content: space-between
             
-//                     *
-//                         font-size: 2.9vh
+            p
+                margin: 0
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                font-size: 1.15em
+                letter-spacing: 0.05em
+            
+        #stranger-radar
+            width: calc(100vw - calc(min(10vw, 37px) + 6em))
+            height: 20vh
+            position: absolute
+            top: 24vh
+            right: 0
+            background-image: url("../resources/quest/radar-base.png")
+            background-size: auto 100%
+            background-repeat: no-repeat
+            background-position: 50% 50%
+            #stranger-radar-inner
+                height: 78%
+                width: 59%
+                clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)
+                position: absolute
+                top: 9%
+                left: 50%
+                transform: translateX(-50%)
+                background-color: rgba(#EB931D, 0.45)
 
-//                 #stranger-radar
-//                     position: relative
-//                     width: 60%
+        @keyframes _spinner-to-pos
+            0%
+                top: 150%
+            100%
+                top: 100%
 
-//                     display: flex
-//                     justify-content: center
+        #stranger-spinner
+            width: 175vw
+            height: 175vw
+            position: absolute
+            top: 100%
+            left: 50%
+            transform: translate(-50%, -50%)
+            border-radius: 50%
+            border: 5px solid #FFF
+            background-color: #B4E6DC
+            overflow: hidden
+            animation: _spinner-to-pos 0.8s ease forwards
 
-//                     img
-//                         position: absolute
-//                         max-height: 100%
+            > *
+                --size: 50%
+                width: var(--size)
+                height: var(--size)
+                transform-origin: 100% 100%
+                position: absolute
+                top: 50%
+                left: 50%
+                border: 3px solid #FFF
+                margin-top: calc(-1 * var(--size))
+                margin-left: calc(-1 * var(--size))
 
-//                     img#stranger-radar-inner
-//                         clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)
-//                         filter: invert(75%) sepia(65%) saturate(1547%) hue-rotate(326deg) brightness(105%) contrast(101%)
+            #stranger-spnner-l
+                transform: rotate(15deg) skewX(40deg)
+                > *
+                    transform: skewX(-40deg) rotate(-65deg)
+            #stranger-spnner-m
+                transform: rotate(65deg) skewX(40deg)
+                > *
+                    transform: skewX(-40deg) rotate(-65deg)
+            #stranger-spnner-r
+                transform: rotate(115deg) skewX(40deg)
+                > *
+                    transform: skewX(-40deg) rotate(-65deg)
+
+            .stranger-spinner-icon
+                width: 38%
+                height: 38%
+                position: absolute
+                top: 48%
+                left: 41%
+                border-radius: 50%
+                border: white 8px solid
+                background-image: url("../resources/quest/placeholder_1x1.png")
+                background-size: 100% 100%
+                background-repeat: no-repeat
+                background-position: 50% 50%
+
+            .stranger-spinner-name
+                display: inline-block
+                width: 5em
+                position: absolute
+                top: 65%
+                left: 59.5%
+                font-size: 1.3em
+                color: black
+                text-align: center
 
 @keyframes _select
     100%
@@ -939,9 +970,7 @@
                     height: 35px
                     box-shadow: none
                 .reset
-                    border: 2px solid #E9B83E
-                
-            
+                    border: 2px solid #E9B83E         
 
 // List container general
 .quest-list-container
@@ -1436,27 +1465,6 @@
 .disabled-grayscale
     filter: grayscale(100%)
 
-// Book page filp effects
-@keyframes _bookflip-to-left
-    0%
-        transform: rotateY(0deg)
-    100%
-        transform: rotateY(180deg)
-
-@keyframes _bookflip-from-left
-    0%
-        transform: rotateY(180deg)
-    100%
-        transform: rotateY(0deg)
-
-.bookflip-to-left
-    transform-origin: 0 0
-    animation: _bookflip-to-left .8s ease-in-out forwards
-
-.bookflip-from-left
-    transform-origin: 0 0
-    animation: _bookflip-from-left .8s ease-in-out forwards
-
 // Text-icon pair (size: small)
 .txic-small
     position: absolute
@@ -1538,3 +1546,61 @@ $hide-show-sizes: 70px, 90px
     animation: _lr-slide-container-tol 0.8s cubic-bezier(0,1,0.75,1.15) forwards 
 .lr-slide-container-tor
     animation: _lr-slide-container-tor 0.8s cubic-bezier(0,1,0.75,1.15) forwards 
+
+// Expand / Shrink Stranger panel
+@keyframes _stranger-closed
+    0%
+        width: 100vw
+        height: 88vh
+        background-color: #DFF4E4
+        border-radius: 30px
+    100%
+        width: 120vw
+        height: 20vh
+        background-color: #A3DFCD
+        border-radius: 50%
+
+@keyframes _stranger-opened
+    0%
+        width: 120vw
+        height: 20vh
+        background-color: #A3DFCD
+        border-radius: 50%
+    30% 
+        width: 120vw
+        border-radius: 40px
+        height: 70vh
+
+    100%
+        width: 100vw
+        height: 88vh
+        background-color: #DFF4E4
+        border-radius: 30px
+        
+
+.stranger-closed
+    animation: _stranger-closed 0.3s ease-out forwards
+.stranger-opened
+    animation: _stranger-opened 0.3s ease-out forwards
+
+.shape-chevron
+    position: relative
+    text-align: center
+    padding: 2px
+    margin: 20px auto 0
+    height: 0px
+    width: 15%
+    
+    &::before, &::after
+        content: ''
+        position: absolute
+        top: 0
+        background-color: #E3F2E6
+        height: 100%
+        width: 50%
+    &:before
+        left: 0
+        transform: skew(0deg, -15deg)
+    &:after
+        right: 0
+        transform: skew(0deg, 15deg)

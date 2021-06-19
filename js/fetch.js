@@ -42,7 +42,7 @@ function fetch_quest_main_page(id) {
     for (let i = 0; i < 3; ++i) {
         // Fetch adn build list
         fetch_quest_brief_info(option[i], function(jsonobj) {
-            console.log(jsonobj);
+            console.log(jsonobj, "1233");
 
             // Create flex container
             let container = document.createElement("div")

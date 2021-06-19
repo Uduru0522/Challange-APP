@@ -313,12 +313,21 @@ $(document).ready(() => {
 
         // Show detail page
         document.getElementById("quest-detail").style.removeProperty("display");
+        document.getElementById("quest-stranger").style.removeProperty("display");
+        document.getElementById("quest-stranger").classList.add("stranger-closed");
+        document.getElementById("quest-stranger").classList.remove("stranger-opened");
+        document.getElementById("stranger-closed-container").style.removeProperty("display");
+        document.getElementById("stranger-opened-container").style.display = "none";
+        document.getElementById("stranger-return").style.display = "none";
         build_quest_detail($(this).data("qid"));
     })
 
     // Goto quest submit page
     $(document).on("click", ".qd-submit-upload", function(e) {
         console.log("go sub");
+        document.getElementById("quest-stranger").style.removeProperty("dispaly");
+        document.getElementById("quest-stranger").classList.add("stranger-closed");
+        document.getElementById("quest-stranger").classList.remove("stranger-opened");
         document.getElementById("quest-submit").style.removeProperty("display");
     });
 
@@ -389,6 +398,42 @@ $(document).ready(() => {
     //         }
     //     }
     // });
+
+    /***************************************************************************** */
+    /* Stranger panel related events                                       */
+    /***************************************************************************** */
+    let hidetimer = null;
+    swipedetect(document.getElementById("quest-stranger"), function(dir) {
+        if (dir != "none") {
+            clearTimeout(hidetimer);
+            console.log("Swiped/Dragged" + dir);
+            let target = document.getElementById("quest-stranger");
+            let pre = document.getElementById("stranger-closed-container");
+            let full = document.getElementById("stranger-opened-container");
+            let ret = document.getElementById("stranger-return");
+            if (dir == "up") {
+                // Transform to opened state
+                target.classList.add("stranger-opened");
+                target.classList.remove("stranger-closed");
+                pre.style.display = "none";
+                full.style.removeProperty("display");
+                ret.style.removeProperty("display");
+            }
+        }
+    });
+
+    $("#stranger-return").on("click", function(e) {
+        let target = document.getElementById("quest-stranger");
+        let pre = document.getElementById("stranger-closed-container");
+        let full = document.getElementById("stranger-opened-container");
+        let ret = document.getElementById("stranger-return");
+        target.classList.add("stranger-closed");
+        target.classList.remove("stranger-opened");
+        pre.style.removeProperty("display");
+        full.style.display = "none";
+        ret.style.display = "none";
+    });
+
 
     /***************************************************************************** */
     /* Quest more-action list related events                                       */

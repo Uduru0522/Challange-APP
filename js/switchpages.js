@@ -55,7 +55,7 @@ function hide_all_page(index) {
         // stranger_full.classList.remove("animate-fade-in");
         [
             "quest-listing", "quest-titled-listing", "quest-ongoing-listing",
-            "quest-detail", "quest-submit"
+            "quest-detail", "quest-submit", "quest-stranger"
         ].forEach(selector => {
             document.getElementById(selector).style.display = "none";
         });

@@ -20,7 +20,7 @@ function assignData(item, qid, qcat, qplim, qpts) {
             item.dataset.field = index + 1;
         }
     });
-    ["single", "multiple", "both"].forEach(function(e, index) {
+    ["single", "multi", "any"].forEach(function(e, index) {
         if (qplim == e) {
             item.dataset.plim = index + 1;
         }
@@ -46,6 +46,14 @@ function build_quest_list(container, division) {
     fetch_quest_brief_info(division, function(qlist) {
         // Retrieve base <div> to clone
         let base_item = document.getElementById("qli-toclone");
+
+        qlist = [
+            { ID: 999, category: "美食", multiple: "single", points: 12, name: "事室用断大山" },
+            { ID: 999, category: "美食", multiple: "multi", points: 15, name: "事室用断大山" },
+            { ID: 999, category: "人際", multiple: "single", points: 20, name: "事室用断大山" },
+            { ID: 999, category: "人際", multiple: "any", points: 25, name: "事室用断大山" },
+            { ID: 999, category: "美食", multiple: "multi", points: 30, name: "事室用断大山" }
+        ];
 
         // Loop through array
         while (qlist.length) {
@@ -90,33 +98,33 @@ function build_ongoing_list() {
         console.log(qdata);
 
         // Temp input for testing
-        qdata = [
-            { qid: 999, category: "美食", name: "放事室用断大山定", plim: "single", pts: 20, goal: 3, current: 2 },
-            { qid: 999, category: "美食", name: "手宏対写", plim: "both", pts: 25, goal: 1, current: 0 },
-            { qid: 999, category: "人際", name: "週言無任社", plim: "multiple", pts: 30, goal: 4, current: 1 },
-            { qid: 999, category: "人際", name: "百人業骨治般広", plim: "single", pts: 35, goal: 1, current: 0 },
-            { qid: 999, category: "旅行", name: "毎読戸問回題", plim: "both", pts: 40, goal: 5, current: 3 },
-            { qid: 999, category: "美食", name: "携喫川米商局粉送", plim: "multiple", pts: 10, goal: 9, current: 8 },
-            { qid: 999, category: "美食", name: "大山定能温埼自載", plim: "single", pts: 15, goal: 2, current: 1 },
-            { qid: 999, category: "學業", name: "穂宮服件富", plim: "both", pts: 20, goal: 5, current: 4 },
-            { qid: 999, category: "人際", name: "際口百", plim: "both", pts: 20, goal: 3, current: 0 }
-        ];
+        // qdata = [
+        //     { qid: 999, category: "美食", name: "放事室用断大山定", plim: "single", pts: 20, goal: 3, current: 2 },
+        //     { qid: 999, category: "美食", name: "手宏対写", plim: "both", pts: 25, goal: 1, current: 0 },
+        //     { qid: 999, category: "人際", name: "週言無任社", plim: "multiple", pts: 30, goal: 4, current: 1 },
+        //     { qid: 999, category: "人際", name: "百人業骨治般広", plim: "single", pts: 35, goal: 1, current: 0 },
+        //     { qid: 999, category: "旅行", name: "毎読戸問回題", plim: "both", pts: 40, goal: 5, current: 3 },
+        //     { qid: 999, category: "美食", name: "携喫川米商局粉送", plim: "multiple", pts: 10, goal: 9, current: 8 },
+        //     { qid: 999, category: "美食", name: "大山定能温埼自載", plim: "single", pts: 15, goal: 2, current: 1 },
+        //     { qid: 999, category: "學業", name: "穂宮服件富", plim: "both", pts: 20, goal: 5, current: 4 },
+        //     { qid: 999, category: "人際", name: "際口百", plim: "both", pts: 20, goal: 3, current: 0 }
+        // ];
 
         qdata.forEach(function(q) {
             console.log(q);
             let new_item = item_base.cloneNode(true);
             new_item.removeAttribute("id");
-            assignData(new_item, q.qid, q.category, q.plim, q.pts);
+            assignData(new_item, q.ID, q.category, q.multiple, q.points);
 
             // Assign content for each field
             new_item.querySelector(":scope .qli-field p").innerText = q.category;
             new_item.querySelector(".qli-title").innerText = q.name;
 
             // Set Progress Bar Look
-            let progress_width = (q.current * 100 / q.goal).toString() + "%";
+            let progress_width = (q.now_stage * 100 / q.stage).toString() + "%";
             console.log(progress_width);
             new_item.querySelector(".qli-progress").style.setProperty("--progress-width", progress_width);
-            new_item.querySelector(".qli-progress").dataset.goal = q.goal;
+            new_item.querySelector(".qli-progress").dataset.stage = q.stage;
 
             // Append item
             new_item.classList.add("item-show-70px");
