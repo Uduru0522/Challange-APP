@@ -238,9 +238,6 @@
   --itemw: max(min(60%, 250px), 200px);
   scrollbar-width: none;
 }
-#quest-detail #qd-submit #qd-submit-container::--webkit-scrollbar {
-  display: none;
-}
 #quest-detail #qd-submit #qd-submit-container .qd-submit-upload, #quest-detail #qd-submit #qd-submit-container .qd-submit-past {
   position: relative;
   flex: 0 0 var(--itemw);
@@ -362,6 +359,158 @@
 #quest-submit {
   z-index: 1010;
   background-color: #FAFAFA;
+  counter-reset: step;
+}
+#quest-submit #submit-title {
+  height: 40px;
+  width: 90%;
+  position: relative;
+  margin: 120px 5% 0;
+  display: block;
+  background-color: #FFF;
+}
+#quest-submit #submit-title > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  font-size: 1.2em;
+  letter-spacing: 0.15em;
+}
+#quest-submit #submit-title #submit-title-text {
+  height: 100%;
+  width: calc(80% - 80px);
+  position: absolute;
+  top: 0;
+  left: 5%;
+  background-color: #B1DFDE;
+  color: #000000;
+}
+#quest-submit #submit-title #submit-submit {
+  height: 100%;
+  width: 80px;
+  position: absolute;
+  top: 0;
+  right: 5%;
+  color: #FFFFFF;
+}
+#quest-submit .submit-step-container {
+  height: 100px;
+  width: 90%;
+  position: relative;
+  margin: 20px 5% 0;
+}
+#quest-submit .submit-step-container .submit-step-index {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+}
+#quest-submit .submit-step-container .submit-step-index::before {
+  counter-increment: step;
+  content: counter(step);
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -20px;
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+  background-color: #A1D8D1;
+  border-radius: 50%;
+  color: #FFFFFF;
+  z-index: 10000;
+}
+#quest-submit .submit-step-container .submit-step-index::after {
+  content: "";
+  width: 40px;
+  height: 120px;
+  position: absolute;
+  top: -120px;
+  left: 0;
+  display: block;
+  background-image: radial-gradient(#A1D8D1 var(--gap), transparent var(--gap), transparent 100%);
+  background-size: var(--size) var(--size);
+  background-position: 50%;
+  background-repeat: repeat-y;
+  --gap: 33%;
+  --size: 17px;
+}
+#quest-submit .submit-step-container .submit-preview {
+  height: 100%;
+  width: 45%;
+  position: absolute;
+  left: 60px;
+  border: 1px solid #A1D8D1;
+  background-color: #FFFFFF;
+  background-size: 100% 100%;
+  bakcground-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+#quest-submit .submit-step-container .submit-preview .submit-mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../resources/quest/upload-white.png");
+  background-position: 50% 50%;
+  background-size: auto 40%;
+  background-repeat: no-repeat;
+}
+#quest-submit .submit-step-container input {
+  width: calc(55% - 70px);
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+#quest-submit .submit-step-container input:focus {
+  outline: none;
+}
+#quest-submit .submit-step-container input.submit-loc {
+  height: 30px;
+  bottom: 45px;
+  color: #A1D8D1;
+  background-image: url("../resources/quest/location-sky.png");
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  padding-left: 25px;
+  font-size: 0.85em;
+}
+#quest-submit .submit-step-container input.submit-desc {
+  height: 40px;
+  bottom: 0;
+  background-color: #FFFFFF;
+  border: 1px solid #A1D8D1;
+  border-radius: 5px;
+  color: #000000;
+  font-size: 1em;
+  letter-spacing: 0.2em;
+}
+#quest-submit .submit-step-container input.submit-desc::placeholder {
+  color: #CCC;
+}
+#quest-submit #submit-title + .submit-step-container .submit-step-index::after {
+  content: none;
+}
+#quest-submit .submit-step-container.past .submit-preview {
+  background-color: #A1D8D1;
+}
+#quest-submit .submit-step-container.current .submit-mask {
+  background-image: url("../resources/quest/upload-sky.png");
+}
+#quest-submit .submit-step-container.future .submit-step-index::before {
+  border: 1px solid #A1D8D1;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+#quest-submit .submit-step-container.future .submit-mask {
+  background-image: url("../resources/quest/upload-sky.png");
 }
 
 .quest-detail-header {
@@ -530,8 +679,9 @@
   background-position: 50% 50%;
 }
 #quest-stranger #stranger-opened-container #stranger-radar #stranger-radar-inner {
-  height: 78%;
-  width: 59%;
+  --height-len: 15.6vh;
+  height: var(--height-len);
+  width: calc(var(--height-len) * 1.15);
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   position: absolute;
   top: 9%;
@@ -940,6 +1090,7 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-color: #F8F8E0;
+  z-index: 1000;
 }
 #quest-ongoing-listing #ongoing-filter .filter-panel .filter-body {
   height: calc(100% - 115px);

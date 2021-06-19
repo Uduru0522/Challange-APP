@@ -295,13 +295,68 @@
             </div>
         </div>
 
+        <!-- Quset steps to clone -->
+        <div class="submit-step-container" id="ssc-toclone">
+            <div class="submit-step-index"></div>
+            <div class="submit-preview">
+                <div class="submit-mask"></div>
+            </div>
+            <input type="text" class="submit-loc">
+            <input type="text" class="submit-desc">
+        </div>
+
         <!-- Quest submit -->
         <div class="container" id="quest-submit" style="display: none;">
+            <input type="file" accept=".jpg, .jpeg, .png" id="submit-img-input" style="visibility: hidden; position: absolute; top: 0; left: -99999px">
             <div class="quest-detail-header">
                 <div class="qdh-return-arrow"></div>
                 <div class="qdh-field"></div>
                 <div class="qdh-qname"></div>
                 <div class="qdh-pts"></div>
+            </div>
+            <div id="submit-title">
+                <div id="submit-title-text">寫寫完成紀錄</div>
+                <div id="submit-submit" class="owbtn-select">提交</div>
+            </div>
+            <div class="submit-step-container past">
+                <div class="submit-step-index"></div>
+                <div class="submit-preview">
+                    <div class="submit-mask"></div>
+                </div>
+                <input type="text" class="submit-loc">
+                <input type="text" class="submit-desc">
+            </div>
+            <div class="submit-step-container past">
+                <div class="submit-step-index"></div>
+                <div class="submit-preview">
+                    <div class="submit-mask"></div>
+                </div>
+                <input type="text" class="submit-loc">
+                <input type="text" class="submit-desc" placeholder="輸入店名">
+            </div>
+            <div class="submit-step-container current">
+                <div class="submit-step-index"></div>
+                <div class="submit-preview">
+                    <div class="submit-mask"></div>
+                </div>
+                <input type="text" class="submit-loc">
+                <input type="text" class="submit-desc" placeholder="輸入店名">
+            </div>
+            <div class="submit-step-container future">
+                <div class="submit-step-index"></div>
+                <div class="submit-preview">
+                    <div class="submit-mask"></div>
+                </div>
+                <input type="text" class="submit-loc">
+                <input type="text" class="submit-desc">
+            </div>
+            <div class="submit-step-container future">
+                <div class="submit-step-index"></div>
+                <div class="submit-preview">
+                    <div class="submit-mask"></div>
+                </div>
+                <input type="text" class="submit-loc">
+                <input type="text" class="submit-desc">
             </div>
         </div>
 
@@ -343,72 +398,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="container" id="quest-detail">
-        <div class="quest-header" id="quest-detail-header">
-            <img class="return-arrow" src="../resources/quest/return-next-arrow.png">
-            <div id="quest-points"><span>10</span></div>
-            <div id="quest-tag"><span>出廢</span></div>
-            <div id="quest-title-text"><span>如何分辨出廢話自然是一個問題</span></div>
-        </div>
-
-        <div id="quest-submit-field" class="hidden">
-            <div class="qd-title" id="quest-require-title"><span>完成紀錄</span></div>
-            <div class="upload-new"></div> -->
-        <!-- <img id="preview_base" src="../resources/click-to-upload.png"> -->
-        <!-- <input id="quest-submit-img" style="display: none;" type="file" name="image/*">
-            <input id="quest-submit-text" type="text" placeholder="Enter Image Discription Here..."> -->
-        <!-- <div id="quest-submit-button">
-                <span>提交</span>
-            </div> -->
-        <!-- </div>
-    <div id="quest-intro">
-        <div class="qd-title" id="quest-intro-title"><span>任務介紹</span></div>
-        <span class="qd-body" id="quest-intro-body"></span>
-        <div id="people-indicate"><span></span></div>
-    </div>
-    <div id="quest-require">
-        <div class="qd-title" id="quest-require-title"> <span>完成條件</span></div>
-        <div class="qd-body" id="quest-require-body"></div>
-    </div> 
-    <div id="quest-detail-button"><span></span></div>
-
-    <div id="quest-history">
-        <div class="qd-title"><span>挑戰經歷</span></div>
-        <div id="img-grid-wrapper"></div>
-    </div>
-    <div id="show-stranger">
-        <div id="pre-stranger">
-            <span class="ss-pre" id="show-stranger-title">看看有誰</span>
-            <div class="shape-chevron ss-pre"></div>
-            <div class="shape-chevron ss-pre"></div>
-        </div>
-        <div id="full-stranger">
-            <div>
-                <div id="stranger-icon">
-                    <img src="../resources/quest/placeholder-1_1.png">
-                </div>
-                <div id="stranger-info-flex">
-                    <div id="stranger-id"><span>戰經戰戰經</span></div>
-                    <div id="stranger-hashtag"><span>#戰戰經經</span></div>
-                    <div id="stranger-req"><span>戰經戰</span></div>
-                </div>
-            </div>
-            <div>
-                <div id="stranger-top-stat-flex">
-                    <span id="stranger-top-stat-1">項目：42</span>
-                    <span id="stranger-top-stat-2">項目：42</span>
-                    <span id="stranger-top-stat-3">項目：42</span>
-                    <span id="stranger-top-stat-4">項目：42</span>
-                </div>
-                <div id="stranger-radar">
-                    <img src="../resources/quest/radar_base.png" />
-                    <img id="stranger-radar-inner" src="../resources/quest/radar-inner-black.png" />
-                </div>
-            </div>
-        </div>
-    </div>
-    </div> -->
 
         <!-- Show when to create new quest -->
         <div class="container hidden" id="quest-create-new">

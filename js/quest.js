@@ -151,6 +151,12 @@ $(document).ready(() => {
         document.querySelector(".navbar").style.removeProperty("display");
     });
 
+    // Return from ongoing filter
+    $("#quest-ongoing-filter-return").on("click", function(e) {
+        console.log("tor");
+        $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tol").addClass("lr-slide-container-tor");
+    });
+
     // Reset filter options
     $(".filter-footer .reset").on("click", function(e) {
         fop_ppl.clear(), fop_field.clear();
@@ -360,45 +366,27 @@ $(document).ready(() => {
     // });
 
     // Image preview on upload
-    // const myFile = document.querySelector('#quest-submit-img')
-    // myFile.addEventListener('change', function(e) {
-    //     const file = e.target.files[0]
-    //     const reader = new FileReader()
-    //     const img = document.querySelector('#preview')
-    //     reader.readAsDataURL(file)
-    //     reader.onload = function() {
-    //         img.src = reader.result;
-    //         console.log("loaded preview.");
-    //     }
-    // })
+    const myFile = document.querySelector("#submit-img-input");
+    myFile.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        const img = document.querySelector(".submit-step-container.current .submit-preview");
+        console.log(img);
+        reader.readAsDataURL(file)
+        reader.onload = function() {
+            console.log(reader.result);
+            console.log(img.style.backgroundImage);
+            console.log("url(" + reader.result + ");");
+            img.style.backgroundImage = "url(" + reader.result + ")";
+            console.log("loaded preview.");
+        }
+    })
 
-    // // Redirect click event on uploading image
-    // $(document).on("click", "#preview", function() {
-    //     $("#quest-submit-img").trigger("click");
-    // });
-
-    // Show stranger panel in quest detail
-    // let hidetimer = null;
-    // swipedetect(document.getElementById("show-stranger"), function(dir) {
-    //     if (dir != "none") {
-    //         clearTimeout(hidetimer);
-    //         console.log("Swiped/Dragged" + dir);
-    //         if (dir == "up") {
-    //             // Transform to full information
-    //             let target = document.getElementById("show-stranger");
-    //             target.classList.add("stranger-full");
-    //             target.classList.remove("stranger-hidden");
-
-    //             let pre = document.getElementById("pre-stranger");
-    //             let full = document.getElementById("full-stranger");
-
-    //             pre.classList.add("animate-fade-out");
-    //             pre.classList.remove("animate-fade-in");
-    //             full.classList.add("animate-fade-in");
-    //             full.classList.remove("animate-fade-out");
-    //         }
-    //     }
-    // });
+    // Redirect click event on uploading image
+    $(document).on("click", ".submit-step-container.current .submit-mask", function() {
+        console.log("what?");
+        $("#submit-img-input")[0].click(); //.trigger("click");
+    });
 
     /***************************************************************************** */
     /* Stranger panel related events                                       */

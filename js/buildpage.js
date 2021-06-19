@@ -6,7 +6,7 @@ function b64ImgRandGen(width, height) {
     canvas.width = width;
     canvas.height = height;
 
-    imageData.data.set(imageData.data.map(() => _.random(0, 255)))
+    imageData.data.set(imageData.data.map(() => Math.floor(Math.random() * 256)));
     canvas.getContext('2d').putImageData(imageData, 0, 0);
 
     return canvas.toDataURL();
@@ -28,6 +28,10 @@ function assignData(item, qid, qcat, qplim, qpts) {
     item.dataset.pts = qpts;
 }
 
+// Insert node after
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 
 /*********************************************** */
 /*  Actual building functions                    */
@@ -98,19 +102,6 @@ function build_ongoing_list() {
     $.post("mission/doing", function(qdata) {
         console.log(qdata);
 
-        // Temp input for testing
-        // qdata = [
-        //     { qid: 999, category: "美食", name: "放事室用断大山定", plim: "single", pts: 20, goal: 3, current: 2 },
-        //     { qid: 999, category: "美食", name: "手宏対写", plim: "both", pts: 25, goal: 1, current: 0 },
-        //     { qid: 999, category: "人際", name: "週言無任社", plim: "multiple", pts: 30, goal: 4, current: 1 },
-        //     { qid: 999, category: "人際", name: "百人業骨治般広", plim: "single", pts: 35, goal: 1, current: 0 },
-        //     { qid: 999, category: "旅行", name: "毎読戸問回題", plim: "both", pts: 40, goal: 5, current: 3 },
-        //     { qid: 999, category: "美食", name: "携喫川米商局粉送", plim: "multiple", pts: 10, goal: 9, current: 8 },
-        //     { qid: 999, category: "美食", name: "大山定能温埼自載", plim: "single", pts: 15, goal: 2, current: 1 },
-        //     { qid: 999, category: "學業", name: "穂宮服件富", plim: "both", pts: 20, goal: 5, current: 4 },
-        //     { qid: 999, category: "人際", name: "際口百", plim: "both", pts: 20, goal: 3, current: 0 }
-        // ];
-
         qdata.forEach(function(q) {
             console.log(q);
             let new_item = item_base.cloneNode(true);
@@ -122,7 +113,7 @@ function build_ongoing_list() {
             new_item.querySelector(".qli-title").innerText = q.name;
 
             // Set Progress Bar Look
-            let progress_width = (q.now_stage * 100 / q.stage).toString() + "%";
+            let progress_width = ((q.now_stage - 1) * 100 / q.stage).toString() + "%";
             console.log(progress_width);
             new_item.querySelector(".qli-progress").style.setProperty("--progress-width", progress_width);
             new_item.querySelector(".qli-progress").dataset.stage = q.stage;
@@ -131,7 +122,6 @@ function build_ongoing_list() {
             new_item.classList.add("item-show-70px");
             container.appendChild(new_item);
         });
-
     });
 }
 
@@ -172,6 +162,7 @@ function build_quest_detail(qid) {
             accept_button.classList.add("did-accept");
             accept_button.classList.add("owbtn-deselect");
         }
+
         if (qdata.stage > 1) {
             let submit_past_base = document.getElementById("qdsp-toclone");
             let container = document.getElementById("qd-submit-container");
@@ -188,6 +179,28 @@ function build_quest_detail(qid) {
                 count--;
             }
         }
-
+        build_quest_submit(qdata.stage, parseInt(qdata.progress));
     });
+}
+
+function build_quest_submit(stage_count, current) {
+    let container_base = document.getElementById("ssc-toclone").cloneNode(true);
+    container_base.removeAttribute("id");
+    let anchor = document.querySelector("#quest-submit");
+    let temp = stage_count;
+
+    $(".submit-step-container:not(#ssc-toclone)").remove();
+
+    while (temp) {
+        let new_step = container_base.cloneNode(true);
+        if (current + temp - 1 > stage_count) {
+            new_step.classList.add("past");
+        } else if (current + temp - 1 == stage_count) {
+            new_step.classList.add("current");
+        } else {
+            new_step.classList.add("future");
+        }
+        anchor.appendChild(new_step);
+        --temp;
+    }
 }
