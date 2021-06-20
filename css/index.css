@@ -1,144 +1,160 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
 @font-face {
-  font-family: "Gen Jyuu Gothic Medium";
-  src: url("../resources/Medium.ttf");
+    font-family: "Gen Jyuu Gothic Medium";
+    src: url("../resources/GenJyuuGothic-Medium.ttf");
 }
-html, body {
-  box-sizing: border-box;
+
+@font-face {
+    font-family: "Gen Jyuu Gothic Regular";
+    src: url("../resources/GenJyuuGothic-Regular.ttf");
+}
+
+html,
+body {
+    box-sizing: border-box;
 }
 
 html {
-  background-color: black;
-  height: 100%;
-  width: 100%;
+    background-color: black;
+    height: 100%;
+    width: 100%;
 }
 
 body {
-  background-color: white;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-*, *::before, *::after {
-  font-family: "Noto Sans TC", sans-serif;
-  font-weight: normal;
+*,
+*::before,
+*::after {
+    font-family: "Gen Jyuu Gothic Regular", sans-serif;
+    font-weight: normal;
 }
 
 .navbar {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: space-around;
-  width: 100vw;
-  height: 8vh;
-  border-top: black solid thin;
-  background-color: #E9B83E;
-  /* Max z-index */
-  z-index: 100;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    height: 8vh;
+    border-top: black solid thin;
+    background-color: #E9B83E;
+    /* Max z-index */
+    z-index: 100;
 }
+
 .navbar img {
-  margin: auto 0;
-  display: block;
-  height: 10vw;
-  width: 10vw;
+    margin: auto 0;
+    display: block;
+    height: 10vw;
+    width: 10vw;
 }
 
 .container {
-  display: block;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: white;
-  /* Temp */
-  z-index: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    /* Temp */
+    z-index: 0;
 }
 
 .transparent-background {
-  background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.45);
 }
 
-
-
 .hidden {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .show {
-  visibility: visible;
+    visibility: visible;
 }
 
 .return-arrow {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .invis {
-  opacity: 0;
+    opacity: 0;
 }
 
 .dummy {
-  width: 100vw;
-  height: 22vh;
-}
-#bodybody{
-  display:none;
-}
-#loading-cover {
-  background: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-#loading-text{
-  margin:3vw;
-  font-size: 3vh;
-}
-#loading-icon {
-  border: 1vh solid #EB931D;
-  border-right: 0.8vh solid #FFF;
-  border-bottom: 0.8vh solid #FFF;
-  height: 6vh;
-  width: 6vh;
-  border-radius: 50%;
-  -webkit-animation: loading 1s infinite linear;
-  -moz-animation: loading 1s infinite linear;
-  -o-animation: loading 1s infinite linear;
-  animation: loading 1s infinite linear;
-}
-@-webkit-keyframes loading {
-  from {
-      -webkit-transform: rotate(0deg);
-  }
-  to {
-      -webkit-transform: rotate(360deg);
-  }
-}
-@-moz-keyframes loading {
-  from {
-      -moz-transform: rotate(0deg);
-  }
-  to {
-      -moz-transform: rotate(360deg);
-  }
-}
-@-o-keyframes loading {
-  from {
-      -o-transform: rotate(0deg);
-  }
-  to {
-      -o-transform: rotate(360deg);
-  }
-}
-@keyframes loading {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
+    width: 100vw;
+    height: 22vh;
 }
 
+#bodybody {
+    display: none;
+}
+
+#loading-cover {
+    background: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading-text {
+    margin: 3vw;
+    font-size: 3vh;
+}
+
+#loading-icon {
+    border: 1vh solid #EB931D;
+    border-right: 0.8vh solid #FFF;
+    border-bottom: 0.8vh solid #FFF;
+    height: 6vh;
+    width: 6vh;
+    border-radius: 50%;
+    -webkit-animation: loading 1s infinite linear;
+    -moz-animation: loading 1s infinite linear;
+    -o-animation: loading 1s infinite linear;
+    animation: loading 1s infinite linear;
+}
+
+@-webkit-keyframes loading {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes loading {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes loading {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

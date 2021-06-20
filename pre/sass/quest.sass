@@ -34,17 +34,25 @@
 
         color: white
         font-size: 20pt
-        --letter-space-val: 25px
+        --letter-space-val: 45px
         letter-spacing: var(--letter-space-val)
         margin-left: var(--letter-space-val)
         text-align: center
 
 #quest-create-new .quest-header
     > span::after
+        --letter-space-val: 14px
+        letter-spacing: var(--letter-space-val)
+        margin-left: var(--letter-space-val)
         content: "發起新任務"
 
 #quest-main>.quest-header, .quest-header,
 #quest-listing>.quest-header, #quest-titled-listing>.quest-header, #quest-ongoing-listing>.quest-header
+    background-image: url("../resources/quest/quest-header.png")
+    background-position: 50% 50%
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    
     > span::after
         content: "任務"
 
@@ -63,81 +71,87 @@
 
 .quest-peek
     width: 92vw
-    height: 40vh
-    min-height: 300px
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.75)
-    border-radius: 24px
-    margin: 10px auto 0
+    height: 30vh
+    min-height: 275px
+    max-height: 400px
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 20%)
+    border-radius: 15px
+    margin: 35px auto 0
     overflow: hidden
     background-color: #EAF6F7
 
     .peek-title
-        padding: 0 6%
+        width: 100%
+        height: 18%
+        padding: 3% 6% 0
+        margin-bottom: -1%
         display: flex
         align-items: center
         justify-content: space-between
-        width: 100%
-        height: 19%
         background-color: #EAF6F7
-        // border-bottom: black solid 3px
 
         span
             display: inline-block
             vertical-align: middle
 
         span:nth-child(1)
-            font-size: 2.7vh
+            font-size: 1.1em
             letter-spacing: 0.4vh
+            color: #67696B
         span:nth-child(2)
+            font-family: 'Ubuntu Mono', monospace
+            color: #37A69A
             font-size: 1em
 
     .horizontal-scroll-container
         overflow-x: scroll
         white-space: nowrap
-        height: 81%
-        line-height: 100%
-        margin-top: 1%
+        height: 90%
 
         &::-webkit-scrollbar
             visibility: hidden
 
         .quest-block
             display: inline-block
-            width: 41.5%
-            height:  calc(16500vh / 735)
+            width: 140px
+            height:  75%
             vertical-align: middle
             position: relative
             top: 50%
             transform: translateY(-50%)
             margin: 0 2px 0 9px
             border-radius: 20px
-            box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.75)
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4)
             overflow: hidden
             background-color: white
 
             .type
                 @extend %flex-centeralize
                 margin: 0 auto
-                height: calc(860% / 31)
-                width: calc(1000% / 13)
-                border-bottom: #ECE569 solid 2px
+                height: 25% 
+                width: 70%
+                border-bottom: #ECE569 solid 1px
                 span
-                    font-size: 2.5vh
-                    letter-spacing: 6vw
-                    margin-right: -6vw
-                    margin-top: 1vh
+                    display: flex
+                    justify-content: center
+                    align-content: center
+                    color: #67696B
+                    font-size: 1em
+                    letter-spacing: 1em
+                    padding-left: 1em
 
             .title
                 @extend %flex-centeralize
                 width: 100%
-                height: calc(70% - calc(700% / 31))
+                height: 50%
                 span
                     display: block
-                    padding: 3%
+                    padding: 0 14%
                     white-space: normal
-                    font-size: 2.5vh
-                    line-height: 3vh
-                    text-align: center
+                    font-size: 0.9em
+                    line-height: 1.3em
+                    letter-spacing: 0.1em
+                    text-align: left
                     
 
             .accept-button
@@ -152,9 +166,9 @@
                 background-color: #ECE569
 
                 span
-                    font-size: 2.2vh
-                    letter-spacing: 2.2vh
-                    margin-right: -2.2vh
+                    font-size: 0.9em
+                    letter-spacing: 1em
+                    margin-right: -1em
                     margin-top: 1vh
                 
             .qblock-qid
@@ -187,7 +201,7 @@
         height: auto
         display: block
         position: relative
-        margin-top: 20px
+        margin-top: 40px
         text-align: center
 
         .qd-block-title
@@ -197,7 +211,7 @@
             border-radius: 10px
 
             line-height: min(max(10%, 40px), 55px)
-            font-size: 1.2em
+            font-size: 1.1em
             color: #FFFFFF
             letter-spacing: 0.3em
             padding-left: 0.3em
@@ -210,9 +224,9 @@
         
         > span
             width: 80%
-            line-height: 2.5ch
+            line-height: 2.8ch
             display: inline-block
-            font-size: 2.25ch
+            font-size: 1.8ch
             color: #1C1C1C
             text-align: center
             margin-top: 10px
@@ -298,6 +312,8 @@
                 background-color: transparent
 
     #qd-intro
+        &.qd-block
+            margin-top: 25px
         #qd-plim
             width: 80%
             line-height: 1.8em
@@ -314,12 +330,14 @@
                 border-radius: 10px
 
                 background-color: #FFFFFF
-                font-size: 1.1em
+                font-size: 0.9em
                 color: #DF9F38
                 letter-spacing: 0.5em
                 padding-left: 0.5em
 
     #qd-guide
+        &.qd-block
+            margin-top: 65px
         #qd-accept
             width: 30%
             height: 40px
@@ -332,11 +350,13 @@
             align-items: center
 
             color: #FFFFFF
-            font-size: 1.2em
+            font-size: 1em
             letter-spacing: 0.5em
             padding-left: 0.5em
     
     #qd-history
+        &.qd-block
+            margin-top: 65px
         #qd-history-flex
             width: 100%
             margin-top: 10px
@@ -344,12 +364,12 @@
             flex-direction: row
             flex-wrap: wrap
             justify-content: flex-start
-            gap: 8px
+            gap: 2px
             
             div
                 background-color: #F1E1AC
-                flex: 0 0 calc((100% - 16px) / 3)
-                height: calc(calc(100vw - 16px) / 3)
+                flex: 0 0 calc((100% - 4px) / 3)
+                height: calc(calc(100vw - 4px) / 3)
 
             div.placeholder
                 background-color: rgba(0, 0, 0, 0)
@@ -550,20 +570,23 @@
         min-width: 65px
         margin: 30px auto 0
         align-items: flex-end
-        font-size: 1.1em
+        font-size: 1em
         color: #DF9F38
         border-left: 1px solid #DF9F38
         border-right: 1px solid #DF9F38
         letter-spacing: 0.5em
         padding-left: 0.5em
+        display: flex
+        justify-content: center
+        align-items: center
 
     .qdh-qname
         position: relative
         margin: 8px auto 0
-        font-size: 1.25em
+        font-size: 1.15em
         color: #0E0F0E
-        letter-spacing: 1.1px
-        padding-left: 1.1px
+        letter-spacing: 3px
+        padding-left: 3px
 
     .qdh-return-arrow, .qdh-pts
         position: absolute
@@ -605,7 +628,7 @@
             content: "看看有誰"
             display: flex
             justify-content: center
-            font-size: 1.5em
+            font-size: 1.1em
             color: #5E9289
             padding-top: 15px
             letter-spacing: 0.2em
@@ -615,14 +638,14 @@
         // > *
         //     border: 2px #C0C0C0 solid
         #stranger-icon
-            height: 18vh
-            width: 18vh
+            height: 17vh
+            width: 17vh
             position: absolute
-            top: 3vh
-            left: min(5vw, 19px)
+            top: 2.9vh
+            left: min(6vw, 22px)
             border-radius: 50%
-            border: #FFFFFF 7px solid
-            background-image: url("../resources/quest/placeholder_1x1.png")
+            border: #FFFFFF 3px solid
+            background-image: url(../resources/quest/placeholder_1x1.png)
             background-position: 50% 50%
             background-size: 100% auto
             background-repeat: no-repeat
@@ -646,58 +669,63 @@
                 align-items: center
 
             p#stranger-name
-                font-size: 1.35em
+                font-size: 1.25em
+                letter-spacing: 0.2em
             p#stranger-hashtag
                 font-size: 1em
+                letter-spacing: 0.1em
+                color: #005a63
                 &::before
                     content: "＃"
             #stranger-send-request
-                margin: 1.3vh 0 1.3vh 1.3vh
+                margin: 1.3vh 6% 1.3vh 1.3vh
                 border-radius: 8px
                 color: #FFFFFF
-                font-size: 1.25em
+                font-size: 0.95em
+                letter-spacing: 0.1em
                 background-color: #D6CE41
                 justify-content: center
-                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25)
+                box-shadow: 2px 2px 5px rgb(0 0 0 / 25%)
 
         #stranger-stats
-            height: 18vh
+            height: 20vh
             width: 6em
             position: absolute
-            top: 25vh
-            left: min(9vw, 34px)
+            top: 24.2vh
+            left: min(11vw, 41px)
             display: flex
             flex-direction: column
             justify-content: space-between
+            padding: 0% 0
             
             p
                 margin: 0
                 display: flex
                 justify-content: flex-start
                 align-items: center
-                font-size: 1.15em
-                letter-spacing: 0.05em
+                font-size: 1em
+                letter-spacing: 0.2em
             
         #stranger-radar
-            width: calc(100vw - calc(min(10vw, 37px) + 6em))
-            height: 20vh
+            width: calc(100vw - calc(min(11vw, 41px) + 6em))
+            height: 19vh
             position: absolute
-            top: 24vh
-            right: 0
-            background-image: url("../resources/quest/radar-base.png")
+            top: 25vh
+            right: 6px
+            background-image: url(../resources/quest/radar-base.png)
             background-size: auto 100%
             background-repeat: no-repeat
             background-position: 50% 50%
             #stranger-radar-inner
-                --height-len: 15.6vh
+                --height-len: 14.82vh
                 height: var(--height-len)
                 width: calc(var(--height-len) * 1.15)
-                clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)
+                clip-path: polygon(25% 0%, 70% 31%, 100% 50%, 59% 79%, 25% 100%, 0% 50%)
                 position: absolute
                 top: 9%
                 left: 50%
                 transform: translateX(-50%)
-                background-color: rgba(#EB931D, 0.45)
+                background-color: rgba(235, 147, 29, 0.45)
 
         @keyframes _spinner-to-pos
             0%
@@ -713,7 +741,7 @@
             left: 50%
             transform: translate(-50%, -50%)
             border-radius: 50%
-            border: 5px solid #FFF
+            border: 2px solid #FFF
             background-color: #B4E6DC
             overflow: hidden
             animation: _spinner-to-pos 0.8s ease forwards
@@ -726,7 +754,7 @@
                 position: absolute
                 top: 50%
                 left: 50%
-                border: 3px solid #FFF
+                border: 1.5px solid #FFF
                 margin-top: calc(-1 * var(--size))
                 margin-left: calc(-1 * var(--size))
 
@@ -750,8 +778,8 @@
                 top: 48%
                 left: 41%
                 border-radius: 50%
-                border: white 8px solid
-                background-image: url("../resources/quest/placeholder_1x1.png")
+                border: white 3px solid
+                background-image: url(../resources/quest/placeholder_1x1.png)
                 background-size: 100% 100%
                 background-repeat: no-repeat
                 background-position: 50% 50%
@@ -760,9 +788,9 @@
                 display: inline-block
                 width: 5em
                 position: absolute
-                top: 65%
-                left: 59.5%
-                font-size: 1.3em
+                top: 67%
+                left: 62.5%
+                font-size: 1.1em
                 color: black
                 text-align: center
 
@@ -788,16 +816,23 @@
         background-color: rgba(0, 0, 0, 0)
 
 
+// Slide in from left
+@keyframes _slide-from-left
+    0% 
+        left: -100%
+    100%
+        left: 0%
+
 .filter-panel
     height: calc(calc(100vh - 100px) * 0.9)
     width: 90%
     position: absolute
     top: 120px
-    left: 0
     background-color: white
     z-index: 30
     border-radius: 0 40px 40px 0
     overflow: hidden
+    animation: _slide-from-left 0.4s ease forwards
 
     .filter-header, .filter-footer
         width: 100%
@@ -812,9 +847,8 @@
             display: flex
             justify-content: center
             align-items: center
-            font-size: 1.5em
+            font-size: 1.3em
             letter-spacing: 0.5em
-            padding-left: 0.5em
             height: 100%
             width: 100%
         
@@ -829,8 +863,9 @@
             margin-left: 7%            
 
         .filter-option-title
+            margin-top: 17px
             padding: 0.5em 0
-            font-size: 1.5em
+            font-size: 1.1em
             color: #000000
 
         .filter-option-grid
@@ -884,13 +919,14 @@
                 background-color: #000000
         
         .filter-option-input
-            height: 8%
+            height: 9%
             width: 70%
+            border-radius: 10px
+            border: #C7E1D9 1px solid
             padding-left: calc(calc(calc(100vh - 100px) * 0.9) * 0.06)
-
             background-repeat: no-repeat
-            background-position: top 50% left 5px
-            background-size: auto 80%
+            background-position: top 50% left 10px
+            background-size: auto 55%
 
         .loc-filter.filter-option-input
             background-image: url("../resources/quest/search.png")
@@ -914,7 +950,7 @@
             align-items: center
             margin-right: 15px
             border-radius: 5px
-            font-size: 1.3em
+            font-size: 1.1em
             letter-spacing: 0.4em
             padding-left: 0.4em
             box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.35)
@@ -947,7 +983,7 @@
         bottom: 0
 
         display: block
-        height: calc(100vh - 155px)
+        height: calc(100vh - 165px)
         width: 100%
         overflow-y: hidden
 
@@ -965,7 +1001,7 @@
             justify-content: center
             align-items: center
 
-            font-size: 1.5em
+            font-size: 1.1em
             letter-spacing: 0.2em
             padding-left: 0.2em
 
@@ -974,7 +1010,7 @@
 
 #quest-titled-listing
     .quest-list-title
-        color: black
+        color: #4B4B4B
 
 #quest-ongoing-listing 
     .quest-list-title
@@ -1013,20 +1049,22 @@
             height: 70px
             .qli-field
                 width: 55px
-                font-size: 1em
+                font-size: 0.9em
                 p
-                    top: 14px
+                    top: 11px
                     left: -2px
                     letter-spacing: 10px
             .qli-title
-                top: 30%
+                top: 35%
+                font-size: 0.95em
+
             .qli-progress
                 width: calc(100% - 165px)
                 height: 6px
                 
                 position: absolute
                 left: 85px
-                bottom: 30%
+                bottom: 15%
                 transform: translateY(50%)
 
                 background-color: #E9E797
@@ -1045,8 +1083,8 @@
                 height: 35px
                 width: 35px
                 display: block
-                position:absolute
-                right: 10px
+                position: absolute
+                right: 15px
                 top: 50%
                 transform: translateY(-50%)
                 border-radius: 50%
@@ -1090,7 +1128,7 @@
                     line-height: 35px
 
                     position: absolute
-                    left: 10%
+                    left: 5%
                     top: 50%
                     transform: translateY(-50%)
                     border-radius: 50%
@@ -1109,8 +1147,8 @@
                     margin-left: 12%
 
                 .filter-option-title
-                    font-size: 1.2em
-                    margin-top: 5%
+                    font-size: 1.1em
+                    margin-top: 9%
 
                 .filter-option-grid
                     width: 65%
@@ -1125,7 +1163,7 @@
                     height: 35px
                     box-shadow: none
                 .reset
-                    border: 2px solid #E9B83E         
+                    border: 1px solid #E9B83E         
 
 // List container general
 .quest-list-container
@@ -1169,17 +1207,17 @@
             background-color: #ECE569
             writing-mode: vertical-rl
             white-space: nowrap
-            font-size: 1.2em
+            font-size: 1em
             color: black
             p 
                 position: absolute
                 top: 19px
-                left: -7px
+                left: -4px
                 letter-spacing: 12px               
 
         .qli-title
             top: 50%
-            left: 85px
+            left: 81px
             width: calc(100% - 165px)
             max-height: 100%
 
@@ -1188,6 +1226,7 @@
             white-space: normal
             font-size: 1em
             line-height: 1.3em
+            letter-spacing: 0.1em
             color: black
 
         .qli-pt
@@ -1200,7 +1239,7 @@
             justify-content: center
             align-items: center
             color: white
-            font-size: 12pt
+            font-size: 10pt
             border-radius: 50%
             background-color: #468189
 
@@ -1212,7 +1251,7 @@
             width: 75px
             border-radius: 3px
 
-            font-size: 1em
+            font-size: 0.9em
             letter-spacing: 5px
             padding-left: 5px
 
@@ -1224,35 +1263,36 @@
 // Filtering bar in listing page
 .filter-bar
     position: relative
-    margin-top: 110px
-
+    margin-top: 120px
     display: block
     width: 100%
-    height: 35px
+    height: 31px
     line-height: 35px
-
     overflow-x: scroll
+    overflow-y: hidden
+    margin-bottom: -4%
 
     .filter-button
         height: 100%
-        width: 90px
+        width: 80px
         line-height: 35px
-
         position: relative
         margin-left: 5%
-
-        background-image: url("../resources/quest/filter.png")
-        background-size: contain
+        padding-left: 6%
+        background-image: url(../resources/quest/filter.png)
+        background-position: 0 50%
+        background-size: auto 80%
         background-repeat: no-repeat
 
         &::after
             content: "篩選"
             display: flex
             flex-direction: row-reverse
-            font-size: 1.1em
+            font-size: 0.9em
             letter-spacing: 0.4em
             color: #EB931D
             vertical-align: middle
+            margin-left: 11px
 
 // Quest option list animatoin
 @keyframes _quest-more-expand
@@ -1292,9 +1332,13 @@
         display: flex
         justify-content: center
         align-items: center
+        border-radius: 50%
 
         .quest-more-option
             max-width: 100%
+            border-radius: 50%
+            box-shadow: 2px 2px 3px rgb(0 0 0 / 30%)
+            
     .quest-more-open
         width: 100%
         height: 100%
@@ -1350,24 +1394,25 @@
         #quest-create-part1
             left: 0
             .quest-create-steptitle
-                margin-top: 12%
+                margin-top: 18.8%
 
             input
                 position: absolute
                 width: 80%
                 max-width: calc(100vw - 60px)
-                height: 9vh
+                height: 6vh
 
                 position: absolute
                 left: 30px
 
                 background-color: transparent
                 border: none
-                border-bottom: #EB931D solid 2px
+                border-bottom: #F1CE62 solid 1px
                 outline: 0
                 
-                font-size: 32pt
-                padding-top: 20px
+                font-size: 1.2em
+                letter-spacing: 0.1em
+                padding-top: 13px
                 color: #727272
                 text-align: center
 
@@ -1383,9 +1428,13 @@
 
         #quest-create-part4
             left: 300vw
+            .quest-create-steptitle
+                margin-top: 4%
 
         #quest-create-part5
             left: 400vw
+            .quest-create-steptitle
+                margin-top: 4%
 
         #quest-create-part6
             left: 500vw
@@ -1397,7 +1446,8 @@
             display: block
             // margin-top: 12%
             left: 30px
-            font-size: 20pt
+            font-size: 1.1em
+            letter-spacing: 0.1em
             color: #EB931D
         .quest-create-steptitle-ps
             position: relative
@@ -1413,8 +1463,9 @@
             display: grid
             width: calc(100vw - 48px)
             height: 35vh
+            padding: 0 15px
 
-            grid-template-columns: repeat(auto-fill, minmax(80px, 105px))
+            grid-template-columns: repeat(auto-fill, minmax(80px, 90px))
             grid-template-rows: repeat(auto-fill, 40px)
             row-gap: 10px 
             justify-items: center
@@ -1431,9 +1482,9 @@
             border: black solid 1px
 
             span
-                font-size: 15pt
-                letter-spacing: 2px
-                margin-left: 2px
+                font-size: 1em  
+                letter-spacing: 0.4em
+                margin-left: 0.4em
 
         textarea
             position: relative
@@ -1441,11 +1492,11 @@
             left: 30px
             width: calc(100vw - 60px)
             height: 30vh
-            border: #EB931D solid 2px
+            border: #EB931D solid 1px
             outline: 0
             border-radius: 15px
             padding: 5px
-            font-size: 15pt
+            font-size: 1.1em
             color: #333333
             padding: 15px
 
@@ -1463,9 +1514,9 @@
         
         .quest-create-progress-dot
             width: 8px
-            height: 8px
+            height: 5px
             margin: 0 3px
-            background-color: #EB931D
+            background-color: #F1CE62
             border-radius: 4px
             
     #quest-create-next, #quest-create-finish
@@ -1505,7 +1556,7 @@
 
             > span
                 color: #EB931D
-                font-size: 3.2vh
+                font-size: 1em
         
         #quest-create-success-confirm
             @extend %flex-centeralize
@@ -1517,9 +1568,12 @@
             transform: translateX(-50%)
             background-color: #EB931D
             border-radius: 7px
+            box-shadow: 2px 2px 3px rgb(0 0 0 / 30%)
 
             > span
-                font-size: 3.2vh
+                font-size: 1.1em
+                letter-spacing: 0.4em
+                padding-left: 0.4em
                 color: white
 
 // New Quest Animations
@@ -1568,9 +1622,9 @@
 @keyframes _owbtn-select
     0%
         background-color: #FFFFFF
-        border: 2px solid #EB931D
+        border: 1px solid #EB931D
         color: #000000
-        box-shadow: none
+        box-shadow: 2px 2px 3px rgb(0 0 0 / 40%)
         transform: translate(0, 0)
     100%
         background-color: #EB931D
@@ -1588,9 +1642,9 @@
         transform: translate(-2px, -2px)
     100%
         background-color: #FFFFFF
-        border: 2px solid #EB931D
+        border: 1px solid #EB931D
         color: #000000
-        box-shadow: none
+        box-shadow: 2px 2px 3px rgb(0 0 0 / 40%)
         transform: translate(0, 0)
 
 .owbtn-deselect
@@ -1601,7 +1655,7 @@
 // Progress dot expand/shrink
 @keyframes _progress-on
     0%
-        width: 8px
+        width: 5px
     100%
         width: 30px
     
@@ -1609,7 +1663,7 @@
     0%
         width: 30px
     100%
-        width: 8px
+        width: 5px
 
 .pd-on
     animation: _progress-on 0.5s ease forwards
@@ -1745,8 +1799,8 @@ $hide-show-sizes: 70px, 90px
 .shape-chevron
     position: relative
     text-align: center
-    padding: 2px
-    margin: 20px auto 0
+    padding: 1.2px
+    margin: 15px auto 0
     height: 0px
     width: 15%
     

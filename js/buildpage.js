@@ -41,9 +41,9 @@ function build_quest_list(container, division) {
     // Clear out container
     container.innerHTML = "";
 
-    // Add mask
-    let mask = document.getElementsByClassName("container-fadeout-top")[0];
-    container.appendChild(mask.cloneNode(true));
+    // // Add mask
+    // let mask = document.getElementsByClassName("container-fadeout-top")[0];
+    // container.appendChild(mask.cloneNode(true));
 
     // Fetch data according to division
     console.log(division);
@@ -73,6 +73,30 @@ function build_quest_list(container, division) {
             new_item.querySelector(".qli-title").innerText = q.name;
             new_item.querySelector(".qli-pt").innerText = q.points;
 
+            switch (parseInt(new_item.dataset.field)) {
+                case 1:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#EC7320";
+                    break;
+                case 2:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#41B08C";
+                    break;
+                case 3:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#FFC301";
+                    break;
+                case 4:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#3964AB";
+                    break;
+                case 5:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#E64259";
+                    break;
+                case 6:
+                    new_item.querySelector(".qli-pt").style.backgroundColor = "#08BBCE";
+                    break;
+                default:
+                    console.log("No this color");
+                    break;
+            }
+
             // Determine accept state
             new_item.querySelector(".qli-accept").dataset.qid = q.ID;
             if (q.progress == 0) {
@@ -96,7 +120,7 @@ function build_quest_list(container, division) {
 function build_ongoing_list() {
     let container = document.querySelector("#quest-ongoing-listing .quest-list-container");
     container.innerHTML = "";
-    container.appendChild(document.getElementsByClassName("container-fadeout-top")[0].cloneNode(true));
+    // container.appendChild(document.getElementsByClassName("container-fadeout-top")[0].cloneNode(true));
     let item_base = document.getElementById("qoli-toclone");
 
     $.post("mission/doing", function(qdata) {
@@ -127,6 +151,7 @@ function build_ongoing_list() {
 
 function build_quest_detail(qid) {
     console.log("qid=" + qid);
+    document.getElementById("quest-submit").dataset.qid = qid;
 
     // POST request for quest info
     $.post("mission/detail", {
@@ -163,6 +188,10 @@ function build_quest_detail(qid) {
             accept_button.classList.add("owbtn-deselect");
         }
 
+        document.getElementById("quest-submit").dataset.stagecount = qdata.stage;
+        document.getElementById("quest-submit").dataset.current = qdata.stage > 2 ? 2 : 1; // Need add in request
+
+        $("qd-submit-past:not(qdsp-toclone)").remove();
         if (qdata.stage > 1) {
             let submit_past_base = document.getElementById("qdsp-toclone");
             let container = document.getElementById("qd-submit-container");
@@ -179,25 +208,30 @@ function build_quest_detail(qid) {
                 count--;
             }
         }
-        build_quest_submit(qdata.stage, parseInt(qdata.progress));
     });
 }
 
-function build_quest_submit(stage_count, current) {
+function build_quest_submit(qid, stage_count, current) {
+    console.log("stage_count=" + stage_count);
+    console.log("current=" + current);
     let container_base = document.getElementById("ssc-toclone").cloneNode(true);
     container_base.removeAttribute("id");
     let anchor = document.querySelector("#quest-submit");
     let temp = stage_count;
 
     $(".submit-step-container:not(#ssc-toclone)").remove();
+    $("#submit-submit").data("qid", qid);
 
     while (temp) {
         let new_step = container_base.cloneNode(true);
         if (current + temp - 1 > stage_count) {
+            console.log("past");
             new_step.classList.add("past");
         } else if (current + temp - 1 == stage_count) {
+            console.log("current");
             new_step.classList.add("current");
         } else {
+            console.log("future");
             new_step.classList.add("future");
         }
         anchor.appendChild(new_step);
