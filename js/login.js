@@ -7,6 +7,8 @@ $(document).ready(function() {
         }, (data) => {
             if (data == 'jump')
                 window.location.href = '../html/index.html';
+            else if (data == 'admin')
+                window.location.href = '../html/admin.html';
             else {
                 let warning = $("#signin-output");
                 let warning_text = $("#signin-output span");

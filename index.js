@@ -38,6 +38,8 @@ app.get('/', (req, res) => {
     db.get("SELECT * FROM sessions WHERE sid = ?", req.sessionID, function(err, row) {
         if (row == undefined) {
             res.redirect('./html/login.html');
+        } else if (req.session.uid == "admin") {
+            res.redirect('./html/admin.html');
         } else {
             res.redirect('./html/index.html');
         }
@@ -46,18 +48,23 @@ app.get('/', (req, res) => {
 
 app.post('/html/login', (req, res) => {
     if (req.body.account != "" && req.body.password != "") {
-        db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
-            if (row == undefined) {
-                res.send("帳號不存在！");
-            } else if (row.password == req.body.password) {
-                db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
-                    req.session.uid = row.id;
-                    res.send("jump");
-                })
-            } else {
-                res.send("密碼錯誤！");
-            }
-        })
+        if (req.body.account == "uidd2021" && req.body.password == "ckmission") {
+            req.session.uid = "admin";
+            res.send("admin");
+        } else {
+            db.get("SELECT password FROM users WHERE account = ?", [req.body.account], function(err, row) {
+                if (row == undefined) {
+                    res.send("帳號不存在！");
+                } else if (row.password == req.body.password) {
+                    db.get("SELECT id FROM users WHERE account = ?", [req.body.account], function(err, row) {
+                        req.session.uid = row.id;
+                        res.send("jump");
+                    })
+                } else {
+                    res.send("密碼錯誤！");
+                }
+            })
+        }
     } else {
         res.send("帳號或密碼不能空白！");
     }
