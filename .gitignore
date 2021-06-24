@@ -1,8 +1,7 @@
 # Ignore VS Code settings
 .vscode/
 node_modules/
-# database/mission.db
-# database/users.db
+database/
 # Procfile
 # requirement.txt
 # runtime.txt
