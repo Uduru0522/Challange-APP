@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CKmission</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #eee;
+        }
+        
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+        
+        th {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="ajax-form">
+        <button type="submit" class="open">List all missions</button>
+        <button type="submit" class="close">Close the list</button>
+    </form>
+
+    <div id="ajax-output"></div><br><br>
+
+    <form id="check-form">
+        <font size="4">Mission ID:</font>
+        <input type="text" name="qid"><br>
+        <font size="4">State:</font>
+        <input type="text" name="state"><br>
+        <button type="submit" class="submit">Submit</button><br><br>
+    </form>
+
+    <div id="ajax-output2"></div><br><br>
+
+    <button type="submit" id="logout">Logout</button><br><br>
+
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>
