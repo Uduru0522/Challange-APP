@@ -108,12 +108,12 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
     _json.append(_row_json)
 
 
-    print(_json)
-    #output = json.dumps(_json, ensure_ascii = False)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
     
     conn.commit()
     conn.close()
-    #return output
+    return output
 
 def getJSON1(rows):#轉成json，for doing
     _json=[]
