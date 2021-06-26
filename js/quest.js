@@ -1,12 +1,12 @@
 // Utils
-function compress(width, height, ratio) {
+function compress(imgimput, width, height, ratio) {
     var canvas, ctx, img64;
     canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
     let img = new Image;
     document.getElementById("quest-submit").appendChild(img);
-    img.src = URL.createObjectURL(document.getElementById("submit-img-input").files[0]);
+    img.src = URL.createObjectURL(imgimput.files[0]);
     ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height);
     img64 = canvas.toDataURL("image/jpeg", ratio);
@@ -382,7 +382,7 @@ $(document).ready(() => {
     $("#submit-submit").on("click", function(e) {
         console.log("submit current");
         // Send post request to submit quest
-        const img64 = compress(200, 200, 0.9);
+        const img64 = compress(document.getElementById("submit-img-input"), 200, 200, 0.9);
         let qid = $(this).data("qid");
         console.log(qid);
         $.post(
@@ -402,6 +402,15 @@ $(document).ready(() => {
     /* Stranger panel related events                                       */
     /***************************************************************************** */
     let hidetimer = null;
+    let spinner_user_list = [];
+    let spinner_current_center;
+    let spinner_fill_slot = (loc, img, uname) => {
+        let target = document.getElementById("stranger-spinner-" + loc);
+        console.log(target);
+        target.getElementsByTagName("div")[0].style.backgroundImage = "url(" + img + ")";
+        target.getElementsByTagName("p")[0].innerHTML = uname;
+    };
+
     swipedetect(document.getElementById("quest-stranger"), function(dir) {
         if (dir != "none") {
             clearTimeout(hidetimer);
@@ -417,9 +426,108 @@ $(document).ready(() => {
                 pre.style.display = "none";
                 full.style.removeProperty("display");
                 ret.style.removeProperty("display");
+
+                // Fetch user id
+                $.post("mission/samequest", {
+                    qid: parseInt(document.getElementById("quest-submit").dataset.qid)
+                }, function(pdata) {
+                    spinner_user_list = pdata[0].member;
+
+                    if (spinner_user_list.length > 0) {
+                        // Fill "m", "r", "rr"
+                        const temp = ["m", "r", "rr"];
+                        for (let i = 0; i < spinner_user_list.length && i < 3; ++i) {
+                            $.post("findperson", {
+                                person_ID: spinner_user_list[i]
+                            }, function(data) {
+                                console.log(data);
+                                spinner_fill_slot(temp[i], data.image, data.name);
+                            });
+                        }
+                        spinner_current_center = 0;
+                    } else {
+                        // No other user
+                        spinner_current_center = -1;
+                    }
+                });
             }
         }
     });
+
+    // TODO: Fetch stranger data
+    swipedetect(document.getElementById("stranger-spinner"), function(dir) {
+        let target = document.getElementById("stranger-spinner");
+        const slot = ["ll", "l", "m", "r", "rr"];
+        switch (dir) {
+            case "left":
+                if (spinner_current_center + 1 >= spinner_user_list.length) {
+                    console.log("No more user to display");
+                    return;
+                }
+
+                target.animate({
+                    transform: ["rotate(0deg)", "rotate(-50deg)"]
+                }, 500);
+                // TODO: each slot info to left
+                setTimeout(() => {
+                    for (let i = 0; i < 4; ++i) {
+                        let to = document.getElementById("stranger-spinner-" + slot[i]);
+                        let from = document.getElementById("stranger-spinner-" + slot[i + 1]);
+
+                        to.getElementsByTagName("div")[0].style.backgroundImage = from.getElementsByTagName("div")[0].style.backgroundImage;
+                        to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
+                    }
+
+                    if (spinner_current_center + 3 >= spinner_user_list.length) {
+                        let slot = document.getElementById("stranger-spinner-rr");
+                        slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
+                        slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    }
+
+                    spinner_current_center++;
+                }, 500);
+                break;
+            case "right":
+                if (spinner_current_center == 0) {
+                    console.log("No more user to display");
+                    return;
+                }
+
+                target.animate({
+                    transform: ["rotate(0deg)", "rotate(50deg)"]
+                }, 500, () => {
+                    for (let i = 4; i > 0; --i) {
+                        let to = document.getElementById("stranger-spinner-" + slot[i]);
+                        let from = document.getElementById("stranger-spinner-" + slot[i - 1]);
+
+                        to.getElementsByTagName("div")[0].style.backgroundImage = from.getElementsByTagName("div")[0].style.backgroundImage;
+                        to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
+                    }
+                });
+
+                setTimeout(() => {
+                    for (let i = 4; i > 0; --i) {
+                        let to = document.getElementById("stranger-spinner-" + slot[i]);
+                        let from = document.getElementById("stranger-spinner-" + slot[i - 1]);
+
+                        to.getElementsByTagName("div")[0].style.backgroundImage = from.getElementsByTagName("div")[0].style.backgroundImage;
+                        to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
+                    }
+
+                    if (spinner_current_center - 3 <= 0) {
+                        let slot = document.getElementById("stranger-spinner-ll");
+                        slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
+                        slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    }
+
+                    spinner_current_center--;
+                }, 500);
+
+                break;
+            default:
+                console.log("Swipe left/right to change angle");
+        }
+    })
 
     $("#stranger-return").on("click", function(e) {
         let target = document.getElementById("quest-stranger");

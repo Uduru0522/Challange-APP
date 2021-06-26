@@ -731,15 +731,25 @@
             0%
                 top: 150%
             100%
-                top: 100%
+                top: calc(100% - 87.5vw)
+
+        @keyframes _spinner-to-left
+            100%
+                transform: rotate(-40deg)
+        @keyframes _spinner-to-right
+            100%
+                transform: rotate(40deg)
+                
+        .stranger-spinner-swl
+            animation: _spinner-to-left 0.4s ease
+        .stranger-spinner-swr
+            animation: _spinner-to-right 0.4s ease
 
         #stranger-spinner
             width: 175vw
             height: 175vw
             position: absolute
-            top: 100%
-            left: 50%
-            transform: translate(-50%, -50%)
+            left: -37.5%
             border-radius: 50%
             border: 2px solid #FFF
             background-color: #B4E6DC
@@ -758,16 +768,24 @@
                 margin-top: calc(-1 * var(--size))
                 margin-left: calc(-1 * var(--size))
 
-            #stranger-spnner-l
+            #stranger-spinner-ll
+                transform: rotate(-35deg) skewX(40deg)
+                > *
+                    transform: skewX(-40deg) rotate(-65deg)
+            #stranger-spinner-l
                 transform: rotate(15deg) skewX(40deg)
                 > *
                     transform: skewX(-40deg) rotate(-65deg)
-            #stranger-spnner-m
+            #stranger-spinner-m
                 transform: rotate(65deg) skewX(40deg)
                 > *
                     transform: skewX(-40deg) rotate(-65deg)
-            #stranger-spnner-r
+            #stranger-spinner-r
                 transform: rotate(115deg) skewX(40deg)
+                > *
+                    transform: skewX(-40deg) rotate(-65deg)
+            #stranger-spinner-rr
+                transform: rotate(165deg) skewX(40deg)
                 > *
                     transform: skewX(-40deg) rotate(-65deg)
 

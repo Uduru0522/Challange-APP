@@ -1163,7 +1163,7 @@ $(document).on("click", '#edit-link', function() {
 
 })
 
-function compress(img, width, height, ratio) {
+function compress_alt(img, width, height, ratio) {
     var canvas, ctx, img64;
     canvas = document.createElement('canvas');
     canvas.width = width;
@@ -1179,7 +1179,7 @@ $(document).on("click", '#edit-submit', function(event) {
     let edit_name = document.getElementById("edit-name-input").value;
     let edit_title = document.getElementById("edit-nickname-input").value;
     let edit_intro = document.getElementById("edit-intro-input").value;
-    let img64 = compress(document.getElementById('edit-header-pic'), 500, 500, 0.85);
+    let img64 = compress_alt(document.getElementById('edit-header-pic'), 500, 500, 0.85);
     $.post('./edit', {
         name: edit_name,
         title: edit_title,
@@ -1258,16 +1258,16 @@ $(document).on("click", '#makesure-deletegroup .makesure-sure', function() {
     $(".chat-cover").removeClass("show").addClass("hidden")
 })
 $('#makesure-deletegroup .makesure-cancel').click((event) => {
-    $("#makesure-deletegroup").removeClass("show").addClass("hidden")
-    $(".chat-cover").removeClass("show").addClass("hidden");
-})
-/*
-$(document).on("click", '#nav-mainpage', function(event) {
-    $("#mainpage").removeClass("show").addClass("hidden")
-    $("#rank-main").removeClass("hidden").addClass("show")
-    $.post('./leaderboard', {
-    },
-    function(data) {
-        console.log(data)
-    });
-})*/
+        $("#makesure-deletegroup").removeClass("show").addClass("hidden")
+        $(".chat-cover").removeClass("show").addClass("hidden");
+    })
+    /*
+    $(document).on("click", '#nav-mainpage', function(event) {
+        $("#mainpage").removeClass("show").addClass("hidden")
+        $("#rank-main").removeClass("hidden").addClass("show")
+        $.post('./leaderboard', {
+        },
+        function(data) {
+            console.log(data)
+        });
+    })*/
