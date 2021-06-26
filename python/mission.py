@@ -108,12 +108,12 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
     _json.append(_row_json)
 
 
-    #print(_json)
-    output = json.dumps(_json, ensure_ascii = False)
+    print(_json)
+    #output = json.dumps(_json, ensure_ascii = False)
     
     conn.commit()
     conn.close()
-    return output
+    #return output
 
 def getJSON1(rows):#轉成json，for doing
     _json=[]
@@ -500,6 +500,71 @@ def find_M_friend(conn, User, M_ID):#User,找到User這個人的所有有該任�
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
     return output
+    
+def addmission(conn, User, m_name, cat, multi, descript, gui, diff):
+    conn.execute("INSERT INTO mission (name, multiple, category, description, guide, difficulty, author) VALUES ('{M_name}', '{Multi}', '{Cat}', '{Descript}', '{Guide}', {Diff}, '{Author}');".format(M_name=m_name, Multi=multi, Cat=cat, Descript=descript, Guide=gui, Diff=diff, Author=User))
+    conn.commit()
+    conn.close()
+
+
+def allstatus(conn, User):#給user id回傳他發起的所有任務及狀態
+    rows = conn.execute("select * from mission where author = '{Author}';".format(Author=User))
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        for field in range(len(row)):
+            _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
+    conn.commit()
+    conn.close()
+    return output
+
+def waiting(conn):#回傳全部未審核的任務
+    rows = conn.execute("select * from mission where status = 0;")
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        for field in range(len(row)):
+            _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
+    conn.commit()
+    conn.close()
+    return output
+
+def update(conn, conn2, m_name, stat, M_ID, Point):#更新任務狀態，如果通過就傳1，不通過就傳2，並給一個新ID
+    conn.execute("UPDATE mission SET status={Stat} where name = '{M_name}';".format(Stat=stat, M_name=m_name))#更新狀態
+    if(stat == 1):
+        rows = conn.execute("select * from mission where name = '{M_name}';".format(M_name=m_name))
+        field_name = [des[0] for des in rows.description]#找到項目名
+        AllStatus = dict()
+        for row in rows:
+            for field in range(len(row)):
+                AllStatus[field_name[field]] = row[field]
+        if(AllStatus['category'] == "工作"):
+            cat_no=1
+        elif(AllStatus['category'] == "感情"):
+            cat_no=2
+        elif(AllStatus['category'] == "美食"):
+            cat_no=3
+        elif(AllStatus['category'] == "活動"):
+            cat_no=4
+        elif(AllStatus['category'] == "旅遊"):
+            cat_no=5
+        elif(AllStatus['category'] == "朋友"):
+            cat_no=6
+        conn2.execute("INSERT INTO mission (name, multiple, category, description, guide, difficulty, points, ID, category_no, progressing, stage, member, F_member) VALUES ('{M_name}', '{Multi}', '{Cat}', '{Descript}', '{Guide}', '{diff}', {point}, '{m_ID}', {Cat_no}, 0, 1, ',', ',');".format(M_name=m_name, Multi=AllStatus['multiple'], Cat=AllStatus['category'], Descript=AllStatus['description'], Guide=AllStatus['guide'], diff=AllStatus['difficulty'], point=Point, m_ID=M_ID, Cat_no=cat_no))
+    conn.commit()
+    conn.close()
+    conn2.commit()
+    conn2.close()
 
 
 
@@ -545,3 +610,11 @@ elif(sys.argv[1] == '14'):#排行榜、2為分數類別(EX：1為工作,2....,7�
     print(leaderboard(con2, sys.argv[2]))
 elif(sys.argv[1] == '15'):#找到相同任務的好友
     print(find_M_friend(con, sys.argv[2], sys.argv[3]))
+elif(sys.argv[1] == '16'):#新增任務，2是玩家id，3是任務名，4是任務分類，5是人數，6是任務敘述，7是任務目標，8是任務難度
+    addmission(con4, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8])
+elif(sys.argv[1] == '17'):#給user id回傳他發起的所有任務及狀態，2為id
+    print(allstatus(con4, sys.argv[2]))
+elif(sys.argv[1] == '18'):#回傳全部未審核的任務
+    print(waiting(con4))
+elif(sys.argv[1] == '19'):#審核任務並更新任務狀態，1是任務名，2是任務審核狀態，3是要給的新id，4是任務能獲得的分數，若審核不給過id和分數隨便給就好不會記錄
+    update(con4, con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
