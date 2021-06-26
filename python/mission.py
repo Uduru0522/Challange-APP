@@ -616,5 +616,5 @@ elif(sys.argv[1] == '17'):#給user id回傳他發起的所有任務及狀態，2
     print(allstatus(con4, sys.argv[2]))
 elif(sys.argv[1] == '18'):#回傳全部未審核的任務
     print(waiting(con4))
-elif(sys.argv[1] == '19'):#審核任務並更新任務狀態，1是任務名，2是任務審核狀態，3是要給的新id，4是任務能獲得的分數，若審核不給過id和分數隨便給就好不會記錄
+elif(sys.argv[1] == '19'):#審核任務並更新任務狀態，2是任務名，3是任務審核狀態，4是要給的新id，5是任務能獲得的分數，若審核不給過id和分數隨便給就好不會記錄
     update(con4, con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
