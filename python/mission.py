@@ -450,19 +450,19 @@ def choosetitle(conn, User, T_ID):#傳入使用者名字和要選的稱號
     conn.close()
 
 def leaderboard(conn, category):
-    if(category == 1):
+    if(category == "1"):
         rows = conn.execute("select name,sport,image from users order by sport DESC;")
-    elif(category == 2):
+    elif(category == "2"):
         rows = conn.execute("select name,self,image from users order by self DESC;")
-    elif(category == 3):
+    elif(category == "3"):
         rows = conn.execute("select name,food,image from users order by food DESC;")
-    elif(category == 4):
+    elif(category == "4"):
         rows = conn.execute("select name,activity,image from users order by activity DESC;")
-    elif(category == 5):
+    elif(category == "5"):
         rows = conn.execute("select name,travel,image from users order by travel DESC;")
-    elif(category == 6):
+    elif(category == "6"):
         rows = conn.execute("select name,social,image from users order by social DESC;")
-    elif(category == 7):
+    elif(category == "7"):
         rows = conn.execute("select name,total,image from users order by total DESC;")
     data=rows.fetchall()
     _json=[]
@@ -541,7 +541,7 @@ def waiting(conn):#回傳全部未審核的任務
 
 def update(conn, conn2, m_name, stat, M_ID, Point):#更新任務狀態，如果通過就傳1，不通過就傳2，並給一個新ID
     conn.execute("UPDATE mission SET status={Stat} where name = '{M_name}';".format(Stat=stat, M_name=m_name))#更新狀態
-    if(stat == 1):
+    if(stat == "1"):
         rows = conn.execute("select * from mission where name = '{M_name}';".format(M_name=m_name))
         field_name = [des[0] for des in rows.description]#找到項目名
         AllStatus = dict()
@@ -574,6 +574,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 con = sqlite3.connect('./database/mission.db')
 con2 = sqlite3.connect('./database/users.db')
 con3 = sqlite3.connect('./database/title.db')
+con4 = sqlite3.connect('./database/new.db')
 
 
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述
