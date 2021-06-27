@@ -1,13 +1,13 @@
 #friend-main {
-    background-color: #FFFFFF;
-    
+    background-color: #FFF;
+    color:white;
 }
 
 .friend-title {
     background-image: url("../resources/update/blue_texture.png");
     background-size:cover;
     width:100vw;
-    height:10vh;
+    height:12vh;
     margin:0;
     padding:0;
     position:fixed;
@@ -21,18 +21,18 @@
 #friend-title-text{
     width:100%;
   
-    font-size:3.8vh;
+    font-size:3.5vh;
     letter-spacing:2vh;
     text-indent: 2vh;
     text-align:center;
     color:white;
 }
 #search-ID {
-    background-color: #EAF6F7;
+    background-color: white;
     width: 100vw;
     height: 5vh;
     position: fixed;
-    top: 10vh;
+    top: 12vh;
     border-style:none;
     margin: 0;
     padding: 0;
@@ -45,20 +45,20 @@
     justify-content: flex-start;
 }
 #inside-image{
-    height:2.6vh;
-    position:fixed;
-    top:11.2vh;
-    left:7vw;
+    height: 2.3vh;
+    position:absolute;
+    top: 2.8vh;
+    left: 8vw;
 }
 #persontosearch {
-    border-radius: 1.75vh;
-    height: 3.3vh;
+    border-radius: 1vh;
+    height: 4vh;
     width: 90vw;
     outline: none;
     border-style: none;
     background-color:#FBE1B1;
-    margin: 0.85vh 5vw 0.85vh 5vw;
-    font-size: 2.2vh;  
+    margin: 2vh 5vw 2vh 5vw;
+    font-size: 2.2vh;
     text-indent: 10vw;
 }
 #persontosearch::-webkit-input-placeholder {
@@ -67,13 +67,14 @@
 
 #friend-record {
     position: fixed;
-    top: 15vh;
-    left:5vw;
-    width: 90vw;
-    height: 75vh;
+    top: 19vh;
+    left:3vw;
+    width: 94vw;
+    height: 72.5vh;
     overflow: scroll;
     z-index: 1;
     padding:1vh 0 1vh 0;
+    margin-top: 0.5vh;
 }
 .friend-lefttwo{
     height:100%;
@@ -113,7 +114,7 @@
     border-style: solid;
     border-width: thin;
     border-color: #F1CE61;
-    flex: 0 0 90vw;
+    flex: 0 0 94vw;
     background-color: white;
     position: relative;
     scroll-snap-align: start;
@@ -137,14 +138,19 @@
 
 .deletebutton {
     width: 4rem;
-    height: 12vh;
+    height: 11.8vh;
     position: absolute;
     right: 0;
     background-color: #fa3434;
     border-color: #fa3434;
-    color:white;    
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
     font-size:5vw;
     writing-mode:vertical-lr;
+    letter-spacing: 1vh;
+    text-indent: 1vh;
 }
 
 
@@ -153,9 +159,9 @@
     border-radius: 20px;
     position: absolute;
     top: 25vh;
-    left: 20vw;
-    width: 60vw;
-    height: 35vh;
+    left: 21vw;
+    width: 62vw;
+    height: 37vh;
     text-align: center;
     padding: 0;
     z-index: 3;
@@ -165,23 +171,25 @@
 
 #addfriend_pic {
     max-width: 30vw;
-    margin: 10%;
+    margin: 13% 0 10% 0;
 }
 
 #addfriend_name {
     font-size: 5vw;
     padding: 0;
+    color: black;
 }
 
 #button_add {
     width: 33vw;
     height: 13vw;
-    background-color: #EB931D;
+    background-color: #E4a936;
     border-radius:13px;
     border-style:none;
     font-size:5vw;
     margin:5vw;
     box-shadow: 3px 3px 5px gray;
+    color: white;
 }
 
 #button_cantfind {
@@ -236,10 +244,11 @@
 }
 #click-friend-name{
     padding:1vh;
-    font-size:2.5vh;
-    font-weight: bold;
+    font-size: 2.9vh;
+    /* font-weight: bold; */
     letter-spacing:0.5vh;
     text-indent: 0.5vh;
+    color: black;
 }
 .click-friend-bottom{
     width:100%;
@@ -255,10 +264,12 @@
 }
 #click-friend-data img{
     max-height:35%;
+    margin-left: 10%;
 }
 #click-friend-data p{
     font-size:4vw;
     color:#E9B83E;
+    margin-left: 10%;
 }
 #click-friend-chat{
     position:absolute;
@@ -270,26 +281,34 @@
 }
 #click-friend-chat img{
     max-height:35%;
+    margin-right: 10%;
 }
 #click-friend-chat p{
     font-size:4vw;
     color:#E9B83E;
+    margin-right: 10%;
 }
 #makesure-deletefriend{
     z-index:100;
 }
 .makesure-top{
     position:fixed;
-    background: linear-gradient(#FBE1B1,white);
-    top:23vh;
-    left:12.5vw;
+    background: white;
+    top: 23vh;
+    left: 15vw;
     height:40vh;
-    width:75vw;
+    width: 70vw;
     border-radius:5vw;
     border-style: none;
     z-index:100;
     text-align: center;
-    box-shadow: 1vh 1vh 2vh gray;
+    box-shadow: 0.5vh 0.5vh 1vh grey;
+}
+#makesure-deletegroup .makesure-pic{
+    margin-top: 3vh;
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
 }
 .makesure-pic{
     margin-top: 5vh;
@@ -298,10 +317,11 @@
     border-radius: 50%;    
 }
 .makesure-name{
-    font-size:3vh;
-    text-indent: 1vh;
-    letter-spacing: 1vh;
+    font-size: 2.9vh;
+    /* text-indent: 1vh; */
+    /* letter-spacing: 1vh; */
     margin:2vh;
+    color: black;
 }
 .makesure-text{
     text-align: center;
@@ -309,6 +329,7 @@
     position:relative;
     left:15%;
     font-size:2.2vh;
+    color: black;
 }
 .makesure-cancel{
     position:fixed;
@@ -319,6 +340,7 @@
     z-index:100;
     background-color: white;
     border-style:solid;
+    border-width: thin;
     border-color:  #E9B83E;
     border-radius:2vw;
     display:flex;
@@ -327,7 +349,8 @@
     font-size:2.2vh;
     text-indent: 1.5vh;
     letter-spacing: 1.5vh;
-    box-shadow: 0.5vh 0.5vh 1vh gray;
+    box-shadow: 0.3vh 0.3vh 0.5vh grey;
+    color: black;
 }
 .makesure-sure{
     position:fixed;
@@ -336,7 +359,7 @@
     width:25vw;
     height:5vh;
     z-index:100;
-    background-color: #EB931D;
+    background-color: #e4a936;
     border-radius:2vw;
     display:flex;
     justify-content: center;
@@ -344,5 +367,16 @@
     font-size:2.2vh;
     text-indent: 1.5vh;
     letter-spacing: 1.5vh;
-    box-shadow: 0.5vh 0.5vh 1vh gray;
+    box-shadow: 0.3vh 0.3vh 0.5vh grey;
+    color: white;
+}
+.friend-name{
+    color:black;
+}
+.srcoll-cover{
+    background-color: black;
+    opacity: 0.5;
+    height: inherit;
+    width: 94vw;
+    position: absolute;
 }
