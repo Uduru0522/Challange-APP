@@ -5,7 +5,9 @@ const pages_selector = [
     "#chat-main",
     "#friend-main",
     "#mypage-main",
+    "#rank-main",
     "#room-main",
+    "#edit-mydata",
     "#myfriend-main",
     "#quest-filtered",
     "#quest-book",
@@ -24,10 +26,9 @@ const pages_selector = [
     ".quest-more-open",
     ".quest-more-closed",
     "#quest-create-new",
-    "#edit-mydata",
-    "#rank-main",
     "#makesure-deletefriend",
     "#makesure-deletegroup"
+    
 ];
 
 const nav_icons = [
@@ -35,14 +36,30 @@ const nav_icons = [
     "#nav-quest",
     "#nav-chat",
     "#nav-friend",
-    "#nav-mypage"
+    "#nav-mypage",
 ];
+const city_icons = [
+    "#city-button-mission",
+    "#city-button-personal",
+    "#city-button-chatroom",
+    "#city-button-friend",
+    "#city-button-rank"
+]
+const city_link = [
+    "#quest-main",
+    "#mypage-main",
+    "#chat-main",
+    "#friend-main",
+    "#rank-main"
+]
+
+
 
 function hide_all_page(index) {
     pages_selector.forEach(element => {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
-
+           // $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 300)
         }
         let stranger = document.getElementById("show-stranger");
         let stranger_pre = document.getElementById("pre-stranger");
@@ -88,16 +105,22 @@ $(document).ready(() => {
     $("#mainpage").addClass("show").removeClass("hidden");
 
     // Navbar icon actions
-    for (let i = 0; i < 7; ++i) {
+    for (let i = 0; i < 5; ++i) {
         $(nav_icons[i]).on("click", () => {
             console.log("Clicked icon: " + nav_icons[i]);
-            for (let j = 0; j < 5; j++) {
+            if(i==0){
+                $(".navbar").removeClass("show").addClass("hidden");
+            }
+                
+            
+            for (let j = 0; j < 9; j++) {
                 if ($(pages_selector[j]).hasClass("show")) {
-                    console.log("show icon: " + nav_icons[j])
+                    console.log("show icon: " + pages_selector[j])
                     $(pages_selector[j]).css('opacity', 1).animate({ opacity: 0 }, 300)
+                    setTimeout(function () {$(pages_selector[j]).css('opacity', 1)},400)
                 }
-                if (j == 4) {
-                    setTimeout(function() {
+                if (j == 8) {
+                    setTimeout(function () {
                         hide_all_page();
                         $(pages_selector[i]).removeClass("hidden").addClass("show")
                         $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
@@ -115,7 +138,26 @@ $(document).ready(() => {
 
         });
     }
-
+    //city icon actions
+    for (let i = 0; i < 5; ++i) {
+        $(city_icons[i]).on("click", () => {
+            $(".navbar").removeClass("hidden").addClass("show");
+            console.log("Clicked icon: " + city_icons[i]);
+            $("#mainpage").css('opacity', 1).animate({ opacity: 0 }, 300)
+            setTimeout(function () {
+                hide_all_page();
+                $(city_link[i]).removeClass("hidden").addClass("show")
+                $(city_link[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
+                document.getElementById("chat-content").innerHTML = "";
+                // Switch to function pointers plz
+                if (city_icons[i] == "#nav-quest") {
+                    $(".quest-more-closed").removeClass("hidden").addClass("show");
+                    $(".quest-more-open").removeClass("show").addClass("hidden");
+                    $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
+                }
+            }, 300)
+        });
+    }
     // Jumping to/Return from quest details
     // let origin_page = "#mainpage" // Back to mainpage if unset
     // $(document).on("click", ".goto-quest-detail", function(e) {
@@ -184,7 +226,7 @@ $(document).ready(() => {
     // });
 
     // Show more (Land into titled listing)
-    $(".showmore").on("click", function() {
+    $(".showmore").on("click", function () {
         hide_all_page();
         document.getElementById("quest-titled-listing").style.removeProperty("display");
         let div = $(this).data("div");
@@ -201,8 +243,8 @@ $(document).ready(() => {
         build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), div);
     });
 });
-setTimeout(function() {
-    $(document).ready(function() {
+setTimeout(function () {
+    $(document).ready(function () {
         document.getElementById("loading-icon").style.display = "none";
         document.getElementById("loading-text").style.display = "none";
         document.getElementById("bodybody").style.display = "block";

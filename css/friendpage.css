@@ -7,7 +7,7 @@
     background-image: url("../resources/update/blue_texture.png");
     background-size:cover;
     width: 100vw;
-    height: 10vh;
+    height: 12vh;
     margin: 0;
     padding: 0;
     position: fixed;
@@ -21,7 +21,7 @@
 
 #Fmy-data {
     color: white;
-    font-size: 4vh;
+    font-size: 3.5vh;
     text-indent: 2vh;
     letter-spacing: 2vh;
 }
@@ -30,20 +30,21 @@
     background: transparent;
     width: 100vw;
     position: fixed;
-    top: 10vh;
+    top: 12vh;
     display: flex;
     justify-content: flex-start;
 }
 
 #Fdata-pic {
     max-width: 25vw;
-    margin: 5vw;
+    margin: 6vw 5vw 4vw 5vw;
     border-radius: 50%;
+    background-color:white;
 }
 
 #Fdata-name {
     font-size: 6vw;
-    padding: 5vw 0 1vw 0;
+    padding: 5vw 0 1vw 1vw;
 }
 
 #Fdata-nickname {
@@ -59,15 +60,15 @@
 #Fdata-selfintro-title {
     height: 10vw;
     width: 40vw;
-    position: fixed;
-    top: 25vh;
-    margin: 5vw;
+    position: absolute;
+    top: 15vh;
+    margin: 3vh 5vw 2vh 5vw;
     border-style: none;
     border-radius: 4pt;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #7FC8BE;
+    background-color: #ADDBD4;
     font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
@@ -76,31 +77,31 @@
 #Fdata-selfintro-text {
     position: absolute;
     width:84vw;
-    top: 32vh;
+    top: 22vh;
     margin: 1vh 8vw 0 8vw;
     padding: 3vw;
-    font-size: 5vw;
+    font-size: 2vh;
     height: 17vh;
     white-space:pre-wrap;
     overflow: scroll;
     white-space:normal;
-	word-break:break-all;
-	word-wrap:break-word;
-
+    word-break:break-all;
+    word-wrap:break-word;
 }
 
 #Fcharacteristics-L {
-    position: fixed;
-    top: 51vh;
+    position: absolute;
+    top: 40vh;
     left: 5vw;
     width: 35vw;
-    height: 37vh;
+    height: 35vh;
     border-style: none;
     border-radius: 5vw;
-    background-color: #F1CE61;
-    box-shadow: 2.5px 3px 5px gray;
+    background-color: #FBE1B1;
+    box-shadow: 2.5px 3px 5px #aaaaaa;
     text-align: center;
-    overflow: hidden;
+    overflow: scroll;
+    /* display: flex; */
 }
 
 #FL-title {
@@ -108,51 +109,63 @@
     font-size: 5vw;
     text-indent: 1vw;
     letter-spacing: 1vw;
-    padding: 4vw;
+    padding: 3vh 4vw 11vh 4vw;
 }
 
 .Fcharacteristics-RT {
-    position: fixed;
-    top: 51vh;
+    position: absolute;
+    top: 40vh;
     right: 5vw;
     width: 51vw;
-    height: 17.5vh;
+    height: 16.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color: #F1CE61;
-    box-shadow: 3px 3px 5px gray;
+    background-color: #FBE1B1;
+    box-shadow: 3px 3px 5px #aaaaaa;
     writing-mode: vertical-lr;
-    text-align: center;
-    padding: 3vw;
+    display:flex;
+    align-items: center;
 }
 
 #FRT-title {
     color: rgb(53, 53, 53);
-    font-size: 5vw;
-    text-indent: 1vw;
-    letter-spacing: 1vw;
+    font-size: 2.3vh;
+    text-indent: 0.5vh;
+    letter-spacing: 0.5vh;
+    position:absolute;
+    left: 6vw;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    writing-mode: vertical-lr;
+    margin: 2.4vh 0;
 }
 
 .Fcharacteristics-RB {
-    position: fixed;
-    top: 70.5vh;
+    position: absolute;
+    top: 58.5vh;
     right: 5vw;
     width: 51vw;
-    height: 17.5vh;
+    height: 16.5vh;
     border-style: none;
     border-radius: 5vw;
-    background-color: #F1CE61;
-    box-shadow: 3px 3px 5px gray;
+    background-color: #FBE1B1;
+    box-shadow: 3px 3px 5px #aaaaaa;
     writing-mode: vertical-lr;
-    text-align: center;
-    padding: 3vw;
+    /* padding: 3vw; */
+    display:flex;
+    align-items: center;
 }
 
 #FRB-title {
     color: rgb(53, 53, 53);
-    font-size: 5vw;
-    text-indent: 1vw;
-    letter-spacing: 1vw;
+    font-size: 2.3vh;
+    text-indent: 0.5vh;
+    letter-spacing: 0.5vh;
+    position:absolute;
+    left: 6vw;
+    margin: 2.4vh 0;
+    writing-mode: vertical-lr;
 }
 
 #Fmission-launched {
@@ -167,26 +180,27 @@
 .Fback-button img {
     position: fixed;
     top: 11.5vh;
-    left: 7vw;
-    height: 4vh;
+    left: 4vw;
+    height: 3.2vh;
 }
 
 #Fmission-container {
     position: fixed;
     top: 17vh;
     width: 100vw;
-    height: 73vh;
+    height: 75vh;
     background-color: #EAF6F7;
-    border-radius: 6vh;
+    border-radius: 6vh 6vh 0 0;
     text-align: center;
     overflow: scroll;
 }
 
 #Fmission-launched-title {
-    font-size: 2.5vh;
+    color: rgb(118 117 117);
+    font-size: 2.8vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
-    padding: 2vh;
+    padding: 2.5vh;
 }
 
 .Flaunch-missions {
@@ -239,35 +253,46 @@
     position: fixed;
     top: 17vh;
     width: 100vw;
-    height: 73vh;
+    height: 75vh;
     background-color: #EAF6F7;
-    border-radius: 6vh;
+    border-radius: 6vh 6vh 0 0;
     text-align: center;
 }
 
 #Fcharacteristic-analyze-title {
-    font-size: 3vh;
+    color: rgb(118 117 117);
+    font-size: 2.8vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
-    padding: 2vh;
+    padding: 3vh;
 }
 
-#Fvalue-social,
-#Fvalue-travel,
-#Fvalue-food,
-#Fvalue-activity,
-#Fvalue-sport,
-#Fvalue-self {
-    font-size: 2.5vh;
-    padding: 1vh 0 1vh 0vw;
+#Fvalue-travel,#Fvalue-activity,#Fvalue-self{
+    font-size: 2.8vh;
+    padding: 1vh 0vw 1vh 6vw;
     float: left;
+    width:50%;
+    color: #515151;
+}
+#Fvalue-social,
+#Fvalue-food,
+#Fvalue-sport{
+    font-size: 2.8vh;
+    padding: 1vh 0vw 1vh 20vw;
+    float: left;
+    color: #515151;
     width:50%;
 }
 
 #Frador {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    background:white;
+    height: 34vh;
+    width:90vw;
+    position:absolute;
+    top: 11vh;
+    left:5vw;
+    border-radius:3vh;
+    text-align: center;
 }
 
 #friendChart {
@@ -277,13 +302,17 @@
 }
 
 .Fcharacteristics-RT img {
-    max-width: 25vw;
-    margin-left: 7vw;
+    height: 10vh;
+    margin: 3.25vh;
+    position: absolute;
+    left: 13.5vw;
 }
 
 .Fcharacteristics-RB img {
-    max-width: 25vw;
-    margin-left: 7vw;
+    height: 9.5vh;
+    margin: 3.25vh;
+    position: absolute;
+    left: 13vw;
 }
 
 .Fmission-show {
@@ -324,14 +353,15 @@
     position: fixed;
     top: 17vh;
     width: 100vw;
-    height: 73vh;
+    height: 75vh;
     background-color: #EAF6F7;
-    border-radius: 6vh;
+    border-radius: 6vh 6vh 0 0;
     text-align: center;
 }
 
 #Fcharacteristic-history-title {
-    font-size: 2.5vh;
+    color: rgb(118, 117, 117);
+    font-size: 2.8vh;
     letter-spacing: 1vh;
     text-indent: 1vh;
     padding: 2vh;
@@ -340,12 +370,12 @@
 #Fphotobook-grid-wrapper {
     display: grid;
     grid-auto-flow: row;
-    row-gap: 2vw;
-    column-gap: 2vw;
+    row-gap: 0.5vw;
+    column-gap: 0.5vw;
     width: 100vw;
     max-width: 100vw;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 32vw;
+    grid-auto-rows: 33vw;
     margin-top: 2vh;
 }
 
@@ -361,4 +391,28 @@
     object-fit: cover;
     max-width: 100%;
     height: 100%;
+}
+#Frador-advanced{
+    background-color: tomato;
+    opacity: 0.5;
+    position: absolute;
+    top: 7vh;
+    left: 17.5vw;
+    height: 19.05vh;
+    width: 22vh;
+}
+#Frador-value{
+
+    position:absolute;
+    top:50vh;
+    text-align: left;
+    width:100%;
+}
+#friendpage-container{
+    position:fixed;
+    top:12vh;
+    background: linear-gradient(#EAF6F7, white);
+    width:100%;
+    height:80vh;
+    overflow-y:scroll;
 }
