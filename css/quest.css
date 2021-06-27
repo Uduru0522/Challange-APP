@@ -678,9 +678,27 @@
   color: #FFFFFF;
   font-size: 0.95em;
   letter-spacing: 0.1em;
-  background-color: #D6CE41;
   justify-content: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.need-quest {
+  background-color: #D6CE41;
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.need-quest::after {
+  content: "接任務加好友";
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.can-send {
+  background-color: #E2A346;
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.can-send::after {
+  content: "加好友";
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.wait-resp {
+  color: #FFFFFF;
+  background-color: #C7D4CF;
+}
+#quest-stranger #stranger-opened-container #stranger-info #stranger-send-request.wait-resp::after {
+  content: "已送出邀請";
 }
 #quest-stranger #stranger-opened-container #stranger-stats {
   height: 20vh;

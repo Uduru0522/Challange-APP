@@ -32,6 +32,7 @@ function swipedetect(el, callback) {
     }
 
     target.addEventListener("mousedown", function(e) {
+        e.preventDefault();
         if (!swiping) {
             dragging = true;
             swipedir = "none";
@@ -45,6 +46,7 @@ function swipedetect(el, callback) {
     }, false);
 
     target.addEventListener('touchstart', function(e) {
+        e.preventDefault();
         let touchobj = e.changedTouches[0]; // Accept 1 and the first touch event at the same time
         if (!dragging) {
             swiping = true;
@@ -404,14 +406,77 @@ $(document).ready(() => {
     let hidetimer = null;
     let spinner_user_list = [];
     let spinner_current_center;
-    let spinner_fill_slot = (loc, img, uname) => {
+    const spinner_fill_slot = (loc, img, uname) => {
         let target = document.getElementById("stranger-spinner-" + loc);
         console.log(target);
         target.getElementsByTagName("div")[0].style.backgroundImage = "url(" + img + ")";
         target.getElementsByTagName("p")[0].innerHTML = uname;
     };
 
-    swipedetect(document.getElementById("quest-stranger"), function(dir) {
+    const display_stranger_info = (id) => {
+        // Clearout container and set to default value
+        let stat_container = document.getElementById("stranger-stats");
+        stat_container.innerHTML = "";
+        let polygon_vertex = [
+            { x: 25, y: 0 },
+            { x: 75, y: 0 },
+            { x: 100, y: 50 },
+            { x: 75, y: 100 },
+            { x: 25, y: 100 },
+            { x: 0, y: 50 }
+        ];
+        const fields = ["美食", "旅遊", "活動", "工作", "感情", "朋友"];
+        let req_btn = document.getElementById("stranger-send-request");
+        req_btn.classList.remove("need-quest", "can-send", "wait-resp");
+
+        // Retreve values, apply icon / hashtag
+        $.post("findperson", { person_ID: id }, (data) => {
+            console.log("Current displaying info:", data);
+            let val = [data.food, data.travel, data.activity, data.sport, data.self, data.social];
+
+            // Icon
+            document.getElementById("stranger-icon").style.backgroundImage = "url(" + data.image + ")";
+
+            // Username, hashtag
+            document.getElementById("stranger-name").innerHTML = data.name;
+            document.getElementById("stranger-hashtag").innerHTML = data.title;
+
+            // Request button
+            if (parseInt(document.getElementById("quest-stranger").dataset.progress) == 1) {
+                console.log("A");
+                req_btn.classList.add("can-send");
+            } else {
+                console.log("B");
+                req_btn.classList.add("need-quest");
+            }
+
+            // Stats (text)
+            for (let i = 0; i < 6; ++i) {
+                stat_container.appendChild(document.createElement("p").appendChild(document.createTextNode(fields[i] + "：" + val[i])));
+                stat_container.appendChild(document.createElement("br"));
+            }
+
+            // Stats (radar)
+            let max_stat = 100,
+                cpstring = "polygon(";
+            if (Math.max(...val) > 100) {
+                max_stat = Math.max(...val);
+            }
+            for (let i = 0; i < 6; ++i) {
+                polygon_vertex[i].x = 50 + (50 - polygon_vertex[i].x) * (val[i] / max_stat);
+                polygon_vertex[i].y = 50 + (50 - polygon_vertex[i].y) * (val[i] / max_stat);
+                cpstring += (polygon_vertex[i].x + "% " + polygon_vertex[i].y + "%");
+                if (i == 5) {
+                    cpstring += ")";
+                } else {
+                    cpstring += ", ";
+                }
+            }
+            document.getElementById("stranger-radar-inner").style.clipPath = cpstring;
+        });
+    };
+
+    swipedetect(document.getElementById("stranger-closed-container"), function(dir) {
         if (dir != "none") {
             clearTimeout(hidetimer);
             console.log("Swiped/Dragged" + dir);
@@ -433,6 +498,14 @@ $(document).ready(() => {
                 }, function(pdata) {
                     spinner_user_list = pdata[0].member;
 
+                    // Initialize with "no user" icon
+                    const slots = ["ll", "l", "m", "r", "rr"];
+                    for (let i = 0; i < 5; ++i) {
+                        let target = document.getElementById("stranger-spinner-" + slots[i]);
+                        target.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
+                        target.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    }
+
                     if (spinner_user_list.length > 0) {
                         // Fill "m", "r", "rr"
                         const temp = ["m", "r", "rr"];
@@ -445,6 +518,7 @@ $(document).ready(() => {
                             });
                         }
                         spinner_current_center = 0;
+                        display_stranger_info(spinner_user_list[0]);
                     } else {
                         // No other user
                         spinner_current_center = -1;
@@ -454,7 +528,6 @@ $(document).ready(() => {
         }
     });
 
-    // TODO: Fetch stranger data
     swipedetect(document.getElementById("stranger-spinner"), function(dir) {
         let target = document.getElementById("stranger-spinner");
         const slot = ["ll", "l", "m", "r", "rr"];
@@ -466,9 +539,10 @@ $(document).ready(() => {
                 }
 
                 target.animate({
-                    transform: ["rotate(0deg)", "rotate(-50deg)"]
-                }, 500);
-                // TODO: each slot info to left
+                    transform: ["rotate(0deg)", "rotate(-10deg)", "rotate(-20deg)", "rotate(-30deg)", "rotate(-40deg)",
+                        "rotate(-50deg)", "rotate(-55deg)", "rotate(-50deg)"
+                    ]
+                }, 300);
                 setTimeout(() => {
                     for (let i = 0; i < 4; ++i) {
                         let to = document.getElementById("stranger-spinner-" + slot[i]);
@@ -478,14 +552,19 @@ $(document).ready(() => {
                         to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
                     }
 
+                    // Fill newcomming slot
+                    let new_slot = document.getElementById("stranger-spinner-rr");
                     if (spinner_current_center + 3 >= spinner_user_list.length) {
-                        let slot = document.getElementById("stranger-spinner-rr");
-                        slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
-                        slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                        new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
+                        new_slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    } else {
+                        $.post("findperson", { person_ID: spinner_user_list[spinner_current_center + 3] }, (data) => {
+                            new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(" + data.image + ")";
+                            new_slot.getElementsByTagName("p")[0].innerHTML = data.name;
+                        });
                     }
-
-                    spinner_current_center++;
-                }, 500);
+                }, 300);
+                spinner_current_center++;
                 break;
             case "right":
                 if (spinner_current_center == 0) {
@@ -494,16 +573,10 @@ $(document).ready(() => {
                 }
 
                 target.animate({
-                    transform: ["rotate(0deg)", "rotate(50deg)"]
-                }, 500, () => {
-                    for (let i = 4; i > 0; --i) {
-                        let to = document.getElementById("stranger-spinner-" + slot[i]);
-                        let from = document.getElementById("stranger-spinner-" + slot[i - 1]);
-
-                        to.getElementsByTagName("div")[0].style.backgroundImage = from.getElementsByTagName("div")[0].style.backgroundImage;
-                        to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
-                    }
-                });
+                    transform: ["rotate(0deg)", "rotate(10deg)", "rotate(20deg)", "rotate(30deg)", "rotate(40deg)", "rotate(50deg)",
+                        "rotate(55deg)", "rotate(50deg)"
+                    ]
+                }, 300);
 
                 setTimeout(() => {
                     for (let i = 4; i > 0; --i) {
@@ -514,20 +587,38 @@ $(document).ready(() => {
                         to.getElementsByTagName("p")[0].innerHTML = from.getElementsByTagName("p")[0].innerHTML;
                     }
 
-                    if (spinner_current_center - 3 <= 0) {
-                        let slot = document.getElementById("stranger-spinner-ll");
-                        slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
-                        slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    let new_slot = document.getElementById("stranger-spinner-ll");
+                    if (spinner_current_center - 3 < 0) {
+                        new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
+                        new_slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
+                    } else {
+                        $.post("findperson", { person_ID: spinner_user_list[spinner_current_center - 3] }, (data) => {
+                            new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(" + data.image + ")";
+                            new_slot.getElementsByTagName("p")[0].innerHTML = data.name;
+                        });
                     }
-
-                    spinner_current_center--;
-                }, 500);
-
+                }, 300);
+                spinner_current_center--;
                 break;
             default:
                 console.log("Swipe left/right to change angle");
+                return;
+                break;
         }
-    })
+
+        display_stranger_info(spinner_user_list[spinner_current_center]);
+    });
+
+    console.log($("#stranger-send-request"));
+    // Send friend request
+    $("#stranger-send-request").on("click", function(e) {
+        console.log("gtjmnrsiolhgytjrdiohbjgdfiojtfhgj");
+        $.post("addfriend", {
+            person_ID: spinner_user_list[spinner_current_center]
+        });
+
+        $(this).removeClass("can-send").addClass("wait-resp");
+    });
 
     $("#stranger-return").on("click", function(e) {
         let target = document.getElementById("quest-stranger");

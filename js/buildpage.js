@@ -152,6 +152,7 @@ function build_ongoing_list() {
 function build_quest_detail(qid) {
     console.log("qid=" + qid);
     document.getElementById("quest-submit").dataset.qid = qid;
+    let retval = false;
 
     // POST request for quest info
     $.post("mission/detail", {
@@ -208,6 +209,8 @@ function build_quest_detail(qid) {
                 count--;
             }
         }
+
+        document.getElementById("quest-stranger").dataset.progress = qdata.progress;
     });
 }
 
