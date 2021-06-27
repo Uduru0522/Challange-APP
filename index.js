@@ -418,6 +418,97 @@ app.post('/html/find_M_friend', (req, res) => {
     });
 });
 
+app.post('/html/addmission', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            16,
+            req.session.uid,
+            req.body.name,
+            req.body.category,
+            req.body.multiple,
+            req.body.description,
+            req.body.guide,
+            req.body.difficulty
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        res.send("Success");
+    });
+});
+
+app.post('/html/allstatus', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            17,
+            req.session.uid
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/allstatus_others', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            17,
+            req.body.uid
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/waiting', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            18
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
+app.post('/html/update', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            19,
+            req.body.name,
+            req.body.status,
+            req.body.qid,
+            req.body.point
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        res.send(`Successfully update ${req.body.name}`);
+    });
+});
+
 app.post('/html/newgroup', (req, res) => {
     let options = {
         mode: "text",

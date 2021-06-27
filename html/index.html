@@ -26,19 +26,19 @@
     <div class="container" id="loading-cover">
         <div id="loading-icon">
         </div>
-        <div id=loading-text>loading...</div>
+        <div id=loading-text></div>
     </div>
     <!-- Script for fetching necessary datas-->
     <script src="../js/fetch.js">
     </script>
     <!-- Navigation bar at the bottom-->
     <div id="bodybody">
-        <div class="navbar">
-            <img id="nav-friend" src="../resources/update/book_icon.png">
-            <img id="nav-chat" src="../resources/update/message_icon.png">
-            <img id="nav-mainpage" src="../resources/update/home_icon.png">
-            <img id="nav-quest" src="../resources/update/hand_icon.png">
-            <img id="nav-mypage" src="../resources/update/people_icon.png">
+        <div class="navbar hidden">
+            <img id="nav-friend" src="../resources/nav/newicon_friend.png">
+            <img id="nav-chat" src="../resources/nav/newicon_chat.png">
+            <img id="nav-mainpage" src="../resources/nav/newicon_home.png">
+            <img id="nav-quest" src="../resources/nav/newicon_mission.png">
+            <img id="nav-mypage" src="../resources/nav/newicon_personal.png">
         </div>
         <!-- Container class for each function page-->
         <!-- Except login page, uses a new html page.-->
@@ -46,11 +46,49 @@
         <!-- Or after clicking the mainpage icon of nav-bar-->
         <div class="container show" id="mainpage">
             <div id="city-container">
-                <img id="building-d24" src="../resources/city/D24.png">
-                <img id="building-dck" src="../resources/city/white-building.png">
-                <img id="building-dorm" src="../resources/city/dorm.png">
-                <img id="building-sculp" src="../resources/city/sculpture.png">
-                <img id="backround-decoration" src="../resources/city/bird-cloud.png">
+                <img id="city-background" src="../resources/city/mainpage_background.png">
+                <div class="city-button" id="city-button-mission"></div>
+                <div class="city-button" id="city-button-personal"></div>
+                <div class="city-button" id="city-button-chatroom"></div>
+                <div class="city-button" id="city-button-friend"></div>
+                <div class="city-button" id="city-button-rank"></div>
+                <div class="city-title" id="city-title-mission">
+                    <img src="../resources/city/landmark_red.png">
+                    <p id="wtf">任務</p>
+                </div>
+                <div class="city-title" id="city-title-personal">
+                    <img src="../resources/city/landmark_white.png">
+                    <p>個人</p>
+                </div>
+                <div class="city-title" id="city-title-chatroom">
+                    <img src="../resources/city/landmark_white.png">
+                    <p>聊天室</p>
+                </div>
+                <div class="city-title" id="city-title-friend">
+                    <img src="../resources/city/landmark_white.png">
+                    <p>好友</p>
+                </div>
+                <div class="city-title" id="city-title-rank">
+                    <img src="../resources/city/landmark_white.png">
+                    <p>排行榜</p>
+                </div>
+
+                <img id="cloud1" src="../resources/city/cloud1.png">
+                <img id="cloud2" src="../resources/city/cloud2.png">
+                <img id="cloud3" src="../resources/city/cloud3.png">
+
+                <img id="bird1" src="../resources/city/bird1.png">
+                <img id="bird2" src="../resources/city/bird2.png">
+                <img id="bird3" src="../resources/city/bird3.png">
+
+                <img id="bike1" src="../resources/city/bike1.png">
+                <img id="bike2" src="../resources/city/bike2.png">
+                <img id="walk1" src="../resources/city/walk1.png">
+                <img id="walk2" src="../resources/city/walk2.png">
+                <div id="skateboard-anim">
+                    <img id="skateboard" src="../resources/city/skateboard.png">
+                </div>
+
             </div>
 
         </div>
@@ -307,7 +345,8 @@
 
         <!-- Quest submit -->
         <div class="container" id="quest-submit" style="display: none;">
-            <input type="file" accept=".jpg, .jpeg, .png" id="submit-img-input" style="visibility: hidden; position: absolute; top: 0; left: -99999px">
+            <input type="file" accept=".jpg, .jpeg, .png" id="submit-img-input"
+                style="visibility: hidden; position: absolute; top: 0; left: -99999px">
             <div class="quest-detail-header">
                 <div class="qdh-return-arrow"></div>
                 <div class="qdh-field"></div>
@@ -378,23 +417,15 @@
                     <div id="stranger-radar-inner"></div>
                 </div>
                 <div id="stranger-spinner">
-                    <div id="stranger-spinner-ll">
-                        <div class="stranger-spinner-icon"></div>
-                        <p class="stranger-spinner-name">右邊的字第二行</p>
-                    </div>
-                    <div id="stranger-spinner-l">
+                    <div id="stranger-spnner-l">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">左邊的字第二行</p>
                     </div>
-                    <div id="stranger-spinner-m">
+                    <div id="stranger-spnner-m">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">中間的字第二行</p>
                     </div>
-                    <div id="stranger-spinner-r">
-                        <div class="stranger-spinner-icon"></div>
-                        <p class="stranger-spinner-name">右邊的字第二行</p>
-                    </div>
-                    <div id="stranger-spinner-rr">
+                    <div id="stranger-spnner-r">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">右邊的字第二行</p>
                     </div>
@@ -529,7 +560,7 @@
             </div>
             <div id="create-chat-button">
                 <img src="../resources/nav/create_chat.png">
-                <div id="build-group">建立群組</div>
+                <div id="build-group">建 立 群 組</div>
             </div>
             <div id="chat-choose-missions" class="create-chat-menu hidden">
                 <div id="choose-mission-text">選擇任務</div>
@@ -600,10 +631,13 @@
                 <img src="../resources/nav/picture.png" />
             </div>-->
                 <div id="chat-input-area">
-
                     <form name="input-message" id="input-message">
                         <input type="text" name="messagetosend" id="messagetosend">
+                        <button type="submit" id="send_message">
+                            <img src="../resources/nav/send.png">
+                        </button>
                     </form>
+                    
                 </div>
             </div>
 
@@ -627,14 +661,25 @@
                         <div id="data-nickname"></div>
                         <div id="data-ID"></div>
                     </div>
-                    <a id="edit-link">編輯</a>
+                    <a id="edit-link">編 輯</a>
                 </div>
                 <div id="data-selfintro-title">自我介紹</div>
                 <div id="data-selfintro-text"></div>
 
-                <div id="characteristics-L"></div>
+                <div id="characteristics-L">
+                    <div id='L-title'>發起經歷</div>
+                    <div class='mission-show'>
+                        <div class='yellow'></div>
+                    </div>
+                    <div class='mission-show'>
+                        <div class='yellow'></div>
+                    </div>
+                    <div class='mission-show'>
+                        <div class='yellow'></div>
+                    </div>
+                </div>
                 <div class="characteristics-RT">
-                    <span id="RT-title">特質分析</span>
+                    <div id="RT-title">特質分析</div>
                     <img src="../resources/nav/RT.png">
                 </div>
                 <div class="characteristics-RB">
@@ -659,10 +704,22 @@
                 <div id="self-rador">
 
                     <div id="characteristic-analyze-title">特質分析</div>
-                    <div class="self-rador-white">
-                        <div id="rador">
-                            <canvas id="myChart"></canvas>
-                        </div>
+
+                    <div id="rador">
+                        <!--<canvas id="myChart"></canvas>-->
+
+                        <img class="rador-hexagon" src="../resources/nav/hexagon.png">
+                        <div id="rador-advanced"></div>
+
+
+                        <div class="radar-text-social">朋友</div>
+                        <div class="radar-text-travel">旅遊</div>
+                        <div class="radar-text-food">美食</div>
+                        <div class="radar-text-activity">活動</div>
+                        <div class="radar-text-sport">工作</div>
+                        <div class="radar-text-self">感情</div>
+                    </div>
+                    <div id="rador-value">
                         <div id="value-social"></div>
                         <div id="value-travel"></div>
                         <div id="value-food"></div>
@@ -691,7 +748,7 @@
                     <div id="edit-header-package">
                         <img id="edit-header-pic">
                         <input id="edit-submit-header" style="display: none;" type="file" name="image/*">
-                        <div id="edit-header-text">編輯大頭貼照</div>
+                        <div id="edit-header-text">更換大頭貼照</div>
                     </div>
 
                 </div>
@@ -725,26 +782,39 @@
             <div class="Fmypage-title">
                 <div id="Fmy-data">好友資訊</div>
             </div>
-            <div id="Fmypage-record">
-                <img id="Fdata-pic" src="" />
-                <div class="Fdata-text">
-                    <div id="Fdata-name"></div>
-                    <div id="Fdata-nickname"></div>
-                    <div id="Fdata-ID"></div>
+            <div id="friendpage-container">
+                <div id="Fmypage-record">
+                    <img id="Fdata-pic" src="" />
+                    <div class="Fdata-text">
+                        <div id="Fdata-name"></div>
+                        <div id="Fdata-nickname"></div>
+                        <div id="Fdata-ID"></div>
+                    </div>
                 </div>
-            </div>
-            <div id="Fdata-selfintro-title">自我介紹</div>
-            <div id="Fdata-selfintro-text"></div>
+                <div id="Fdata-selfintro-title">自我介紹</div>
+                <div id="Fdata-selfintro-text"></div>
 
-            <div id="Fcharacteristics-L"></div>
-            <div class="Fcharacteristics-RT">
-                <span id="FRT-title">特質分析</span>
-                <img src="../resources/nav/RT.png">
-            </div>
-            <div class="Fcharacteristics-RB">
-                <span id="FRB-title">挑戰經歷</span>
-                <img src="../resources/nav/RB.png">
-            </div>
+                <div id="Fcharacteristics-L">
+                    <div id='L-title'>發起經歷</div>
+                    <div class='mission-show'>
+                        <div class='blue'></div>
+                    </div>
+                    <div class='mission-show'>
+                        <div class='blue'></div>
+                    </div>
+                    <div class='mission-show'>
+                        <div class='blue'></div>
+                    </div>
+                </div>
+                <div class="Fcharacteristics-RT">
+                    <span id="FRT-title">特質分析</span>
+                    <img src="../resources/nav/RT.png">
+                </div>
+                <div class="Fcharacteristics-RB">
+                    <span id="FRB-title">挑戰經歷</span>
+                    <img src="../resources/nav/RB.png">
+                </div>
+            </div>div>
             <div id="Fmission-launched" class="hidden">
                 <div class="Fback-button">
                     <img src="../resources/nav/arrow.png">
@@ -762,14 +832,27 @@
                     </div>
                     <div class="self-rador-white">
                         <div id="Frador">
-                            <canvas id="friendChart"></canvas>
+                            <!--<canvas id="friendChart"></canvas>-->
+                            <img class="rador-hexagon" src="../resources/nav/hexagon.png">
+                            <div id="Frador-advanced"></div>
+
+                            <div class="radar-text-social">朋友</div>
+                            <div class="radar-text-travel">旅遊</div>
+                            <div class="radar-text-food">美食</div>
+                            <div class="radar-text-activity">活動</div>
+                            <div class="radar-text-sport">工作</div>
+                            <div class="radar-text-self">感情</div>
                         </div>
-                        <div id="Fvalue-social"></div>
-                        <div id="Fvalue-travel"></div>
-                        <div id="Fvalue-food"></div>
-                        <div id="Fvalue-activity"></div>
-                        <div id="Fvalue-sport"></div>
-                        <div id="Fvalue-self"></div>
+                        <div id="Frador-value">
+                            <div id="Fvalue-social"></div>
+                            <div id="Fvalue-travel"></div>
+                            
+                            <div id="Fvalue-food"></div>
+                            <div id="Fvalue-activity"></div>
+                            
+                            <div id="Fvalue-sport"></div>
+                            <div id="Fvalue-self"></div>
+                        </div>
                     </div>
 
                 </div>
@@ -794,7 +877,7 @@
             <div id="search-ID">
                 <form name="ID-choose-friend" id="ID-choose-friend">
                     <img id="inside-image" src="../resources/nav/search.png" />
-                    <input type="text" placeholder="         輸入 ID" id="persontosearch">
+                    <input type="text" placeholder="         輸 入 ID" id="persontosearch">
                 </form>
             </div>
             <div id="click-friend" class="hidden">
@@ -834,7 +917,7 @@
                 <div id="addfriend" class="addfriend hidden">
                     <img id="addfriend_pic" src="" />
                     <div id="addfriend_name"></div>
-                    <button id="button_add" class="button_add hidden">加入</button>
+                    <button id="button_add" class="button_add hidden">加入好友</button>
                     <button id="button_cantfind" class="button_cantfind hidden">找不到</button>
                 </div>
             </div>
@@ -874,8 +957,8 @@
                                 <div class="myrank-score">24</div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
-                                <div class="title-text">人際</div>
+                                <img class="title-img" src="../resources/update/social-rank.png">
+                                <div class="title-text">朋友</div>
                             </div>
                             <div class="rank-myscore">
                                 <div class="myscore-text">我的積分</div>
@@ -883,7 +966,7 @@
                             </div>
                         </div>
                         <div class="rank-mid">
-                            <div class="rank-block">
+                            <!--<div class="rank-block">
                                 <div class="rank-block-order">
                                     <img src="../resources/update/first.png">
                                 </div>
@@ -974,7 +1057,7 @@
                                 <div class="rank-block-score">
                                     875
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                     </div>
@@ -986,7 +1069,7 @@
                                 <div class="myrank-score"></div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
+                                <img class="title-img" src="../resources/update/food-rank.png">
                                 <div class="title-text">美食</div>
                             </div>
                             <div class="rank-myscore">
@@ -1009,8 +1092,8 @@
                                 <div class="myrank-score"></div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
-                                <div class="title-text">旅行</div>
+                                <img class="title-img" src="../resources/update/travel-rank.png">
+                                <div class="title-text">旅遊</div>
                             </div>
                             <div class="rank-myscore">
                                 <div class="myscore-text">我的積分</div>
@@ -1024,8 +1107,8 @@
 
                         </div>
                     </div>
-                    <!-- study -->
-                    <div id="study-rank" class="swiper-slide">
+                    <!-- work -->
+                    <div id="work-rank" class="swiper-slide">
                         <div class="rank-top">
                             <div class="rank-myrank">
                                 <div class="myrank-text">我的排名</div>
@@ -1033,8 +1116,8 @@
                                 </div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
-                                <div class="title-text">學業</div>
+                                <img class="title-img" src="../resources/update/work-rank.png">
+                                <div class="title-text">工作</div>
                             </div>
                             <div class="rank-myscore">
                                 <div class="myscore-text">我的積分</div>
@@ -1056,8 +1139,8 @@
                                 <div class="myrank-score"></div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
-                                <div class="title-text">課外</div>
+                                <img class="title-img" src="../resources/update/activity-rank.png">
+                                <div class="title-text">活動</div>
                             </div>
                             <div class="rank-myscore">
                                 <div class="myscore-text">我的積分</div>
@@ -1071,16 +1154,16 @@
 
                         </div>
                     </div>
-                    <!-- adventure -->
-                    <div id="adventure-rank" class="swiper-slide">
+                    <!-- love -->
+                    <div id="love-rank" class="swiper-slide">
                         <div class="rank-top">
                             <div class="rank-myrank">
                                 <div class="myrank-text">我的排名</div>
                                 <div class="myrank-score"></div>
                             </div>
                             <div class="rank-title">
-                                <img class="title-img" src="../resources/nav/people_icon.png">
-                                <div class="title-text">冒險</div>
+                                <img class="title-img" src="../resources/update/love-rank.png">
+                                <div class="title-text">感情</div>
                             </div>
                             <div class="rank-myscore">
                                 <div class="myscore-text">我的積分</div>

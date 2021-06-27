@@ -1,49 +1,434 @@
-#mainpage {
-  background-image: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
-  overflow: hidden;
+
+#city-container {
+  height:100vh;
+  width:100vw; 
+  z-index:100;
 }
-#mainpage #city-container {
-  background-image: url(../resources/city/city-bg.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 40% 60%;
+#city-background{
+  height:100%;
+  margin-left:-8vw;
+  margin-right:-13vw;
+  width:121vw;
+}
+#city-button-mission{
+  position: fixed;
+  background-color: transparent;
+  top: 43vh;
+  left: 20vw;
+  height: 12.5vh;
+  width: 37vw;
+  clip-path: polygon(72% 0%, 100% 19%, 100% 56%, 28% 98%,2% 79%,2% 35%);
+  padding: 0;
+}
+#city-title-mission{
+  position:fixed;
+  top:40vh;
+  left:30vw;
+  color: rgb(107 107 107);
+}
+#city-button-personal{
+position: fixed;
+    background-color: transparent;
+    top: 40vh;
+    left: 60.5vw;
+    height: 7.3vh;
+    width: 13vw;
+    padding: 0;
+}
+#city-title-personal{
+  position:fixed;
+  top: 36vh;
+  left: 65vw;
+  color: rgb(107 107 107);
+}
+#city-button-chatroom{
+  position: fixed;
+  background-color: transparent;
+  top: 51.6vh;
+  left: 71vw;
+  height: 9vh;
+  width: 21vw;
+  clip-path: polygon(40% 3%, 100% 40%, 100% 75%, 60% 100%,3% 70%,3% 29%);
+  padding: 0;
+  z-index:1;
+}
+#city-title-chatroom{
+  color:black;
+  position:fixed;
+  top: 49.3vh;
+  left: 77.5vw;
+  z-index:1;
+}
+#city-button-friend{
+  position: fixed;
+  background-color: transparent;
+  top: 66vh;
+  left: 38vw;
+  height: 7.5vh;
+  width: 24vw;
+  clip-path: polygon(2% 8%, 80% 2%, 98% 20%, 75% 60%,20% 70%);
+  padding: 0;
+}
+#city-title-friend{
+  color:black;
+  position:fixed;
+  top: 64vh;
+  left: 42vw;
+}
+#city-button-rank{
+  position: fixed;
+  background-color: transparent;
+  top: 66vh;
+  left: 66vw;
+  height: 10.3vh;
+  width: 25vw;
+  clip-path: polygon(10% 10%, 23% 3%, 77% 40%, 77% 90%,65% 99%,10% 63%);
+  padding: 0;
+}
+#city-title-rank{
+  color:black;
+  position:fixed;
+  top: 64.5vh;
+  left: 78vw;
+}
+.city-title{
+  display: flex;
+  align-items: center;
+}
+.city-title img{
+  height:3vh;
+}
+.city-title p{
+  
+  font-size:1.5vh;
+  margin:1vw;
+  letter-spacing: 0.3vh;
+  height:3vh;
+  width:20vw;
+  font-family: "Gen Jyuu Gothic Medium", sans-serif;
+  padding:0;
+  font-weight: bold;
+  line-height: 3vh;
+}
+#cloud1{
+  position:absolute;
+  top:21vh;
+  left:12vw;
+  width:25vw;
+  animation: cloud1-fadein 30s infinite,cloud1-move 30s infinite cubic-bezier(0,0,1,1);
+}
+@keyframes cloud1-move{
+  from{
+    left:12vw;
+  }
+  to{
+    left:85vw
+  }
+}
+@keyframes cloud1-fadein{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity:1;
+  }
+  80%{
+    opacity:1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+#cloud2{
+  position:absolute;
+  top:12vh;
+  left:52vw;
+  width:34vw;
+  animation: cloud2-fadein 50s infinite,cloud2-move 50s infinite cubic-bezier(0,0,1,1);
+}
+@keyframes cloud2-move{
+  from{
+    left:0vw;
+  }
+  to{
+    left:85vw
+  }
+}
+@keyframes cloud2-fadein{
+  0%{
+    opacity: 0;
+  }
+  30%{
+    opacity:1;
+  }
+  70%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+  }
+}
+#cloud3{
+  position:absolute;
+  top:25vh;
+  left:73vw;
+  width:15vw;
+  animation: cloud3-fadein 10s infinite,cloud3-move 10s infinite cubic-bezier(0,0,1,1);
+
+}
+@keyframes cloud3-move{
+  from{
+    left:53vw;
+  }
+  to{
+    left:100vw
+  }
+}
+@keyframes cloud3-fadein{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity:1;
+  }
+}
+#bird1{
+  position:absolute;
+  top:17vh;
+  left:43vw;
+  width:6vw;
+  animation: bird1-vert 8s infinite cubic-bezier(0.52,0,1,1),bird1-hori 8s infinite cubic-bezier(0,0,0.58,0.7),bird1-fadein 8s infinite;
+}
+@keyframes bird1-vert {
+  0%{top:17vh;}
+  15%{top:17vh;}
+  85%{top:10vh;}
+  100%{top:10vh;}
+}
+@keyframes bird1-hori {
+  0%{left:42vw;}
+  15%{left:42vw;}
+  85%{left:8vw;}
+  100%{left:8vw;}
+}
+@keyframes bird1-fadein {
+  0%{opacity:0;}
+  15%{opacity:1;}
+  85%{opacity:1;}
+  100%{opacity:0;}
+}
+#bird2{
+  position:absolute;
+  top:40vh;
+  left:10vw;
+  width:6vw;
+  animation: bird2-vert 8s infinite cubic-bezier(0.52,0,1,1),bird2-hori 8s infinite cubic-bezier(0,0,0.58,0.7),bird1-fadein 8s infinite;
+}
+@keyframes bird2-vert {
+  0%{top:40vh;}
+  15%{top:40vh;}
+  85%{top:30vh;}
+  100%{top:30vh;}
+}
+@keyframes bird2-hori {
+  0%{left:10vw;}
+  15%{left:10vw;}
+  85%{left:40vw;}
+  100%{left:40vw;}
+}
+@keyframes bird2-fadein {
+  0%{opacity:0;}
+  15%{opacity:1;}
+  85%{opacity:1;}
+  100%{opacity:0;}
+}
+#bird3{
+  position:absolute;
+  top:40vh;
+  left:90vw;
+  width:5vw;
+  animation: bird3-vert 8s infinite cubic-bezier(0,0,0.58,0.7),bird3-hori 8s infinite cubic-bezier(0.52,0,1,1),bird1-fadein 8s infinite;
+}
+@keyframes bird3-vert {
+  0%{top:40vh;}
+  15%{top:40vh;}
+  85%{top:25vh;}
+  100%{top:25vh;}
+}
+@keyframes bird3-hori {
+  0%{left:90vw;}
+  15%{left:90vw;}
+  85%{left:77vw;}
+  100%{left:77vw;}
+}
+@keyframes bird3-fadein {
+  0%{opacity:0;}
+  15%{opacity:1;}
+  85%{opacity:1;}
+  100%{opacity:0;}
+}
+#bike1{
   position: absolute;
-  width: 123vw;
-  height: 100vh;
-  margin-left: -9vw;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 49.2vh;
+  left: 65vw;
+  height: 3.5vh;
+  animation: bike1-vert 12s infinite cubic-bezier(0,0,0.58,0.7),bike1-hori 12s infinite cubic-bezier(0.52,0,1,1),bike1-move 12s infinite cubic-bezier(0,0,1,1);
 }
-#mainpage #city-container * {
+@keyframes bike1-vert {
+  0%{top:45vh;}
+  40%{top: 49.2vh;}
+}
+@keyframes bike1-hori {
+  0%{left:66vw;}
+  40%{left:64vw;}
+}
+@keyframes bike1-move {
+  40%{
+    top:49.2vh;
+    left:64vw;
+  }
+  100%{
+    top:56.2vh;
+    left:34vw;
+  }
+}
+#bike2{
   position: absolute;
+  top: 56.5vh;
+  left: 34vw;
+  height: 3.5vh;
+  animation: bike2-move 11s infinite cubic-bezier(0,0,1,1),bike2-fadein 11s infinite;/*,bike2-turn 13s infinite cubic-bezier(0,0,1,1);*/
+  z-index:0;
 }
-#mainpage #city-container #building-d24 {
-  top: 48.5vh;
-  left: 79.7vw;
-  height: 7.7vh;
-  width: 20.8vw;
+@keyframes bike2-move {
+  0%{
+    top:56.5vh;
+    left:34vw;
+  }
+  10%{
+    top:56.5vh;
+    left:34vw;
+  }
+  80%{
+    top:50vh;
+    left:63vw;
+  }
+  100%{
+    top:50vh;
+    left:63vw;
+  }
 }
-#mainpage #city-container #building-dck {
-  top: 33.9vh;
-  left: 26.5vw;
-  height: 17.6vh;
-  width: 40.2vw;
+@keyframes bike2-fadein {
+  0%{opacity:0;}
+  10%{opacity:1;}
+  80%{opacity:1;}
+  100%{opacity:0;}
 }
-#mainpage #city-container #building-dorm {
-  top: 26.3vh;
-  left: 67.2vw;
-  height: 18vh;
-  width: 24.3vw;
+#walk1{
+  position: absolute;
+  top: 55vh;
+  left: 60vw;
+  height: 2.8vh;
+  animation:walk1-move 20s infinite cubic-bezier(0,0,1,1),walk1-fadein 20s infinite;
 }
-#mainpage #city-container #building-sculp {
-  top: 58vh;
-  left: 47.9vw;
-  height: 10.9vh;
-  width: 26.1vw;
+@keyframes walk1-move {
+  0%{
+    top:55vh;
+    left:60vw;
+  }
+  25%{
+    top:55vh;
+    left:60vw;
+  }
+  75%{
+    top:57.5vh;
+    left:75vw;
+  }
+  100%{
+    top:57.5vh;
+    left:75vw;
+  }
 }
-#mainpage #city-container #backround-decoration {
-  top: 6vh;
-  left: 17vw;
-  height: 32vh;
-  width: 84vw;
+@keyframes walk1-fadein {
+  0%{opacity:0;}
+  25%{opacity:1;}
+  75%{opacity:1;}
+  100%{opacity:0;}
+}
+#walk2{
+  position: absolute;
+  top: 72.5vh;
+  left: 61vw;
+  height: 3vh;
+  animation:walk2-move 15s infinite cubic-bezier(0,0,1,1),walk2-fadein 15s infinite;
+}
+@keyframes walk2-move {
+  0%{
+    top:72.5vh;
+    left:61vw;
+  }
+  20%{
+    top:72.5vh;
+    left:61vw;
+  }
+  80%{
+    top:78.2vh;
+    left:40vw;
+  }
+  100%{
+    top:78.2vh;
+    left:40vw;
+  }
+}
+@keyframes walk2-fadein {
+  0%{opacity:0;}
+  20%{opacity:1;}
+  80%{opacity:1;}
+  100%{opacity:0;}
+}
+#skateboard{
+  
+  height:3vh;
+  animation:spin1-reverse 15s infinite linear;
+  transform-origin:50% 0.2vh;
+}
+#skateboard-anim{
+  position:absolute;
+  top:65vh;
+  left:16vw;
+  height:4vh;
+  background-color: transparent;
+  animation:spin1 15s infinite linear,skate1 15s infinite;
+}
+@keyframes skate1 {
+  0%{
+    top:65vh;
+    left:10vw;
+  }
+  50%{
+    top:63vh;
+    left:20vw;
+  }
+  100%{
+    top:65vh;
+    left:10vw;
+  }
+}
+@keyframes spin1 {
+  0%{
+    transform:rotate(1turn);
+  }
+  50%{
+    transform:rotate(-1turn);
+  }
+  
+}
+@keyframes spin1-reverse {
+  0%{
+    transform:rotate(-1turn);
+  }
+  50%{
+    transform:rotate(1turn);
+  }
 }

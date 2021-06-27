@@ -43,7 +43,7 @@ body {
     justify-content: space-around;
     width: 100vw;
     height: 8vh;
-    border-top: black solid thin;
+    /*border-top: black solid thin;*/
     background-color: #E9B83E;
     /* Max z-index */
     z-index: 100;
@@ -52,8 +52,7 @@ body {
 .navbar img {
     margin: auto 0;
     display: block;
-    height: 10vw;
-    width: 10vw;
+    height: 8vh;
 }
 
 .container {
@@ -99,16 +98,12 @@ body {
 }
 
 #loading-cover {
-    background: linear-gradient(to bottom left, #CFE9EA, #F6F29D);
+    background: linear-gradient(-45deg,#F6F29D,#fdf3dd, #CFE9EA);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#loading-text {
-    margin: 3vw;
-    font-size: 3vh;
-}
 
 #loading-icon {
     border: 1vh solid #EB931D;

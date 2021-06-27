@@ -6,7 +6,7 @@
   background-image: url("../resources/update/blue_texture.png");
     background-size:cover;
   width:100vw;
-  height:10vh;
+  height:12vh;
   margin:0;
   padding:0;
   position:fixed;
@@ -21,7 +21,7 @@
 #chatroom-title{
   width:100%;
   
-  font-size:3.8vh;
+  font-size:3.5vh;
   letter-spacing:2vh;
   text-indent: 2vh;
   text-align:center;
@@ -47,11 +47,11 @@
 
 
 #create-chat-button{
-  background-color:#EAF6F7;
+  background-color: #f4f7f8;
   width:100vw;
-  height:5vh;
+  height:6vh;
   position:fixed;
-  top:10vh;
+  top:12vh;
   border-style:none;
   margin:0;
   padding:0;
@@ -64,22 +64,22 @@
   margin:0 3%;
 }
 #create-chat-button img{
-  max-height:60%;
+  max-height:3vh;
   margin:0 4%;
 }
 #chat-record{
   position:fixed;
-  top:15vh;
+  top:18vh;
   width:100vw;
-  height:75vh;
+  height:73vh;
   overflow:scroll;
   z-index:1;
 }
 .chat-room{
-  height:15vh;
-  border-bottom:solid;
-  border-bottom-width:thin;
-  border-color:#E9B83E;
+  height: 13vh;
+  /* border-bottom:solid; */
+  /* border-bottom-width:thin; */
+  /* border-color:#E9B83E; */
   display:flex;
   justify-content:flex-start;
   align-items:center;
@@ -91,7 +91,7 @@
   scroll-snap-align: start;
 }
 .chat-header{
-margin:0 3vw 0 3vw;
+margin:0 6vw 0 3vw;
 height:9vh;
 width:9vh;
 float:left;
@@ -103,7 +103,7 @@ border-radius:50%;
   position:fixed;
   top:0;
   width:100vw;
-  height:90vh;
+  height:92vh;
   margin:0;
   padding:0;
   opacity:0.9;
@@ -121,10 +121,12 @@ border-radius:50%;
   width:80vw;
   height:55vh;
   text-align:center;
-  overflow:scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   z-index:3;
-  padding:0;
-  box-shadow:10px 10px 15px gray;
+  /* padding:0; */
+  box-shadow: 1vw 1vw 2vw #aaaaaa;
+  padding: 0 1vw;
 }
 #group-choose-mission{
   margin:0;
@@ -134,11 +136,11 @@ border-radius:50%;
   background-color:#FBE1B1;
   border:none;
   outline: none;
-  height:3.8vh;
+  height: 4vh;
   width:68vw;
   font-size: 2vh;
-  border-radius:35px;
-  margin:0 6vw 0 6vw;
+  border-radius: 1vh;
+  margin: 0 6vw 1vh 6vw;
   text-indent: 9vw;
 }
 #missiontosearch::-webkit-input-placeholder {
@@ -148,46 +150,48 @@ border-radius:50%;
   font-size: 1.8vh;
 }
 .search-mission{
-  height:2.6vh;
+  height: 2.1vh;
   position:absolute;
-  top:10.6vh;
+  top: 11.3vh;
   left:8vw;
 }
 #friendtosearch{
   background-color:#FBE1B1;
   border:none;
   outline: none;
-  height:3.8vh;
+  height: 4vh;
   width:68vw;
   font-size: 2vh;
-  border-radius:35px;
-  margin:0 6vw 0 6vw;
+  border-radius: 1vh;
+  margin: 0 5vw 2vh 5vw;
   text-indent: 9vw;
 }
 .search-friend{
-  height:2.6vh;
+  height: 2.1vh;
   position:absolute;
-  top:10.6vh;
+  top: 11.3vh;
   left:8vw;
 }
 .hidden-button{
   display:none;
 }
 .choosed-friend{
-  width:34vw;
+  width: 31vw;
   height:40vw;
   border-style:solid;
   border-width:thin;
   border-radius:10px;
   border-color:#E9B83E;
-  margin:2vw 1vw 2vw 3vw;
+  margin: 4vw 0vw 0vw 5vw;
   text-align:center;
   float:left;
-  box-shadow: 3px 3px 5px gray;
+  box-shadow: 3px 3px 5px #aaaaaa;
+  text-indent: 0.5vh;
+  letter-spacing: 0.5vh;
 }
 .choosed-friend img{
   max-height:50%;
-  margin:10%;
+  margin: 15% 10% 10% 10%;
   border-radius:50%;
 }
 .choosed-friend:focus{
@@ -204,13 +208,14 @@ border-radius:50%;
 
 
 .choosed-mission{
-  width:72vw;
+  width: 68vw;
   height:17vw;
   border-color:#E9B83E;
   border-style:solid;
+  border-width: thin;
   border-radius:8px;
-  margin:4vw;
-  box-shadow:1px 1px 3px gray;
+  margin: 1.4vh 6vw;
+  box-shadow: 3px 3px 3px #c7c6c6;
 }
 #mission-name-text{
   width:100%;
@@ -224,7 +229,7 @@ border-radius:50%;
   display:none;
 } 
 .chosen{
-  background-color:#E9B83E;
+  background-color: #eec567;
   color:white;
 }
 .unchosen{
@@ -239,11 +244,11 @@ border-radius:50%;
 
 .button-sure{
   position:absolute;
-  top:75vh;
-  left:20vw;
-  background:#EB931D;
+  top: 74vh;
+  left: 25vw;
+  background: #e4a936;
   color:white;
-  width:60vw;
+  width: 50vw;
   height:13vw;
   display:flex;
   justify-content:center;
@@ -256,6 +261,7 @@ border-radius:50%;
   text-indent: 3vh;
   z-index:3;
   overflow:hidden;
+  box-shadow: 1vw 1vw 2vw #aaaaaa;
 }
 .button-sure h3{
   margin:0%;
@@ -264,10 +270,10 @@ border-radius:50%;
 .button-creategroup{
   position:absolute;
   top:75vh;
-  left:20vw;
-  background:#EB931D;
+  left: 25vw;
+  background: #e4a936;
   color:white;
-  width:60vw;
+  width: 50vw;
   height:13vw;
   display:flex;
   justify-content:center;
@@ -276,10 +282,11 @@ border-radius:50%;
   border-style:none;
   border-radius:7px;
   font-size:2.7vh;
-  letter-spacing:2vh;
+  letter-spacing: 1vh;
   text-indent: 2vh;
   z-index:3;
   overflow:hidden;
+  box-shadow: 1vw 1vw 2vw #9e9d9d;
 }
 .button-creategroup h3{
   margin:0%;
@@ -292,38 +299,44 @@ border-radius:50%;
 }
 .chat-firstline{
   color:gray;
-  font-size:2vw;
+  font-size: 2vh;
   width:70vw;
   overflow:hidden;
+  margin: 0.2vh;
 }
 .group_slideleft {
   display: flex;
   overflow-y: hidden;
-  height: 15vh;
+  height: 13vh;
   scroll-snap-type: x mandatory;
 }
 .group_slideleft .group_deletebutton {
   width: 4rem;
-  height: 15vh;
+  height: 12.9vh;
   position: absolute;
   right: 0;
   background-color: #fa3434;
   border-color: #fa3434;
-  color:white;    
-  font-size:5vw;
+  color:white;
+  font-size: 2.5vh;
   writing-mode:vertical-lr;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 1vh;
+  text-indent: 1vh;
 }
 
 .useless_slideleft {
   display: flex;
   overflow-y: hidden;
-  height: 15vh;
+  height: 13vh;
   scroll-snap-type: x mandatory;
 }
 .useless_slideleft .group_deletebutton {
   visibility: hidden;
   width: 4rem;
-  height: 15vh;
+  height: 13vh;
   position: absolute;
   right: 0;
   background-color: #fa3434;
@@ -331,4 +344,12 @@ border-radius:50%;
   color:white;    
   font-size:5vw;
   writing-mode:vertical-lr;
+}
+.useless_slideleft .space{
+  display:none;
+}
+.chat-group-name{
+  font-size:2.6vh;
+  margin:0;
+  
 }

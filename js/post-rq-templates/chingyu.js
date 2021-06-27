@@ -21,7 +21,7 @@ var roomstyle, roomID;
 var friend_index;
 var FchartRadar;
 var value = { name: "鄭青宇", nickname: "?????", id: "E24076344", intro: "自介", social: 50, travel: 45, food: 23, activity: 20, sport: 15, self: 10 };
-
+var output_mission_ID
 
 //chat page
 function choose_mission() { //handle checkbox
@@ -34,8 +34,9 @@ function choose_mission() { //handle checkbox
         console.log("stop?");
         if (obj[i].checked == true) {
             console.log(i + "missions");
-            output_mission.push(mission_list[i].name) //mission_list[i]);
-        } else {}
+            output_mission = mission_list[i].name //mission_list[i]);
+            output_mission_ID = mission_list[i].ID
+        } else { }
     }
 
 }
@@ -48,7 +49,7 @@ function choose_friend() { //handle radio
         console.log(len + "friends");
         if (obj[i].checked == true) {
             output_friend.push(friend_list[i].id);
-        } else {}
+        } else { }
     }
 }
 
@@ -56,31 +57,55 @@ function choose_friend() { //handle radio
 function appendrooms() { //show rooms in chatroom page
     document.getElementById("chat-record").innerHTML = "";
     let chatroom = [];
-    for (let i = 0; i < room_magnitude; i++) {
-        //let chatroom="<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+header_pic+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+group_name+"</h3><h4 id='chat-firstline>"+first_line+"</h4></div></div>";
-        console.log(rooms_data[i].type + " " + i)
-        if (rooms_data[i].type == "friend") {
-            console.log("hihi");
-            for (let j = 0; j < friend_magnitude; j++) {
-                if (rooms_data[i].name == friend_list[j].id) {
-                    chatroom = chatroom + "<div class='useless_slideleft'><button class='group_deletebutton'>退群</button><div id='chat-room-num" + i + "'class='chat-room'><img class='chat-header'src='" + friend_list[j].image + "'/><div class='chat-room-text'><h3 class='chat-group-name'>" + friend_list[j].name + "</h3><div class='chat-firstline'>" + rooms_data[i].talk + "</div></div></div><s class='space'></s></div>"
+    $.post('./mission/all_mission', function (data) {
+        let group_pic;
+        for (let i = 0; i < room_magnitude; i++) {
+            for (let j = 0; j < data.length; j++) {
+                if (rooms_data[i].name == data[j].name) {
+                    if (data[j].category == "工作") {
+                        group_pic = "../resources/update/work-rank.png"
+                    } else if (data[j].category == "旅遊") {
+                        group_pic = "../resources/update/travel-rank.png"
+                    }
+                    else if (data[j].category == "美食") {
+                        group_pic = "../resources/update/food-rank.png"
+                    }
+                    else if (data[j].category == "活動") {
+                        group_pic = "../resources/update/activity-rank.png"
+                    }
+                    else if (data[j].category == "朋友") {
+                        group_pic = "../resources/update/friend-rank.png"
+                    }
+                    else if (data[j].category == "感情") {
+                        group_pic = "../resources/update/love-rank.png"
+                    }
                 }
             }
-            if (i == room_magnitude - 1) {
-                $("#chat-record").append(chatroom)
-            }
 
-            //let chatroom="<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+friend_list[i].image+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+rooms_data[i].name+"</h3><h4 id='chat-firstline'>"+rooms_data[i].talk+"</h4></div></div>";
+            console.log(rooms_data[i].type + " " + i)
+            if (rooms_data[i].type == "friend") {
+                console.log("hihi");
+                for (let j = 0; j < friend_magnitude; j++) {
+                    if (rooms_data[i].name == friend_list[j].id) {
+                        chatroom = chatroom + "<div class='useless_slideleft'><button class='group_deletebutton'>退群</button><div id='chat-room-num" + i + "'class='chat-room'><img class='chat-header'src='" + friend_list[j].image + "'/><div class='chat-room-text'><div class='chat-group-name'>" + friend_list[j].name + "</div><div class='chat-firstline'>" + rooms_data[i].talk + "</div></div></div><s class='space'></s></div>"
+                    }
+                }
+                if (i == room_magnitude - 1) {
+                    $("#chat-record").append(chatroom)
+                }
 
-        } else {
-            chatroom = chatroom + "<div class='group_slideleft'><button class='group_deletebutton' id='group_delete-num" + i + "'>退群</button><div id='chat-room-num" + i + "'class='chat-room'><img class='chat-header'src='../resources/update/edit_texture.png'/><div class='chat-room-text'><h3 class='chat-group-name'>" + rooms_data[i].name + "</h3><h4 class='chat-firstline'>" + rooms_data[i].talk + "</h4></div></div><s class='space'></s></div>";
-            if (i == room_magnitude - 1) {
-                $("#chat-record").append(chatroom)
+                //let chatroom="<div id='chat-room-num"+i+"'class='chat-room'><img id='chat-header'src='"+friend_list[i].image+"'/><div class='chat-room-text'><h3 id='chat-group-name'>"+rooms_data[i].name+"</h3><h4 id='chat-firstline'>"+rooms_data[i].talk+"</h4></div></div>";
+
+            } else {
+                chatroom = chatroom + "<div class='group_slideleft'><div class='group_deletebutton' id='group_delete-num" + i + "'>退群</div><div id='chat-room-num" + i + "'class='chat-room'><img class='chat-header'src='" + group_pic + "'/><div class='chat-room-text'><div class='chat-group-name'>" + rooms_data[i].name + "</div><div class='chat-firstline'>" + rooms_data[i].talk + "</div></div></div><s class='space'></s></div>";
+                if (i == room_magnitude - 1) {
+                    $("#chat-record").append(chatroom)
+                }
+
             }
 
         }
-
-    }
+    })
 }
 
 function appendmissions() { //show missions in group create
@@ -103,20 +128,32 @@ function appendfriends() { //show friends in group create
     //document.getElementById("chat-choose-friends").innerHTML = "<div id='choose-friend-text'>選擇好友</div><form name='group-choose-friend' id='group-choose-friend'><img class='search-friend'src='../resources/nav/search.png'><input type='text' placeholder='        輸入好友名稱'name='friendtosearch' id='friendtosearch'></form>";
     let friends = [];
     document.getElementById("put-friend-here").innerHTML = "";
-    for (let i = 0; i < friend_magnitude; i++) {
-        //let friends="<input type='checkbox' name='choose_friend' id='C_F"+i+"'><label for='C_F"+i+"'><div id='choosed-friend"+i+"'class='choosed-friend unchosen'><img src='../resources/nav/create_chat.png'/><h3>鄭青宇</h3></div>";
-        friends = friends + "<input type='checkbox' name='choose_friend' id='C_F" + i + "'><label for='C_F" + i + "'><div id='choosed-friend" + i + "'class='choosed-friend unchosen'><img src='" + friend_list[i].image + "'/><div id='friend-name-text'>" + friend_list[i].name + "</div></div>";
-        if (i == friend_magnitude - 1) {
-            $("#put-friend-here").append(friends)
-        }
+    $.post('./find_M_friend', {
+        qid: output_mission_ID
+    }, function (data) {
+        if (data[0].M_friend!="") {
+            for (let i = 0; i < data.length; i++) {
+                $.post('./findperson', {
+                    person_ID: data[i].M_friend
+                }, function (fri) {
+                    friends = friends + "<input type='checkbox' name='choose_friend' id='C_F" + i + "'><label for='C_F" + i + "'><div id='choosed-friend" + i + "'class='choosed-friend unchosen'><img src='" + fri.image + "'/><div id='friend-name-text'>" + fri.name + "</div></div>";
+                    if (i == data.length - 1) {
+                        $("#put-friend-here").append(friends)
+                    }
+                })
+                //let friends="<input type='checkbox' name='choose_friend' id='C_F"+i+"'><label for='C_F"+i+"'><div id='choosed-friend"+i+"'class='choosed-friend unchosen'><img src='../resources/nav/create_chat.png'/><h3>鄭青宇</h3></div>";
 
-    }
+
+            }
+        }
+    })
+
 
 }
 
 function appendmissionsforlaunch() { //show missions in group create
 
-    document.getElementById("mission-container").innerHTML = "<div id='mission-launched-title'>發起任務</div>"
+    document.getElementById("mission-container").innerHTML = "<div id='mission-launched-title'>發起經歷</div>"
     let missions = []
     console.log(launch_mission_magnitude)
     for (let i = 0; i < launch_mission_magnitude; i++) {
@@ -132,7 +169,7 @@ function appendmissionsforlaunch() { //show missions in group create
 
 function appendmissionsforlaunchF() { //show missions in group create
 
-    document.getElementById("Fmission-container").innerHTML = "<div id='mission-launched-title'>發起任務</div>"
+    document.getElementById("Fmission-container").innerHTML = "<div id='mission-launched-title'>發起經歷</div>"
     let missions = []
     console.log(Flaunch_mission_magnitude)
     for (let i = 0; i < Flaunch_mission_magnitude; i++) {
@@ -145,10 +182,10 @@ function appendmissionsforlaunchF() { //show missions in group create
 
     }
 }
-
+/*
 function appendmissionsforsmall() { //show missions in group create
 
-    document.getElementById("characteristics-L").innerHTML = "<div id='L-title'>發起任務</div>";
+    document.getElementById("characteristics-L").innerHTML = "<div id='L-title'>發起經歷</div>";
     let missions = []
     console.log(launch_mission_magnitude)
     for (let i = 0; i < launch_mission_magnitude; i++) {
@@ -163,7 +200,7 @@ function appendmissionsforsmall() { //show missions in group create
 
 function appendmissionsforsmallF() { //show missions in group create
 
-    document.getElementById("Fcharacteristics-L").innerHTML = "<div id='FL-title'>發起任務</div>";
+    document.getElementById("Fcharacteristics-L").innerHTML = "<div id='FL-title'>發起經歷</div>";
     let missions = []
     console.log(Flaunch_mission_magnitude)
     for (let i = 0; i < Flaunch_mission_magnitude; i++) {
@@ -175,27 +212,27 @@ function appendmissionsforsmallF() { //show missions in group create
 
     }
 }
-
+*/
 function newgroup() { //create a new group
     $.post('./newgroup', {
-            output_mission: output_mission, //選擇的任務
-            //output_friend:output_friend//選擇的好友
-        },
-        function(data) {
+        output_mission: output_mission, //選擇的任務
+        //output_friend:output_friend//選擇的好友
+    },
+        function (data) {
             data == "Success" //just return data==true,and create a new group
             for (let i = 0; i < output_friend.length; i++) {
                 $.post('./assignmentadd', {
-                        output_mission: output_mission,
-                        friend_ID: output_friend[i] //選擇的好友
-                    },
-                    function(data) {
+                    output_mission: output_mission,
+                    friend_ID: output_friend[i] //選擇的好友
+                },
+                    function (data) {
 
 
                     });
             }
 
             $.post('./chatrecord', {},
-                function(chatrooms) {
+                function (chatrooms) {
                     console.log(chatrooms);
                     room_magnitude = chatrooms.length;
                     rooms_data = chatrooms;
@@ -245,10 +282,10 @@ function sendmessage_friend(your_message) {
     console.log(your_message + "12345");
     console.log(roomID + "jo6su6");
     $.post('./sendmessage_friend', {
-            friend_ID: roomID, // 要傳跟誰說話
-            your_message: your_message
-        },
-        function(data) {
+        friend_ID: roomID, // 要傳跟誰說話
+        your_message: your_message
+    },
+        function (data) {
             //data[1].name // 1可以換成2,3,4....
             //data[1].msg
             //data[1].time
@@ -264,9 +301,9 @@ function sendmessage_friend(your_message) {
 
 function getmessage_friend(your_message) {
     $.post('./chatroom_friend', {
-            friend_ID: roomID // 要傳跟誰說話
-        },
-        function(data) {
+        friend_ID: roomID // 要傳跟誰說話
+    },
+        function (data) {
             //data[1].name // 1可以換成2,3,4....
             //data[1].msg
             //data[1].time
@@ -298,10 +335,10 @@ function getmessage_friend(your_message) {
 function sendmessage_mission(your_message) {
 
     $.post('./sendmessage_mission', {
-            chatroom_name: roomID, // 要傳聊天室的名字
-            your_message: your_message
-        },
-        function(data) {
+        chatroom_name: roomID, // 要傳聊天室的名字
+        your_message: your_message
+    },
+        function (data) {
             //data[1].name // 1可以換成2,3,4....
             //data[1].msg
             //data[1].time
@@ -316,9 +353,9 @@ function sendmessage_mission(your_message) {
 
 function getmessage_mission(your_message) {
     $.post('./chatroom_mission', {
-            chatroom_name: roomID // 要傳跟誰說話
-        },
-        function(data) {
+        chatroom_name: roomID // 要傳跟誰說話
+    },
+        function (data) {
             //data[1].name // 1可以換成2,3,4....
             //data[1].msg
             //data[1].time
@@ -356,7 +393,7 @@ var getbytime_M;
 function checkifroom() {
     if ($("#chat-main").is(".show")) {
         $.post('./chatrecord',
-            function(chatrooms) {
+            function (chatrooms) {
                 if (chatrooms.length > room_magnitude) {
                     room_magnitude = chatrooms.length;
                     rooms_data = chatrooms;
@@ -368,7 +405,7 @@ function checkifroom() {
     }
     if ($("#friend-main").is(".show")) {
         $.post('./friendrecord',
-            function(friends) {
+            function (friends) {
                 if (friends.length > friend_magnitude) {
                     refreshfriend();
                 }
@@ -391,27 +428,34 @@ function checkifroom() {
 //chat page
 
 //get rooms
-$(document).on("click", '#nav-chat', function() {
-
-    //appendrooms();
+$(document).on("click", '#city-button-chatroom', function () {
     $.post('./chatrecord', {},
-        function(chatrooms) {
+        function (chatrooms) {
             console.log(chatrooms);
             room_magnitude = chatrooms.length;
             rooms_data = chatrooms;
             appendrooms();
         });
-    // setTimeout(() => {
 
-    // }, 200);
 });
-$("#create-chat-button").click(function() {
+$(document).on("click", '#nav-chat', function () {
+    $.post('./chatrecord', {},
+        function (chatrooms) {
+            console.log(chatrooms);
+            room_magnitude = chatrooms.length;
+            rooms_data = chatrooms;
+            appendrooms();
+        });
+
+});
+$("#create-chat-button").click(function () {
     mission_list = [];
     $.post('./mission/doing',
-        function(data) {
+        function (data) {
             console.log(data.length);
             mission_magnitude = data.length;
             mission_list = data;
+            console.log(data)
             appendmissions();
             $("#chat-choose-missions").removeClass("hidden").addClass("show");
             $(".chat-cover").removeClass("hidden").addClass("show");
@@ -420,7 +464,7 @@ $("#create-chat-button").click(function() {
     console.log("create chat");
 
 });
-$(".button-sure").click(function() {
+$(".button-sure").click(function () {
 
     appendfriends();
 });
@@ -432,7 +476,7 @@ function appendfriendsformenu() {
     console.log(friend_magnitude)
     let friend = [];
     for (let j = 0; j < friend_magnitude; j++) {
-        friend = friend + "<div class='slideleft'><button class='deletebutton'id='delete-num" + j + "'>移除</button><div id='friend-num" + j + "'class='friend'><div class='friend-lefttwo'><img class='friend-header'src='" + friend_list[j].image + "'/><div class='friend-text'><h3 class='friend-name'>" + friend_list[j].name + "</h3></div></div><div class='friend-nickname'># " + friend_list[j].title + "</div></div><div class='space'></div></div><div class='compensate'></div>";
+        friend = friend + "<div class='slideleft'id='slideleft" + j + "'><div class='deletebutton'id='delete-num" + j + "'>移除</div><div id='friend-num" + j + "'class='friend'><div class='friend-lefttwo'><div id='scroll-cover" + j + " hidden'></div><img class='friend-header'src='" + friend_list[j].image + "'/><div class='friend-text'><div class='friend-name'>" + friend_list[j].name + "</div></div></div><div class='friend-nickname'># " + friend_list[j].title + "</div></div><div class='space'></div></div><div class='compensate'></div>";
         if (j == friend_magnitude - 1) {
             $("#friend-record").append(friend)
         }
@@ -443,7 +487,7 @@ function appendfriendsformenu() {
 function refreshfriend() {
     console.log("haha");
     $.post('./friendrecord',
-        function(friends) {
+        function (friends) {
 
             friend_magnitude = friends.friend.length;
             friend_list_ID = friends.friend;
@@ -452,28 +496,28 @@ function refreshfriend() {
             friend_list = [];
             for (let i = 0; i < friend_list_ID.length; i++) {
                 $.post('./findperson', {
-                        person_ID: friend_list_ID[i]
-                    },
-                    function(data) {
+                    person_ID: friend_list_ID[i]
+                },
+                    function (data) {
                         //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
 
                         friend_list.push(data);
-                        setTimeout(function() {}, 100);
+                        setTimeout(function () { }, 100);
                         if (i == friend_list_ID.length - 1) {
                             appendfriendsformenu();
                         }
                     });
             }
-            //appendfriendsformenu();
+            appendfriendsformenu();
             console.log("friend");
 
             //}
         });
 }
 //friend page
-$("#nav-friend").click(function() {
+$("#nav-friend").click(function () {
     $.post('./friendrecord',
-        function(friends) {
+        function (friends) {
             console.log()
             friend_magnitude = friends.friend.length;
             friend_list_ID = friends.friend;
@@ -481,7 +525,7 @@ $("#nav-friend").click(function() {
         });
 
     $.post('./chatrecord',
-        function(chatrooms) {
+        function (chatrooms) {
             console.log(chatrooms);
             room_magnitude = chatrooms.length;
             rooms_data = chatrooms;
@@ -498,9 +542,9 @@ function findperson() { //find a unknown person with ID
     document.getElementById("addfriend_name").innerHTML = "";
     document.getElementById("button_add").innerHTML = "加入";
     $.post('./findperson', {
-            person_ID: ID
-        },
-        function(data) {
+        person_ID: ID
+    },
+        function (data) {
             //data.name, data.title, data.id, data.intro, data.image, data.social, data.travel, data.food, data.activity, data.sport, data.self;
             if (data) {
                 document.getElementById("addfriend_pic").src = data.image;
@@ -521,9 +565,9 @@ function findperson() { //find a unknown person with ID
 function addfriend() { //add friend
     console.log("1234" + ID);
     $.post('./addfriend', {
-            person_ID: ID //他人ID
-        },
-        function(data) {
+        person_ID: ID //他人ID
+    },
+        function (data) {
             console.log(data);
             //data == "Success" //return data==true
             //refresh friend-record
@@ -534,9 +578,9 @@ function addfriend() { //add friend
 
 function deletefriend() { //delete friend
     $.post('./deletefriend', {
-            person_ID: ID //他人ID
-        },
-        function(data) {
+        person_ID: ID //他人ID
+    },
+        function (data) {
             console.log(ID);
             refreshfriend();
         });
@@ -544,85 +588,80 @@ function deletefriend() { //delete friend
 
 
 //mypage page
-$("#nav-mypage").click(function() {
-    appendmissionsforsmall();
+$("#nav-mypage").click(function () {
+    // appendmissionsforsmall();
     $.post('./mypage-record',
-        function(data) {
+        function (data) {
             value = data;
             document.getElementById("data-pic").src = value.image;
             document.getElementById("data-name").innerHTML = value.name;
-            document.getElementById("data-nickname").innerHTML = "#" + value.title;
-            document.getElementById("data-ID").innerHTML = "UID: " + value.id;
+            document.getElementById("data-nickname").innerHTML = "# " + value.title;
+            document.getElementById("data-ID").innerHTML = "ID: " + value.id;
             document.getElementById("data-selfintro-text").innerHTML = value.intro;
-            document.getElementById("value-social").innerHTML = "社交: " + value.social;
-            document.getElementById("value-travel").innerHTML = "旅行: " + value.travel;
+            document.getElementById("value-social").innerHTML = "朋友: " + value.social;
+            document.getElementById("value-travel").innerHTML = "旅遊: " + value.travel;
             document.getElementById("value-food").innerHTML = "美食: " + value.food;
-            document.getElementById("value-activity").innerHTML = "冒險: " + value.activity;
-            document.getElementById("value-sport").innerHTML = "運動: " + value.sport;
-            document.getElementById("value-self").innerHTML = "課業: " + value.self;
-            var radardata = {
-                labels: [
-                    '社交',
-                    '旅行',
-                    '美食',
-                    '冒險',
-                    '運動',
-                    '課業',
-                ],
-                datasets: [{
-                    label: '你的任務',
-                    data: [value.social, value.travel, value.food, value.activity, value.sport, value.self],
-                    fill: false,
-                    backgroundColor: 'rgb(233, 149, 53,0.3)',
-                    borderColor: '#EB931D',
-                    pointBackgroundColor: '#EB931D',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(255, 99, 132)'
-                }]
-            };
-            var radaroptions = {
+            document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
+            document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
+            document.getElementById("value-self").innerHTML = "愛情: " + value.self;
 
-                scale: {
+            let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
+            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+            let socialy = 50 + 50 * value.social / maxvalue;
+            let travelx = 50 + 50 * value.travel / maxvalue;
+            let travely = 50;
+            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+            let foody = 50 - 50 * value.food / maxvalue;
+            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+            let activityy = 50 - 50 * value.activity / maxvalue;
+            let sportx = 50 - 50 * value.sport / maxvalue;
+            let sporty = 50;
+            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+            let selfy = 50 + 50 * value.self / maxvalue;
+            document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
+            document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+            document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
 
-                    // max: 100,
-                    ticks: {
-                        backdropColor: '#EB931D',
-                        beginAtZero: true,
-                        maxTicksLimit: 3,
-                        min: 0,
-                        font: {
-                            size: 20
-                        }
-                    },
-                    pointLabels: {
-                        fontsize: 50,
-                        font: {
-                            size: 36, //大小
-                            weight: 700 //粗細
-                        },
-                    },
 
-                },
-                plugins: {
-                    legend: {
-                        labels: {},
-                        display: false
-                    },
-                    tooltip: {
-                        titleFont: {
-                            size: 50
-                        }
-                    }
-                },
 
-            };
-            var chartRadarDOM = document.getElementById("myChart");
-            var chartRadar = new Chart(chartRadarDOM, {
-                type: 'radar',
-                data: radardata,
-                options: radaroptions
-            });
+        });
+
+});
+$("#city-button-personal").click(function () {
+    // appendmissionsforsmall();
+    $.post('./mypage-record',
+        function (data) {
+            value = data;
+            document.getElementById("data-pic").src = value.image;
+            document.getElementById("data-name").innerHTML = value.name;
+            document.getElementById("data-nickname").innerHTML = "# " + value.title;
+            document.getElementById("data-ID").innerHTML = "ID: " + value.id;
+            document.getElementById("data-selfintro-text").innerHTML = value.intro;
+            document.getElementById("value-social").innerHTML = "朋友: " + value.social;
+            document.getElementById("value-travel").innerHTML = "旅遊: " + value.travel;
+            document.getElementById("value-food").innerHTML = "美食: " + value.food;
+            document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
+            document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
+            document.getElementById("value-self").innerHTML = "愛情: " + value.self;
+
+            let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
+            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+            let socialy = 50 - 50 * value.social / maxvalue;
+            let travelx = 50 + 50 * value.travel / maxvalue;
+            let travely = 50;
+            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+            let foody = 50 + 50 * value.food / maxvalue;
+            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+            let activityy = 50 + 50 * value.activity / maxvalue;
+            let sportx = 50 - 50 * value.sport / maxvalue;
+            let sporty = 50;
+            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+            let selfy = 50 - 50 * value.self / maxvalue;
+            document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
+            document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+            document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+
+
 
         });
 
@@ -634,9 +673,9 @@ function handle_message(type, room_id) {
     let ourmessage = []
     if (type == "mission") {
         $.post('./chatroom_mission', {
-                chatroom_name: room_id
-            },
-            function(data) {
+            chatroom_name: room_id
+        },
+            function (data) {
                 message = data;
                 let date = data[0].date
                 $('#chat-content').append("<div class='room-date'><div class='room-date-data'>" + date + "</div></div>");
@@ -666,9 +705,9 @@ function handle_message(type, room_id) {
             });
     } else {
         $.post('./chatroom_friend', {
-                friend_ID: room_id
-            },
-            function(data) {
+            friend_ID: room_id
+        },
+            function (data) {
                 message = data;
                 let date = data[0].date
                 $('#chat-content').append("<div class='room-date'><div class='room-date-data'>" + date + "</div></div>");
@@ -699,13 +738,13 @@ function handle_message(type, room_id) {
 
 }
 
-$('.friend').click(function() {
+$('.friend').click(function () {
     console.log("what");
 });
 //functions which is click
-$(document).ready(function() {
+$(document).ready(function () {
     $.post('./chatrecord',
-        function(chatrooms) {
+        function (chatrooms) {
             room_magnitude = chatrooms.length;
             rooms_data = chatrooms;
 
@@ -714,10 +753,10 @@ $(document).ready(function() {
     refreshfriend();
 
     $.post('./mypage-record',
-        function(data) {
+        function (data) {
             mydata = data;
         });
-    $(".chat-cover").click(function() {
+    $(".chat-cover").click(function () {
         $("#chat-choose-missions").removeClass("show").addClass("hidden");
         $("#chat-choose-friends").removeClass("show").addClass("hidden");
         $(".button-sure").removeClass("show").addClass("hidden");
@@ -725,8 +764,8 @@ $(document).ready(function() {
         $(".chat-cover").removeClass("show").addClass("hidden");
         $("#makesure-deletegroup").removeClass("show").addClass("hidden")
     });
-    $.post('./mission/done',
-        function(data) {
+    $.post('./mission/doing',
+        function (data) {
             console.log(data);
             launch_mission_magnitude = data.length;
             launch_mission_list = data;
@@ -734,19 +773,23 @@ $(document).ready(function() {
         });
 });
 
-$(document).on("click", '.chat-room', function() {
+$(document).on("click", '.chat-room', function () {
 
     let i = $(".chat-room").index(this);
-    $("#room-main").removeClass("hidden").addClass("show");
-
+    $("#chat-main").css('opacity', 1).animate({ opacity: 0 }, 300)
+    setTimeout(function () {
+        $("#chat-main").removeClass("show").addClass("hidden");
+        $("#room-main").removeClass("hidden").addClass("show");
+        $("#room-main").css('opacity', 0).animate({ opacity: 1 }, 600)
+    }, 300)
     if (rooms_data[i].type == "mission") {
         document.getElementById("chat-room-name").innerHTML = rooms_data[i].name;
         roomstyle = "mission";
     } else {
         $.post('./findperson', {
-                person_ID: rooms_data[i].name
-            },
-            function(data) {
+            person_ID: rooms_data[i].name
+        },
+            function (data) {
                 document.getElementById("chat-room-name").innerHTML = data.name;
                 roomstyle = "friend";
             });
@@ -760,14 +803,17 @@ $(document).on("click", '.chat-room', function() {
         handle_message("friend", rooms_data[i].name);
     }
 
-    $("#chat-main").removeClass("show").addClass("hidden");
-    $("#room-main").removeClass("hidden").addClass("show");
+
+    /*$("#room-main").removeClass("hidden").addClass("show");
+    setTimeout(function () {
+        $("#room-main").css('opacity', 0).animate({ opacity: 1 }, 600)
+        },300)*/
 });
 
 
 
 // for(let i=0;i<mission_magnitude;i++){//to be green
-$(document).on("click", '.choosed-mission', function() {
+$(document).on("click", '.choosed-mission', function () {
     let i = $(".choosed-mission").index(this);
 
     $(".button-sure").removeClass("hidden").addClass("show");
@@ -780,7 +826,7 @@ $(document).on("click", '.choosed-mission', function() {
     choose_mission();
 });
 // }    
-$(".button-sure").click(function() {
+$(".button-sure").click(function () {
     $("#chat-choose-missions").removeClass("show").addClass("hidden");
     $("#chat-choose-friends").removeClass("hidden").addClass("show");
     $(".button-sure").removeClass("show").addClass("hidden");
@@ -790,7 +836,7 @@ $(".button-sure").click(function() {
 });
 console.log("nani");
 //for(let i=0;i<friend_magnitude;i++){//to be green
-$(document).on("click", '.choosed-friend', function() {
+$(document).on("click", '.choosed-friend', function () {
     let i = $(".choosed-friend").index(this);
     console.log("what");
     if (check_friend[i] == 1) {
@@ -817,7 +863,7 @@ $(document).on("click", '.choosed-friend', function() {
 });
 // }
 
-$(".button-creategroup").click(function() {
+$(".button-creategroup").click(function () {
     $("#chat-choose-friends").removeClass("show").addClass("hidden");
     $(".button-creategroup").removeClass("show").addClass("hidden");
     $(".chat-cover").removeClass("show").addClass("hidden");
@@ -839,7 +885,7 @@ $('#group-choose-friend').submit((event) => {
 
 //friend page
 //for(let i=0;i<friend_magnitude;i++){
-$(document).on("click", '.friend', function() {
+$(document).on("click", '.friend', function () {
 
     friend_index = $(".friend").index(this);
     $("#click-friend").removeClass("hidden").addClass("show");
@@ -847,37 +893,46 @@ $(document).on("click", '.friend', function() {
     document.getElementById("click-friend-header").src = friend_list[friend_index].image;
     document.getElementById("click-friend-name").innerHTML = friend_list[friend_index].name;
     $.post('./Fmission/done', {
-            friend_ID: friend_list_ID[friend_index]
-        },
-        function(data) {
+        friend_ID: friend_list_ID[friend_index]
+    },
+        function (data) {
             console.log(data);
             Flaunch_mission_magnitude = data.length;
             Flaunch_mission_list = data;
 
         });
 });
-$(document).on("click", '#click-friend-chat', function() {
-    $("#room-main").removeClass("hidden").addClass("show");
-    $("#friend-main").removeClass("show").addClass("hidden");
+$(document).on("click", '#click-friend-chat', function () {
+    $("#friend-main").css('opacity', 1).animate({ opacity: 0 }, 300)
+
+    setTimeout(function () {
+        $("#friend-main").removeClass("show").addClass("hidden");
+        $("#click-friend").removeClass("show").addClass("hidden");
+        $(".friend-cover").removeClass("show").addClass("hidden");
+        $("#room-main").removeClass("hidden").addClass("show");
+        $("#room-main").css('opacity', 0).animate({ opacity: 1 }, 600)
+    }, 300)
+
+
     $.post('./singlefriend', { //****************************************************************
-            friend_ID: friend_list_ID[friend_index]
-        },
-        function(data) { //get the chatroom_ID of you and the friend
+        friend_ID: friend_list_ID[friend_index]
+    },
+        function (data) { //get the chatroom_ID of you and the friend
             //chatroom_ID=ID
             data == "Success"
             document.getElementById("chat-room-name").innerHTML = friend_list[friend_index].name; //??
             roomstyle = "friend";
             roomID = friend_list[friend_index].id;
             $.post('./chatroom_friend', { //as same as the above one//****************************************************************
-                    friend_ID: friend_list_ID[friend_index]
-                },
-                function(data) {
+                friend_ID: friend_list_ID[friend_index]
+            },
+                function (data) {
                     message = data;
                     handle_message("friend", friend_list_ID[friend_index]);
                 });
         });
 });
-$(document).on("click", '#click-friend-data', function() {
+$(document).on("click", '#click-friend-data', function () {
 
 });
 
@@ -903,29 +958,29 @@ $('#button_cantfind').click((event) => {
     $("#button_cantfind").removeClass("show").addClass("hidden");
 });
 //for(let i=0;i<friend_magnitude;i++){
-$(document).on("click", '.deletebutton', function() {
+$(document).on("click", '.deletebutton', function () {
     let i = $(".deletebutton").index(this);
     console.log("delete " + i);
     ID = friend_list_ID[i];
     $.post('./findperson', {
-                person_ID: friend_list_ID[i]
-            },
-            function(data) {
-                console.log(data)
-                document.querySelector("#makesure-deletefriend .makesure-pic").src = data.image
-                document.querySelector("#makesure-deletefriend .makesure-name").innerHTML = data.name
-                $("#makesure-deletefriend").removeClass("hidden").addClass("show")
-                $(".friend-cover").removeClass("hidden").addClass("show")
-            })
-        //deletefriend();
+        person_ID: friend_list_ID[i]
+    },
+        function (data) {
+            console.log(data)
+            document.querySelector("#makesure-deletefriend .makesure-pic").src = data.image
+            document.querySelector("#makesure-deletefriend .makesure-name").innerHTML = data.name
+            $("#makesure-deletefriend").removeClass("hidden").addClass("show")
+            $(".friend-cover").removeClass("hidden").addClass("show")
+        })
+    //deletefriend();
 });
-$(document).on("click", '#makesure-deletefriend .makesure-sure', function() {
+$(document).on("click", '#makesure-deletefriend .makesure-sure', function () {
 
-        deletefriend();
-        $("#makesure-deletefriend").removeClass("show").addClass("hidden")
-        $(".friend-cover").removeClass("show").addClass("hidden")
-    })
-    //}
+    deletefriend();
+    $("#makesure-deletefriend").removeClass("show").addClass("hidden")
+    $(".friend-cover").removeClass("show").addClass("hidden")
+})
+//}
 $('#makesure-deletefriend .makesure-cancel').click((event) => {
     $("#makesure-deletefriend").removeClass("show").addClass("hidden")
     $(".friend-cover").removeClass("show").addClass("hidden");
@@ -946,6 +1001,20 @@ $('.navbar').click((event) => {
 });
 
 //room page
+$("#input-message").submit((event) => {
+    event.preventDefault();
+    let talk = $('#input-message input[name=messagetosend]').val();
+    $("#messagetosend").val("");
+    console.log(roomstyle);
+    if (talk) {
+        if (roomstyle == "friend") {
+            sendmessage_friend(talk);
+        } else if (roomstyle == "mission") {
+            sendmessage_mission(talk);
+        }
+        return false;
+    }
+});
 $("#input-message input[name=messagetosend]").keyup((event) => {
     event.preventDefault();
     if (event.keyCode == 13) {
@@ -968,7 +1037,7 @@ $("#input-message").submit((event) => {
 });
 
 
-$(document).on("click", '#logout', function() {
+$(document).on("click", '#logout', function () {
     $.post('./logout', {
 
     }, (data) => {
@@ -976,136 +1045,111 @@ $(document).on("click", '#logout', function() {
             window.location.href = '../html/login.html';
     });
 });
-$(document).on("click", '#characteristics-L', function() {
+$(document).on("click", '#characteristics-L', function () {
     console.log("success")
 
     appendmissionsforlaunch();
     $("#mission-launched").removeClass("hidden").addClass("show");
+    document.querySelector("#mission-container").style.top = 92 + "vh"
+    $("#mission-container").animate({
+        top: '17vh',
+    });
 });
-$(document).on("click", '.characteristics-RT', function() {
+$(document).on("click", '.characteristics-RT', function () {
     console.log("successs")
+
     $("#characteristic-analyze").removeClass("hidden").addClass("show");
+    document.querySelector("#self-rador").style.top = 92 + "vh"
+    $("#self-rador").animate({
+        top: '17vh',
+    });
 });
 
-$(document).on("click", '.back-button', function() {
+$(document).on("click", '.back-button', function () {
     $("#mission-launched").removeClass("show").addClass("hidden");
     $("#characteristic-history").removeClass("show").addClass("hidden");
     $("#characteristic-analyze").removeClass("show").addClass("hidden");
 });
-$(document).on("click", '#click-friend-data', function() {
-    $("#myfriend-main").removeClass("hidden").addClass("show");
-    $("#friend-main").removeClass("show").addClass("hidden");
-    $("#click-friend").removeClass("show").addClass("hidden");
-    $(".friend-cover").removeClass("show").addClass("hidden");
+$(document).on("click", '#click-friend-data', function () {
+
+    $("#friend-main").css('opacity', 1).animate({ opacity: 0 }, 300)
+    setTimeout(function () {
+        $("#myfriend-main").removeClass("hidden").addClass("show");
+        $("#friend-main").removeClass("show").addClass("hidden");
+        $("#click-friend").removeClass("show").addClass("hidden");
+        $(".friend-cover").removeClass("show").addClass("hidden");
+        $("#myfriend-main").css('opacity', 0).animate({ opacity: 1 }, 600)
+    }, 300)
     if (FchartRadar) {
         FchartRadar.destroy();
     }
 
-    appendmissionsforsmallF();
+    // appendmissionsforsmallF();
     $.post('./friendpage-record', {
-            friend_ID: friend_list_ID[friend_index]
-        },
-        function(data) {
-            console.log(data);
+        friend_ID: friend_list_ID[friend_index]
+    },
+        function (data) {
             value = data;
             document.getElementById("Fdata-pic").src = value.image;
             document.getElementById("Fdata-name").innerHTML = value.name;
-            document.getElementById("Fdata-nickname").innerHTML = "#" + value.title;
-            document.getElementById("Fdata-ID").innerHTML = "UID: " + value.id;
+            document.getElementById("Fdata-nickname").innerHTML = "# " + value.title;
+            document.getElementById("Fdata-ID").innerHTML = "ID: " + value.id;
             document.getElementById("Fdata-selfintro-text").innerHTML = value.intro;
-            document.getElementById("Fvalue-social").innerHTML = "社交: " + value.social;
-            document.getElementById("Fvalue-travel").innerHTML = "旅行: " + value.travel;
+            document.getElementById("Fvalue-social").innerHTML = "朋友: " + value.social;
+            document.getElementById("Fvalue-travel").innerHTML = "旅遊: " + value.travel;
             document.getElementById("Fvalue-food").innerHTML = "美食: " + value.food;
-            document.getElementById("Fvalue-activity").innerHTML = "冒險: " + value.activity;
-            document.getElementById("Fvalue-sport").innerHTML = "運動: " + value.sport;
-            document.getElementById("Fvalue-self").innerHTML = "課業: " + value.self;
+            document.getElementById("Fvalue-activity").innerHTML = "活動: " + value.activity;
+            document.getElementById("Fvalue-sport").innerHTML = "工作: " + value.sport;
+            document.getElementById("Fvalue-self").innerHTML = "愛情: " + value.self;
 
+            let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
+            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+            let socialy = 50 - 50 * value.social / maxvalue;
+            let travelx = 50 + 50 * value.travel / maxvalue;
+            let travely = 50;
+            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+            let foody = 50 + 50 * value.food / maxvalue;
+            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+            let activityy = 50 + 50 * value.activity / maxvalue;
+            let sportx = 50 - 50 * value.sport / maxvalue;
+            let sporty = 50;
+            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+            let selfy = 50 - 50 * value.self / maxvalue;
+            document.getElementById('Frador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
+            document.querySelector('#Frador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+            document.querySelector('#Frador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
 
-            let Fradardata = {
-                labels: [
-                    '社交',
-                    '旅行',
-                    '美食',
-                    '冒險',
-                    '運動',
-                    '課業',
-                ],
-                datasets: [{
-                    label: '你的任務',
-                    data: [value.social, value.travel, value.food, value.activity, value.sport, value.self],
-                    fill: true,
-                    backgroundColor: 'rgb(233, 149, 53,0.3)',
-                    borderColor: '#EB931D',
-                    pointBackgroundColor: '#EB931D',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(255, 99, 132)'
-                }]
-            };
-            let Fradaroptions = {
-                scale: {
-
-                    fontSize: 100,
-                    beginAtZero: true,
-                    maxTicksLimit: 3,
-                    min: 0,
-
-                    ticks: {
-                        font: {
-                            size: 20
-                        }
-                    },
-                    pointLabels: {
-
-                        font: {
-                            size: 36, //大小
-                            weight: 700 //粗細
-                        },
-                    },
-                    gridLines: {
-                        color: '#009FCC'
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-
-            };
-
-            let FchartRadarDOM = document.getElementById("friendChart");
-
-            FchartRadar = new Chart(FchartRadarDOM, {
-                type: 'radar',
-                data: Fradardata,
-                options: Fradaroptions
-            });
-
-        });
-
+        })
 });
-$(document).on("click", '#Fcharacteristics-L', function() {
+$(document).on("click", '#Fcharacteristics-L', function () {
     console.log("success")
 
     appendmissionsforlaunchF();
     $("#Fmission-launched").removeClass("hidden").addClass("show");
+    document.querySelector("#Fmission-container").style.top = 92 + "vh"
+    $("#Fmission-container").animate({
+        top: '17vh',
+    });
 });
-$(document).on("click", '.Fcharacteristics-RT', function() {
+$(document).on("click", '.Fcharacteristics-RT', function () {
 
     $("#Fcharacteristic-analyze").removeClass("hidden").addClass("show");
+    document.querySelector("#Fself-rador").style.top = 92 + "vh"
+    $("#Fself-rador").animate({
+        top: '17vh',
+    });
 });
-$(document).on("click", '.Fback-button', function() {
+$(document).on("click", '.Fback-button', function () {
     $("#Fmission-launched").removeClass("show").addClass("hidden");
     $("#Fcharacteristic-history").removeClass("show").addClass("hidden");
     $("#Fcharacteristic-analyze").removeClass("show").addClass("hidden");
 });
 
-$(document).on("click", '.characteristics-RB', function() {
+$(document).on("click", '.characteristics-RB', function () {
     console.log("RBsuccesss")
     $("#characteristic-history").removeClass("hidden").addClass("show");
 
-    $.post('./getphotos', function(imgobj_arr) {
+    $.post('./getphotos', function (imgobj_arr) {
         $("#photobook-grid-wrapper").empty();
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("photobook-grid-item");
@@ -1114,17 +1158,21 @@ $(document).on("click", '.characteristics-RB', function() {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#photobook-grid-wrapper").append(wrapper);
+            document.querySelector("#self-history").style.top = 92 + "vh"
+            $("#self-history").animate({
+                top: '17vh',
+            });
         });
     });
 });
 
-$(document).on("click", '.Fcharacteristics-RB', function() {
+$(document).on("click", '.Fcharacteristics-RB', function () {
     console.log("FRBsuccesss")
     $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
 
     $.post('./getphotos_friend', {
         friend_ID: friend_list_ID[friend_index]
-    }, function(imgobj_arr) {
+    }, function (imgobj_arr) {
         $("#Fphotobook-grid-wrapper").empty();
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("Fphotobook-grid-item");
@@ -1133,17 +1181,21 @@ $(document).on("click", '.Fcharacteristics-RB', function() {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#Fphotobook-grid-wrapper").append(wrapper);
+            document.querySelector("#Fself-history").style.top = 92 + "vh"
+            $("#Fself-history").animate({
+                top: '17vh',
+            });
         });
     });
 });
-$(document).on("click", '#edit-link', function() {
+$(document).on("click", '#edit-link', function () {
     $("#edit-mydata").removeClass("hidden").addClass("show")
     $("#mypage-main").removeClass("show").addClass("hidden")
-    $.post('./alltitle', function(d) {
+    $.post('./alltitle', function (d) {
         console.log(mydata)
         let sel = document.getElementById("edit-nickname-input"); //得到select的ID
         let opts = sel.getElementsByTagName("option"); //得到陣列option
-        d.forEach(function(value, index) {
+        d.forEach(function (value, index) {
             if (value.name == mydata.title) {
                 opts[index] = true
             } else {
@@ -1151,19 +1203,19 @@ $(document).on("click", '#edit-link', function() {
             }
             $("#edit-nickname-input").append("<option>" + value.name + "</option>")
         })
-        $.post('./mypage-record', function(data) {
+        $.post('./mypage-record', function (data) {
             $("#edit-header-pic").attr("src", data.image)
             $("#edit-name-input").attr("value", data.name)
-                //$("##edit-nickname-input option[text='jQuery']").attr(data.title, true); 
-                // $("#edit-nickname-input").attr("value", data.title)
+            //$("##edit-nickname-input option[text='jQuery']").attr(data.title, true); 
+            // $("#edit-nickname-input").attr("value", data.title)
             document.getElementById("edit-intro-input").innerHTML = data.intro
-                //$("#edit-intro-input").append(data.intro)
+            //$("#edit-intro-input").append(data.intro)
         })
     })
 
 })
 
-function compress_alt(img, width, height, ratio) {
+function compress1(img, width, height, ratio) {
     var canvas, ctx, img64;
     canvas = document.createElement('canvas');
     canvas.width = width;
@@ -1173,21 +1225,22 @@ function compress_alt(img, width, height, ratio) {
     img64 = canvas.toDataURL("image/jpeg", ratio);
     return img64;
 }
-$(document).on("click", '#edit-submit', function(event) {
+$(document).on("click", '#edit-submit', function (event) {
     event.preventDefault();
     console.log(document.getElementById("edit-name-input").value)
     let edit_name = document.getElementById("edit-name-input").value;
     let edit_title = document.getElementById("edit-nickname-input").value;
     let edit_intro = document.getElementById("edit-intro-input").value;
-    let img64 = compress_alt(document.getElementById('edit-header-pic'), 500, 500, 0.85);
+    let img64 = compress1(document.getElementById('edit-header-pic'), 500, 500, 0.85);
     $.post('./edit', {
         name: edit_name,
         title: edit_title,
         intro: edit_intro,
         image: img64
-    }, function() {
+    }, function () {
         $.post('./mypage-record',
-            function(data) {
+            function (data) {
+                console.log("bug")
                 mydata = data;
                 document.getElementById("data-pic").src = value.image;
                 document.getElementById("data-name").innerHTML = value.name;
@@ -1195,7 +1248,41 @@ $(document).on("click", '#edit-submit', function(event) {
                 document.getElementById("data-ID").innerHTML = value.id;
                 $("#edit-mydata").removeClass("show").addClass("hidden")
                 $("#mypage-main").removeClass("hidden").addClass("show")
-                $("#nav-mypage").trigger("click");
+                $.post('./mypage-record',
+                    function (data) {
+                        value = data;
+                        document.getElementById("data-pic").src = value.image;
+                        document.getElementById("data-name").innerHTML = value.name;
+                        document.getElementById("data-nickname").innerHTML = "# " + value.title;
+                        document.getElementById("data-ID").innerHTML = "ID: " + value.id;
+                        document.getElementById("data-selfintro-text").innerHTML = value.intro;
+                        document.getElementById("value-social").innerHTML = "朋友: " + value.social;
+                        document.getElementById("value-travel").innerHTML = "旅遊: " + value.travel;
+                        document.getElementById("value-food").innerHTML = "美食: " + value.food;
+                        document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
+                        document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
+                        document.getElementById("value-self").innerHTML = "愛情: " + value.self;
+
+                        let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
+                        let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+                        let socialy = 50 + 50 * value.social / maxvalue;
+                        let travelx = 50 + 50 * value.travel / maxvalue;
+                        let travely = 50;
+                        let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+                        let foody = 50 - 50 * value.food / maxvalue;
+                        let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+                        let activityy = 50 - 50 * value.activity / maxvalue;
+                        let sportx = 50 - 50 * value.sport / maxvalue;
+                        let sporty = 50;
+                        let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+                        let selfy = 50 + 50 * value.self / maxvalue;
+                        document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
+                        document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+                        document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
+
+
+
+                    });
             });
 
 
@@ -1205,19 +1292,19 @@ $(document).on("click", '#edit-submit', function(event) {
 })
 $(document).ready(() => {
     const myFile = document.querySelector('#edit-submit-header')
-    myFile.addEventListener('change', function(e) {
+    myFile.addEventListener('change', function (e) {
         const file = e.target.files[0]
         const reader = new FileReader()
         var header = document.querySelector('#edit-header-pic') // 需要開一個img的tag來存預覽的圖片
         reader.readAsDataURL(file)
-        reader.onload = function() {
+        reader.onload = function () {
             header.src = reader.result;
             // $("#preview").css({ "width": "30vw", "height": "30vw", "background-size": "cover" }) // 預覽圖片的css屬性
             console.log("loaded preview.");
         }
     })
 
-    $(document).on("click", '#edit-header-pic, #edit-header-text', function() {
+    $(document).on("click", '#edit-header-pic, #edit-header-text', function () {
         $("#edit-submit-header").trigger("click");
 
     })
@@ -1228,11 +1315,11 @@ $(document).ready(() => {
 function deletegroup() { //delete group
     console.log(deletegroupname)
     $.post('./assignmentdel', {
-            chatroom_name: deletegroupname //他人ID
-        },
-        function(data) {
+        chatroom_name: deletegroupname //他人ID
+    },
+        function (data) {
             $.post('./chatrecord', {},
-                function(chatrooms) {
+                function (chatrooms) {
                     console.log(chatrooms);
                     room_magnitude = chatrooms.length;
                     rooms_data = chatrooms;
@@ -1241,33 +1328,97 @@ function deletegroup() { //delete group
                 });
         });
 }
-$(document).on("click", '.group_deletebutton', function() {
+$(document).on("click", '.group_deletebutton', function () {
     $("#makesure-deletegroup").removeClass("hidden").addClass("show")
     $(".chat-cover").removeClass("hidden").addClass("show")
     let i = $(".group_deletebutton").index(this);
     console.log("delete " + i);
-    deletegroupname = rooms_data[i].name;
-    document.querySelector("#makesure-deletegroup .makesure-pic").src = "../resources/update/edit_texture.png"
-    document.querySelector("#makesure-deletegroup .makesure-name").innerHTML = rooms_data[i].name
-        //deletefriend();
+
+    $.post('./mission/all_mission', function (data) {
+        let group_pic
+        for (let j = 0; j < data.length; j++) {
+            if (rooms_data[i].name == data[j].name) {
+                if (data[j].category == "工作") {
+                    group_pic = "../resources/update/work-rank.png"
+                } else if (data[j].category == "旅遊") {
+                    group_pic = "../resources/update/travel-rank.png"
+                }
+                else if (data[j].category == "美食") {
+                    group_pic = "../resources/update/food-rank.png"
+                }
+                else if (data[j].category == "活動") {
+                    group_pic = "../resources/update/activity-rank.png"
+                }
+                else if (data[j].category == "朋友") {
+                    group_pic = "../resources/update/friend-rank.png"
+                }
+                else if (data[j].category == "感情") {
+                    group_pic = "../resources/update/self-rank.png"
+                }
+            }
+            deletegroupname = rooms_data[i].name;
+            document.querySelector("#makesure-deletegroup .makesure-pic").src = group_pic
+            document.querySelector("#makesure-deletegroup .makesure-name").innerHTML = rooms_data[i].name
+        }
+
+    })
+
+    //deletefriend();
 });
-$(document).on("click", '#makesure-deletegroup .makesure-sure', function() {
+$(document).on("click", '#makesure-deletegroup .makesure-sure', function () {
 
     deletegroup();
     $("#makesure-deletegroup").removeClass("show").addClass("hidden")
     $(".chat-cover").removeClass("show").addClass("hidden")
 })
 $('#makesure-deletegroup .makesure-cancel').click((event) => {
-        $("#makesure-deletegroup").removeClass("show").addClass("hidden")
-        $(".chat-cover").removeClass("show").addClass("hidden");
-    })
-    /*
-    $(document).on("click", '#nav-mainpage', function(event) {
-        $("#mainpage").removeClass("show").addClass("hidden")
-        $("#rank-main").removeClass("hidden").addClass("show")
-        $.post('./leaderboard', {
-        },
-        function(data) {
-            console.log(data)
+    $("#makesure-deletegroup").removeClass("show").addClass("hidden")
+    $(".chat-cover").removeClass("show").addClass("hidden");
+})
+
+
+setTimeout(function () {
+
+    // 定时器，用来检测滚动是否结束
+    var eleListX
+    var timerScrollEndDetect
+    // 滚动事件开始
+    for (let i = 0; i < friend_magnitude; i++) {
+        timerScrollEndDetect = null;
+        console.log("friend" + i)
+        eleListX = document.querySelector("#slideleft" + i);
+        eleListX.addEventListener('scroll', function () {
+            console.log("sdfdsaaa")
+            clearTimeout(timerScrollEndDetect);
+            timerScrollEndDetect = setTimeout(function () {
+                // 100毫秒内滚动事件没触发，认为停止滚动了
+                // 对列表元素进行位置检测
+                [].slice.call(eleListX.children).forEach(function (eleList, index) {
+                    if (index == 1) {
+
+                        if (eleList.getBoundingClientRect().left > 0) {
+                            console.log(eleList.getBoundingClientRect().left)
+                            $("#srcoll-cover" + i + "").removeClass("show").addClass("hidden")
+                        } else {
+                            $(".srcoll-cover" + i + "").removeClass("hidden").addClass("show")
+                        }
+                    }
+
+                    /*if (Math.abs(eleList.getBoundingClientRect().left - eleListX.getBoundingClientRect().left) < 10) {
+                       // 添加标志类名
+                       eleList.classList.add('active');
+                       // 提示
+                       //result.innerHTML = '滚动结束，当前显示的是第'+ (index + 1) +'个列表。';
+                       //console.log(index)
+                   } else {
+                       eleList.classList.remove('active');
+                   }*/
+                });
+            }, 100);
+
+            // 提示
+            //result.innerHTML = '滚动中...';
         });
-    })*/
+    }
+
+}, 5000)
