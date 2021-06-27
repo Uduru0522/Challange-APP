@@ -70,6 +70,9 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
         _row_json = dict()
         if(User in _member):
             _row_json["progress"] = "1"
+            n_state = conn.execute("SELECT now_stage FROM {user} where ID = {m_ID} and completed=0;".format(user=User, m_ID=M_ID))#拿出now_stage
+            N_state = n_state.fetchone()[0]
+            _row_json["now_stage"] = N_state
         else:
             _row_json["progress"] = "0"
         for field in range(len(row)):
@@ -328,7 +331,7 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
     conn3.commit()
     conn3.close()
 
-def maylike(conn, User):#可能喜歡的任務(目前功能陽春)
+def maylike(conn, User):#可能喜歡的任務
     recent = conn.execute("select category_no from {user} order by date DESC LIMIT 1;".format(user=User))#最近做過的任務的類別
     like=recent.fetchone()[0]
     rows = conn.execute("select * from mission where category_no = {recommend};".format(recommend=like))
@@ -482,7 +485,6 @@ def find_M_friend(conn, User, M_ID):#User,找到User這個人的所有有該任�
     with open("./json/friend.json", 'r',encoding='utf-8') as obj:
         output = json.load(obj)
     for i in range(len(output)): 
-        
         if output[i][0]==User:
             data={"friend":output[i][1:]}
     
@@ -541,6 +543,7 @@ def waiting(conn):#回傳全部未審核的任務
 
 def update(conn, conn2, m_name, stat, M_ID, Point):#更新任務狀態，如果通過就傳1，不通過就傳2，並給一個新ID
     conn.execute("UPDATE mission SET status={Stat} where name = '{M_name}';".format(Stat=stat, M_name=m_name))#更新狀態
+
     if(stat == "1"):
         rows = conn.execute("select * from mission where name = '{M_name}';".format(M_name=m_name))
         field_name = [des[0] for des in rows.description]#找到項目名
@@ -565,6 +568,30 @@ def update(conn, conn2, m_name, stat, M_ID, Point):#更新任務狀態，如果�
     conn.close()
     conn2.commit()
     conn2.close()
+
+def newest(conn, User):#最新的任務
+    rows = conn.execute("select * from mission order by date DESC LIMIT 10;".format(user=User))#最近被審核過的任務
+    _json = []
+    field_name = [des[0] for des in rows.description]#找到項目名
+    for row in rows:
+        _row_json = dict()
+        Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=row[7]))#拿出member
+        Mem = Member.fetchone()[0]
+        _member=Mem.split(",")
+        if(User in _member):
+            _row_json["progress"] = "1"
+        else:
+            _row_json["progress"] = "0"
+        for field in range(len(row)):
+            if(field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'):
+                _row_json[field_name[field]] = row[field]
+        _json.append(_row_json)
+    #print(_json)
+    output = json.dumps(_json, ensure_ascii = False)
+    
+    conn.commit()
+    conn.close()
+    return output
 
 
 
@@ -619,3 +646,5 @@ elif(sys.argv[1] == '18'):#回傳全部未審核的任務
     print(waiting(con4))
 elif(sys.argv[1] == '19'):#審核任務並更新任務狀態，2是任務名，3是任務審核狀態，4是要給的新id，5是任務能獲得的分數，若審核不給過id和分數隨便給就好不會記錄
     update(con4, con, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+elif(sys.argv[1] == '20'):#最新任務，2是玩家id
+    print(newest(con, sys.argv[2]))
