@@ -602,10 +602,7 @@ con = sqlite3.connect('./database/mission.db')
 con2 = sqlite3.connect('./database/users.db')
 con3 = sqlite3.connect('./database/title.db')
 con4 = sqlite3.connect('./database/new.db')
-<<<<<<< HEAD
-=======
 
->>>>>>> 68fe8dcb4bb5d5244af2bce4c738f00bee6cb1cb
 
 #sys.argv[]：1為調用函式、2為使用者ID、3為任務ID、4為圖片、5為圖片敘述
 
