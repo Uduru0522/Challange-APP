@@ -3,7 +3,8 @@ const swiper = new Swiper('.swiper-container', {
   direction: 'horizontal',
   loop: false,
   slidesPerView: 1,
-
+  observer: true,//修改swiper自己或子元素時，自動初始化swiper
+  observeParents: true,//修改swiper的父元素時，自動初始化swiper
   // And if we need scrollbar
   scrollbar: {
     el: '.swiper-scrollbar',
