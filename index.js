@@ -509,6 +509,23 @@ app.post('/html/update', (req, res) => {
     });
 });
 
+app.post('/html/newest', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            20,
+            req.session.uid
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
+    });
+});
+
 app.post('/html/newgroup', (req, res) => {
     let options = {
         mode: "text",
