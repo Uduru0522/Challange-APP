@@ -296,7 +296,6 @@ $(document).ready(() => {
 
     // Accept quest
     $(document).on("click", ".can-accept", function() {
-        console.log("hello1", $(this));
         console.log(".canaccept listener qid=", $(this)[0].dataset.qid);
 
         // Send POST req
@@ -312,7 +311,8 @@ $(document).ready(() => {
         $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
 
         // Rebuild and Show quest submit
-        if ($(this).attr("id") == "qd-submit") {
+        if ($(this).attr("id") == "qd-accept") {
+            console.log("In qd");
             $.post(
                 "mission/detail", {
                     qid: parseInt($(this)[0].dataset.qid)
@@ -431,18 +431,6 @@ $(document).ready(() => {
             );
         });
     });
-
-    // $("#qd-accept").on("click", function(e) {
-    //     console.log(parseInt($(this).data("qid")));
-    //     console.log("hello2");
-    //     "mission/accept", {
-    //         qid: parseInt($(this).data("qid"))
-    //     },
-    //     function(response) {
-    //         console.log("Quest accepted successfully");
-    //     }
-
-    // })
 
     /***************************************************************************** */
     /* Stranger panel related events                                       */

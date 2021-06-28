@@ -335,6 +335,9 @@
 #quest-detail #qd-guide.qd-block {
   margin-top: 65px;
 }
+#quest-detail #qd-guide > span {
+  white-space: break-spaces;
+}
 #quest-detail #qd-guide #qd-accept {
   width: 30%;
   height: 40px;
