@@ -722,7 +722,26 @@ $(document).ready(() => {
             si.children().eq(quest_create_current_step - 2).addClass("pd-off");
             si.children().eq(quest_create_current_step - 2).removeClass("pd-on");
         } else {
-            // Last step done, show success
+            // Last step done, show success, send post
+            let mul;
+            const mul_opt = ["single, multi, both"];
+            const cat_opt = ["美食", "旅遊", "活動", "工作", "感情", "朋友"];
+            if (qc_p.length > 1) {
+                mul = mul_opt[3];
+            } else {
+                mul = mul_opt[qc_p[0]];
+            }
+
+            $.post("addmission", {
+                name: $("#quest-create-part1 > input[type=text]").val(),
+                category: cat_opt[qc_f],
+                multiple: mul,
+                description: $("#quest-create-part4 textarea").val(),
+                guide: $("#quest-create-part5 textarea").val(),
+                difficulty: qc_d
+            }, function(data) {
+                console.log("Sent create request");
+            })
             $("#quest-create-success").css("display", "block");
             return;
         }

@@ -28,7 +28,7 @@ const pages_selector = [
     "#quest-create-new",
     "#makesure-deletefriend",
     "#makesure-deletegroup"
-    
+
 ];
 
 const nav_icons = [
@@ -59,7 +59,7 @@ function hide_all_page(index) {
     pages_selector.forEach(element => {
         for (let i = 0; i < pages_selector.length; ++i) {
             $(pages_selector[i]).removeClass("show").addClass("hidden");
-           // $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 300)
+            // $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 300)
         }
         let stranger = document.getElementById("show-stranger");
         let stranger_pre = document.getElementById("pre-stranger");
@@ -108,19 +108,19 @@ $(document).ready(() => {
     for (let i = 0; i < 5; ++i) {
         $(nav_icons[i]).on("click", () => {
             console.log("Clicked icon: " + nav_icons[i]);
-            if(i==0){
+            if (i == 0) {
                 $(".navbar").removeClass("show").addClass("hidden");
             }
-                
-            
+
+
             for (let j = 0; j < 9; j++) {
                 if ($(pages_selector[j]).hasClass("show")) {
                     console.log("show icon: " + pages_selector[j])
                     $(pages_selector[j]).css('opacity', 1).animate({ opacity: 0 }, 300)
-                    setTimeout(function () {$(pages_selector[j]).css('opacity', 1)},400)
+                    setTimeout(function() { $(pages_selector[j]).css('opacity', 1) }, 400)
                 }
                 if (j == 8) {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         hide_all_page();
                         $(pages_selector[i]).removeClass("hidden").addClass("show")
                         $(pages_selector[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
@@ -144,7 +144,7 @@ $(document).ready(() => {
             $(".navbar").removeClass("hidden").addClass("show");
             console.log("Clicked icon: " + city_icons[i]);
             $("#mainpage").css('opacity', 1).animate({ opacity: 0 }, 300)
-            setTimeout(function () {
+            setTimeout(function() {
                 hide_all_page();
                 $(city_link[i]).removeClass("hidden").addClass("show")
                 $(city_link[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
@@ -226,7 +226,7 @@ $(document).ready(() => {
     // });
 
     // Show more (Land into titled listing)
-    $(".showmore").on("click", function () {
+    $(".showmore").on("click", function() {
         hide_all_page();
         document.getElementById("quest-titled-listing").style.removeProperty("display");
         let div = $(this).data("div");
@@ -235,7 +235,7 @@ $(document).ready(() => {
             title.innerHTML = "大家都喜歡";
         } else if (div == "yml") {
             title.innerHTML = "你可能還會喜歡"
-        } else if (div == "af") {
+        } else if (div == "new") {
             title.innerHTML = "最新任務"
         } else {
             title.innerHTML = "不該是這樣的";
@@ -243,8 +243,8 @@ $(document).ready(() => {
         build_quest_list(document.querySelector("#quest-titled-listing .quest-list-container"), div);
     });
 });
-setTimeout(function () {
-    $(document).ready(function () {
+setTimeout(function() {
+    $(document).ready(function() {
         document.getElementById("loading-icon").style.display = "none";
         document.getElementById("loading-text").style.display = "none";
         document.getElementById("bodybody").style.display = "block";
