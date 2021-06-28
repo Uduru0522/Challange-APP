@@ -22,7 +22,7 @@ var friend_index;
 var FchartRadar;
 var value = { name: "鄭青宇", nickname: "?????", id: "E24076344", intro: "自介", social: 50, travel: 45, food: 23, activity: 20, sport: 15, self: 10 };
 var output_mission_ID
-
+var socialx,socialy,travelx,travely,foodx,foody,activityx,activityy,sportx,sporty,selfx,selfy;
 //chat page
 function choose_mission() { //handle checkbox
     let obj = document.getElementsByName("choose_mission");
@@ -132,7 +132,7 @@ function appendfriends() { //show friends in group create
         qid: output_mission_ID
     }, function (data) {
         console.log(data[0].M_friend.length)
-        if (data[0].M_friend!="") {
+        if (data[0].M_friend != "") {
             for (let i = 0; i < data[0].M_friend.length; i++) {
                 $.post('./findperson', {
                     person_ID: data[0].M_friend[i]
@@ -593,7 +593,7 @@ $("#nav-mypage").click(function () {
     // appendmissionsforsmall();
     $.post('./mypage-record',
         function (data) {
-            value = data;
+            value=data
             document.getElementById("data-pic").src = value.image;
             document.getElementById("data-name").innerHTML = value.name;
             document.getElementById("data-nickname").innerHTML = "# " + value.title;
@@ -604,21 +604,54 @@ $("#nav-mypage").click(function () {
             document.getElementById("value-food").innerHTML = "美食: " + value.food;
             document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
             document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
-            document.getElementById("value-self").innerHTML = "愛情: " + value.self;
-
+            document.getElementById("value-self").innerHTML = "感情: " + value.self;
+            
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
-            let socialy = 50 + 50 * value.social / maxvalue;
-            let travelx = 50 + 50 * value.travel / maxvalue;
-            let travely = 50;
-            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
-            let foody = 50 - 50 * value.food / maxvalue;
-            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
-            let activityy = 50 - 50 * value.activity / maxvalue;
-            let sportx = 50 - 50 * value.sport / maxvalue;
-            let sporty = 50;
-            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
-            let selfy = 50 + 50 * value.self / maxvalue;
+            if(value.social==0){
+                value.social=2
+            }
+            if(value.travel==0){
+                value.travel=2
+            }
+            if(value.food==0){
+                value.food=2
+            }
+            if(value.activity==0){
+                value.activity=2
+            }
+            if(value.sport==0){
+                value.sport=2
+            }
+            if(value.self==0){
+                value.self=2
+            }
+            if (maxvalue != 0) {
+                socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+                socialy = 50 - 50 * value.social / maxvalue;
+                travelx = 50 + 50 * value.travel / maxvalue;
+                travely = 50;
+                foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+                foody = 50 + 50 * value.food / maxvalue;
+                activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+                activityy = 50 + 50 * value.activity / maxvalue;
+                sportx = 50 - 50 * value.sport / maxvalue;
+                sporty = 50;
+                selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+                selfy = 50 - 50 * value.self / maxvalue;
+            } else {
+                socialx = 0;
+                socialy = 0;
+                travelx = 0;
+                travely = 0;
+                foodx = 0;
+                foody = 0;
+                activityx = 0;
+                activityy = 0;
+                sportx = 0;
+                sporty = 0;
+                selfx = 0;
+                selfy = 0;
+            }
             document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
             document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
             document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
@@ -643,21 +676,54 @@ $("#city-button-personal").click(function () {
             document.getElementById("value-food").innerHTML = "美食: " + value.food;
             document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
             document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
-            document.getElementById("value-self").innerHTML = "愛情: " + value.self;
-
+            document.getElementById("value-self").innerHTML = "感情: " + value.self;
+            
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
-            let socialy = 50 - 50 * value.social / maxvalue;
-            let travelx = 50 + 50 * value.travel / maxvalue;
-            let travely = 50;
-            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
-            let foody = 50 + 50 * value.food / maxvalue;
-            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
-            let activityy = 50 + 50 * value.activity / maxvalue;
-            let sportx = 50 - 50 * value.sport / maxvalue;
-            let sporty = 50;
-            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
-            let selfy = 50 - 50 * value.self / maxvalue;
+            if(value.social==0){
+                value.social=2
+            }
+            if(value.travel==0){
+                value.travel=2
+            }
+            if(value.food==0){
+                value.food=2
+            }
+            if(value.activity==0){
+                value.activity=2
+            }
+            if(value.sport==0){
+                value.sport=2
+            }
+            if(value.self==0){
+                value.self=2
+            }
+            if (maxvalue != 0) {
+                socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+                socialy = 50 - 50 * value.social / maxvalue;
+                travelx = 50 + 50 * value.travel / maxvalue;
+                travely = 50;
+                foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+                foody = 50 + 50 * value.food / maxvalue;
+                activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+                activityy = 50 + 50 * value.activity / maxvalue;
+                sportx = 50 - 50 * value.sport / maxvalue;
+                sporty = 50;
+                selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+                selfy = 50 - 50 * value.self / maxvalue;
+            } else {
+                socialx = 0;
+                socialy = 0;
+                travelx = 0;
+                travely = 0;
+                foodx = 0;
+                foody = 0;
+                activityx = 0;
+                activityy = 0;
+                sportx = 0;
+                sporty = 0;
+                selfx = 0;
+                selfy = 0;
+            }
             document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
             document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
             document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
@@ -765,7 +831,7 @@ $(document).ready(function () {
         $(".chat-cover").removeClass("show").addClass("hidden");
         $("#makesure-deletegroup").removeClass("show").addClass("hidden")
     });
-    $.post('./mission/doing',
+    $.post('./allstatus',
         function (data) {
             console.log(data);
             launch_mission_magnitude = data.length;
@@ -893,7 +959,7 @@ $(document).on("click", '.friend', function () {
     $(".friend-cover").removeClass("hidden").addClass("show");
     document.getElementById("click-friend-header").src = friend_list[friend_index].image;
     document.getElementById("click-friend-name").innerHTML = friend_list[friend_index].name;
-    $.post('./Fmission/done', {
+    $.post('./allstatus_others', {
         friend_ID: friend_list_ID[friend_index]
     },
         function (data) {
@@ -1101,21 +1167,54 @@ $(document).on("click", '#click-friend-data', function () {
             document.getElementById("Fvalue-food").innerHTML = "美食: " + value.food;
             document.getElementById("Fvalue-activity").innerHTML = "活動: " + value.activity;
             document.getElementById("Fvalue-sport").innerHTML = "工作: " + value.sport;
-            document.getElementById("Fvalue-self").innerHTML = "愛情: " + value.self;
+            document.getElementById("Fvalue-self").innerHTML = "感情: " + value.self;
 
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
-            let socialy = 50 - 50 * value.social / maxvalue;
-            let travelx = 50 + 50 * value.travel / maxvalue;
-            let travely = 50;
-            let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
-            let foody = 50 + 50 * value.food / maxvalue;
-            let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
-            let activityy = 50 + 50 * value.activity / maxvalue;
-            let sportx = 50 - 50 * value.sport / maxvalue;
-            let sporty = 50;
-            let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
-            let selfy = 50 - 50 * value.self / maxvalue;
+            if(value.social==0){
+                value.social=2
+            }
+            if(value.travel==0){
+                value.travel=2
+            }
+            if(value.food==0){
+                value.food=2
+            }
+            if(value.activity==0){
+                value.activity=2
+            }
+            if(value.sport==0){
+                value.sport=2
+            }
+            if(value.self==0){
+                value.self=2
+            }
+            if (maxvalue != 0) {
+                socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+                socialy = 50 - 50 * value.social / maxvalue;
+                travelx = 50 + 50 * value.travel / maxvalue;
+                travely = 50;
+                foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+                foody = 50 + 50 * value.food / maxvalue;
+                activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+                activityy = 50 + 50 * value.activity / maxvalue;
+                sportx = 50 - 50 * value.sport / maxvalue;
+                sporty = 50;
+                selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+                selfy = 50 - 50 * value.self / maxvalue;
+            } else {
+                socialx = 0;
+                socialy = 0;
+                travelx = 0;
+                travely = 0;
+                foodx = 0;
+                foody = 0;
+                activityx = 0;
+                activityy = 0;
+                sportx = 0;
+                sporty = 0;
+                selfx = 0;
+                selfy = 0;
+            }
             document.getElementById('Frador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
             document.querySelector('#Frador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
             document.querySelector('#Frador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
@@ -1148,7 +1247,7 @@ $(document).on("click", '.Fback-button', function () {
 
 $(document).on("click", '.characteristics-RB', function () {
     console.log("RBsuccesss")
-    
+
 
     $.post('./getphotos', function (imgobj_arr) {
         $("#photobook-grid-wrapper").empty();
@@ -1159,18 +1258,18 @@ $(document).on("click", '.characteristics-RB', function () {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#photobook-grid-wrapper").append(wrapper);
-            
-        });$("#characteristic-history").removeClass("hidden").addClass("show");
-            document.querySelector("#self-history").style.top = 92 + "vh"
-            $("#self-history").animate({
-                top: '17vh',
-            });
+
+        }); $("#characteristic-history").removeClass("hidden").addClass("show");
+        document.querySelector("#self-history").style.top = 92 + "vh"
+        $("#self-history").animate({
+            top: '17vh',
+        });
     });
 });
 
 $(document).on("click", '.Fcharacteristics-RB', function () {
     console.log("FRBsuccesss")
-    
+
 
     $.post('./getphotos_friend', {
         friend_ID: friend_list_ID[friend_index]
@@ -1183,12 +1282,12 @@ $(document).on("click", '.Fcharacteristics-RB', function () {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#Fphotobook-grid-wrapper").append(wrapper);
-            
-        });$("#Fcharacteristic-history").removeClass("hidden").addClass("show");
-            document.querySelector("#Fself-history").style.top = 92 + "vh"
-            $("#Fself-history").animate({
-                top: '17vh',
-            });
+
+        }); $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
+        document.querySelector("#Fself-history").style.top = 92 + "vh"
+        $("#Fself-history").animate({
+            top: '17vh',
+        });
     });
 });
 $(document).on("click", '#edit-link', function () {
@@ -1264,21 +1363,37 @@ $(document).on("click", '#edit-submit', function (event) {
                         document.getElementById("value-food").innerHTML = "美食: " + value.food;
                         document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
                         document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
-                        document.getElementById("value-self").innerHTML = "愛情: " + value.self;
-
+                        document.getElementById("value-self").innerHTML = "感情: " + value.self;
+                        
                         let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-                        let socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
-                        let socialy = 50 + 50 * value.social / maxvalue;
-                        let travelx = 50 + 50 * value.travel / maxvalue;
-                        let travely = 50;
-                        let foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
-                        let foody = 50 - 50 * value.food / maxvalue;
-                        let activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
-                        let activityy = 50 - 50 * value.activity / maxvalue;
-                        let sportx = 50 - 50 * value.sport / maxvalue;
-                        let sporty = 50;
-                        let selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
-                        let selfy = 50 + 50 * value.self / maxvalue;
+                        if (maxvalue != 0) {
+                            socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
+                            socialy = 50 - 50 * value.social / maxvalue;
+                            travelx = 50 + 50 * value.travel / maxvalue;
+                            travely = 50;
+                            foodx = 50 + 50 * 1 / 2 * value.food / maxvalue;
+                            foody = 50 + 50 * value.food / maxvalue;
+                            activityx = 50 - 50 * 1 / 2 * value.activity / maxvalue;
+                            activityy = 50 + 50 * value.activity / maxvalue;
+                            sportx = 50 - 50 * value.sport / maxvalue;
+                            sporty = 50;
+                            selfx = 50 - 50 * 1 / 2 * value.self / maxvalue;
+                            selfy = 50 - 50 * value.self / maxvalue;
+                        } else {
+                            socialx = 0;
+                            socialy = 0;
+                            travelx = 0;
+                            travely = 0;
+                            foodx = 0;
+                            foody = 0;
+                            activityx = 0;
+                            activityy = 0;
+                            sportx = 0;
+                            sporty = 0;
+                            selfx = 0;
+                            selfy = 0;
+                        }
+
                         document.getElementById('rador-advanced').style = "clip-path:polygon(" + socialx + "% " + socialy + "%," + travelx + "% " + travely + "%," + foodx + "% " + foody + "%," + activityx + "% " + activityy + "%," + sportx + "% " + sporty + "%," + selfx + "% " + selfy + "%);";
                         document.querySelector('#rador-advanced').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
                         document.querySelector('#rador .rador-hexagon').style.left = (0.9 * $(window).width() - 0.22 * $(window).height()) / 2 + "px"
