@@ -382,7 +382,35 @@ $(document).ready(() => {
                 },
                 data => {
                     console.log("Update success");
-                    // $(this).closest(".container")[0].style.display = "none";
+                    $(this).closest(".container")[0].style.display = "none";
+
+                    let signal = document.createElement("div");
+                    signal.style.position = "fixed";
+                    signal.style.width = "60vw";
+                    signal.style.height = "20vh";
+                    signal.style.inset = "50% 0 0 50%";
+                    signal.style.transform = "translate(-50%, -50%)";
+                    signal.innerHTML = "提交成功！";
+                    signal.style.display = "flex";
+                    signal.style.justifyContent = "center";
+                    signal.style.alignItems = "center";
+                    signal.style.backgroundColor = "#FFEBDBF3";
+                    signal.style.border = "red solid 3px";
+                    signal.style.borderRadius = "5px";
+                    signal.style.zIndex = 100000;
+                    document.getElementById("quest-detail").appendChild(signal);
+
+                    // Go back to main page
+                    console.log(data);
+                    let login_page = $("form#login");
+                    let signup_page = $("form#register");
+                    login_page.css("display", "flex");
+                    signup_page.css("display", "none");
+
+                    setTimeout(
+                        () => {
+                            signal.remove();
+                        }, 2500);
                 }
             );
         });
