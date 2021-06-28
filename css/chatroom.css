@@ -4,7 +4,7 @@
 }
 .chat-title{
   background-image: url("../resources/update/blue_texture.png");
-    background-size:cover;
+  background-size:cover;
   width:100vw;
   height:12vh;
   margin:0;
@@ -20,7 +20,6 @@
 }
 #chatroom-title{
   width:100%;
-  
   font-size:3.5vh;
   letter-spacing:2vh;
   text-indent: 2vh;
@@ -140,7 +139,7 @@ border-radius:50%;
   width:68vw;
   font-size: 2vh;
   border-radius: 1vh;
-  margin: 0 6vw 1vh 6vw;
+  margin: 0 6vw 1vh 5vw;
   text-indent: 9vw;
 }
 #missiontosearch::-webkit-input-placeholder {
@@ -214,7 +213,7 @@ border-radius:50%;
   border-style:solid;
   border-width: thin;
   border-radius:8px;
-  margin: 1.4vh 6vw;
+  margin: 1.4vh 6vw 1.4vh 5vw;
   box-shadow: 3px 3px 3px #c7c6c6;
 }
 #mission-name-text{
