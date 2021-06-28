@@ -215,16 +215,18 @@ function build_quest_detail(qid) {
             let submit_past_base = document.getElementById("qdsp-toclone");
             let container = document.getElementById("qd-submit-container");
             let count = qdata.stage;
-            for (let i = 0; i < qdata.Pic_detail.length; ++i) {
-                concole.log("looping pic detail, i=" + i);
-                let new_block = submit_past_base.cloneNode(true);
-                new_block.removeAttribute("id");
+            if (qdata.hasOwnProperty("Pic_stage")) {
+                for (let i = 0; i < qdata.Pic_stage.length; ++i) {
+                    console.log("looping pic detail, i=" + i);
+                    let new_block = submit_past_base.cloneNode(true);
+                    new_block.removeAttribute("id");
 
-                // Retreve past submit data
-                new_block.style.backgroundImage = "url(" + qdata.Pic_detail[i].picture + ")";
+                    // Retreve past submit data
+                    new_block.style.backgroundImage = "url(" + qdata.Pic_stage[i].picture + ")";
 
 
-                container.insertBefore(new_block, container.getElementsByClassName("dummy")[0]);
+                    container.insertBefore(new_block, container.getElementsByClassName("dummy")[0]);
+                }
             }
         }
 
@@ -237,14 +239,11 @@ function build_quest_detail(qid) {
         }
 
         $("#qd-history-flex div").not(".placeholder").remove();
-        $.post("getphotos", function(imgarr) {
-            console.log(imgarr);
-            for (let i = 0; i < imgarr.length; ++i) {
-                let newgrid = document.createElement("div");
-                newgrid.style.backgroundImage = "url(" + imgarr[i].picture + ")";
-                document.getElementById("qd-history-flex").insertBefore(newgrid, document.getElementById("qd-history-flex-anchor"));
-            }
-        })
+        for (let i = 0; i < qdata.Pic_detail.length; ++i) {
+            let newgrid = document.createElement("div");
+            newgrid.style.backgroundImage = "url(" + qdata.Pic_detail[i].picture + ")";
+            document.getElementById("qd-history-flex").insertBefore(newgrid, document.getElementById("qd-history-flex-anchor"));
+        }
     });
 }
 
