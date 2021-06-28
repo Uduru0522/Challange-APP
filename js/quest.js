@@ -389,9 +389,9 @@ $(document).ready(() => {
     });
 
     $("#qd-accept").on("click", function(e) {
-        console.log(parseInt($("#quest-detail").data("qid")));
+        console.log(parseInt($(this).data("qid")));
         "mission/accept", {
-            qid: parseInt($("#quest-detail").data("qid"))
+            qid: parseInt($(this).data("qid"))
         },
         function(response) {
             console.log("Quest accepted successfully");
@@ -400,10 +400,10 @@ $(document).ready(() => {
         // Rebuild and Show quest submit
         $.post(
             "mission/detail", {
-                qid: parseInt($("#quest-detail").data("qid"))
+                qid: parseInt($(this).data("qid"))
             },
             function(data) {
-                build_quest_submit(parseInt($("#quest-detail").data("qid")), data.stage, 1);
+                build_quest_submit(parseInt($(this).data("qid")), data.stage, 1);
             }
         )
         document.getElementById("quest-stranger").dataset.progress = "1";
