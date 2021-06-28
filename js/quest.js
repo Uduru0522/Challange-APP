@@ -296,10 +296,13 @@ $(document).ready(() => {
 
     // Accept quest
     $(document).on("click", ".can-accept", function() {
+        console.log("hello1", $(this));
+        console.log(".canaccept listener qid=", $(this)[0].dataset.qid);
+
         // Send POST req
         $.post(
             "mission/accept", {
-                qid: $(this).data("qid")
+                qid: $(this)[0].dataset.qid
             },
             function(response) {
                 console.log("Quest accepted successfully");
@@ -307,6 +310,20 @@ $(document).ready(() => {
         )
         $(this).removeClass("can-accept").addClass("did-accept");
         $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
+
+        // Rebuild and Show quest submit
+        if ($(this).attr("id") == "qd-submit") {
+            $.post(
+                "mission/detail", {
+                    qid: parseInt($(this)[0].dataset.qid)
+                },
+                function(data) {
+                    build_quest_submit(parseInt($(this).data("qid")), data.stage, 1);
+                }
+            )
+            document.getElementById("quest-stranger").dataset.progress = "1";
+            document.getElementById("qd-submit").style.removeProperty("display");
+        }
     });
 
     // Build and show quest detail page
@@ -416,27 +433,17 @@ $(document).ready(() => {
         });
     });
 
-    $("#qd-accept").on("click", function(e) {
-        console.log(parseInt($(this).data("qid")));
-        "mission/accept", {
-            qid: parseInt($(this).data("qid"))
-        },
-        function(response) {
-            console.log("Quest accepted successfully");
-        }
+    // $("#qd-accept").on("click", function(e) {
+    //     console.log(parseInt($(this).data("qid")));
+    //     console.log("hello2");
+    //     "mission/accept", {
+    //         qid: parseInt($(this).data("qid"))
+    //     },
+    //     function(response) {
+    //         console.log("Quest accepted successfully");
+    //     }
 
-        // Rebuild and Show quest submit
-        $.post(
-            "mission/detail", {
-                qid: parseInt($(this).data("qid"))
-            },
-            function(data) {
-                build_quest_submit(parseInt($(this).data("qid")), data.stage, 1);
-            }
-        )
-        document.getElementById("quest-stranger").dataset.progress = "1";
-        document.getElementById("qd-submit").style.removeProperty("display");
-    })
+    // })
 
     /***************************************************************************** */
     /* Stranger panel related events                                       */

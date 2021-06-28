@@ -198,16 +198,16 @@ function build_quest_detail(qid) {
             let submit_past_base = document.getElementById("qdsp-toclone");
             let container = document.getElementById("qd-submit-container");
             let count = qdata.stage;
-            while (count > 1) {
+            for (let i = 0; i < qdata.Pic_detail.length; ++i) {
+                concole.log("looping pic detail, i=" + i);
                 let new_block = submit_past_base.cloneNode(true);
                 new_block.removeAttribute("id");
 
                 // Retreve past submit data
-                new_block.style.backgroundImage = "url(" + b64ImgRandGen(50, 50) + ")";
+                new_block.style.backgroundImage = "url(" + qdata.Pic_detail[i].picture + ")";
 
 
                 container.insertBefore(new_block, container.getElementsByClassName("dummy")[0]);
-                count--;
             }
         }
 
