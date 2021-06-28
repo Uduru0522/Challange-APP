@@ -83,7 +83,7 @@ app.post('/html/register', (req, res) => {
                             if (row != undefined) {
                                 check();
                             } else {
-                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "#無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0, 0]);
+                                db.run("INSERT INTO users (account, password, email, lastname, firstname, id, name, title, intro, image, social, travel, food, activity, sport, self, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.account, req.body.password, req.body.email, req.body.lastname, req.body.firstname, randomString, req.body.lastname + req.body.firstname, "無", "無", "../resources/nav/mypage.png", 0, 0, 0, 0, 0, 0, 0]);
                                 var db_mission = new sqlite3.Database("./database/mission.db");
                                 db_mission.run(`CREATE TABLE IF NOT EXISTS ${randomString} (name text, category text, description text, points integer, ID TEXT, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text, pic_text TEXT)`);
                                 db_mission.close();
@@ -506,6 +506,23 @@ app.post('/html/update', (req, res) => {
 
     PythonShell.run("mission.py", options, function(err, data) {
         res.send(`Successfully update ${req.body.name}`);
+    });
+});
+
+app.post('/html/newest', (req, res) => {
+    let options = {
+        mode: "text",
+        pythonOptions: ["-u"], // get print results in real-time
+        scriptPath: "./python/",
+        args: [
+            20,
+            req.session.uid
+        ],
+    };
+
+    PythonShell.run("mission.py", options, function(err, data) {
+        data = JSON.parse(data)
+        res.send(data);
     });
 });
 
