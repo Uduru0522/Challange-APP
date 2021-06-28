@@ -1251,6 +1251,7 @@ $(document).on("click", '.characteristics-RB', function () {
 
     $.post('./getphotos', function (imgobj_arr) {
         $("#photobook-grid-wrapper").empty();
+        if(imgobj_arr){
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("photobook-grid-item");
             let wrapper = $("<div></div>");
@@ -1259,7 +1260,7 @@ $(document).on("click", '.characteristics-RB', function () {
             wrapper.append(img);
             $("#photobook-grid-wrapper").append(wrapper);
 
-        }); $("#characteristic-history").removeClass("hidden").addClass("show");
+        });} $("#characteristic-history").removeClass("hidden").addClass("show");
         document.querySelector("#self-history").style.top = 92 + "vh"
         $("#self-history").animate({
             top: '17vh',
@@ -1275,6 +1276,7 @@ $(document).on("click", '.Fcharacteristics-RB', function () {
         friend_ID: friend_list_ID[friend_index]
     }, function (imgobj_arr) {
         $("#Fphotobook-grid-wrapper").empty();
+        if(imgobj_arr){
         imgobj_arr.forEach(obj => {
             let img = $("<img></img>").addClass("Fphotobook-grid-item");
             let wrapper = $("<div></div>");
@@ -1283,7 +1285,8 @@ $(document).on("click", '.Fcharacteristics-RB', function () {
             wrapper.append(img);
             $("#Fphotobook-grid-wrapper").append(wrapper);
 
-        }); $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
+        }); }
+        $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
         document.querySelector("#Fself-history").style.top = 92 + "vh"
         $("#Fself-history").animate({
             top: '17vh',
