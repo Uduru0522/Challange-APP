@@ -5,8 +5,8 @@ function fetch_quest_brief_info(option, callback) {
         url += "popular";
     } else if (option == "yml") {
         url += "maylike";
-    } else if (option == "af") {
-        url += "done";
+    } else if (option == "new") {
+        url = "newest";
     } else if (option == "all") {
         url += "all_mission";
     } else if (option == "doing") {
@@ -38,7 +38,7 @@ function fetch_quest_main_page(id) {
         document.getElementById("you-might-like"),
         document.getElementById("already-finished")
     ];
-    let option = ["el", "yml", "af"];
+    let option = ["el", "yml", "new"];
     for (let i = 0; i < 3; ++i) {
         // Fetch adn build list
         fetch_quest_brief_info(option[i], function(jsonobj) {
@@ -62,6 +62,7 @@ function fetch_quest_main_page(id) {
                     let button = document.createElement("div");
                     button.classList.add("accept-button");
                     button.classList.add("goto-quest-detail");
+                    button.dataset.qid = qinfo.ID;
                     let qid = document.createElement("div");
                     qid.classList.add("qblock-qid");
                     qid.setAttribute("id", "quest-" + qinfo.ID);

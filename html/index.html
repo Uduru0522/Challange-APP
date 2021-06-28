@@ -105,7 +105,7 @@
                 <div class="peek-title"> <span>你可能會喜歡⋯</span><span class="showmore" data-div="yml">See All</span></div>
             </div>
             <div class="quest-peek" id="already-finished">
-                <div class="peek-title"> <span>最新任務⋯</span><span class="showmore" data-div="af">See All</span></div>
+                <div class="peek-title"> <span>最新任務⋯</span><span class="showmore" data-div="new">See All</span></div>
             </div>
             <div class="dummy"></div>
 
@@ -288,20 +288,13 @@
                 <div class="qdh-qname"></div>
                 <div class="qdh-pts"></div>
             </div>
+            <div class="dummy"></div>
             <div class="qd-block" id="qd-submit">
                 <div class="qd-block-title">完成紀錄</div>
                 <div id="qd-submit-container">
                     <div class="qd-submit-upload">
                         <div class="qd-submit-mask"></div>
                     </div>
-
-                    <!-- Put manually for showcase -->
-                    <div class="qd-submit-past">
-                        <div class="qd-submit-mask"></div>
-                        <div class="qdsp-location"></div>
-                        <div class="qdsp-title"></div>
-                    </div>
-                    <!-- Showcase end -->
 
                     <div class="dummy"></div>
                 </div>
@@ -325,6 +318,9 @@
                     <div id="qd-history-flex-anchor" class="placeholder"></div>
                     <div class="placeholder"></div>
                     <div class="placeholder"></div>
+                    <div class="placeholder"></div>
+                    <div class="placeholder"></div>
+                    <div class="placeholder"></div>
                 </div>
             </div>
             <div id="stranger-return">
@@ -345,8 +341,7 @@
 
         <!-- Quest submit -->
         <div class="container" id="quest-submit" style="display: none;">
-            <input type="file" accept=".jpg, .jpeg, .png" id="submit-img-input"
-                style="visibility: hidden; position: absolute; top: 0; left: -99999px">
+            <input type="file" accept=".jpg, .jpeg, .png" id="submit-img-input" style="visibility: hidden; position: absolute; top: 0; left: -99999px">
             <div class="quest-detail-header">
                 <div class="qdh-return-arrow"></div>
                 <div class="qdh-field"></div>
@@ -410,27 +405,30 @@
                 <div id="stranger-info">
                     <p id="stranger-name">我的名字</p>
                     <p id="stranger-hashtag">我有稱號呦</p>
-                    <div id="stranger-send-request">接任務加好友</div>
+                    <div id="stranger-send-request"></div>
                 </div>
-                <div id="stranger-stats">
-                    <p>項目：42</p>
-                    <p>項目：42</p>
-                    <p>項目：42</p>
-                    <p>項目：42</p>
-                </div>
+                <div id="stranger-stats"></div>
                 <div id="stranger-radar">
                     <div id="stranger-radar-inner"></div>
                 </div>
                 <div id="stranger-spinner">
-                    <div id="stranger-spnner-l">
+                    <div id="stranger-spinner-ll">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">左邊的字第二行</p>
                     </div>
-                    <div id="stranger-spnner-m">
+                    <div id="stranger-spinner-l">
+                        <div class="stranger-spinner-icon"></div>
+                        <p class="stranger-spinner-name">左邊的字第二行</p>
+                    </div>
+                    <div id="stranger-spinner-m">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">中間的字第二行</p>
                     </div>
-                    <div id="stranger-spnner-r">
+                    <div id="stranger-spinner-r">
+                        <div class="stranger-spinner-icon"></div>
+                        <p class="stranger-spinner-name">右邊的字第二行</p>
+                    </div>
+                    <div id="stranger-spinner-rr">
                         <div class="stranger-spinner-icon"></div>
                         <p class="stranger-spinner-name">右邊的字第二行</p>
                     </div>
@@ -642,7 +640,7 @@
                             <img src="../resources/nav/send.png">
                         </button>
                     </form>
-                    
+
                 </div>
             </div>
 
@@ -851,10 +849,10 @@
                         <div id="Frador-value">
                             <div id="Fvalue-social"></div>
                             <div id="Fvalue-travel"></div>
-                            
+
                             <div id="Fvalue-food"></div>
                             <div id="Fvalue-activity"></div>
-                            
+
                             <div id="Fvalue-sport"></div>
                             <div id="Fvalue-self"></div>
                         </div>
