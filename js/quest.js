@@ -397,7 +397,15 @@ $(document).ready(() => {
             console.log("Quest accepted successfully");
         }
 
-        // SHow quest submit
+        // Rebuild and Show quest submit
+        $.post(
+            "mission/detail", {
+                qid: parseInt($("#quest-detail").data("qid"))
+            },
+            function(data) {
+                build_quest_submit(parseInt($("#quest-detail").data("qid")), data.stage, 1);
+            }
+        )
         document.getElementById("quest-stranger").dataset.progress = "1";
         document.getElementById("qd-submit").style.removeProperty("display");
     })
