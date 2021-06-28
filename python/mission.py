@@ -155,11 +155,13 @@ def getJSON2(rows):#轉成json，詳細的
     output = json.dumps(_json, ensure_ascii = False)
     return output
 
-def player(conn, M_ID):
+def player(conn, User, M_ID):
     Member = conn.execute("SELECT member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出member
     _json=[]
     Mem = Member.fetchone()[0]
     _member=Mem.split(",")
+    if(User in _member):
+        _member.remove(User)
     _row_json = dict()
     _row_json['member'] = _member[1:-1]#去掉空的
     _json.append(_row_json)
@@ -646,7 +648,7 @@ elif(sys.argv[1] == '7'):#提交任務
 elif(sys.argv[1] == '8'):#給任務詳細資料
     print(getdetail(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '9'):#回傳同樣在執行該任務的玩家
-    print(player(con, sys.argv[2]))
+    print(player(con, sys.argv[2], sys.argv[3]))
 elif(sys.argv[1] == '10'):#給分數區間3為下界、4為上界
     print(search_pts(con, sys.argv[2], sys.argv[3], sys.argv[4]))
 elif(sys.argv[1] == '11'):#回傳所有照片
