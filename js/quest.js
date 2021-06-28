@@ -770,12 +770,15 @@ $(document).ready(() => {
         } else {
             // Last step done, show success, send post
             let mul;
-            const mul_opt = ["single", "multi", "any"];
             const cat_opt = ["美食", "旅遊", "活動", "工作", "感情", "朋友"];
-            if (qc_p.length > 1) {
-                mul = mul_opt[3];
+            if (qc_p.size > 1) {
+                mul = "any"
             } else {
-                mul = mul_opt[qc_p[0] - 1];
+                if (qc_p.has("1")) {
+                    mul = "single"
+                } else {
+                    mul = "multi";
+                }
             }
 
             $.post("addmission", {
