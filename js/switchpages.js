@@ -151,7 +151,7 @@ $(document).ready(() => {
                 $(city_link[i]).css('opacity', 0).animate({ opacity: 1 }, 600)
                 document.getElementById("chat-content").innerHTML = "";
                 // Switch to function pointers plz
-                if (city_icons[i] == "#nav-quest") {
+                if (city_icons[i] == "#city-button-mission") {
                     $(".quest-more-closed").removeClass("hidden").addClass("show");
                     $(".quest-more-open").removeClass("show").addClass("hidden");
                     $(".quest-more-expand").addClass("quest-more-shrink").removeClass("quest-more-expand");
