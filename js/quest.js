@@ -1,16 +1,18 @@
 // Utils
-function compress(imgimput, width, height, ratio) {
+function compress(imgimput, width, height, ratio, callback) {
     var canvas, ctx, img64;
     canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    let img = new Image;
-    document.getElementById("quest-submit").appendChild(img);
+    let img = document.createElement("img");
+    img.onload = function() {
+        ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        img64 = canvas.toDataURL("image/jpeg", ratio);
+        console.log(img64);
+        callback(img64);
+    }
     img.src = URL.createObjectURL(imgimput.files[0]);
-    ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, width, height);
-    img64 = canvas.toDataURL("image/jpeg", ratio);
-    return img64;
 }
 
 // Detect mouse drag / touchscreen swipe
@@ -127,7 +129,6 @@ $(document).ready(() => {
     $(document).on("click", ".filter-button", function(e) {
         // Show filter
         if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
-            console.log("slide");
             $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tor").addClass("lr-slide-container-tol");
         } else {
             document.getElementById("filter").style.removeProperty("display");
@@ -158,7 +159,6 @@ $(document).ready(() => {
 
     // Return from ongoing filter
     $("#quest-ongoing-filter-return").on("click", function(e) {
-        console.log("tor");
         $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tol").addClass("lr-slide-container-tor");
     });
 
@@ -170,7 +170,6 @@ $(document).ready(() => {
 
     // Apply filter
     $(".filter-footer .confirm").on("click", function(e) {
-        console.log(to_filter.children(".quest-list-item"));
         // Close filter panel
         if ($(this).closest(".container").attr("id") == "quest-ongoing-listing") {
             $(this).parents(".lr-slide-container").removeClass("lr-slide-container-tol").addClass("lr-slide-container-tor");
@@ -181,7 +180,6 @@ $(document).ready(() => {
         // Switch to all-quest listing if on quest-main
         if ($("#quest-main").hasClass("show")) {
             $("#quest-main").removeClass("show").addClass("hidden");
-            console.log(to_filter[0]);
             document.getElementById("quest-listing").style.removeProperty("display");
         }
 
@@ -279,7 +277,6 @@ $(document).ready(() => {
             $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
             fop_field.delete($(this).data("option"));
         }
-        console.log(fop_field);
     });
 
     // Select people limit options
@@ -291,7 +288,6 @@ $(document).ready(() => {
             $(this).removeClass("owbtn-select").addClass("owbtn-deselect");
             fop_ppl.delete($(this).data("option"));
         }
-        console.log(fop_ppl);
     });
 
     /***************************************************************************** */
@@ -333,7 +329,6 @@ $(document).ready(() => {
 
     // Goto quest submit page
     $(document).on("click", ".qd-submit-upload", function(e) {
-        console.log("go sub");
         let qid = document.getElementById("quest-submit").dataset.qid;
         let stage = document.getElementById("quest-submit").dataset.stagecount;
         let current = document.getElementById("quest-submit").dataset.current;
@@ -350,7 +345,6 @@ $(document).ready(() => {
 
     // Return to last page in quest detail
     $(document).on("click", ".qdh-return-arrow", function(e) {
-        console.log("return");
         if ($(this).closest(".container").attr("id") == "quest-detail") {
             document.getElementById("quest-stranger").style.display = "none";
         }
@@ -363,42 +357,50 @@ $(document).ready(() => {
         const file = e.target.files[0];
         const reader = new FileReader();
         const img = document.querySelector(".submit-step-container.current .submit-preview");
-        console.log(img);
         reader.readAsDataURL(file)
         reader.onload = function() {
-            console.log(reader.result);
-            console.log(img.style.backgroundImage);
-            console.log("url(" + reader.result + ");");
             img.style.backgroundImage = "url(" + reader.result + ")";
-            console.log("loaded preview.");
         }
     })
 
     // Redirect click event on uploading image
     $(document).on("click", ".submit-step-container.current .submit-mask", function() {
-        console.log("what?");
         $("#submit-img-input")[0].click();
     });
 
     // Submit upload on "current" container
     $("#submit-submit").on("click", function(e) {
-        console.log("submit current");
         // Send post request to submit quest
-        const img64 = compress(document.getElementById("submit-img-input"), 200, 200, 0.9);
-        let qid = $(this).data("qid");
-        console.log(qid);
-        $.post(
-            "./mission/report_single", {
-                qid: qid,
-                img: img64,
-                text: $(".submit-step-container.current .submit-desc").val()
-            },
-            data => {
-                console.log("Update success");
-                $(this).closest(".container")[0].style.display = "none";
-            }
-        );
+        compress(document.getElementById("submit-img-input"), 200, 200, 0.9, (img64) => {
+            let qid = $(this).data("qid");
+            console.log(qid);
+            $.post(
+                "./mission/report_single", {
+                    qid: qid,
+                    img: img64,
+                    text: $(".submit-step-container.current .submit-desc").val()
+                },
+                data => {
+                    console.log("Update success");
+                    // $(this).closest(".container")[0].style.display = "none";
+                }
+            );
+        });
     });
+
+    $("#qd-accept").on("click", function(e) {
+        console.log(parseInt($("#quest-detail").data("qid")));
+        "mission/accept", {
+            qid: parseInt($("#quest-detail").data("qid"))
+        },
+        function(response) {
+            console.log("Quest accepted successfully");
+        }
+
+        // SHow quest submit
+        document.getElementById("quest-stranger").dataset.progress = "1";
+        document.getElementById("qd-submit").style.removeProperty("display");
+    })
 
     /***************************************************************************** */
     /* Stranger panel related events                                       */
@@ -496,6 +498,7 @@ $(document).ready(() => {
                 $.post("mission/samequest", {
                     qid: parseInt(document.getElementById("quest-submit").dataset.qid)
                 }, function(pdata) {
+                    console.log(pdata)
                     spinner_user_list = pdata[0].member;
 
                     // Initialize with "no user" icon
@@ -666,7 +669,6 @@ $(document).ready(() => {
 
         let si = $("#quest-create-progress");
         si.children(".quest-create-progress-dot").each(function(e) {
-            console.log("eh?")
             $(this).removeClass("pd-on").addClass("pd-off");
         });
         $("#quest-create-progress *:first-child").removeClass("pd-off").addClass("pd-on");
@@ -703,7 +705,6 @@ $(document).ready(() => {
             console.log("time=" + (click_time - quest_create_step_clk))
             return;
         } else if ($(this).hasClass("disabled-grayscale")) {
-            console.log("Fill u fuck");
             return;
         }
         quest_create_step_clk = click_time;
