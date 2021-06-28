@@ -655,15 +655,18 @@ $(document).ready(() => {
         display_stranger_info(spinner_user_list[spinner_current_center]);
     });
 
-    console.log($("#stranger-send-request"));
     // Send friend request
     $("#stranger-send-request").on("click", function(e) {
-        console.log("gtjmnrsiolhgytjrdiohbjgdfiojtfhgj");
-        $.post("addfriend", {
-            person_ID: spinner_user_list[spinner_current_center]
-        });
+        if ($(this).hasClass("can-send")) {
+            $.post("addfriend", {
+                person_ID: spinner_user_list[spinner_current_center]
+            });
 
-        $(this).removeClass("can-send").addClass("wait-resp");
+            $(this).removeClass("can-send").addClass("wait-resp");
+        } else if ($(this).hasClass("need-quest")) {
+            console.log("apple");
+            document.getElementById("stranger-return").click();
+        }
     });
 
     $("#stranger-return").on("click", function(e) {
