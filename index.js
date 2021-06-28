@@ -285,6 +285,7 @@ app.post('/html/mission/samequest', (req, res) => {
         scriptPath: "./python/",
         args: [
             9,
+            req.session.uid,
             req.body.qid,
         ],
     };
