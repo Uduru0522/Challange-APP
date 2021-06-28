@@ -760,17 +760,17 @@ $(document).ready(() => {
         } else {
             // Last step done, show success, send post
             let mul;
-            const mul_opt = ["single, multi, both"];
+            const mul_opt = ["single", "multi", "any"];
             const cat_opt = ["美食", "旅遊", "活動", "工作", "感情", "朋友"];
             if (qc_p.length > 1) {
                 mul = mul_opt[3];
             } else {
-                mul = mul_opt[qc_p[0]];
+                mul = mul_opt[qc_p[0] - 1];
             }
 
             $.post("addmission", {
                 name: $("#quest-create-part1 > input[type=text]").val(),
-                category: cat_opt[qc_f],
+                category: cat_opt[qc_f - 1],
                 multiple: mul,
                 description: $("#quest-create-part4 textarea").val(),
                 guide: $("#quest-create-part5 textarea").val(),
