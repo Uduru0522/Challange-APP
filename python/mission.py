@@ -78,20 +78,32 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
         for field in range(len(row)):
             if(field_name[field]!='ID'and field_name[field]!='category_no' and field_name[field]!='progressing' and field_name[field]!= 'member'and field_name[field]!= 'F_member'):
                 _row_json[field_name[field]] = row[field]
-    
+
+    n_Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID} and completed=0;".format(user=User,m_ID=M_ID))#拿出Picture
+    n_Pic = n_Picture.fetchone()
+    if((n_Pic != None) and (n_Pic[0] != None)):
+        n_Pic = n_Pic[0]
+        n_pic=n_Pic.split(";;")
+        n_Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID} and completed=0;".format(user=User,m_ID=M_ID))#拿出Pic_text
+        n_Pic_text = n_Picture_text.fetchone()[0]
+        n_pic_Text=n_Pic_text.split(";;")
+        Pic_stage=[]
+        for number in range(len(n_pic)-2):#去頭尾
+            Pic_Stage = dict()
+            Pic_Stage["picture"] = n_pic[number+1]#不要第一項
+            Pic_Stage["pic_text"] = n_pic_Text[number+1]
+            Pic_stage.append(Pic_Stage)
+        _row_json['Pic_stage'] = Pic_stage
+
     F_Member = conn.execute("SELECT F_member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出F_member
     F_Mem = F_Member.fetchone()[0]
-    if(F_Mem != ','):
-        f_member=F_Mem.split(",")
-        check=True#有完成過的使用者
-    else:
-        check=False
-
     
-    if(check == True):
+    if(F_Mem != ','):#有完成過的使用者
+        f_member=F_Mem.split(",")
+        Pic_detail=[]
         for F_mem in f_member :
             if(F_mem !=""):
-                Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID} and completed = 1;".format(user=F_mem,m_ID=M_ID))#拿出Picture
+                Picture = conn.execute("SELECT picture FROM {user} where ID = {m_ID} and completed=1;".format(user=F_mem,m_ID=M_ID))#拿出Picture
                 Pic = Picture.fetchone()
                 if((Pic != None) and (Pic[0] != None)):
                     Pic = Pic[0]
@@ -99,17 +111,16 @@ def getdetail(conn, User, M_ID):#給任務詳細資料
                     Picture_text = conn.execute("SELECT pic_text FROM {user} where ID = {m_ID};".format(user=F_mem,m_ID=M_ID))#拿出Pic_text
                     Pic_text = Picture_text.fetchone()[0]
                     pic_Text=Pic_text.split(";;")
-                    Pic_detail=[]
                     for number in range(len(pic)-2):#去頭尾
                         Pic_Detail = dict()
                         Pic_Detail["picture"] = pic[number+1]#不要第一項
                         Pic_Detail["pic_text"] = pic_Text[number+1]
-                        Pic_detail.append(Pic_Detail)
-                    _row_json['Pic_detail'] = Pic_detail
-    
-    
-    _json.append(_row_json)
+                        Pic_detail.append(Pic_Detail)     
+        _row_json['Pic_detail'] = Pic_detail
+    else:
+        _row_json['Pic_detail'] = []
 
+    _json.append(_row_json)
 
     #print(_json)
     output = json.dumps(_json, ensure_ascii = False)
@@ -324,12 +335,23 @@ def submit(conn,conn2,conn3, User, M_ID, Pic, Pic_text):#提交任務(已修改)
         _member.remove("{}".format(User))
         str = ",".join(_member)
         conn.execute("UPDATE mission SET member='{m}' where ID = {m_ID};".format(m=str,m_ID=M_ID))#把完成的人刪掉
+
+        F_Member = conn.execute("SELECT F_member FROM mission where ID = {m_ID};".format(m_ID=M_ID))#拿出F_member
+        F_Mem = F_Member.fetchone()[0]
+        F_member=F_Mem.split(",")
+        
+        if(User not in F_member):
+            f_Mem = F_Mem + User + ","
+            conn.execute("UPDATE mission SET F_member = '{}' where ID = {};".format(f_Mem, M_ID))#紀錄誰做過
+
     conn.commit()
     conn.close()
     conn2.commit()
     conn2.close()
     conn3.commit()
     conn3.close()
+    
+
 
 def maylike(conn, User):#可能喜歡的任務
     recent = conn.execute("select category_no from {user} order by date DESC LIMIT 1;".format(user=User))#最近做過的任務的類別
@@ -543,7 +565,6 @@ def waiting(conn):#回傳全部未審核的任務
 
 def update(conn, conn2, m_name, stat, M_ID, Point):#更新任務狀態，如果通過就傳1，不通過就傳2，並給一個新ID
     conn.execute("UPDATE mission SET status={Stat} where name = '{M_name}';".format(Stat=stat, M_name=m_name))#更新狀態
-
     if(stat == "1"):
         rows = conn.execute("select * from mission where name = '{M_name}';".format(M_name=m_name))
         field_name = [des[0] for des in rows.description]#找到項目名
