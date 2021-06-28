@@ -6,7 +6,7 @@ import time
 def setuptalk(name1,name2):#建立好友聊天室,name1跟name2的
     output=[]
     str1=time.ctime(time.time()).split(' ')
-    mes={"name":name1+" "+name2,"talk":" enter the room"}
+    mes={"name":name1+" "+name2,"talk":" "}
     recordtime={"time_num":time.time(),"time":str1[3][:-3],"date":str1[4]+' '+str1[1]+' '+str1[2]}
     mes.update(recordtime)
     output.append(mes)
@@ -63,7 +63,7 @@ def talk(name1,name2,talk):#好友聊天,name1對name2說talk,然後會回傳聊
 
 def setupassi(assi,name):#建立任務聊天室,assi:任務,name:誰建立
     output=[]
-    mes={"name":name,"talk":" enter the room"}
+    mes={"name":name,"talk":" "}
     str1=time.ctime(time.time()).split(' ')
     recordtime={"time_num":time.time(),"time":str1[3][:-3],"date":str1[4]+' '+str1[1]+' '+str1[2]}
     mes.update(recordtime)
@@ -293,7 +293,7 @@ def talkfile(name1,name2):#好友聊天室剛點進去的內容
     output=json.dumps(output, ensure_ascii = False)
 ###################################
     return output
-talkfile('a','b')
+
 def assignmentfile(assi,name):#任務聊天室剛點進去的內容
     filename=findassifile(name,assi)
     with open(filename, 'r',encoding='utf-8') as obj:
@@ -307,9 +307,6 @@ def assignmentfile(assi,name):#任務聊天室剛點進去的內容
     output=json.dumps(output, ensure_ascii = False)
 #################################
     return output
-
-
-
 
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -330,5 +327,5 @@ elif(sys.argv[1]=="talkfile"):
     print(talkfile(sys.argv[2],sys.argv[3]))
 elif(sys.argv[1]=="assignmentfile"):
     print(assignmentfile(sys.argv[2],sys.argv[3]))
-    
-
+elif(sys.argv[1]=="assignmentdel"):
+    print(assignmentdel(sys.argv[2],sys.argv[3]))

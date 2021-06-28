@@ -27,7 +27,9 @@ const pages_selector = [
     ".quest-more-closed",
     "#quest-create-new",
     "#makesure-deletefriend",
-    "#makesure-deletegroup"
+    "#makesure-deletegroup",
+    ".chat-cover",
+    ".create-chat-menu"
     
 ];
 

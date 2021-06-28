@@ -33,9 +33,9 @@ function choose_mission() { //handle checkbox
     for (let i = len - 1; i >= 0; i--) {
         console.log("stop?");
         if (obj[i].checked == true) {
-            console.log(i + "missions");
-            output_mission = mission_list[i].name //mission_list[i]);
+            put_mission = mission_list[i].name //mission_list[i]);
             output_mission_ID = mission_list[i].ID
+            output_mission = mission_list[i].name
         } else { }
     }
 
@@ -131,13 +131,14 @@ function appendfriends() { //show friends in group create
     $.post('./find_M_friend', {
         qid: output_mission_ID
     }, function (data) {
+        console.log(data[0].M_friend.length)
         if (data[0].M_friend!="") {
-            for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data[0].M_friend.length; i++) {
                 $.post('./findperson', {
-                    person_ID: data[i].M_friend
+                    person_ID: data[0].M_friend[i]
                 }, function (fri) {
                     friends = friends + "<input type='checkbox' name='choose_friend' id='C_F" + i + "'><label for='C_F" + i + "'><div id='choosed-friend" + i + "'class='choosed-friend unchosen'><img src='" + fri.image + "'/><div id='friend-name-text'>" + fri.name + "</div></div>";
-                    if (i == data.length - 1) {
+                    if (i == data[0].M_friend.length - 1) {
                         $("#put-friend-here").append(friends)
                     }
                 })
@@ -1147,7 +1148,7 @@ $(document).on("click", '.Fback-button', function () {
 
 $(document).on("click", '.characteristics-RB', function () {
     console.log("RBsuccesss")
-    $("#characteristic-history").removeClass("hidden").addClass("show");
+    
 
     $.post('./getphotos', function (imgobj_arr) {
         $("#photobook-grid-wrapper").empty();
@@ -1158,17 +1159,18 @@ $(document).on("click", '.characteristics-RB', function () {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#photobook-grid-wrapper").append(wrapper);
+            
+        });$("#characteristic-history").removeClass("hidden").addClass("show");
             document.querySelector("#self-history").style.top = 92 + "vh"
             $("#self-history").animate({
                 top: '17vh',
             });
-        });
     });
 });
 
 $(document).on("click", '.Fcharacteristics-RB', function () {
     console.log("FRBsuccesss")
-    $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
+    
 
     $.post('./getphotos_friend', {
         friend_ID: friend_list_ID[friend_index]
@@ -1181,11 +1183,12 @@ $(document).on("click", '.Fcharacteristics-RB', function () {
             img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
             wrapper.append(img);
             $("#Fphotobook-grid-wrapper").append(wrapper);
+            
+        });$("#Fcharacteristic-history").removeClass("hidden").addClass("show");
             document.querySelector("#Fself-history").style.top = 92 + "vh"
             $("#Fself-history").animate({
                 top: '17vh',
             });
-        });
     });
 });
 $(document).on("click", '#edit-link', function () {
