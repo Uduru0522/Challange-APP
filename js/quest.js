@@ -347,12 +347,11 @@ $(document).ready(() => {
     // Goto quest submit page
     $(document).on("click", ".qd-submit-upload", function(e) {
         let qid = document.getElementById("quest-submit").dataset.qid;
-        let stage = document.getElementById("quest-submit").dataset.stagecount;
-        let current = document.getElementById("quest-submit").dataset.current;
         $.post("mission/detail", {
             qid: qid
-        }, data => {
-            build_quest_submit(qid, parseInt(stage), parseInt(current));
+        }, function(data) {
+            console.log(data, 12312321321);
+            build_quest_submit(qid, data[0].stage, data[0].now_stage);
         });
         document.getElementById("quest-stranger").style.removeProperty("dispaly");
         document.getElementById("quest-stranger").classList.add("stranger-closed");

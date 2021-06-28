@@ -190,8 +190,25 @@ function build_quest_detail(qid) {
             accept_button.classList.add("owbtn-deselect");
         }
 
+        switch (qdata.multiple) {
+            case "single":
+                document.getElementById("qd-plim-s").style.removeProperty("display");
+                document.getElementById("qd-plim-m").style.display = "none";
+                break;
+            case "multi":
+                document.getElementById("qd-plim-s").style.display = "none";
+                document.getElementById("qd-plim-m").style.removeProperty("display");
+                break;
+            case "any":
+                document.getElementById("qd-plim-s").style.removeProperty("display");
+                document.getElementById("qd-plim-m").style.removeProperty("display");
+                break;
+            default:
+                console.log("Error: build_detail()");
+        }
+
         document.getElementById("quest-submit").dataset.stagecount = qdata.stage;
-        document.getElementById("quest-submit").dataset.current = qdata.now_stage > 2 ? 2 : 1; // Need add in request
+        document.getElementById("quest-submit").dataset.current = qdata.now_stage; // Need add in request
 
         $(".qd-submit-past").not("#qdsp-toclone").remove();
         if (qdata.stage > 1) {
