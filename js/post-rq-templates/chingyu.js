@@ -22,7 +22,7 @@ var friend_index;
 var FchartRadar;
 var value = { name: "鄭青宇", nickname: "?????", id: "E24076344", intro: "自介", social: 50, travel: 45, food: 23, activity: 20, sport: 15, self: 10 };
 var output_mission_ID
-var socialx,socialy,travelx,travely,foodx,foody,activityx,activityy,sportx,sporty,selfx,selfy;
+var socialx, socialy, travelx, travely, foodx, foody, activityx, activityy, sportx, sporty, selfx, selfy;
 //chat page
 function choose_mission() { //handle checkbox
     let obj = document.getElementsByName("choose_mission");
@@ -407,6 +407,7 @@ function checkifroom() {
     if ($("#friend-main").is(".show")) {
         $.post('./friendrecord',
             function (friends) {
+                console.log(friend_magnitude)
                 if (friends.length > friend_magnitude) {
                     refreshfriend();
                 }
@@ -474,7 +475,7 @@ $(".button-sure").click(function () {
 function appendfriendsformenu() {
     document.getElementById("friend-record").innerHTML = "";
 
-    console.log(friend_magnitude)
+    console.log(friend_magnitude + "mmm")
     let friend = [];
     for (let j = 0; j < friend_magnitude; j++) {
         friend = friend + "<div class='slideleft'id='slideleft" + j + "'><div class='deletebutton'id='delete-num" + j + "'>移除</div><div id='friend-num" + j + "'class='friend'><div class='friend-lefttwo'><div id='scroll-cover" + j + " hidden'></div><img class='friend-header'src='" + friend_list[j].image + "'/><div class='friend-text'><div class='friend-name'>" + friend_list[j].name + "</div></div></div><div class='friend-nickname'># " + friend_list[j].title + "</div></div><div class='space'></div></div><div class='compensate'></div>";
@@ -516,13 +517,38 @@ function refreshfriend() {
         });
 }
 //friend page
-$("#nav-friend").click(function () {
+$(document).on("click", "#nav-friend", function () {
     $.post('./friendrecord',
         function (friends) {
-            console.log()
-            friend_magnitude = friends.friend.length;
-            friend_list_ID = friends.friend;
-            appendfriendsformenu();
+            console.log(friends)
+            if (friends.friend.length > friend_magnitude) {
+                friend_magnitude = friends.friend.length;
+                friend_list_ID = friends.friend;
+                refreshfriend()
+            }
+
+
+        });
+
+    $.post('./chatrecord',
+        function (chatrooms) {
+            console.log(chatrooms);
+            room_magnitude = chatrooms.length;
+            rooms_data = chatrooms;
+
+        });
+});
+$(document).on("click", "#city-button-friend", function () {
+    $.post('./friendrecord',
+        function (friends) {
+            console.log(friends)
+            if (friends.friend.length > friend_magnitude) {
+                friend_magnitude = friends.friend.length;
+                friend_list_ID = friends.friend;
+                refreshfriend()
+            }
+
+
         });
 
     $.post('./chatrecord',
@@ -593,7 +619,7 @@ $("#nav-mypage").click(function () {
     // appendmissionsforsmall();
     $.post('./mypage-record',
         function (data) {
-            value=data
+            value = data
             document.getElementById("data-pic").src = value.image;
             document.getElementById("data-name").innerHTML = value.name;
             document.getElementById("data-nickname").innerHTML = "# " + value.title;
@@ -605,25 +631,25 @@ $("#nav-mypage").click(function () {
             document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
             document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
             document.getElementById("value-self").innerHTML = "感情: " + value.self;
-            
+
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            if(value.social==0){
-                value.social=2
+            if (value.social == 0) {
+                value.social = 2
             }
-            if(value.travel==0){
-                value.travel=2
+            if (value.travel == 0) {
+                value.travel = 2
             }
-            if(value.food==0){
-                value.food=2
+            if (value.food == 0) {
+                value.food = 2
             }
-            if(value.activity==0){
-                value.activity=2
+            if (value.activity == 0) {
+                value.activity = 2
             }
-            if(value.sport==0){
-                value.sport=2
+            if (value.sport == 0) {
+                value.sport = 2
             }
-            if(value.self==0){
-                value.self=2
+            if (value.self == 0) {
+                value.self = 2
             }
             if (maxvalue != 0) {
                 socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
@@ -677,25 +703,25 @@ $("#city-button-personal").click(function () {
             document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
             document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
             document.getElementById("value-self").innerHTML = "感情: " + value.self;
-            
+
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            if(value.social==0){
-                value.social=2
+            if (value.social == 0) {
+                value.social = 2
             }
-            if(value.travel==0){
-                value.travel=2
+            if (value.travel == 0) {
+                value.travel = 2
             }
-            if(value.food==0){
-                value.food=2
+            if (value.food == 0) {
+                value.food = 2
             }
-            if(value.activity==0){
-                value.activity=2
+            if (value.activity == 0) {
+                value.activity = 2
             }
-            if(value.sport==0){
-                value.sport=2
+            if (value.sport == 0) {
+                value.sport = 2
             }
-            if(value.self==0){
-                value.self=2
+            if (value.self == 0) {
+                value.self = 2
             }
             if (maxvalue != 0) {
                 socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
@@ -831,13 +857,7 @@ $(document).ready(function () {
         $(".chat-cover").removeClass("show").addClass("hidden");
         $("#makesure-deletegroup").removeClass("show").addClass("hidden")
     });
-    $.post('./allstatus',
-        function (data) {
-            console.log(data);
-            launch_mission_magnitude = data.length;
-            launch_mission_list = data;
 
-        });
 });
 
 $(document).on("click", '.chat-room', function () {
@@ -1114,8 +1134,14 @@ $(document).on("click", '#logout', function () {
 });
 $(document).on("click", '#characteristics-L', function () {
     console.log("success")
+    $.post('./allstatus',
+        function (data) {
+            console.log(data);
+            launch_mission_magnitude = data.length;
+            launch_mission_list = data;
+            appendmissionsforlaunch();
+        });
 
-    appendmissionsforlaunch();
     $("#mission-launched").removeClass("hidden").addClass("show");
     document.querySelector("#mission-container").style.top = 92 + "vh"
     $("#mission-container").animate({
@@ -1170,23 +1196,23 @@ $(document).on("click", '#click-friend-data', function () {
             document.getElementById("Fvalue-self").innerHTML = "感情: " + value.self;
 
             let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
-            if(value.social==0){
-                value.social=2
+            if (value.social == 0) {
+                value.social = 2
             }
-            if(value.travel==0){
-                value.travel=2
+            if (value.travel == 0) {
+                value.travel = 2
             }
-            if(value.food==0){
-                value.food=2
+            if (value.food == 0) {
+                value.food = 2
             }
-            if(value.activity==0){
-                value.activity=2
+            if (value.activity == 0) {
+                value.activity = 2
             }
-            if(value.sport==0){
-                value.sport=2
+            if (value.sport == 0) {
+                value.sport = 2
             }
-            if(value.self==0){
-                value.self=2
+            if (value.self == 0) {
+                value.self = 2
             }
             if (maxvalue != 0) {
                 socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
@@ -1251,16 +1277,17 @@ $(document).on("click", '.characteristics-RB', function () {
 
     $.post('./getphotos', function (imgobj_arr) {
         $("#photobook-grid-wrapper").empty();
-        if(imgobj_arr){
-        imgobj_arr.forEach(obj => {
-            let img = $("<img></img>").addClass("photobook-grid-item");
-            let wrapper = $("<div></div>");
+        if (imgobj_arr) {
+            imgobj_arr.forEach(obj => {
+                let img = $("<img></img>").addClass("photobook-grid-item");
+                let wrapper = $("<div></div>");
 
-            img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
-            wrapper.append(img);
-            $("#photobook-grid-wrapper").append(wrapper);
+                img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
+                wrapper.append(img);
+                $("#photobook-grid-wrapper").append(wrapper);
 
-        });} $("#characteristic-history").removeClass("hidden").addClass("show");
+            });
+        } $("#characteristic-history").removeClass("hidden").addClass("show");
         document.querySelector("#self-history").style.top = 92 + "vh"
         $("#self-history").animate({
             top: '17vh',
@@ -1276,16 +1303,17 @@ $(document).on("click", '.Fcharacteristics-RB', function () {
         friend_ID: friend_list_ID[friend_index]
     }, function (imgobj_arr) {
         $("#Fphotobook-grid-wrapper").empty();
-        if(imgobj_arr){
-        imgobj_arr.forEach(obj => {
-            let img = $("<img></img>").addClass("Fphotobook-grid-item");
-            let wrapper = $("<div></div>");
+        if (imgobj_arr) {
+            imgobj_arr.forEach(obj => {
+                let img = $("<img></img>").addClass("Fphotobook-grid-item");
+                let wrapper = $("<div></div>");
 
-            img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
-            wrapper.append(img);
-            $("#Fphotobook-grid-wrapper").append(wrapper);
+                img.attr("src", obj.picture); //文字說明: obj.pic_text, 任務ID: obj.ID
+                wrapper.append(img);
+                $("#Fphotobook-grid-wrapper").append(wrapper);
 
-        }); }
+            });
+        }
         $("#Fcharacteristic-history").removeClass("hidden").addClass("show");
         document.querySelector("#Fself-history").style.top = 92 + "vh"
         $("#Fself-history").animate({
@@ -1367,7 +1395,7 @@ $(document).on("click", '#edit-submit', function (event) {
                         document.getElementById("value-activity").innerHTML = "活動: " + value.activity;
                         document.getElementById("value-sport").innerHTML = "工作: " + value.sport;
                         document.getElementById("value-self").innerHTML = "感情: " + value.self;
-                        
+
                         let maxvalue = Math.max(value.social, value.travel, value.food, value.activity, value.sport, value.self)
                         if (maxvalue != 0) {
                             socialx = 50 + 50 * 1 / 2 * value.social / maxvalue;
