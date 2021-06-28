@@ -35,11 +35,31 @@ $(document).ready(function() {
             lastname: $("fieldset#su-lastname input").val(),
             firstname: $("fieldset#su-firstname input").val()
         }, (data) => {
+            // Assume success LOL
+            let signal = document.createElement("div");
+            signal.style.position = "fixed";
+            signal.style.width = "60vw";
+            signal.style.height = "20vh";
+            signal.innerHTML = "註冊成功！";
+            signal.style.display = "flex";
+            signal.style.justifyContent = "center";
+            signal.style.alignItems = "center";
+            signal.style.backgroundColor = "#FFEBDBF3";
+            signal.style.border = "red solid 3px";
+            signal.style.borderRadius = "5px";
+            $(".container").append(signal);
+
+            // Go back to main page
             console.log(data);
             let login_page = $("form#login");
             let signup_page = $("form#register");
             login_page.css("display", "flex");
             signup_page.css("display", "none");
+
+            setTimeout(
+                () => {
+                    signal.remove();
+                }, 2500);
         });
     });
 
