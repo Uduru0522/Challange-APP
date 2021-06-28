@@ -28,7 +28,7 @@ def allmission(conn, User):
     return output
 
 def accept(conn, User, M_ID):#傳入使用者名字和要接的任務
-    conn.execute("create table if not exists {user}(name text, category text, description text, guide text, points integer, ID text, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text DEFAULT(';;'), pic_text text DEFAULT(';;'),stage integer, now_stage integer DEFAULT(1),multiple text)".format(user=User))#建立玩家任務清單
+    conn.execute("create table if not exists {user}(name text, multiple text, category text, description text, guide text, stage integer, now_stage integer DEFAULT(1), points integer, ID text, completed boolean DEFAULT(0), date time DATE DEFAULT (datetime('now','localtime')), category_no integer, picture text DEFAULT(';;'), pic_text text DEFAULT(';;'))".format(user=User))#建立玩家任務清單
     conn.execute("INSERT INTO {user} (name, category, description, guide, points, ID, category_no, stage, multiple) SELECT name, category, description, guide, points, ID, category_no, stage, multiple FROM mission WHERE ID= {m_ID};".format(user=User, m_ID=M_ID))
     conn.execute("UPDATE mission SET progressing=progressing+1 where ID = {m_ID};".format(m_ID=M_ID))#進行人數加一
 
