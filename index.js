@@ -465,7 +465,7 @@ app.post('/html/allstatus_others', (req, res) => {
         scriptPath: "./python/",
         args: [
             17,
-            req.body.uid
+            req.body.friend_ID
         ],
     };
 

@@ -587,17 +587,20 @@ $(document).ready(() => {
 
                     // Fill newcomming slot
                     let new_slot = document.getElementById("stranger-spinner-rr");
-                    if (spinner_current_center + 3 >= spinner_user_list.length) {
+                    let next_load = spinner_current_center + 3;
+                    if (next_load >= spinner_user_list.length) {
                         new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
                         new_slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
                     } else {
-                        $.post("findperson", { person_ID: spinner_user_list[spinner_current_center + 3] }, (data) => {
+                        $.post("findperson", { person_ID: spinner_user_list[next_load] }, (data) => {
                             new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(" + data.image + ")";
                             new_slot.getElementsByTagName("p")[0].innerHTML = data.name;
                         });
                     }
+                    spinner_current_center++;
+                    display_stranger_info(spinner_user_list[spinner_current_center]);
                 }, 300);
-                spinner_current_center++;
+
                 break;
             case "right":
                 if (spinner_current_center == 0) {
@@ -621,25 +624,25 @@ $(document).ready(() => {
                     }
 
                     let new_slot = document.getElementById("stranger-spinner-ll");
-                    if (spinner_current_center - 3 < 0) {
+                    let next_load = spinner_current_center - 3;
+                    if (next_load < 0) {
                         new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(\"../resources/quest/placeholder_1x1_nouser.png\")";
                         new_slot.getElementsByTagName("p")[0].innerHTML = "沒有更多了！";
                     } else {
-                        $.post("findperson", { person_ID: spinner_user_list[spinner_current_center - 3] }, (data) => {
+                        $.post("findperson", { person_ID: spinner_user_list[next_load] }, (data) => {
                             new_slot.getElementsByTagName("div")[0].style.backgroundImage = "url(" + data.image + ")";
                             new_slot.getElementsByTagName("p")[0].innerHTML = data.name;
                         });
                     }
+                    spinner_current_center--;
+                    display_stranger_info(spinner_user_list[spinner_current_center]);
                 }, 300);
-                spinner_current_center--;
                 break;
             default:
                 console.log("Swipe left/right to change angle");
                 return;
                 break;
         }
-
-        display_stranger_info(spinner_user_list[spinner_current_center]);
     });
 
     // Send friend request
