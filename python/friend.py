@@ -45,6 +45,19 @@ def delfriend(name1,name2):#name1,name2互刪好友
             output[i].remove(name1)
     with open("./json/friend.json","w", encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False) 
+
+    with open("./json/friendtalk.json", 'r',encoding='utf-8') as obj:
+        output = json.load(obj)
+    for i in range(len(output)):
+        if output[i][0]==name1:
+            
+            output[i].remove(name2)
+        if output[i][0]==name2:
+            
+            output[i].remove(name1)
+    with open("./json/friendtalk.json","w", encoding='utf-8') as f:
+        json.dump(output, f, ensure_ascii=False)
+    
     #刪除json檔案
     if not os.path.isfile("./json/"+name1+","+name2+".json"):
         os.remove("./json/"+name2+","+name1+".json")

@@ -29,7 +29,9 @@ const pages_selector = [
     "#makesure-deletefriend",
     "#makesure-deletegroup",
     ".chat-cover",
-    ".create-chat-menu"
+    ".create-chat-menu",
+    ".button-sure",
+    ".button-creategroup"
 ];
 
 const nav_icons = [

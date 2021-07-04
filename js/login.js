@@ -40,7 +40,7 @@ $(document).ready(function() {
             signal.style.position = "fixed";
             signal.style.width = "60vw";
             signal.style.height = "20vh";
-            signal.innerHTML = "註冊成功！";
+            signal.innerHTML = data;
             signal.style.display = "flex";
             signal.style.justifyContent = "center";
             signal.style.alignItems = "center";

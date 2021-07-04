@@ -128,7 +128,6 @@ def assignmentdel(assi,name):
         if output[0]['assignment']==assi:
             output[1]['group']+=str1[i]
             output[1]['group']+=','
-            break
     output[1]['group']=output[1]['group'][:-1]
 
     for i in range(3,len(output)):
@@ -140,7 +139,6 @@ def assignmentdel(assi,name):
             if output[i][0]['assignment']==assi:
                 output[i][1]['group']+=str2[j]
                 output[i][1]['group']+=','
-                break
         output[i][1]['group']=output[i][1]['group'][:-1]
         """
     if output[i][1]['group']=="":

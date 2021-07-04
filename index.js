@@ -465,7 +465,7 @@ app.post('/html/allstatus_others', (req, res) => {
         scriptPath: "./python/",
         args: [
             17,
-            req.body.uid
+            req.body.friend_ID
         ],
     };
 
@@ -612,7 +612,9 @@ app.post('/html/friendrecord', (req, res) => {
     };
 
     PythonShell.run("friend.py", options, function(err, data) {
-        data = JSON.parse(data)
+        if (data != "None") {
+            data = JSON.parse(data)
+        }
 
         res.send(data);
     });

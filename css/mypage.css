@@ -1,11 +1,8 @@
-#mypage-main {
-    
-
-}
+#mypage-main {}
 
 .mypage-title {
     background-image: url("../resources/update/edit_texture.png");
-    background-size:cover;
+    background-size: cover;
     width: 100vw;
     height: 12vh;
     margin: 0;
@@ -25,14 +22,16 @@
     text-indent: 2vh;
     letter-spacing: 2vh;
 }
-#mypage-container{
-    position:fixed;
-    top:12vh;
+
+#mypage-container {
+    position: fixed;
+    top: 12vh;
     background: linear-gradient(#EAF6F7, white);
-    width:100%;
-    height:80vh;
-    overflow-y:scroll;
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
 }
+
 #mypage-record {
     background-color: transparent;
     width: 100vw;
@@ -46,7 +45,7 @@
     max-width: 25vw;
     margin: 6vw 5vw 4vw 5vw;
     border-radius: 50%;
-    background-color:white;
+    background-color: white;
 }
 
 #data-name {
@@ -85,17 +84,18 @@
 
 #data-selfintro-text {
     position: absolute;
-    width:84vw;
+    width: 84vw;
     top: 22vh;
     margin: 1vh 8vw 0 8vw;
     padding: 3vw;
     font-size: 2vh;
     height: 17vh;
-    white-space:pre-wrap;
+    white-space: pre-wrap;
     overflow: scroll;
-    white-space:normal;
-    word-break:break-all;
-    word-wrap:break-word;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: break-spaces;
 }
 
 #characteristics-L {
@@ -132,7 +132,7 @@
     background-color: #CFE9EA;
     box-shadow: 3px 3px 5px #aaaaaa;
     writing-mode: vertical-lr;
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
@@ -141,7 +141,7 @@
     font-size: 2.3vh;
     text-indent: 0.5vh;
     letter-spacing: 0.5vh;
-    position:absolute;
+    position: absolute;
     left: 6vw;
     /* display: flex; */
     /* align-items: center; */
@@ -162,7 +162,7 @@
     box-shadow: 3px 3px 5px #aaaaaa;
     writing-mode: vertical-lr;
     /* padding: 3vw; */
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
@@ -171,15 +171,17 @@
     font-size: 2.3vh;
     text-indent: 0.5vh;
     letter-spacing: 0.5vh;
-    position:absolute;
+    position: absolute;
     left: 6vw;
     margin: 2.4vh 0;
     writing-mode: vertical-lr;
 }
-#logout-overflow{
-    width:100%;
+
+#logout-overflow {
+    width: 100%;
     height: 77.5vh;
 }
+
 #logout {
     width: 20vw;
     height: 4.5vh;
@@ -191,13 +193,14 @@
     font-size: 5vw;
     color: white;
 }
-#edit-link{
+
+#edit-link {
     position: absolute;
     right: 5vw;
     top: 2vh;
     font-size: 2vh;
-    text-decoration:underline;
-    color:#E9B83E;
+    text-decoration: underline;
+    color: #E9B83E;
 }
 
 #mission-launched {
@@ -263,7 +266,7 @@
 }
 
 .launch-mission-name {
-    display:flex;
+    display: flex;
     align-items: center;
     font-size: 2.2vh;
 }
@@ -299,40 +302,46 @@
     text-indent: 1vh;
     padding: 3vh;
 }
-#value-travel,#value-activity,#value-self{
+
+#value-travel,
+#value-activity,
+#value-self {
     font-size: 2.8vh;
     padding: 1vh 0vw 1vh 6vw;
     float: left;
-    width:50%;
+    width: 50%;
     color: #515151;
 }
+
 #value-social,
 #value-food,
-#value-sport{
+#value-sport {
     font-size: 2.8vh;
     padding: 1vh 0 1vh 20vw;
     float: left;
     color: #515151;
-    width:50%;
+    width: 50%;
 }
 
 #rador {
-    background:white;
+    background: white;
     height: 34vh;
-    width:90vw;
-    position:absolute;
+    width: 90vw;
+    position: absolute;
     top: 11vh;
-    left:5vw;
-    border-radius:3vh;
+    left: 5vw;
+    border-radius: 3vh;
     text-align: center;
 }
-#rador-top{
+
+#rador-top {
     text-align: center;
-    width:25.413vh;
-    height:25.413vh;
+    width: 25.413vh;
+    height: 25.413vh;
 }
+
 #myChart {
-    margin:2vh;
+    margin: 2vh;
     max-height: 35vh;
     background-color: transparent;
     border-radius: 10%;
@@ -370,6 +379,7 @@
     width: 5vw;
     height: 4vh;
 }
+
 .blue {
     background-color: #E9B83E;
     border-bottom-left-radius: 1vw;
@@ -379,6 +389,7 @@
     width: 5vw;
     height: 4vh;
 }
+
 .small-mission-name {
     line-height: 4vh;
     letter-spacing: 0.5vw;
@@ -438,12 +449,14 @@
     max-width: 100%;
     height: 100%;
 }
-#edit-mydata{
-    z-index:10;
+
+#edit-mydata {
+    z-index: 10;
 }
-#edit-top{
+
+#edit-top {
     background-image: url("../resources/update/edit_texture.png");
-    background-size:cover;
+    background-size: cover;
     width: 100vw;
     height: 12vh;
     margin: 0;
@@ -456,136 +469,151 @@
     align-items: center;
     z-index: 1;
 }
-#edit-title{
+
+#edit-title {
     color: white;
     font-size: 3.5vh;
     text-indent: 1vh;
     letter-spacing: 1vh;
 }
-#edit-back-button{
+
+#edit-back-button {
     background-image: url("../resources/nav/arrow.png");
-    position:fixed;
-    top:40vh;
-    left:7vw;
-    height:3vh;
+    position: fixed;
+    top: 40vh;
+    left: 7vw;
+    height: 3vh;
 }
-#edit-header{
-    position:fixed;
+
+#edit-header {
+    position: fixed;
     top: 12vh;
-    height:25vh;
-    width:100%;
-    background-color:white;
-    display:flex;
+    height: 25vh;
+    width: 100%;
+    background-color: white;
+    display: flex;
     align-items: center;
     justify-content: center;
     border-style: none;
 }
-#edit-header-text{
-    color:#E9B83E;
-    text-indent:0.5vh;
+
+#edit-header-text {
+    color: #E9B83E;
+    text-indent: 0.5vh;
     letter-spacing: 0.5vh;
 }
-#edit-text{
-    color:#EB931D;
-    position:fixed;
-    top:34vh;
-    height:58vh;
-    width:100%;
-    background-color:white;
+
+#edit-text {
+    color: #EB931D;
+    position: fixed;
+    top: 34vh;
+    height: 58vh;
+    width: 100%;
+    background-color: white;
     border-style: none;
 }
-#edit-header-package{
-    text-align:center;
+
+#edit-header-package {
+    text-align: center;
     border-style: none;
 }
-#edit-header-pic{
+
+#edit-header-pic {
     height: 15vh;
-    width:15vh;
+    width: 15vh;
     border-radius: 50%;
 }
-#edit-name{
-    position:absolute;
-    top:0vh;
-    left:10vw;
-    text-align: left;
-    
-}
-#edit-name-text{
-    color:gray;
-    font-size:2vh;
-    letter-spacing: 0.5vh;
-    margin:1vh 0;
-}
-#edit-name-input{
-    font-size: 2.2vh;
-    border-style:none;
-    border-bottom: solid #F1CE61;
-    outline:none;
-}
-#edit-nickname{
-    position:absolute;
-    top: 9vh;
-    left:10vw;
-    text-align: left;
-}
-#edit-nickname-text{
-    color:gray;
-    font-size:2vh;
-    letter-spacing: 0.5vh;
-    margin:1vh 0;
-}
-#edit-nickname-input{
-    max-width:80vw;
-    font-size: 2.2vh;
-    border-style:none;
-    border-bottom: solid #F1CE61;
-    background-color:white;
-    outline:none;
-}
-#edit-nickname-input :focus{
-    box-shadow: 0 0 5px 2px #467BF4;    
 
+#edit-name {
+    position: absolute;
+    top: 0vh;
+    left: 10vw;
+    text-align: left;
+}
+
+#edit-name-text {
+    color: gray;
+    font-size: 2vh;
+    letter-spacing: 0.5vh;
+    margin: 1vh 0;
+}
+
+#edit-name-input {
+    font-size: 2.2vh;
+    border-style: none;
+    border-bottom: solid #F1CE61;
+    outline: none;
+}
+
+#edit-nickname {
+    position: absolute;
+    top: 9vh;
+    left: 10vw;
+    text-align: left;
+}
+
+#edit-nickname-text {
+    color: gray;
+    font-size: 2vh;
+    letter-spacing: 0.5vh;
+    margin: 1vh 0;
+}
+
+#edit-nickname-input {
+    max-width: 80vw;
+    font-size: 2.2vh;
+    border-style: none;
+    border-bottom: solid #F1CE61;
+    background-color: white;
+    outline: none;
+}
+
+#edit-nickname-input :focus {
+    box-shadow: 0 0 5px 2px #467BF4;
     background-color: #E9B83E;
 }
-#edit-nickname-input option{
-    font-size:1.5vh;
-    padding:0;
+
+#edit-nickname-input option {
+    font-size: 1.5vh;
+    padding: 0;
     background-color: white;
-    margin:0;
+    margin: 0;
 }
 
-#edit-intro{
-    position:absolute;
+#edit-intro {
+    position: absolute;
     top: 18vh;
-    left:10vw;
+    left: 10vw;
     text-align: left;
 }
-#edit-intro-text{
-    color:gray;
-    font-size:2vh;
+
+#edit-intro-text {
+    color: gray;
+    font-size: 2vh;
     letter-spacing: 0.5vh;
-    margin:1vh 0;
+    margin: 1vh 0;
 }
-#edit-intro-input{
-    width:80vw;
+
+#edit-intro-input {
+    width: 80vw;
     height: 24vh;
     font-size: 2.1vh;
     border: solid thin #F1CE61;
-    background-color:white;
-    font-family:ming;
+    background-color: white;
+    font-family: ming;
     font-weight: normal;
-    outline:none;
+    outline: none;
 }
 
-#edit-submit{
+#edit-submit {
     height: 4.5vh;
     width: 22vw;
-    position:absolute;
-    right:5vw;
-    bottom:2vh;
+    position: absolute;
+    right: 5vw;
+    bottom: 2vh;
     background-color: #E9B83E;
     font-size: 2.2vh;
-    color:white;
+    color: white;
     line-height: 4.5vh;
     text-align: center;
     border-radius: 1vh;
@@ -593,67 +621,73 @@
     text-indent: 0.5vh;
     LETTER-SPACING: 0.5vh;
 }
-.rador-hexagon{
+
+.rador-hexagon {
     width: 22vh;
     position: absolute;
     top: 7vh;
 }
-#rador-advanced{
+
+#rador-advanced {
     background-color: tomato;
     opacity: 0.5;
     position: absolute;
     top: 7vh;
-    left:17vw;
+    left: 17vw;
     height: 19.05vh;
     width: 22vh;
 }
-#rador-value{
 
-position:absolute;
-
-top: 50vh;
-
-text-align: left;
-
-width:100%;
+#rador-value {
+    position: absolute;
+    top: 50vh;
+    text-align: left;
+    width: 100%;
 }
-.radar-text-social{
+
+.radar-text-social {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 4vh;
     left: 60vw;
 }
-.radar-text-travel{
+
+.radar-text-travel {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 14.7vh;
     left: 71vw;
 }
-.radar-text-food{
+
+.radar-text-food {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 26vh;
-    left:60vw;
+    left: 60vw;
 }
-.radar-text-activity{
+
+.radar-text-activity {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 26vh;
     left: 20.5vw;
 }
-.radar-text-sport{
+
+.radar-text-sport {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 14.7vh;
     left: 8vw;
 }
-.radar-text-self{
+
+.radar-text-self {
     font-size: 2.2vh;
-    position:absolute;
+    position: absolute;
     top: 4vh;
     left: 19.5vw;
 }
-#characteristic-analyze-title{
+
+#characteristic-analyze-title {
     /* margin: 1.5vh; */
     color: g;
 }
